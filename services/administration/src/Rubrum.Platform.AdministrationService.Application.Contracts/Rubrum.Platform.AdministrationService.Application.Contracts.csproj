@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.AdministrationService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application.Contracts"/>
+    <PackageReference Include="Volo.Abp.SettingManagement.Application.Contracts"/>
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application.Contracts"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.Platform.AdministrationService.Domain.Shared\Rubrum.Platform.AdministrationService.Domain.Shared.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,10 @@
+<Project>
+  <PropertyGroup>
+    <IsTestProject Condition="$(MSBuildProjectFullPath.Contains('test')) and ($(MSBuildProjectName.EndsWith('.Tests')) or $(MSBuildProjectName.EndsWith('.TestBase')))">true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="all"/>
+    <PackageReference Include="SonarAnalyzer.CSharp" PrivateAssets="all"/>
+  </ItemGroup>
+</Project>

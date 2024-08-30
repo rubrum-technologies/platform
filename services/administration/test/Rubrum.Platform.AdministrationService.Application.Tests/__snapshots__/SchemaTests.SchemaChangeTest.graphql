@@ -1,0 +1,175 @@
+schema {
+  query: Query
+}
+
+"This interface can be implemented to store creation information (who and when created)."
+interface CreationAuditedObject implements HasCreationTime & MayHaveCreator {
+  creationTime: DateTime
+  creatorId: ID
+}
+
+"This interface can be implemented to store deletion information (who delete and when deleted)."
+interface DeletionAuditedObject implements HasDeletionTime & SoftDelete {
+  deleterId: ID
+  deletionTime: DateTime
+  isDeleted: Boolean
+}
+
+"This interface adds IDeletionAuditedObject to IAuditedObject."
+interface FullAuditedObject implements CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & DeletionAuditedObject & HasDeletionTime & SoftDelete {
+  creationTime: DateTime
+  creatorId: ID
+  lastModifierId: ID
+  lastModificationTime: DateTime
+  deleterId: ID
+  deletionTime: DateTime
+  isDeleted: Boolean
+}
+
+"A standard interface to add CreationTime property."
+interface HasCreationTime {
+  creationTime: DateTime
+}
+
+"A standard interface to add DeletionTime property to a class. It also makes the class soft delete (see ISoftDelete)."
+interface HasDeletionTime implements SoftDelete {
+  deletionTime: DateTime
+  isDeleted: Boolean
+}
+
+interface HasExtraProperties {
+  extraProperties: JSON
+}
+
+"A standard interface to add DeletionTime property to a class."
+interface HasModificationTime {
+  lastModificationTime: DateTime
+}
+
+"Standard interface for an entity that MAY have a creator."
+interface MayHaveCreator {
+  creatorId: ID
+}
+
+"This interface can be implemented to store modification information (who and when modified lastly)."
+interface ModificationAuditedObject implements HasModificationTime {
+  lastModifierId: ID
+  lastModificationTime: DateTime
+}
+
+interface MultiTenant {
+  tenantId: ID
+}
+
+"Used to standardize soft deleting entities. Soft-delete entities are not actually deleted, marked as IsDeleted = true in the database, but can not be retrieved to the application normally."
+interface SoftDelete {
+  isDeleted: Boolean
+}
+
+type PermissionGrantInfo {
+  allowedProviders(where: StringOperationFilterInput): [String]
+  grantedProviders(where: ProviderInfoDtoFilterInput): [PermissionProviderInfo]
+  name: String
+  displayName: String
+  parentName: String
+  isGranted: Boolean!
+}
+
+type PermissionGroup {
+  permissions(where: PermissionGrantInfoDtoFilterInput): [PermissionGrantInfo]
+  name: String
+  displayName: String
+  displayNameKey: String
+  displayNameResource: String
+}
+
+type PermissionList {
+  groups(where: PermissionGroupDtoFilterInput): [PermissionGroup]
+  entityDisplayName: String
+}
+
+type PermissionProviderInfo {
+  providerName: String
+  providerKey: String
+}
+
+type Query {
+  permissions(providerName: String! providerKey: String!): PermissionList!
+}
+
+input BooleanOperationFilterInput {
+  eq: Boolean
+  neq: Boolean
+}
+
+input ListFilterInputTypeOfPermissionGrantInfoDtoFilterInput {
+  all: PermissionGrantInfoDtoFilterInput
+  none: PermissionGrantInfoDtoFilterInput
+  some: PermissionGrantInfoDtoFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfProviderInfoDtoFilterInput {
+  all: ProviderInfoDtoFilterInput
+  none: ProviderInfoDtoFilterInput
+  some: ProviderInfoDtoFilterInput
+  any: Boolean
+}
+
+input ListStringOperationFilterInput {
+  all: StringOperationFilterInput
+  none: StringOperationFilterInput
+  some: StringOperationFilterInput
+  any: Boolean
+}
+
+input PermissionGrantInfoDtoFilterInput {
+  and: [PermissionGrantInfoDtoFilterInput!]
+  or: [PermissionGrantInfoDtoFilterInput!]
+  name: StringOperationFilterInput
+  displayName: StringOperationFilterInput
+  parentName: StringOperationFilterInput
+  isGranted: BooleanOperationFilterInput
+  allowedProviders: ListStringOperationFilterInput
+  grantedProviders: ListFilterInputTypeOfProviderInfoDtoFilterInput
+}
+
+input PermissionGroupDtoFilterInput {
+  and: [PermissionGroupDtoFilterInput!]
+  or: [PermissionGroupDtoFilterInput!]
+  name: StringOperationFilterInput
+  displayName: StringOperationFilterInput
+  displayNameKey: StringOperationFilterInput
+  displayNameResource: StringOperationFilterInput
+  permissions: ListFilterInputTypeOfPermissionGrantInfoDtoFilterInput
+}
+
+input ProviderInfoDtoFilterInput {
+  and: [ProviderInfoDtoFilterInput!]
+  or: [ProviderInfoDtoFilterInput!]
+  providerName: StringOperationFilterInput
+  providerKey: StringOperationFilterInput
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+"The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
+directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
+
+scalar JSON
