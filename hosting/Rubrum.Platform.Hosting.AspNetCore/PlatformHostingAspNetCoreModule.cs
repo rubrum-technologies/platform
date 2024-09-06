@@ -24,8 +24,6 @@ public class PlatformHostingAspNetCoreModule : AbpModule
             options.AutoValidate = true;
         });
 
-        context.Services
-            .AddAlwaysAllowAuthorization()
-            .AddHealthChecks();
+        context.Services.AddHealthChecks();
     }
 }

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.test.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.BlobStorageService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Testcontainers.PostgreSql"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Rubrum.Platform.BlobStorageService.EntityFrameworkCore\Rubrum.Platform.BlobStorageService.EntityFrameworkCore.csproj"/>
+    <ProjectReference Include="..\Rubrum.Platform.BlobStorageService.TestBase\Rubrum.Platform.BlobStorageService.TestBase.csproj"/>
+  </ItemGroup>
+</Project>

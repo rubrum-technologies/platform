@@ -17,7 +17,7 @@ builder.AddDapr(options => { options.EnableTelemetry = true; });
 
 var auth = builder.AddKeycloak(
         "auth",
-        8080,
+        9080,
         builder.AddParameter("admin-username"),
         builder.AddParameter("admin-password"))
     .WithDataVolume("rubrum-auth")
@@ -45,6 +45,7 @@ var administrationService = builder
     .WithReference(auth)
     .WithReference(broker)
     .WithReference(database.AddDatabase("administration-service-db"))
+    .WithDaprSidecar(defaultDaprSidecarOptions)
     .WithEnvironment("App__Name", "Платформа")
     .WithYarpDaprRoute("/api/administration/{**everything}")
     .WithYarpDaprRoute("/api/abp/api-definition/{**everything}", enableSwagger: false)
@@ -52,8 +53,16 @@ var administrationService = builder
     .WithYarpDaprRoute("/api/abp/application-localization/{**everything}", enableSwagger: false)
     .WithYarpDaprRoute("/api/permission-management/{**everything}", enableSwagger: false)
     .WithYarpDaprRoute("/api/setting-management/{**everything}", enableSwagger: false)
-    .DefaultMicroserviceConfiguration(authority, swaggerClient)
-    .WithDaprSidecar(defaultDaprSidecarOptions);
+    .DefaultMicroserviceConfiguration(authority, swaggerClient);
+
+var blobStorageService = builder
+    .AddProject<Rubrum_Platform_BlobStorageService_HttpApi_Host>("blob-storage-service")
+    .WithReference(auth)
+    .WithReference(broker)
+    .WithReference(database.AddDatabase("blob-storage-service-db"))
+    .WithDaprSidecar(defaultDaprSidecarOptions)
+    .WithYarpDaprRoute("/api/blob-storage/{**everything}")
+    .DefaultMicroserviceConfiguration(authority, swaggerClient);
 
 var (graphql, gateway) = FusionHelper.AddFusionGateway<Rubrum_Platform_Gateway>(builder, "gateway");
 
@@ -62,7 +71,8 @@ graphql
     {
         EnableGlobalObjectIdentification = true,
     })
-    .WithSubgraph(administrationService);
+    .WithSubgraph(administrationService)
+    .WithSubgraph(blobStorageService);
 
 gateway
     .WithDaprSidecar(defaultDaprSidecarOptions with
@@ -70,11 +80,18 @@ gateway
         DaprHttpPort = 10010,
         DaprGrpcPort = 10020,
     })
-    .WithYarpDaprGateway(10010, [administrationService])
+    .WithYarpDaprGateway(10010, [administrationService, blobStorageService])
     .WithHttpEndpoint(10001)
     .WithHttpsEndpoint(10000)
     .WithEnvironment("App__CorsOrigins", "http://localhost:4200")
     .DefaultServiceConfiguration(authority, swaggerClient);
+
+builder
+    .AddNpmApp("app", "../../app")
+    .WithReference(gateway)
+    .WithHttpEndpoint(port: 8000, env: "PORT")
+    .WithExternalHttpEndpoints()
+    .PublishAsDockerFile();
 
 await builder
     .Build()

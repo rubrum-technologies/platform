@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.props" />
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.BlobStorageService</RootNamespace>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Application" />
+    <PackageReference Include="Volo.Abp.FluentValidation" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Graphql\Rubrum.Graphql.csproj" />
+    <ProjectReference Include="..\Rubrum.Platform.BlobStorageService.Application.Contracts\Rubrum.Platform.BlobStorageService.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Rubrum.Platform.BlobStorageService.Domain\Rubrum.Platform.BlobStorageService.Domain.csproj" />
+  </ItemGroup>
+</Project>

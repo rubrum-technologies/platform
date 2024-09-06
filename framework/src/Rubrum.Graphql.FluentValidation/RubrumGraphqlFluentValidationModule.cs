@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Rubrum.Graphql.Localization.Rubrum.Graphql;
+using Rubrum.Modularity;
 using Volo.Abp.FluentValidation;
 using Volo.Abp.Localization;
 using Volo.Abp.Localization.ExceptionHandling;
@@ -8,9 +9,9 @@ using Volo.Abp.VirtualFileSystem;
 
 namespace Rubrum.Graphql;
 
-[DependsOn(typeof(AbpFluentValidationModule))]
-[DependsOn(typeof(AbpLocalizationModule))]
-[DependsOn(typeof(RubrumGraphqlModule))]
+[DependsOn<AbpFluentValidationModule>]
+[DependsOn<AbpLocalizationModule>]
+[DependsOn<RubrumGraphqlModule>]
 public class RubrumGraphqlFluentValidationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

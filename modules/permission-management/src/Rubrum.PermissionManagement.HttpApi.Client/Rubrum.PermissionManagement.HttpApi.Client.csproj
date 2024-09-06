@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.PermissionManagement</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.PermissionManagement.HttpApi.Client"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.PermissionManagement.Application.Contracts\Rubrum.PermissionManagement.Application.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="**\*generate-proxy.json" />
+    <Content Remove="**\*generate-proxy.json" />
+  </ItemGroup>
+</Project>

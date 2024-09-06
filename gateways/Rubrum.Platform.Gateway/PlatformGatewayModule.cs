@@ -1,5 +1,4 @@
-﻿using System.Net;
-using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Rewrite;
 using OpenTelemetry.Trace;
 using Rubrum.Platform.Gateway.Fusion;
@@ -23,7 +22,11 @@ public class PlatformGatewayModule : AbpModule
         SwaggerConfigurationHelper.ConfigureWithOidc(
             context: context,
             authority: configuration["AuthServer:Authority"]!,
-            scopes: [],
+            scopes:
+            [
+                "administration-service",
+                "blob-storage-service",
+            ],
             apiTitle: "Rubrum Gateway");
     }
 

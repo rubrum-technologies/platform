@@ -20,4 +20,8 @@
     <PackageReference Include="HotChocolate.Data" />
     <PackageReference Include="HotChocolate.Types.Analyzers" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.Core\Rubrum.Core.csproj" />
+  </ItemGroup>
 </Project>

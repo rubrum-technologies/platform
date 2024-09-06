@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using HotChocolate.Data.Filters;
+using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Trace;
 using Rubrum.Graphql;
 using Volo.Abp.Modularity;
@@ -15,6 +16,10 @@ public class PlatformHostingAspNetCoreMicroserviceGraphqlModule : AbpModule
 
         graphql
             .AddType(() => new TimeSpanType(TimeSpanFormat.DotNet))
+            .AddConvention<IFilterConvention>(new FilterConventionExtension(descriptor =>
+            {
+                descriptor.BindRuntimeType<Guid, IdOperationFilterInputType>();
+            }))
             .AddInstrumentation()
             .ModifyOptions(opt =>
             {

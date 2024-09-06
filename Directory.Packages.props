@@ -24,6 +24,7 @@
     <PackageVersion Include="Aspire.Hosting.Dapr" Version="8.2.0"/>
     <PackageVersion Include="Aspire.Hosting.RabbitMQ" Version="8.2.0"/>
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="8.2.0"/>
+    <PackageVersion Include="Aspire.Hosting.NodeJs" Version="8.2.0" />
     <PackageVersion Include="Aspire.Keycloak.Authentication" Version="8.2.0-preview.1.24428.5"/>
     <PackageVersion Include="Aspire.RabbitMQ.Client" Version="8.2.0"/>
     <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.2.0"/>
@@ -37,52 +38,58 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageVersion Include="Volo.Abp.Core" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.Data" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.Localization" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.FluentValidation" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.Autofac" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.TestBase" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.Authorization" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.Swashbuckle" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.AspNetCore.Serilog" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.AspNetCore.Mvc" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.Authorization.Abstractions" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.Ddd.Application" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.Ddd.Application.Contracts" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.ExceptionHandling" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.EntityFrameworkCore.Sqlite" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.EntityFrameworkCore.PostgreSql" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.Http.Client.Dapr" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.DistributedLocking" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.Caching.StackExchangeRedis" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.EventBus.Dapr" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.AspNetCore.Mvc.Dapr.EventBus" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.DistributedLocking.Dapr" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.AspNetCore.Authentication.JwtBearer" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.BackgroundJobs.RabbitMQ" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.Http.Client.IdentityModel.Web" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.FeatureManagement.Application" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.SettingManagement.Application" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.PermissionManagement.Application" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.FeatureManagement.Application.Contracts" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.SettingManagement.Application.Contracts" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.PermissionManagement.Application.Contracts" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.FeatureManagement.Domain" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.SettingManagement.Domain" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.PermissionManagement.Domain" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.FeatureManagement.Domain.Shared" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.SettingManagement.Domain.Shared" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.PermissionManagement.Domain.Shared" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.FeatureManagement.EntityFrameworkCore" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.SettingManagement.EntityFrameworkCore" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.PermissionManagement.EntityFrameworkCore" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.FeatureManagement.HttpApi" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.SettingManagement.HttpApi" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.PermissionManagement.HttpApi" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.FeatureManagement.HttpApi.Client" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.SettingManagement.HttpApi.Client" Version="8.2.2"/>
-    <PackageVersion Include="Volo.Abp.PermissionManagement.HttpApi.Client" Version="8.2.2"/>
+    <PackageVersion Include="Volo.Abp.Core" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Data" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Localization" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.FluentValidation" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Autofac" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.AutoMapper" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.TestBase" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Authorization" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Swashbuckle" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.AspNetCore.Serilog" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.AspNetCore.Mvc" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Authorization.Abstractions" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Ddd.Application" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Ddd.Application.Contracts" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.ExceptionHandling" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.EntityFrameworkCore.Sqlite" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.EntityFrameworkCore.PostgreSql" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Dapr" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Http.Client" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Http.Client.Dapr" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.DistributedLocking" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Caching.StackExchangeRedis" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.EventBus.Dapr" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.AspNetCore.Mvc.Dapr.EventBus" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.DistributedLocking.Dapr" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.AspNetCore.Authentication.JwtBearer" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.BackgroundJobs.RabbitMQ" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Http.Client.IdentityModel.Web" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.BlobStoring" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Ddd.Domain" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Ddd.Domain.Shared" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.FeatureManagement.Application" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.SettingManagement.Application" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.PermissionManagement.Application" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.FeatureManagement.Application.Contracts" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.SettingManagement.Application.Contracts" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.PermissionManagement.Application.Contracts" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.FeatureManagement.Domain" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.SettingManagement.Domain" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.PermissionManagement.Domain" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.FeatureManagement.Domain.Shared" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.SettingManagement.Domain.Shared" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.PermissionManagement.Domain.Shared" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.FeatureManagement.EntityFrameworkCore" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.SettingManagement.EntityFrameworkCore" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.PermissionManagement.EntityFrameworkCore" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.FeatureManagement.HttpApi" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.SettingManagement.HttpApi" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.PermissionManagement.HttpApi" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.FeatureManagement.HttpApi.Client" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.SettingManagement.HttpApi.Client" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.PermissionManagement.HttpApi.Client" Version="8.3.0"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -104,18 +111,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageVersion Include="CookieCrumble" Version="14.0.0-rc.0"/>
-    <PackageVersion Include="HotChocolate" Version="14.0.0-rc.0"/>
-    <PackageVersion Include="HotChocolate.Diagnostics" Version="14.0.0-rc.0"/>
-    <PackageVersion Include="HotChocolate.Data" Version="14.0.0-rc.0"/>
-    <PackageVersion Include="HotChocolate.Types" Version="14.0.0-rc.0"/>
-    <PackageVersion Include="HotChocolate.Types.Analyzers" Version="14.0.0-rc.0"/>
-    <PackageVersion Include="HotChocolate.AspNetCore" Version="14.0.0-rc.0"/>
-    <PackageVersion Include="HotChocolate.AspNetCore.Authorization" Version="14.0.0-rc.0"/>
-    <PackageVersion Include="HotChocolate.AspNetCore.CommandLine" Version="14.0.0-rc.0"/>
-    <PackageVersion Include="HotChocolate.Fusion" Version="14.0.0-rc.0"/>
-    <PackageVersion Include="HotChocolate.Fusion.Aspire" Version="14.0.0-rc.0"/>
-    <PackageVersion Include="HotChocolate.Subscriptions.RabbitMQ" Version="14.0.0-rc.0"/>
+    <PackageVersion Include="CookieCrumble" Version="14.0.0-rc.1"/>
+    <PackageVersion Include="HotChocolate" Version="14.0.0-rc.1"/>
+    <PackageVersion Include="HotChocolate.Diagnostics" Version="14.0.0-rc.1"/>
+    <PackageVersion Include="HotChocolate.Data" Version="14.0.0-rc.1"/>
+    <PackageVersion Include="HotChocolate.Types" Version="14.0.0-rc.1"/>
+    <PackageVersion Include="HotChocolate.Types.Analyzers" Version="14.0.0-rc.1"/>
+    <PackageVersion Include="HotChocolate.AspNetCore" Version="14.0.0-rc.1"/>
+    <PackageVersion Include="HotChocolate.AspNetCore.Authorization" Version="14.0.0-rc.1"/>
+    <PackageVersion Include="HotChocolate.AspNetCore.CommandLine" Version="14.0.0-rc.1"/>
+    <PackageVersion Include="HotChocolate.Fusion" Version="14.0.0-rc.1"/>
+    <PackageVersion Include="HotChocolate.Fusion.Aspire" Version="14.0.0-rc.1"/>
+    <PackageVersion Include="HotChocolate.Subscriptions.RabbitMQ" Version="14.0.0-rc.1"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -129,6 +136,7 @@
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.0"/>
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2"/>
     <PackageVersion Include="coverlet.collector" Version="6.0.2"/>
+    <PackageVersion Include="Testcontainers.PostgreSql" Version="3.9.0"/>
   </ItemGroup>
 
   <ItemGroup>

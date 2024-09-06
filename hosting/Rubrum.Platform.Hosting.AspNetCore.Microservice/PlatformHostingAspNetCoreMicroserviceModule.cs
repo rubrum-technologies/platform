@@ -32,7 +32,7 @@ public class PlatformHostingAspNetCoreMicroserviceModule : AbpModule
 
         context.Services.AddDaprClient();
 
-        Configure<AbpDistributedLockDaprOptions>(options => { options.StoreName = "lockstore"; });
+        Configure<AbpDistributedLockDaprOptions>(options => { options.StoreName = "lock-store"; });
 
         Configure<AbpAspNetCoreMvcOptions>(options => { options.ExposeIntegrationServices = true; });
 

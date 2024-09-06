@@ -1,5 +1,4 @@
-﻿using Rubrum.Graphql;
-using Rubrum.Platform.AdministrationService.DbMigrations;
+﻿using Rubrum.Platform.AdministrationService.DbMigrations;
 using Rubrum.Platform.AdministrationService.EntityFrameworkCore;
 using Rubrum.Platform.Hosting;
 using Volo.Abp;

@@ -16,6 +16,6 @@ public static partial class SoftDeleteInterface
 
         descriptor
             .Field(x => x.IsDeleted)
-            .Type<BooleanType>();
+            .Type<NonNullType<BooleanType>>();
     }
 }

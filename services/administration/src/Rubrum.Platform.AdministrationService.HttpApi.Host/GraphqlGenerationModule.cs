@@ -7,7 +7,7 @@ namespace Rubrum.Platform.AdministrationService;
 
 [DependsOn(typeof(AbpAspNetCoreMvcModule))]
 [DependsOn(typeof(RubrumGraphqlModule))]
-public class GraphqlGenerationModule : AbpModule
+internal class GraphqlGenerationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {

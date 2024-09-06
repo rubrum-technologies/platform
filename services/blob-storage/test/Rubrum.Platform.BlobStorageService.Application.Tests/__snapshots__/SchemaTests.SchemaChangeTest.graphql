@@ -1,0 +1,278 @@
+schema {
+  query: Query
+}
+
+"This interface can be implemented to store creation information (who and when created)."
+interface CreationAuditedObject implements HasCreationTime & MayHaveCreator {
+  creationTime: DateTime
+  creatorId: ID
+}
+
+"This interface can be implemented to store deletion information (who delete and when deleted)."
+interface DeletionAuditedObject implements HasDeletionTime & SoftDelete {
+  deleterId: ID
+  deletionTime: DateTime
+  isDeleted: Boolean!
+}
+
+"This interface adds IDeletionAuditedObject to IAuditedObject."
+interface FullAuditedObject implements CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & DeletionAuditedObject & HasDeletionTime & SoftDelete {
+  creationTime: DateTime
+  creatorId: ID
+  lastModifierId: ID
+  lastModificationTime: DateTime
+  deleterId: ID
+  deletionTime: DateTime
+  isDeleted: Boolean!
+}
+
+"A standard interface to add CreationTime property."
+interface HasCreationTime {
+  creationTime: DateTime
+}
+
+"A standard interface to add DeletionTime property to a class. It also makes the class soft delete (see ISoftDelete)."
+interface HasDeletionTime implements SoftDelete {
+  deletionTime: DateTime
+  isDeleted: Boolean!
+}
+
+interface HasExtraProperties {
+  extraProperties: JSON
+}
+
+"A standard interface to add DeletionTime property to a class."
+interface HasModificationTime {
+  lastModificationTime: DateTime
+}
+
+"Standard interface for an entity that MAY have a creator."
+interface MayHaveCreator {
+  creatorId: ID
+}
+
+"This interface can be implemented to store modification information (who and when modified lastly)."
+interface ModificationAuditedObject implements HasModificationTime {
+  lastModifierId: ID
+  lastModificationTime: DateTime
+}
+
+interface MultiTenant {
+  tenantId: ID
+}
+
+"The node interface is implemented by entities that have a global unique identifier."
+interface Node {
+  id: ID!
+}
+
+"Used to standardize soft deleting entities. Soft-delete entities are not actually deleted, marked as IsDeleted = true in the database, but can not be retrieved to the application normally."
+interface SoftDelete {
+  isDeleted: Boolean!
+}
+
+type Blob implements Node & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant @aggregate {
+  url: String!
+  creatorId: ID
+  lastModifierId: ID
+  deleterId: ID
+  extraProperties: JSON
+  tenantId: ID
+  id: ID!
+  fileName: String!
+  entityVersion: Int!
+  isDeleted: Boolean!
+  deletionTime: DateTime
+  lastModificationTime: DateTime
+  creationTime: DateTime!
+  concurrencyStamp: String!
+}
+
+"A connection to a list of items."
+type BlobsConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [BlobsEdge!]
+  "A flattened list of the nodes."
+  nodes: [Blob!]
+}
+
+"An edge in a connection."
+type BlobsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: Blob!
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+  "Indicates whether more edges exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more edges exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+}
+
+type Query {
+  "Fetches an object given its ID."
+  node("ID of the object." id: ID!): Node
+  "Lookup nodes by a list of IDs."
+  nodes("The list of node IDs." ids: [ID!]!): [Node]!
+  blobById(id: ID!): Blob @authorize(policy: "BlobStorageService.Blobs")
+  blob(where: BlobFilterInput): Blob @authorize(policy: "BlobStorageService.Blobs")
+  blobs("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: BlobFilterInput order: [BlobSortInput!]): BlobsConnection @authorize(policy: "BlobStorageService.Blobs")
+  blobsAny(where: BooleanOperationFilterInput): Boolean! @authorize(policy: "BlobStorageService.Blobs")
+  blobsCount(where: IntOperationFilterInput): Int! @authorize(policy: "BlobStorageService.Blobs")
+}
+
+input BlobFilterInput {
+  and: [BlobFilterInput!]
+  or: [BlobFilterInput!]
+  tenantId: UuidOperationFilterInput
+  fileName: StringOperationFilterInput
+  extension: StringOperationFilterInput
+  systemFileName: StringOperationFilterInput
+  isDisposable: BooleanOperationFilterInput
+  entityVersion: IntOperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+  deleterId: UuidOperationFilterInput
+  deletionTime: DateTimeOperationFilterInput
+  lastModificationTime: DateTimeOperationFilterInput
+  lastModifierId: UuidOperationFilterInput
+  creationTime: DateTimeOperationFilterInput
+  creatorId: UuidOperationFilterInput
+  extraProperties: ListFilterInputTypeOfKeyValuePairOfStringAndObjectFilterInput
+  concurrencyStamp: StringOperationFilterInput
+  id: UuidOperationFilterInput
+}
+
+input BlobSortInput {
+  tenantId: SortEnumType
+  fileName: SortEnumType
+  extension: SortEnumType
+  systemFileName: SortEnumType
+  isDisposable: SortEnumType
+  entityVersion: SortEnumType
+  isDeleted: SortEnumType
+  deleterId: SortEnumType
+  deletionTime: SortEnumType
+  lastModificationTime: SortEnumType
+  lastModifierId: SortEnumType
+  creationTime: SortEnumType
+  creatorId: SortEnumType
+  concurrencyStamp: SortEnumType
+  id: SortEnumType
+}
+
+input BooleanOperationFilterInput {
+  eq: Boolean
+  neq: Boolean
+}
+
+input DateTimeOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime]
+  nin: [DateTime]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+input IntOperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int]
+  nin: [Int]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input KeyValuePairOfStringAndObjectFilterInput {
+  and: [KeyValuePairOfStringAndObjectFilterInput!]
+  or: [KeyValuePairOfStringAndObjectFilterInput!]
+  key: StringOperationFilterInput
+}
+
+input ListFilterInputTypeOfKeyValuePairOfStringAndObjectFilterInput {
+  all: KeyValuePairOfStringAndObjectFilterInput
+  none: KeyValuePairOfStringAndObjectFilterInput
+  some: KeyValuePairOfStringAndObjectFilterInput
+  any: Boolean
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input UuidOperationFilterInput {
+  eq: UUID
+  neq: UUID
+  in: [UUID]
+  nin: [UUID]
+  gt: UUID
+  ngt: UUID
+  gte: UUID
+  ngte: UUID
+  lt: UUID
+  nlt: UUID
+  lte: UUID
+  nlte: UUID
+}
+
+"Defines when a policy shall be executed."
+enum ApplyPolicy {
+  "Before the resolver was executed."
+  BEFORE_RESOLVER
+  "After the resolver was executed."
+  AFTER_RESOLVER
+  "The policy is applied in the validation step before the execution."
+  VALIDATION
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+directive @aggregate on OBJECT
+
+"The authorize directive."
+directive @authorize("The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!] "Defines when when the authorize directive shall be applied.By default the authorize directives are applied during the validation phase." apply: ApplyPolicy! = BEFORE_RESOLVER) repeatable on OBJECT | FIELD_DEFINITION
+
+"The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
+directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
+
+scalar JSON
+
+scalar UUID @specifiedBy(url: "https:\/\/tools.ietf.org\/html\/rfc4122")

@@ -1,0 +1,3 @@
+namespace Rubrum.Platform.BlobStorageService;
+
+public abstract class BlobStorageServiceDomainTestBase : BlobStorageServiceTestBase<PlatformBlobStorageServiceDomainTestModule>;

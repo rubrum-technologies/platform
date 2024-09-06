@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.props" />
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.BlobStorageService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AutoMapper" />
+    <PackageReference Include="Volo.Abp.Ddd.Domain" />
+    <PackageReference Include="Volo.Abp.BlobStoring" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.Platform.BlobStorageService.Domain.Shared\Rubrum.Platform.BlobStorageService.Domain.Shared.csproj" />
+  </ItemGroup>
+</Project>

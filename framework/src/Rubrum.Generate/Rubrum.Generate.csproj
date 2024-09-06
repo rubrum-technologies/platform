@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\common.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Generate</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CliWrap"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore"/>
+    <PackageReference Include="Serilog.Sinks.Async"/>
+    <PackageReference Include="Serilog.Sinks.Console"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Autofac"/>
+    <PackageReference Include="Volo.Abp.AspNetCore.Serilog"/>
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.Core\Rubrum.Core.csproj" />
+  </ItemGroup>
+</Project>

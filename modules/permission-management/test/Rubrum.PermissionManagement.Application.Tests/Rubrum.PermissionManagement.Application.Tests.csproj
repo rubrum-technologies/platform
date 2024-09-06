@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.test.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.PermissionManagement</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+    <PackageReference Include="NSubstitute"/>
+    <PackageReference Include="Shouldly"/>
+    <PackageReference Include="xunit"/>
+    <PackageReference Include="xunit.extensibility.execution"/>
+    <PackageReference Include="xunit.runner.visualstudio"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.TestBase"/>
+    <PackageReference Include="Volo.Abp.Autofac"/>
+    <PackageReference Include="Volo.Abp.Authorization"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Rubrum.PermissionManagement.Application\Rubrum.PermissionManagement.Application.csproj" />
+  </ItemGroup>
+</Project>

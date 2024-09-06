@@ -1,15 +1,16 @@
 using System.Globalization;
 using HotChocolate.Execution;
 using Microsoft.Extensions.DependencyInjection;
+using Rubrum.Modularity;
 using Volo.Abp;
 using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
 
 namespace Rubrum.Graphql;
 
-[DependsOn(typeof(AbpTestBaseModule))]
-[DependsOn(typeof(AbpAutofacModule))]
-[DependsOn(typeof(RubrumGraphqlModule))]
+[DependsOn<AbpTestBaseModule>]
+[DependsOn<AbpAutofacModule>]
+[DependsOn<RubrumGraphqlModule>]
 public class RubrumGraphqlTestModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
