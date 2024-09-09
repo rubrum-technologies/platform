@@ -17,6 +17,17 @@ jobs:
         with:
           dotnet-version: '8.x.x'
 
+      - name: Install Dapr
+        run: |
+          wget -q https://raw.githubusercontent.com/dapr/cli/master/install/install.sh -O - | /bin/bash
+          dapr --version
+
+      - name: Install Aspire
+        run: |
+          curl -L https://raw.githubusercontent.com/aspirehq/aspire-cli/main/install.sh | bash
+          export PATH=$PATH:$HOME/.local/bin
+          aspire version
+
       - name: Restore dependencies
         run: dotnet restore
 
