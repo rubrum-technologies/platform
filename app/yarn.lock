@@ -456,6 +456,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@angular/cdk@npm:^18.2.3":
+  version: 18.2.3
+  resolution: "@angular/cdk@npm:18.2.3"
+  dependencies:
+    parse5: "npm:^7.1.2"
+    tslib: "npm:^2.3.0"
+  peerDependencies:
+    "@angular/common": ^18.0.0 || ^19.0.0
+    "@angular/core": ^18.0.0 || ^19.0.0
+    rxjs: ^6.5.3 || ^7.4.0
+  dependenciesMeta:
+    parse5:
+      optional: true
+  checksum: 10c0/b9d28a4ff4172f3fbefb08c34475ebe26d2836506ab43bdfe34f33d2bf928b5be80a329c6b4267862e0638a16de37228c47cf565bc98a6471e456436df6c8142
+  languageName: node
+  linkType: hard
+
 "@angular/cli@npm:~18.2.2":
   version: 18.2.2
   resolution: "@angular/cli@npm:18.2.2"
@@ -17256,6 +17273,7 @@ __metadata:
     "@angular-eslint/eslint-plugin-template": "npm:~18.3.0"
     "@angular-eslint/template-parser": "npm:~18.3.0"
     "@angular/animations": "npm:~18.2.2"
+    "@angular/cdk": "npm:^18.2.3"
     "@angular/cli": "npm:~18.2.2"
     "@angular/common": "npm:~18.2.2"
     "@angular/compiler": "npm:~18.2.2"
@@ -17338,7 +17356,7 @@ __metadata:
     postcss: "npm:^8.4.44"
     postcss-url: "npm:~10.1.3"
     prettier: "npm:~3.3.3"
-    run-script-os: "npm:^1.1.6"
+    run-script-os: "npm:~1.1.6"
     rxjs: "npm:~7.8.1"
     stylelint: "npm:~16.9.0"
     stylelint-config-prettier: "npm:~9.0.5"
@@ -17350,6 +17368,7 @@ __metadata:
     ts-node: "npm:~10.9.2"
     tslib: "npm:~2.7.0"
     typescript: "npm:~5.5.4"
+    winbox: "npm:0.2.82"
     zone.js: "npm:~0.14.10"
   languageName: unknown
   linkType: soft
@@ -19073,7 +19092,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"run-script-os@npm:^1.1.6":
+"run-script-os@npm:~1.1.6":
   version: 1.1.6
   resolution: "run-script-os@npm:1.1.6"
   bin:
@@ -21890,6 +21909,13 @@ __metadata:
   version: 2.0.1
   resolution: "wildcard@npm:2.0.1"
   checksum: 10c0/08f70cd97dd9a20aea280847a1fe8148e17cae7d231640e41eb26d2388697cbe65b67fd9e68715251c39b080c5ae4f76d71a9a69fa101d897273efdfb1b58bf7
+  languageName: node
+  linkType: hard
+
+"winbox@npm:0.2.82":
+  version: 0.2.82
+  resolution: "winbox@npm:0.2.82"
+  checksum: 10c0/f0aeff4ce8cd4a9a010c1b935a8e8db354035529c29c57e6545ff42e672763d669da1af4766133f93abb61419a461f2a4a38cebbaa0172225427d4a4f4e1d777
   languageName: node
   linkType: hard
 
