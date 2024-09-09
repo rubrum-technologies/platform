@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.EntityFrameworkCore\Rubrum.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Rubrum.Platform.BlobStorageService.Domain\Rubrum.Platform.BlobStorageService.Domain.csproj" />
   </ItemGroup>
 </Project>

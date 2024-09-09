@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Rubrum.Platform.BlobStorageService.Blobs;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
+using static Rubrum.Platform.BlobStorageService.BlobStorageServiceDbProperties;
 
 namespace Rubrum.Platform.BlobStorageService.EntityFrameworkCore;
 
@@ -14,8 +15,13 @@ public static class BlobStorageServiceDbContextModelCreatingExtensions
 
         builder.Entity<Blob>(b =>
         {
+            b.ToTable(DbTablePrefix + "Blobs", DbSchema);
+
             b.ConfigureByConvention();
 
+            b.Property(x => x.FileName)
+                .HasMaxLength(BlobConstants.FileNameLength)
+                .IsRequired();
         });
     }
 }

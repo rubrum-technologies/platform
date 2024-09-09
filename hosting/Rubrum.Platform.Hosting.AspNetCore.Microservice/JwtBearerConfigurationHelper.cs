@@ -14,10 +14,11 @@ public static class JwtBearerConfigurationHelper
 
         context.Services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddKeycloakJwtBearer("auth", "master", options =>
+            .AddKeycloakJwtBearer("auth", "rubrum", options =>
             {
                 options.RequireHttpsMetadata = requireHttpsMetadata;
                 options.Audience = audience;
+                options.Authority = configuration["AuthServer:Authority"]!;
             });
     }
 }

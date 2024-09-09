@@ -41,12 +41,21 @@
       "publicClient": true,
       "frontchannelLogout": true,
       "defaultClientScopes": [
+        "offline_access",
         "profile",
         "roles",
         "email"
       ],
       "optionalClientScopes": [
-        "administration-service"
+        "administration-service",
+        "blob-storage-service"
+      ],
+      "redirectUris": [
+        "https://localhost:12000/api/swagger/oauth2-redirect.html",
+        "https://localhost:12000/api/graphql/ui/"
+      ],
+      "webOrigins": [
+        "https://localhost:12000"
       ],
       "enabled": true
     },
@@ -55,7 +64,22 @@
       "name": "Administration Service",
       "protocol": "openid-connect",
       "clientAuthenticatorType": "client-secret",
-      "secret": "RdtYMBK7ckJ5Z7vZRplaRcwGJOLsPFaJ",
+      "secret": "NTHwvrnbviwaSmW4G0zlo4HUzAVqQwMVDTcR",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "client_credentials.use_refresh_token": "false",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "enabled": true
+    },
+    {
+      "clientId": "blob-storage-service",
+      "name": "blob Storage Service",
+      "protocol": "openid-connect",
+      "clientAuthenticatorType": "client-secret",
+      "secret": "9Hz1QJMrDtcnIEFZdOm5kGSJloDCpw363nmy",
       "attributes": {
         "oidc.ciba.grant.enabled": "false",
         "oauth2.device.authorization.grant.enabled": "false",
@@ -155,6 +179,25 @@
             "id.token.claim": "false",
             "access.token.claim": "true",
             "included.custom.audience": "administration-service",
+            "userinfo.token.claim": "false"
+          }
+        }
+      ]
+    },
+    {
+      "name": "blob-storage-service",
+      "description": "blob-storage-service scope",
+      "protocol": "openid-connect",
+      "protocolMappers": [
+        {
+          "name": "blob-storage-service",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "id.token.claim": "false",
+            "access.token.claim": "true",
+            "included.custom.audience": "blob-storage-service",
             "userinfo.token.claim": "false"
           }
         }

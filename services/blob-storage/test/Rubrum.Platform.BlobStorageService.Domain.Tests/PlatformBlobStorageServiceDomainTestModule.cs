@@ -1,6 +1,7 @@
+using Rubrum.Modularity;
 using Volo.Abp.Modularity;
 
 namespace Rubrum.Platform.BlobStorageService;
 
-[DependsOn(typeof(PlatformBlobStorageServiceEntityFrameworkCoreTestModule))]
+[DependsOn<PlatformBlobStorageServiceEntityFrameworkCoreTestModule>]
 public class PlatformBlobStorageServiceDomainTestModule : AbpModule;

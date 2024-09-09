@@ -1,9 +1,10 @@
 using Rubrum.Graphql;
+using Rubrum.Modularity;
 using Volo.Abp.Modularity;
 
 namespace MyCompanyName.MyProjectName;
 
-[DependsOn(typeof(RubrumGraphqlTestModule))]
-[DependsOn(typeof(MyProjectNameApplicationModule))]
-[DependsOn(typeof(MyProjectNameEntityFrameworkCoreTestModule))]
+[DependsOn<RubrumGraphqlTestModule>]
+[DependsOn<MyProjectNameApplicationModule>]
+[DependsOn<MyProjectNameEntityFrameworkCoreTestModule>]
 public class MyProjectNameApplicationTestModule : AbpModule;

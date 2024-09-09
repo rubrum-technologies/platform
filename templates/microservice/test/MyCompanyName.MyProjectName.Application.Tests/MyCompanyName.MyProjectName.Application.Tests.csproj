@@ -10,6 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Graphql.TestBase\Rubrum.Graphql.TestBase.csproj" />
     <ProjectReference Include="..\..\src\MyCompanyName.MyProjectName.Application\MyCompanyName.MyProjectName.Application.csproj" />
     <ProjectReference Include="..\MyCompanyName.MyProjectName.EntityFrameworkCore.Tests\MyCompanyName.MyProjectName.EntityFrameworkCore.Tests.csproj"/>

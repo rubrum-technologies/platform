@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Rubrum.Graphql.SpiceDb</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Rubrum.Authorization.SpiceDb\Rubrum.Authorization.SpiceDb.csproj" />
+      <ProjectReference Include="..\Rubrum.Graphql.Authorization\Rubrum.Graphql.Authorization.csproj" />
+    </ItemGroup>
+
+</Project>

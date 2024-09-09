@@ -1,12 +1,13 @@
+using Rubrum.Modularity;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Domain;
 using Volo.Abp.Modularity;
 
 namespace MyCompanyName.MyProjectName;
 
-[DependsOn(typeof(AbpAutoMapperModule))]
-[DependsOn(typeof(AbpDddDomainModule))]
-[DependsOn(typeof(MyProjectNameDomainSharedModule))]
+[DependsOn<AbpAutoMapperModule>]
+[DependsOn<AbpDddDomainModule>]
+[DependsOn<MyProjectNameDomainSharedModule>]
 public class MyProjectNameDomainModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

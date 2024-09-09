@@ -8,6 +8,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\framework\src\Rubrum.Generate.ClientProxies\Rubrum.Generate.ClientProxies.csproj" />
-    <ProjectReference Include="..\..\modules\permission-management\src\Rubrum.PermissionManagement.HttpApi\Rubrum.PermissionManagement.HttpApi.csproj" />
   </ItemGroup>
 </Project>

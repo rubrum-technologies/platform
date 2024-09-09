@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Rubrum.Modularity;
 using Volo.Abp.AspNetCore.Authentication.JwtBearer;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.Dapr.EventBus;
@@ -14,14 +15,14 @@ using Volo.Abp.RabbitMQ;
 
 namespace Rubrum.Platform.Hosting;
 
-[DependsOn(typeof(AbpHttpClientDaprModule))]
-[DependsOn(typeof(AbpDistributedLockingDaprModule))]
-[DependsOn(typeof(AbpEventBusDaprModule))]
-[DependsOn(typeof(AbpAspNetCoreMvcDaprEventBusModule))]
-[DependsOn(typeof(AbpBackgroundJobsRabbitMqModule))]
-[DependsOn(typeof(AbpAspNetCoreAuthenticationJwtBearerModule))]
-[DependsOn(typeof(AbpHttpClientIdentityModelWebModule))]
-[DependsOn(typeof(PlatformHostingAspNetCoreModule))]
+[DependsOn<AbpHttpClientDaprModule>]
+[DependsOn<AbpDistributedLockingDaprModule>]
+[DependsOn<AbpEventBusDaprModule>]
+[DependsOn<AbpAspNetCoreMvcDaprEventBusModule>]
+[DependsOn<AbpBackgroundJobsRabbitMqModule>]
+[DependsOn<AbpAspNetCoreAuthenticationJwtBearerModule>]
+[DependsOn<AbpHttpClientIdentityModelWebModule>]
+[DependsOn<PlatformHostingAspNetCoreModule>]
 public class PlatformHostingAspNetCoreMicroserviceModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

@@ -40,21 +40,6 @@ var broker = builder
     .WithDataVolume("rubrum-broker")
     .WithManagementPlugin();
 
-var administrationService = builder
-    .AddProject<Rubrum_Platform_AdministrationService_HttpApi_Host>("administration-service")
-    .WithReference(auth)
-    .WithReference(broker)
-    .WithReference(database.AddDatabase("administration-service-db"))
-    .WithDaprSidecar(defaultDaprSidecarOptions)
-    .WithEnvironment("App__Name", "Платформа")
-    .WithYarpDaprRoute("/api/administration/{**everything}")
-    .WithYarpDaprRoute("/api/abp/api-definition/{**everything}", enableSwagger: false)
-    .WithYarpDaprRoute("/api/abp/application-configuration/{**everything}", enableSwagger: false)
-    .WithYarpDaprRoute("/api/abp/application-localization/{**everything}", enableSwagger: false)
-    .WithYarpDaprRoute("/api/permission-management/{**everything}", enableSwagger: false)
-    .WithYarpDaprRoute("/api/setting-management/{**everything}", enableSwagger: false)
-    .DefaultMicroserviceConfiguration(authority, swaggerClient);
-
 var blobStorageService = builder
     .AddProject<Rubrum_Platform_BlobStorageService_HttpApi_Host>("blob-storage-service")
     .WithReference(auth)
@@ -71,18 +56,17 @@ graphql
     {
         EnableGlobalObjectIdentification = true,
     })
-    .WithSubgraph(administrationService)
     .WithSubgraph(blobStorageService);
 
 gateway
     .WithDaprSidecar(defaultDaprSidecarOptions with
     {
-        DaprHttpPort = 10010,
-        DaprGrpcPort = 10020,
+        DaprHttpPort = 12010,
+        DaprGrpcPort = 12020,
     })
-    .WithYarpDaprGateway(10010, [administrationService, blobStorageService])
-    .WithHttpEndpoint(10001)
-    .WithHttpsEndpoint(10000)
+    .WithYarpDaprGateway(12010, [blobStorageService])
+    .WithHttpEndpoint(12001)
+    .WithHttpsEndpoint(12000)
     .WithEnvironment("App__CorsOrigins", "http://localhost:4200")
     .DefaultServiceConfiguration(authority, swaggerClient);
 

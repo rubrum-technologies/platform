@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\common.props" />
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Graphql.SpiceDb</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.Graphql\Rubrum.Graphql.csproj" />
+  </ItemGroup>
+</Project>

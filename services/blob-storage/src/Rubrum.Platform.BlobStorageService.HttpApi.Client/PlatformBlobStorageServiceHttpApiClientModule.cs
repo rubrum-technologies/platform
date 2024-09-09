@@ -1,12 +1,13 @@
 using Microsoft.Extensions.DependencyInjection;
+using Rubrum.Modularity;
 using Volo.Abp.Http.Client;
 using Volo.Abp.Modularity;
 using Volo.Abp.VirtualFileSystem;
 
 namespace Rubrum.Platform.BlobStorageService;
 
-[DependsOn(typeof(AbpHttpClientModule))]
-[DependsOn(typeof(PlatformBlobStorageServiceApplicationContractsModule))]
+[DependsOn<AbpHttpClientModule>]
+[DependsOn<PlatformBlobStorageServiceApplicationContractsModule>]
 public class PlatformBlobStorageServiceHttpApiClientModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

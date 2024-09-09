@@ -27,5 +27,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Rubrum.Platform.Hosting.AspNetCore\Rubrum.Platform.Hosting.AspNetCore.csproj"/>
   </ItemGroup>
-
 </Project>

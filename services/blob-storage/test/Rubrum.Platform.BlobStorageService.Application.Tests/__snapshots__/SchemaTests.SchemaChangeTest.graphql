@@ -123,11 +123,11 @@ type Query {
   node("ID of the object." id: ID!): Node
   "Lookup nodes by a list of IDs."
   nodes("The list of node IDs." ids: [ID!]!): [Node]!
-  blobById(id: ID!): Blob @authorize(policy: "BlobStorageService.Blobs")
-  blob(where: BlobFilterInput): Blob @authorize(policy: "BlobStorageService.Blobs")
-  blobs("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: BlobFilterInput order: [BlobSortInput!]): BlobsConnection @authorize(policy: "BlobStorageService.Blobs")
-  blobsAny(where: BooleanOperationFilterInput): Boolean! @authorize(policy: "BlobStorageService.Blobs")
-  blobsCount(where: IntOperationFilterInput): Int! @authorize(policy: "BlobStorageService.Blobs")
+  blobById(id: ID!): Blob @authorize
+  blob(where: BlobFilterInput): Blob @authorize
+  blobs("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: BlobFilterInput order: [BlobSortInput!]): BlobsConnection @authorize
+  blobsAny(where: BooleanOperationFilterInput): Boolean! @authorize
+  blobsCount(where: IntOperationFilterInput): Int! @authorize
 }
 
 input BlobFilterInput {

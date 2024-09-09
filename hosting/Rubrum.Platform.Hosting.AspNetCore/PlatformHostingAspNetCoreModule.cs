@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Rubrum.Modularity;
+using Rubrum.SpiceDb;
 using Volo.Abp.AspNetCore.Mvc.AntiForgery;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Modularity;
@@ -7,9 +9,10 @@ using Volo.Abp.Swashbuckle;
 
 namespace Rubrum.Platform.Hosting;
 
-[DependsOn(typeof(AbpSwashbuckleModule))]
-[DependsOn(typeof(AbpAspNetCoreSerilogModule))]
-[DependsOn(typeof(PlatformHostingModule))]
+[DependsOn<AbpSwashbuckleModule>]
+[DependsOn<AbpAspNetCoreSerilogModule>]
+[DependsOn<RubrumSpiceDbDaprModule>]
+[DependsOn<PlatformHostingModule>]
 public class PlatformHostingAspNetCoreModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

@@ -1,3 +1,4 @@
+using Rubrum.Modularity;
 using Rubrum.Platform.BlobStorageService.DbMigrations;
 using Rubrum.Platform.BlobStorageService.EntityFrameworkCore;
 using Rubrum.Platform.Hosting;
@@ -6,10 +7,10 @@ using Volo.Abp.Modularity;
 
 namespace Rubrum.Platform.BlobStorageService;
 
-[DependsOn(typeof(PlatformHostingAspNetCoreMicroserviceGraphqlModule))]
-[DependsOn(typeof(PlatformBlobStorageServiceApplicationModule))]
-[DependsOn(typeof(PlatformBlobStorageServiceHttpApiModule))]
-[DependsOn(typeof(PlatformBlobStorageServiceEntityFrameworkCoreModule))]
+[DependsOn<PlatformHostingAspNetCoreMicroserviceGraphqlModule>]
+[DependsOn<PlatformBlobStorageServiceApplicationModule>]
+[DependsOn<PlatformBlobStorageServiceHttpApiModule>]
+[DependsOn<PlatformBlobStorageServiceEntityFrameworkCoreModule>]
 public class PlatformBlobStorageServiceHttpApiHostModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -39,7 +40,7 @@ public class PlatformBlobStorageServiceHttpApiHostModule : AbpModule
         app.UseAbpRequestLocalization();
         app.UseStaticFiles(new StaticFileOptions
         {
-            RequestPath = "/api/BlobStorageService/static",
+            RequestPath = "/api/blob-storage/static",
             OnPrepareResponse = ctx =>
             {
                 ctx.Context.Response.Headers.Append(
@@ -49,17 +50,16 @@ public class PlatformBlobStorageServiceHttpApiHostModule : AbpModule
         });
         app.UseRouting();
         app.UseAuthentication();
-        app.UseAbpClaimsMap();
         app.UseAuthorization();
         app.UseSwagger(options =>
         {
-            options.RouteTemplate = "api/BlobStorageService/swagger/{documentname}/swagger.json";
+            options.RouteTemplate = "api/blob-storage/swagger/{documentname}/swagger.json";
         });
         app.UseSwaggerUI(options =>
         {
             var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
             options.RoutePrefix = "api/swagger";
-            options.SwaggerEndpoint("/api/BlobStorageService/swagger/v1/swagger.json", "BlobStorageService API");
+            options.SwaggerEndpoint("/api/blob-storage/swagger/v1/swagger.json", "BlobStorageService API");
             options.OAuthClientId(configuration["Swagger:ClientId"]);
             options.OAuthClientSecret(configuration["Swagger:ClientSecret"]);
         });

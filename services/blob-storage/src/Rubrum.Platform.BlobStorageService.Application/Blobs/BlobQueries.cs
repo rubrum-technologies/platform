@@ -4,14 +4,13 @@ using HotChocolate.Data;
 using HotChocolate.Types;
 using HotChocolate.Types.Relay;
 using Rubrum.Graphql.Middlewares;
-using Rubrum.Platform.BlobStorageService.Permissions;
 
 namespace Rubrum.Platform.BlobStorageService.Blobs;
 
 [QueryType]
 public static class BlobQueries
 {
-    [Authorize(Policy = BlobStorageServicePermissions.Blobs.Default)]
+    [Authorize]
     [NodeResolver]
     public static async Task<Blob?> GetBlobByIdAsync(
         [ID<Blob>] Guid id,
@@ -21,7 +20,7 @@ public static class BlobQueries
         return await blobByIdDataLoader.LoadAsync(id, cancellationToken);
     }
 
-    [Authorize(Policy = BlobStorageServicePermissions.Blobs.Default)]
+    [Authorize]
     [UseUnitOfWork]
     [UseFirstOrDefault]
     [UseFiltering]
@@ -30,7 +29,7 @@ public static class BlobQueries
         return repository.GetQueryableAsync();
     }
 
-    [Authorize(Policy = BlobStorageServicePermissions.Blobs.Default)]
+    [Authorize]
     [UseUnitOfWork]
     [UsePaging]
     [UseFiltering]
@@ -40,7 +39,7 @@ public static class BlobQueries
         return repository.GetQueryableAsync();
     }
 
-    [Authorize(Policy = BlobStorageServicePermissions.Blobs.Default)]
+    [Authorize]
     [UseUnitOfWork]
     [UseAny]
     [UseFiltering]
@@ -49,7 +48,7 @@ public static class BlobQueries
         return repository.GetQueryableAsync();
     }
 
-    [Authorize(Policy = BlobStorageServicePermissions.Blobs.Default)]
+    [Authorize]
     [UseUnitOfWork]
     [UseCount]
     [UseFiltering]

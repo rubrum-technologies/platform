@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
+using Rubrum.Modularity;
 using Rubrum.Platform.BlobStorageService.EntityFrameworkCore;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore;
@@ -12,9 +13,9 @@ using Volo.Abp.Uow;
 
 namespace Rubrum.Platform.BlobStorageService;
 
-[DependsOn(typeof(AbpEntityFrameworkCoreSqliteModule))]
-[DependsOn(typeof(PlatformBlobStorageServiceTestBaseModule))]
-[DependsOn(typeof(PlatformBlobStorageServiceEntityFrameworkCoreModule))]
+[DependsOn<AbpEntityFrameworkCoreSqliteModule>]
+[DependsOn<PlatformBlobStorageServiceTestBaseModule>]
+[DependsOn<PlatformBlobStorageServiceEntityFrameworkCoreModule>]
 public class PlatformBlobStorageServiceEntityFrameworkCoreTestModule : AbpModule
 {
     private SqliteConnection? _sqliteConnection;

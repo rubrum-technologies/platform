@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using MyCompanyName.MyProjectName.EntityFrameworkCore;
+using Rubrum.Modularity;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Sqlite;
@@ -12,9 +13,9 @@ using Volo.Abp.Uow;
 
 namespace MyCompanyName.MyProjectName;
 
-[DependsOn(typeof(AbpEntityFrameworkCoreSqliteModule))]
-[DependsOn(typeof(MyProjectNameTestBaseModule))]
-[DependsOn(typeof(MyProjectNameEntityFrameworkCoreModule))]
+[DependsOn<AbpEntityFrameworkCoreSqliteModule>]
+[DependsOn<MyProjectNameTestBaseModule>]
+[DependsOn<MyProjectNameEntityFrameworkCoreModule>]
 public class MyProjectNameEntityFrameworkCoreTestModule : AbpModule
 {
     private SqliteConnection? _sqliteConnection;

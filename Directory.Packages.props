@@ -49,10 +49,13 @@
     <PackageVersion Include="Volo.Abp.Swashbuckle" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.AspNetCore.Serilog" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.AspNetCore.Mvc" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Auditing" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Auditing.Contracts" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.Authorization.Abstractions" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.Ddd.Application" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.Ddd.Application.Contracts" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.ExceptionHandling" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.EntityFrameworkCore" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.EntityFrameworkCore.Sqlite" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.EntityFrameworkCore.PostgreSql" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.Dapr" Version="8.3.0"/>

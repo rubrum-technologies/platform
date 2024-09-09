@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\common.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Authorization</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.Authorization\Rubrum.Authorization.csproj" />
+    <ProjectReference Include="..\Rubrum.SpiceDb\Rubrum.SpiceDb.csproj" />
+  </ItemGroup>
+</Project>

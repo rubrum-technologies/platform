@@ -1,13 +1,13 @@
-using MyCompanyName.MyProjectName.Localization;
+using Rubrum.Auditing;
+using Rubrum.Modularity;
 using Volo.Abp.Domain;
-using Volo.Abp.Localization;
-using Volo.Abp.Localization.ExceptionHandling;
 using Volo.Abp.Modularity;
 using Volo.Abp.VirtualFileSystem;
 
 namespace MyCompanyName.MyProjectName;
 
-[DependsOn(typeof(AbpDddDomainSharedModule))]
+[DependsOn<AbpDddDomainSharedModule>]
+[DependsOn<RubrumAuditingContractsModule>]
 public class MyProjectNameDomainSharedModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -21,20 +21,6 @@ public class MyProjectNameDomainSharedModule : AbpModule
         Configure<AbpVirtualFileSystemOptions>(options =>
         {
             options.FileSets.AddEmbedded<MyProjectNameDomainSharedModule>();
-        });
-
-        Configure<AbpLocalizationOptions>(options =>
-        {
-            options.Resources
-                .Add<MyProjectNameResource>("ru")
-                .AddVirtualJson("/Localization/MyCompanyName/MyProjectName");
-
-            options.DefaultResourceType = typeof(MyProjectNameResource);
-        });
-
-        Configure<AbpExceptionLocalizationOptions>(options =>
-        {
-            options.MapCodeNamespace("MyCompanyName.MyProjectName", typeof(MyProjectNameResource));
         });
     }
 }

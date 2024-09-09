@@ -13,7 +13,7 @@ interface CreationAuditedObject implements HasCreationTime & MayHaveCreator {
 interface DeletionAuditedObject implements HasDeletionTime & SoftDelete {
   deleterId: ID
   deletionTime: DateTime
-  isDeleted: Boolean
+  isDeleted: Boolean!
 }
 
 interface Error {
@@ -28,7 +28,7 @@ interface FullAuditedObject implements CreationAuditedObject & HasCreationTime &
   lastModificationTime: DateTime
   deleterId: ID
   deletionTime: DateTime
-  isDeleted: Boolean
+  isDeleted: Boolean!
 }
 
 "A standard interface to add CreationTime property."
@@ -39,7 +39,7 @@ interface HasCreationTime {
 "A standard interface to add DeletionTime property to a class. It also makes the class soft delete (see ISoftDelete)."
 interface HasDeletionTime implements SoftDelete {
   deletionTime: DateTime
-  isDeleted: Boolean
+  isDeleted: Boolean!
 }
 
 interface HasExtraProperties {
@@ -68,7 +68,7 @@ interface MultiTenant {
 
 "Used to standardize soft deleting entities. Soft-delete entities are not actually deleted, marked as IsDeleted = true in the database, but can not be retrieved to the application normally."
 interface SoftDelete {
-  isDeleted: Boolean
+  isDeleted: Boolean!
 }
 
 type BusinessError implements Error {
@@ -119,6 +119,16 @@ input CreateCountryInput {
   Required and not empty
   """
   name: String!
+}
+
+"Defines when a policy shall be executed."
+enum ApplyPolicy {
+  "Before the resolver was executed."
+  BEFORE_RESOLVER
+  "After the resolver was executed."
+  AFTER_RESOLVER
+  "The policy is applied in the validation step before the execution."
+  VALIDATION
 }
 
 "The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."

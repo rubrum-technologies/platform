@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Rubrum.Modularity;
 using Volo.Abp;
 using Volo.Abp.Authorization;
 using Volo.Abp.Autofac;
@@ -9,11 +10,11 @@ using Volo.Abp.Threading;
 
 namespace Rubrum.Platform.BlobStorageService;
 
-[DependsOn(typeof(AbpAutofacModule))]
-[DependsOn(typeof(AbpTestBaseModule))]
-[DependsOn(typeof(AbpAuthorizationModule))]
-[DependsOn(typeof(AbpGuidsModule))]
-[DependsOn(typeof(PlatformBlobStorageServiceDomainModule))]
+[DependsOn<AbpAutofacModule>]
+[DependsOn<AbpTestBaseModule>]
+[DependsOn<AbpAuthorizationModule>]
+[DependsOn<AbpGuidsModule>]
+[DependsOn<PlatformBlobStorageServiceDomainModule>]
 public class PlatformBlobStorageServiceTestBaseModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

@@ -10,7 +10,7 @@ namespace Rubrum.Graphql;
 
 [DependsOn<AbpTestBaseModule>]
 [DependsOn<AbpAutofacModule>]
-[DependsOn<RubrumGraphqlModule>]
+[DependsOn<RubrumGraphqlAuthorizationModule>]
 public class RubrumGraphqlTestModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Rubrum.EntityFrameworkCore;
+using Rubrum.Platform.BlobStorageService.Blobs;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -6,8 +8,10 @@ namespace Rubrum.Platform.BlobStorageService.EntityFrameworkCore;
 
 [ConnectionStringName(BlobStorageServiceDbProperties.ConnectionStringName)]
 public class BlobStorageServiceDbContext(DbContextOptions<BlobStorageServiceDbContext> options)
-    : AbpDbContext<BlobStorageServiceDbContext>(options), IBlobStorageServiceDbContext
+    : RubrumDbContext<BlobStorageServiceDbContext>(options)
 {
+    public DbSet<Blob> Blobs => Set<Blob>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

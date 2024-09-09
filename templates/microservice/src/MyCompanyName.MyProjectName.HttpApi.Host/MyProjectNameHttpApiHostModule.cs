@@ -1,15 +1,16 @@
 using MyCompanyName.MyProjectName.DbMigrations;
 using MyCompanyName.MyProjectName.EntityFrameworkCore;
+using Rubrum.Modularity;
 using Rubrum.Platform.Hosting;
 using Volo.Abp;
 using Volo.Abp.Modularity;
 
 namespace MyCompanyName.MyProjectName;
 
-[DependsOn(typeof(PlatformHostingAspNetCoreMicroserviceGraphqlModule))]
-[DependsOn(typeof(MyProjectNameApplicationModule))]
-[DependsOn(typeof(MyProjectNameHttpApiModule))]
-[DependsOn(typeof(MyProjectNameEntityFrameworkCoreModule))]
+[DependsOn<PlatformHostingAspNetCoreMicroserviceGraphqlModule>]
+[DependsOn<MyProjectNameApplicationModule>]
+[DependsOn<MyProjectNameHttpApiModule>]
+[DependsOn<MyProjectNameEntityFrameworkCoreModule>]
 public class MyProjectNameHttpApiHostModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -49,12 +50,8 @@ public class MyProjectNameHttpApiHostModule : AbpModule
         });
         app.UseRouting();
         app.UseAuthentication();
-        app.UseAbpClaimsMap();
         app.UseAuthorization();
-        app.UseSwagger(options =>
-        {
-            options.RouteTemplate = "api/MyProjectName/swagger/{documentname}/swagger.json";
-        });
+        app.UseSwagger(options => { options.RouteTemplate = "api/MyProjectName/swagger/{documentname}/swagger.json"; });
         app.UseSwaggerUI(options =>
         {
             var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();

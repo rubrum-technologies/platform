@@ -1,13 +1,17 @@
 ﻿using HotChocolate.Data.Filters;
+using HotChocolate.Types;
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Trace;
 using Rubrum.Graphql;
+using Rubrum.Graphql.SpiceDb;
+using Rubrum.Modularity;
 using Volo.Abp.Modularity;
 
 namespace Rubrum.Platform.Hosting;
 
-[DependsOn(typeof(RubrumGraphqlModule))]
-[DependsOn(typeof(PlatformHostingAspNetCoreMicroserviceModule))]
+[DependsOn<RubrumGraphqlFluentValidationModule>]
+[DependsOn<RubrumGraphqlAuthorizationSpiceDbModule>]
+[DependsOn<PlatformHostingAspNetCoreMicroserviceModule>]
 public class PlatformHostingAspNetCoreMicroserviceGraphqlModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

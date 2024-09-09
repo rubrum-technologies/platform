@@ -1,11 +1,14 @@
 using Microsoft.Extensions.DependencyInjection;
+using Rubrum.EntityFrameworkCore;
+using Rubrum.Modularity;
 using Volo.Abp.EntityFrameworkCore.PostgreSql;
 using Volo.Abp.Modularity;
 
 namespace MyCompanyName.MyProjectName.EntityFrameworkCore;
 
-[DependsOn(typeof(AbpEntityFrameworkCorePostgreSqlModule))]
-[DependsOn(typeof(MyProjectNameDomainModule))]
+[DependsOn<AbpEntityFrameworkCorePostgreSqlModule>]
+[DependsOn<RubrumEntityFrameworkCoreModule>]
+[DependsOn<MyProjectNameDomainModule>]
 public class MyProjectNameEntityFrameworkCoreModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)

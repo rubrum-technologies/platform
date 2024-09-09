@@ -16,5 +16,4 @@ public static class ServiceBuilderExtensions
             .WithEnvironment("AuthServer__Audience", clientId)
             .WithEnvironment("Swagger__ClientId", swaggerClient);
     }
-
 }

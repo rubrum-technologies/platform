@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Rewrite;
 using OpenTelemetry.Trace;
+using Rubrum.Modularity;
 using Rubrum.Platform.Gateway.Fusion;
 using Rubrum.Platform.Hosting;
 using Volo.Abp;
@@ -8,7 +9,7 @@ using Volo.Abp.Modularity;
 
 namespace Rubrum.Platform.Gateway;
 
-[DependsOn(typeof(PlatformHostingAspNetCoreModule))]
+[DependsOn<PlatformHostingAspNetCoreModule>]
 public class PlatformGatewayModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -72,7 +73,8 @@ public class PlatformGatewayModule : AbpModule
     {
         var configuration = context.Services.GetConfiguration();
 
-        context.Services.AddCors(options =>
+        context.Services
+            .AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
                 {
@@ -123,6 +125,10 @@ public class PlatformGatewayModule : AbpModule
         fusion.CoreBuilder
             .AddType(() => new TimeSpanType(TimeSpanFormat.DotNet))
             .AddInstrumentation();
+
+        context.Services
+            .AddHttpClient("http")
+            .AddHeaderPropagation();
 
         context.Services
             .AddOpenTelemetry()

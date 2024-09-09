@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\common.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Auditing</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Auditing"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.Auditing.Contracts\Rubrum.Auditing.Contracts.csproj"/>
+  </ItemGroup>
+</Project>
