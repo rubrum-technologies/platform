@@ -29,7 +29,17 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --configuration Release
+        run: |
+          echo "Building project..."
+          ls -R Rubrum.Platform.AppHost
+          dotnet build --configuration Release --runtime linux-x64 Rubrum.Platform.AppHost/Rubrum.Platform.AppHost.csproj
 
       - name: Test
         run: dotnet test
+
+      - name: Run Aspire
+        run: |
+          echo "Running Aspire..."
+          cd Rubrum.Platform.AppHost
+          ls bin/Release/net8.0/linux-x64/
+          dotnet run --project ./Rubrum.Platform.AppHost.csproj --no-restore --no-build -- compose
