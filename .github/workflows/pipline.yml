@@ -24,10 +24,15 @@ jobs:
 
       - name: Install Aspire
         run: |
-          ASPIRE_VERSION=$(curl -s https://api.github.com/repos/aspirehq/aspire-cli/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-          curl -L "https://github.com/aspirehq/aspire-cli/releases/download/v${ASPIRE_VERSION}/aspire_${ASPIRE_VERSION}_Linux_x86_64.tar.gz" | tar xz -C /tmp
-          sudo mv /tmp/aspire /usr/local/bin/
+          echo "deb https://apt.aspirehq.io/debian/ stable main" | sudo tee /etc/apt/sources.list.d/aspire.list
+          curl -fsSL https://apt.aspirehq.io/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/aspire-archive-keyring.gpg
+          sudo apt-get update
+          sudo apt-get install -y aspire-cli
           aspire version
+
+      - name: Verify Aspire installation
+        run: |
+          aspire help
 
       - name: Restore dependencies
         run: dotnet restore
