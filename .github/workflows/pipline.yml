@@ -32,7 +32,10 @@ jobs:
         run: |
           echo "Building project..."
           ls -R Rubrum.Platform.AppHost
-          dotnet build --configuration Release --runtime linux-x64 Rubrum.Platform.AppHost/Rubrum.Platform.AppHost.csproj
+          cat Rubrum.Platform.AppHost/Rubrum.Platform.AppHost.csproj
+          dotnet --version
+          dotnet tool list --global
+          dotnet build --configuration Release --runtime linux-x64 Rubrum.Platform.AppHost/Rubrum.Platform.AppHost.csproj -v d
 
       - name: Test
         run: dotnet test
