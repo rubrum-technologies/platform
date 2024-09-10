@@ -1,4 +1,5 @@
-﻿using Rubrum.Modularity;
+﻿using Rubrum.Authorization.Permissions;
+using Rubrum.Modularity;
 using Rubrum.SpiceDb;
 using Volo.Abp.Modularity;
 
@@ -6,4 +7,13 @@ namespace Rubrum.Authorization;
 
 [DependsOn<RubrumSpiceDbModule>]
 [DependsOn<RubrumAuthorizationModule>]
-public class RubrumAuthorizationSpiceDbModule : AbpModule;
+public class RubrumAuthorizationSpiceDbModule : AbpModule
+{
+    public override void ConfigureServices(ServiceConfigurationContext context)
+    {
+        Configure<RubrumPermissionOptions>(options =>
+        {
+            options.ValueProviders.Add<SpiceDbPermissionValueProvider>();
+        });
+    }
+}

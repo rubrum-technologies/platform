@@ -31,10 +31,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageVersion Include="Authzed.Net" Version="0.1.0"/>
     <PackageVersion Include="System.Linq.Async" Version="6.0.1"/>
     <PackageVersion Include="Dapr.AspNetCore" Version="1.14.0"/>
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.1.0"/>
     <PackageVersion Include="DistributedLock.Redis" Version="1.0.3"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageVersion Include="Grpc.Net.ClientFactory" Version="2.65.0"/>
   </ItemGroup>
 
   <ItemGroup>

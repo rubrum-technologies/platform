@@ -1,4 +1,3 @@
-using Rubrum.Graphql;
 using Rubrum.Graphql.SpiceDb;
 using Rubrum.Modularity;
 using Volo.Abp.Application;

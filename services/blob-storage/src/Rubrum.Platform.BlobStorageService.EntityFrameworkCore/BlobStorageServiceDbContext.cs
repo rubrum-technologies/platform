@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Rubrum.EntityFrameworkCore;
 using Rubrum.Platform.BlobStorageService.Blobs;
 using Volo.Abp.Data;
-using Volo.Abp.EntityFrameworkCore;
 
 namespace Rubrum.Platform.BlobStorageService.EntityFrameworkCore;
 
