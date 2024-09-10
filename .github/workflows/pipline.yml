@@ -22,13 +22,8 @@ jobs:
           wget -q https://raw.githubusercontent.com/dapr/cli/master/install/install.sh -O - | /bin/bash
           dapr --version
 
-      - name: Install Aspire
-        run: |
-          echo "deb https://apt.aspirehq.io/debian/ stable main" | sudo tee /etc/apt/sources.list.d/aspire.list
-          curl -fsSL https://apt.aspirehq.io/public.key | sudo gpg --dearmor -o /usr/share/keyrings/aspire-archive-keyring.gpg
-          sudo apt-get update
-          sudo apt-get install -y aspire-cli
-          aspire version
+      - name: Install .NET Aspire workload
+        run: dotnet workload install aspire
 
       - name: Verify Aspire installation
         run: |
