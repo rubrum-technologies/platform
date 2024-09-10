@@ -25,10 +25,6 @@ jobs:
       - name: Install .NET Aspire workload
         run: dotnet workload install aspire
 
-      - name: Verify Aspire installation
-        run: |
-          aspire help
-
       - name: Restore dependencies
         run: dotnet restore
 
