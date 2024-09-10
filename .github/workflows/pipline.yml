@@ -22,15 +22,17 @@ jobs:
           wget -q https://raw.githubusercontent.com/dapr/cli/master/install/install.sh -O - | /bin/bash
           dapr --version
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22.8.0'
-
       - name: Install Aspire
         run: |
-          npm install -g @aspirehq/cli
+          echo "deb https://apt.aspirehq.io/debian/ stable main" | sudo tee /etc/apt/sources.list.d/aspire.list
+          curl -fsSL https://apt.aspirehq.io/public.key | sudo gpg --dearmor -o /usr/share/keyrings/aspire-archive-keyring.gpg
+          sudo apt-get update
+          sudo apt-get install -y aspire-cli
           aspire version
+
+      - name: Verify Aspire installation
+        run: |
+          aspire help
 
       - name: Restore dependencies
         run: dotnet restore
