@@ -1,4 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using Rubrum.Platform.StoreAppsService.Apps;
+using Rubrum.Platform.StoreAppsService.EntityFrameworkCore.Repositories;
 using Volo.Abp.EntityFrameworkCore.PostgreSql;
 using Volo.Abp.Modularity;
 
@@ -20,7 +22,11 @@ public class StoreAppsServiceEntityFrameworkCoreModule : AbpModule
     {
         context.Services.AddAbpDbContext<StoreAppsServiceDbContext>(options =>
         {
-            options.AddDefaultRepositories();
+            options.ReplaceDbContext<IStoreAppsServiceDbContext>();
+
+            options
+                .AddRepository<App, EfCoreAppRepository>()
+                .AddDefaultRepositories();
         });
     }
 }
