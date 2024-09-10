@@ -24,6 +24,7 @@ jobs:
 
       - name: Install .NET Aspire workload
         run: dotnet workload install aspire
+        working-directory: ./Rubrum.Platform.AppHost/Rubrum.Platform.AppHost.csproj
 
       - name: Restore dependencies
         run: dotnet restore
@@ -32,10 +33,7 @@ jobs:
         run: |
           echo "Building project..."
           ls -R Rubrum.Platform.AppHost
-          cat Rubrum.Platform.AppHost/Rubrum.Platform.AppHost.csproj
-          dotnet --version
-          dotnet tool list --global
-          dotnet build --configuration Release --runtime linux-x64 Rubrum.Platform.AppHost/Rubrum.Platform.AppHost.csproj -v d
+          dotnet build --configuration Release --runtime linux-x64 Rubrum.Platform.AppHost/Rubrum.Platform.AppHost.csproj
 
       - name: Test
         run: dotnet test
