@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.props" />
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.StoreAppsService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.Platform.StoreAppsService.Application.Contracts\Rubrum.Platform.StoreAppsService.Application.Contracts.csproj" />
+  </ItemGroup>
+</Project>
