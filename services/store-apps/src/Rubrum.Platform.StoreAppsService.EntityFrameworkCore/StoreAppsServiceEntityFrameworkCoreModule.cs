@@ -22,8 +22,6 @@ public class StoreAppsServiceEntityFrameworkCoreModule : AbpModule
     {
         context.Services.AddAbpDbContext<StoreAppsServiceDbContext>(options =>
         {
-            options.ReplaceDbContext<IStoreAppsServiceDbContext>();
-
             options
                 .AddRepository<App, EfCoreAppRepository>()
                 .AddDefaultRepositories();

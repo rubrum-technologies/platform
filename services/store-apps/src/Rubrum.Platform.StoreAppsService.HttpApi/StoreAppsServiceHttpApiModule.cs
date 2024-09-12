@@ -1,8 +1,5 @@
-using Localization.Resources.AbpUi;
 using Microsoft.Extensions.DependencyInjection;
-using Rubrum.Platform.StoreAppsService.Localization;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 
 namespace Rubrum.Platform.StoreAppsService;
@@ -16,16 +13,6 @@ public class StoreAppsServiceHttpApiModule : AbpModule
         PreConfigure<IMvcBuilder>(mvcBuilder =>
         {
             mvcBuilder.AddApplicationPartIfNotExists(typeof(StoreAppsServiceHttpApiModule).Assembly);
-        });
-    }
-
-    public override void ConfigureServices(ServiceConfigurationContext context)
-    {
-        Configure<AbpLocalizationOptions>(options =>
-        {
-            options.Resources
-                .Get<StoreAppsServiceResource>()
-                .AddBaseTypes(typeof(AbpUiResource));
         });
     }
 }
