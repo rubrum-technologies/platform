@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\common.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Aspire.Hosting</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.Aspire.Hosting\Rubrum.Aspire.Hosting.csproj"/>
+  </ItemGroup>
+</Project>

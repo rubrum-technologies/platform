@@ -7,7 +7,7 @@ using Rubrum.Platform.AppHost;
 var builder = DistributedApplication.CreateBuilder(args);
 var defaultDaprSidecarOptions = new DaprSidecarOptions
 {
-    ResourcesPaths = [Path.Combine(Directory.GetCurrentDirectory(), "dapr", "resources")],
+    ResourcesPaths = [Path.Combine(Directory.GetCurrentDirectory(), "Dapr", "Resources")],
 };
 
 var authority = builder.AddParameter("authority");
@@ -15,19 +15,21 @@ var swaggerClient = builder.AddParameter("swagger-client");
 
 builder.AddDapr(options => { options.EnableTelemetry = true; });
 
-var auth = builder.AddKeycloak(
+var auth = builder
+    .AddKeycloak(
         "auth",
         9080,
         builder.AddParameter("admin-username"),
         builder.AddParameter("admin-password"))
     .WithDataVolume("rubrum-auth")
-    .WithRealmImport(Path.Combine(Directory.GetCurrentDirectory(), "realms"));
+    .WithRealmImport(Path.Combine(Directory.GetCurrentDirectory(), "Realms"));
 
 var database = builder
     .AddPostgres(
         "database",
         builder.AddParameter("database-username"),
         builder.AddParameter("database-password"))
+    .WithInitBindMount("Postgres")
     .WithDataVolume("rubrum-database")
     .WithPgAdmin()
     .WithOtlpExporter();
@@ -40,11 +42,17 @@ var broker = builder
     .WithDataVolume("rubrum-broker")
     .WithManagementPlugin();
 
+var spiceDb = builder
+    .AddSpiceDb("spicedb-service")
+    .WithPostgres(database.AddDatabase("spicedb-service-db"))
+    .WithDaprSidecar(defaultDaprSidecarOptions);
+
 var blobStorageService = builder
     .AddProject<Rubrum_Platform_BlobStorageService_HttpApi_Host>("blob-storage-service")
     .WithReference(auth)
     .WithReference(broker)
     .WithReference(database.AddDatabase("blob-storage-service-db"))
+    .WithReference(spiceDb)
     .WithDaprSidecar(defaultDaprSidecarOptions)
     .WithYarpDaprRoute("/api/blob-storage/{**everything}")
     .DefaultMicroserviceConfiguration(authority, swaggerClient);
@@ -65,8 +73,8 @@ gateway
         DaprGrpcPort = 12020,
     })
     .WithYarpDaprGateway(12010, [blobStorageService])
-    .WithHttpEndpoint(12001)
-    .WithHttpsEndpoint(12000)
+    .WithHttpEndpoint(12001, name: "http-dev")
+    .WithHttpsEndpoint(12000, name: "https-dev")
     .WithEnvironment("App__CorsOrigins", "http://localhost:4200")
     .DefaultServiceConfiguration(authority, swaggerClient);
 

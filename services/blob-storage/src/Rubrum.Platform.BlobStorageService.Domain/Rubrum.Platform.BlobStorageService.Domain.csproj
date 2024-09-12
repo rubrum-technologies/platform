@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Riok.Mapperly" ExcludeAssets="runtime" PrivateAssets="all"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Volo.Abp.AutoMapper" />
     <PackageReference Include="Volo.Abp.Ddd.Domain" />
     <PackageReference Include="Volo.Abp.BlobStoring" />

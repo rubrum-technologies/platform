@@ -2,5 +2,7 @@
 
 public static class BlobConstants
 {
+    public const string TypeName = "Blob";
+
     public const int FileNameLength = 100;
 }

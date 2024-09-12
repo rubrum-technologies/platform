@@ -1,8 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-#
+# 
 VisualStudioVersion = 17.5.002.0
-MinimumVisualStudioVersion =
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "framework", "framework", "{94526967-50F3-40B3-B912-20255509B6FA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hosting", "hosting", "{B7245B11-8B14-4C40-830A-996145B91002}"
@@ -150,6 +149,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.EntityFrameworkCore", "framework\src\Rubrum.EntityFrameworkCore\Rubrum.EntityFrameworkCore.csproj", "{079541CD-F508-4254-B68B-9C0D6C009B47}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Auditing", "framework\src\Rubrum.Auditing\Rubrum.Auditing.csproj", "{EC47F332-C6D7-40CF-8EE9-CF0E677693F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Aspire.Hosting.SpiceDb", "framework\src\Rubrum.Aspire.Hosting.SpiceDb\Rubrum.Aspire.Hosting.SpiceDb.csproj", "{972DBDA4-AFBE-4B04-BAD4-4FE118806731}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -369,6 +370,10 @@ Global
 		{EC47F332-C6D7-40CF-8EE9-CF0E677693F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC47F332-C6D7-40CF-8EE9-CF0E677693F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC47F332-C6D7-40CF-8EE9-CF0E677693F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{972DBDA4-AFBE-4B04-BAD4-4FE118806731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{972DBDA4-AFBE-4B04-BAD4-4FE118806731}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{972DBDA4-AFBE-4B04-BAD4-4FE118806731}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{972DBDA4-AFBE-4B04-BAD4-4FE118806731}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -441,5 +446,6 @@ Global
 		{6EF7CE16-A36E-45C6-A4B7-E3B6C766F443} = {7035B868-1E06-4E84-A160-D092C73467C2}
 		{079541CD-F508-4254-B68B-9C0D6C009B47} = {7035B868-1E06-4E84-A160-D092C73467C2}
 		{EC47F332-C6D7-40CF-8EE9-CF0E677693F0} = {7035B868-1E06-4E84-A160-D092C73467C2}
+		{972DBDA4-AFBE-4B04-BAD4-4FE118806731} = {7035B868-1E06-4E84-A160-D092C73467C2}
 	EndGlobalSection
 EndGlobal

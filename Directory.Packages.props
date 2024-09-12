@@ -36,6 +36,7 @@
     <PackageVersion Include="Dapr.AspNetCore" Version="1.14.0"/>
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.1.0"/>
     <PackageVersion Include="DistributedLock.Redis" Version="1.0.3"/>
+    <PackageVersion Include="Riok.Mapperly" Version="3.6.0"/>
   </ItemGroup>
 
   <ItemGroup>

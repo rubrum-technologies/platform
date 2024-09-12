@@ -9,7 +9,6 @@ public static class MicroserviceBuilderExtensions
         where T : IResourceWithEnvironment, IResourceWithEndpoints
     {
         return project
-            .WithHttpEndpoint()
             .WithEnvironment(context =>
             {
                 ConfigurationDatabase(context);

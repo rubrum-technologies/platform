@@ -1,12 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\..\..\common.props"/>
+  <Import Project="..\..\..\..\common.props" />
 
   <PropertyGroup>
     <RootNamespace>MyCompanyName.MyProjectName</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Domain.Shared"/>
+    <PackageReference Include="Riok.Mapperly" ExcludeAssets="runtime" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Domain.Shared" />
   </ItemGroup>
 
   <ItemGroup>

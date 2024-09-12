@@ -13,8 +13,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Rubrum.Platform.BlobStorageService.Domain.Shared\Rubrum.Platform.BlobStorageService.Domain.Shared.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Blobs\" />
-  </ItemGroup>
 </Project>
