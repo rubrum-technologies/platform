@@ -7,7 +7,7 @@ namespace Rubrum.Platform.StoreAppsService.EntityFrameworkCore;
 
 [ConnectionStringName(StoreAppsServiceDbProperties.ConnectionStringName)]
 public class StoreAppsServiceDbContext(DbContextOptions<StoreAppsServiceDbContext> options)
-    : AbpDbContext<StoreAppsServiceDbContext>(options), IStoreAppsServiceDbContext
+    : AbpDbContext<StoreAppsServiceDbContext>(options)
 {
     public DbSet<App> Apps => Set<App>();
 

@@ -4,6 +4,6 @@ using Volo.Abp.EntityFrameworkCore;
 
 namespace Rubrum.Platform.StoreAppsService.EntityFrameworkCore.Repositories;
 
-public class EfCoreAppRepository(IDbContextProvider<IStoreAppsServiceDbContext> dbContextProvider) :
-    EfCoreRepository<IStoreAppsServiceDbContext, App, Guid>(dbContextProvider),
+public class EfCoreAppRepository(IDbContextProvider<StoreAppsServiceDbContext> dbContextProvider) :
+    EfCoreRepository<StoreAppsServiceDbContext, App, Guid>(dbContextProvider),
     IAppRepository;
