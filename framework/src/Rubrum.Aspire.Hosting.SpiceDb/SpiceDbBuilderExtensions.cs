@@ -8,22 +8,23 @@ public static class SpiceDbBuilderExtensions
 {
     public static IResourceBuilder<SpiceDbResource> AddSpiceDb(
         this IDistributedApplicationBuilder builder,
-        string name,
-        int? port = null)
+        string name)
     {
         var spiceDb = new SpiceDbResource(name);
 
         return builder
             .AddResource(spiceDb)
-            .WithHttpEndpoint(port, targetPort: 50051, name: "http")
+            .WithHttpEndpoint(targetPort: 8443, name: "http") // TODO: Вынести в параметры метода
+            .WithHttpEndpoint(targetPort: 50051, name: "grpc") // TODO: Вынести в параметры метода
             .WithAnnotation(new ContainerImageAnnotation
             {
                 Registry = "quay.io",
                 Image = "authzed/spicedb",
                 Tag = "v1.35.3",
             })
-            .WithArgs("serve")
-            .WithEnvironment("SPICEDB_GRPC_PRESHARED_KEY", "хер")
+            .WithArgs("serve", "--http-enabled")
+            .WithEnvironment("SPICEDB_HTTP_PRESHARED_KEY", "asdasd") // TODO: Вынести в параметры
+            .WithEnvironment("SPICEDB_GRPC_PRESHARED_KEY", "asdasd") // TODO: Вынести в параметры
             .PublishAsContainer();
     }
 
