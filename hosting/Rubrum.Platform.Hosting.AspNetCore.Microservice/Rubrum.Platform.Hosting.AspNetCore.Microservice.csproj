@@ -19,12 +19,12 @@
     <PackageReference Include="Volo.Abp.EventBus.Dapr"/>
     <PackageReference Include="Volo.Abp.AspNetCore.Mvc.Dapr.EventBus"/>
     <PackageReference Include="Volo.Abp.DistributedLocking.Dapr"/>
-    <PackageReference Include="Volo.Abp.BackgroundJobs.RabbitMQ"/>
     <PackageReference Include="Volo.Abp.AspNetCore.Authentication.JwtBearer"/>
     <PackageReference Include="Volo.Abp.Http.Client.IdentityModel.Web"/>
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\framework\src\Rubrum.BackgroundJobs.Dapr\Rubrum.BackgroundJobs.Dapr.csproj" />
     <ProjectReference Include="..\Rubrum.Platform.Hosting.AspNetCore\Rubrum.Platform.Hosting.AspNetCore.csproj"/>
   </ItemGroup>
 </Project>

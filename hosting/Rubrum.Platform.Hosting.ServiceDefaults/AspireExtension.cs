@@ -19,8 +19,6 @@ public static class AspireExtension
 
         builder.AddDefaultHealthChecks();
 
-        builder.AddRabbitMQClient("broker");
-
         builder.Services.AddServiceDiscovery();
 
         builder.Services.ConfigureHttpClientDefaults(http =>

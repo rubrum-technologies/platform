@@ -22,11 +22,9 @@
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="8.2.0"/>
     <PackageVersion Include="Aspire.Hosting.Keycloak" Version="8.2.0-preview.1.24428.5"/>
     <PackageVersion Include="Aspire.Hosting.Dapr" Version="8.2.0"/>
-    <PackageVersion Include="Aspire.Hosting.RabbitMQ" Version="8.2.0"/>
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="8.2.0"/>
     <PackageVersion Include="Aspire.Hosting.NodeJs" Version="8.2.0" />
     <PackageVersion Include="Aspire.Keycloak.Authentication" Version="8.2.0-preview.1.24428.5"/>
-    <PackageVersion Include="Aspire.RabbitMQ.Client" Version="8.2.0"/>
     <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.2.0"/>
   </ItemGroup>
 
@@ -40,6 +38,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageVersion Include="Grpc.AspNetCore" Version="2.65.0"/>
+    <PackageVersion Include="Grpc.Net" Version="2.65.0"/>
     <PackageVersion Include="Grpc.Net.ClientFactory" Version="2.65.0"/>
   </ItemGroup>
 
@@ -73,7 +73,7 @@
     <PackageVersion Include="Volo.Abp.AspNetCore.Mvc.Dapr.EventBus" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.DistributedLocking.Dapr" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.AspNetCore.Authentication.JwtBearer" Version="8.3.0"/>
-    <PackageVersion Include="Volo.Abp.BackgroundJobs.RabbitMQ" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.BackgroundJobs.Abstractions" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.Http.Client.IdentityModel.Web" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.BlobStoring" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.Ddd.Domain" Version="8.3.0"/>
@@ -131,7 +131,9 @@
     <PackageVersion Include="HotChocolate.AspNetCore.CommandLine" Version="14.0.0-rc.1"/>
     <PackageVersion Include="HotChocolate.Fusion" Version="14.0.0-rc.1"/>
     <PackageVersion Include="HotChocolate.Fusion.Aspire" Version="14.0.0-rc.1"/>
-    <PackageVersion Include="HotChocolate.Subscriptions.RabbitMQ" Version="14.0.0-rc.1"/>
+    <PackageVersion Include="HotChocolate.Execution.Abstractions" Version="14.0.0-rc.1"/>
+    <PackageVersion Include="HotChocolate.Subscriptions" Version="14.0.0-rc.1"/>
+    <PackageVersion Include="HotChocolate.Subscriptions.Postgres" Version="14.0.0-rc.1"/>
   </ItemGroup>
 
   <ItemGroup>

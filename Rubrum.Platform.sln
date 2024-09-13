@@ -1,12 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 
+#
 VisualStudioVersion = 17.5.002.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "framework", "framework", "{94526967-50F3-40B3-B912-20255509B6FA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hosting", "hosting", "{B7245B11-8B14-4C40-830A-996145B91002}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "other", "other", "{38672E8A-2E76-435B-92AA-F6FAB84D1C1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{3D8AFC3B-4864-4763-8D64-3AB3EC687D69}"
 EndProject
@@ -86,8 +84,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompanyName.MyProjectName
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompanyName.MyProjectName.HttpApi.Host", "templates\microservice\src\MyCompanyName.MyProjectName.HttpApi.Host\MyCompanyName.MyProjectName.HttpApi.Host.csproj", "{6248AC1D-2F51-4E9C-9159-700189BAD2A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompanyName.MyProjectName.HttpApi.Client", "templates\microservice\src\MyCompanyName.MyProjectName.HttpApi.Client\MyCompanyName.MyProjectName.HttpApi.Client.csproj", "{198736D3-5CBC-49DE-AAD5-DB3082B92C8F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompanyName.MyProjectName.Application.Tests", "templates\microservice\test\MyCompanyName.MyProjectName.Application.Tests\MyCompanyName.MyProjectName.Application.Tests.csproj", "{299734D7-3590-4195-AE9F-3B3907372219}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCompanyName.MyProjectName.Domain.Tests", "templates\microservice\test\MyCompanyName.MyProjectName.Domain.Tests\MyCompanyName.MyProjectName.Domain.Tests.csproj", "{38D1794A-37A0-4317-AB56-75748BB419D4}"
@@ -108,8 +104,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.BlobStorage
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.BlobStorageService.HttpApi", "services\blob-storage\src\Rubrum.Platform.BlobStorageService.HttpApi\Rubrum.Platform.BlobStorageService.HttpApi.csproj", "{A1879107-2BA0-4014-8A0E-1B703E3C4F1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.BlobStorageService.HttpApi.Client", "services\blob-storage\src\Rubrum.Platform.BlobStorageService.HttpApi.Client\Rubrum.Platform.BlobStorageService.HttpApi.Client.csproj", "{42E63011-B2EF-4492-83A3-81579F880A4A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.BlobStorageService.HttpApi.Host", "services\blob-storage\src\Rubrum.Platform.BlobStorageService.HttpApi.Host\Rubrum.Platform.BlobStorageService.HttpApi.Host.csproj", "{E0D8DD94-D3D0-4187-BD96-B0D9D87FB1EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.BlobStorageService.Application.Tests", "services\blob-storage\test\Rubrum.Platform.BlobStorageService.Application.Tests\Rubrum.Platform.BlobStorageService.Application.Tests.csproj", "{4DC311E6-4DCC-4713-86FE-84D1529E5490}"
@@ -119,8 +113,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.BlobStorageService.EntityFrameworkCore.Tests", "services\blob-storage\test\Rubrum.Platform.BlobStorageService.EntityFrameworkCore.Tests\Rubrum.Platform.BlobStorageService.EntityFrameworkCore.Tests.csproj", "{26AFA234-229B-4DB1-9CB8-BFEE36107CFA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.BlobStorageService.TestBase", "services\blob-storage\test\Rubrum.Platform.BlobStorageService.TestBase\Rubrum.Platform.BlobStorageService.TestBase.csproj", "{1514CE2E-FE1F-48E9-92C4-AEF5839656DC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generate", "other\Generate\Generate.csproj", "{28B4F085-D3F3-49DB-A740-D8E31D2A212A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Generate", "framework\src\Rubrum.Generate\Rubrum.Generate.csproj", "{6525C8BB-AF3C-4D70-9D9C-8BFFEB3B6588}"
 EndProject
@@ -151,6 +143,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Auditing", "framework\src\Rubrum.Auditing\Rubrum.Auditing.csproj", "{EC47F332-C6D7-40CF-8EE9-CF0E677693F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Aspire.Hosting.SpiceDb", "framework\src\Rubrum.Aspire.Hosting.SpiceDb\Rubrum.Aspire.Hosting.SpiceDb.csproj", "{972DBDA4-AFBE-4B04-BAD4-4FE118806731}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.BackgroundJobs.Dapr", "framework\src\Rubrum.BackgroundJobs.Dapr\Rubrum.BackgroundJobs.Dapr.csproj", "{31E29B3D-05D3-4E3E-B725-D437640E7BB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Graphql.Subscriptions.Dapr", "framework\src\Rubrum.Graphql.Subscriptions.Dapr\Rubrum.Graphql.Subscriptions.Dapr.csproj", "{C1F3D71C-222E-44E4-9DA4-689C2FB7620A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -242,10 +238,6 @@ Global
 		{6248AC1D-2F51-4E9C-9159-700189BAD2A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6248AC1D-2F51-4E9C-9159-700189BAD2A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6248AC1D-2F51-4E9C-9159-700189BAD2A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{198736D3-5CBC-49DE-AAD5-DB3082B92C8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{198736D3-5CBC-49DE-AAD5-DB3082B92C8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{198736D3-5CBC-49DE-AAD5-DB3082B92C8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{198736D3-5CBC-49DE-AAD5-DB3082B92C8F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{299734D7-3590-4195-AE9F-3B3907372219}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{299734D7-3590-4195-AE9F-3B3907372219}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{299734D7-3590-4195-AE9F-3B3907372219}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -286,10 +278,6 @@ Global
 		{A1879107-2BA0-4014-8A0E-1B703E3C4F1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1879107-2BA0-4014-8A0E-1B703E3C4F1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1879107-2BA0-4014-8A0E-1B703E3C4F1D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42E63011-B2EF-4492-83A3-81579F880A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42E63011-B2EF-4492-83A3-81579F880A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42E63011-B2EF-4492-83A3-81579F880A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42E63011-B2EF-4492-83A3-81579F880A4A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E0D8DD94-D3D0-4187-BD96-B0D9D87FB1EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E0D8DD94-D3D0-4187-BD96-B0D9D87FB1EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0D8DD94-D3D0-4187-BD96-B0D9D87FB1EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -310,10 +298,6 @@ Global
 		{1514CE2E-FE1F-48E9-92C4-AEF5839656DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1514CE2E-FE1F-48E9-92C4-AEF5839656DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1514CE2E-FE1F-48E9-92C4-AEF5839656DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28B4F085-D3F3-49DB-A740-D8E31D2A212A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28B4F085-D3F3-49DB-A740-D8E31D2A212A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28B4F085-D3F3-49DB-A740-D8E31D2A212A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28B4F085-D3F3-49DB-A740-D8E31D2A212A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6525C8BB-AF3C-4D70-9D9C-8BFFEB3B6588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6525C8BB-AF3C-4D70-9D9C-8BFFEB3B6588}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6525C8BB-AF3C-4D70-9D9C-8BFFEB3B6588}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -374,6 +358,14 @@ Global
 		{972DBDA4-AFBE-4B04-BAD4-4FE118806731}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{972DBDA4-AFBE-4B04-BAD4-4FE118806731}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{972DBDA4-AFBE-4B04-BAD4-4FE118806731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31E29B3D-05D3-4E3E-B725-D437640E7BB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31E29B3D-05D3-4E3E-B725-D437640E7BB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31E29B3D-05D3-4E3E-B725-D437640E7BB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31E29B3D-05D3-4E3E-B725-D437640E7BB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1F3D71C-222E-44E4-9DA4-689C2FB7620A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1F3D71C-222E-44E4-9DA4-689C2FB7620A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1F3D71C-222E-44E4-9DA4-689C2FB7620A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1F3D71C-222E-44E4-9DA4-689C2FB7620A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -414,7 +406,6 @@ Global
 		{ED3FC488-ED22-4D68-81CB-C94F8F22FA30} = {4844EE61-1F8E-40B5-B7E6-AA21FD4CA72F}
 		{38C30C3D-2DC2-41D4-9192-DBB482620CE0} = {4844EE61-1F8E-40B5-B7E6-AA21FD4CA72F}
 		{6248AC1D-2F51-4E9C-9159-700189BAD2A6} = {4844EE61-1F8E-40B5-B7E6-AA21FD4CA72F}
-		{198736D3-5CBC-49DE-AAD5-DB3082B92C8F} = {4844EE61-1F8E-40B5-B7E6-AA21FD4CA72F}
 		{299734D7-3590-4195-AE9F-3B3907372219} = {E048A41F-9B65-41C8-8561-B5644CB16C8D}
 		{38D1794A-37A0-4317-AB56-75748BB419D4} = {E048A41F-9B65-41C8-8561-B5644CB16C8D}
 		{153D19C7-93A0-4387-96E1-F2AE2EB6D207} = {E048A41F-9B65-41C8-8561-B5644CB16C8D}
@@ -425,13 +416,11 @@ Global
 		{3575CFE4-4CCB-4642-BDAD-C2CB8B55E6F1} = {DC177800-E7FF-4B41-916F-34BA28A16B07}
 		{AD9E7511-0F0E-479D-BAED-DEC9D016B9B9} = {DC177800-E7FF-4B41-916F-34BA28A16B07}
 		{A1879107-2BA0-4014-8A0E-1B703E3C4F1D} = {DC177800-E7FF-4B41-916F-34BA28A16B07}
-		{42E63011-B2EF-4492-83A3-81579F880A4A} = {DC177800-E7FF-4B41-916F-34BA28A16B07}
 		{E0D8DD94-D3D0-4187-BD96-B0D9D87FB1EE} = {DC177800-E7FF-4B41-916F-34BA28A16B07}
 		{4DC311E6-4DCC-4713-86FE-84D1529E5490} = {B835F3B6-C587-4CA3-97B2-148BD92DA537}
 		{BDD80FBA-7FDA-4078-B4F5-574BBD761149} = {B835F3B6-C587-4CA3-97B2-148BD92DA537}
 		{26AFA234-229B-4DB1-9CB8-BFEE36107CFA} = {B835F3B6-C587-4CA3-97B2-148BD92DA537}
 		{1514CE2E-FE1F-48E9-92C4-AEF5839656DC} = {B835F3B6-C587-4CA3-97B2-148BD92DA537}
-		{28B4F085-D3F3-49DB-A740-D8E31D2A212A} = {38672E8A-2E76-435B-92AA-F6FAB84D1C1A}
 		{6525C8BB-AF3C-4D70-9D9C-8BFFEB3B6588} = {7035B868-1E06-4E84-A160-D092C73467C2}
 		{EBF4E6F0-62BD-4D4A-AFD2-E5E09339D09F} = {7035B868-1E06-4E84-A160-D092C73467C2}
 		{BD4DA896-6057-496A-A7F5-D32020764785} = {7035B868-1E06-4E84-A160-D092C73467C2}
@@ -447,5 +436,7 @@ Global
 		{079541CD-F508-4254-B68B-9C0D6C009B47} = {7035B868-1E06-4E84-A160-D092C73467C2}
 		{EC47F332-C6D7-40CF-8EE9-CF0E677693F0} = {7035B868-1E06-4E84-A160-D092C73467C2}
 		{972DBDA4-AFBE-4B04-BAD4-4FE118806731} = {7035B868-1E06-4E84-A160-D092C73467C2}
+		{31E29B3D-05D3-4E3E-B725-D437640E7BB1} = {7035B868-1E06-4E84-A160-D092C73467C2}
+		{C1F3D71C-222E-44E4-9DA4-689C2FB7620A} = {7035B868-1E06-4E84-A160-D092C73467C2}
 	EndGlobalSection
 EndGlobal

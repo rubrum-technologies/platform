@@ -34,15 +34,7 @@ var database = builder
     .WithPgAdmin()
     .WithOtlpExporter();
 
-var broker = builder
-    .AddRabbitMQ(
-        "broker",
-        builder.AddParameter("rabbitmq-username"),
-        builder.AddParameter("rabbitmq-password"))
-    .WithDataVolume("rubrum-broker")
-    .WithManagementPlugin();
-
-var spiceDb = builder
+builder
     .AddSpiceDb("spicedb-service")
     .WithPostgres(database.AddDatabase("spicedb-service-db"))
     .WithDaprSidecar(defaultDaprSidecarOptions);
@@ -50,9 +42,7 @@ var spiceDb = builder
 var blobStorageService = builder
     .AddProject<Rubrum_Platform_BlobStorageService_HttpApi_Host>("blob-storage-service")
     .WithReference(auth)
-    .WithReference(broker)
     .WithReference(database.AddDatabase("blob-storage-service-db"))
-    .WithReference(spiceDb)
     .WithDaprSidecar(defaultDaprSidecarOptions)
     .WithYarpDaprRoute("/api/blob-storage/{**everything}")
     .DefaultMicroserviceConfiguration(authority, swaggerClient);

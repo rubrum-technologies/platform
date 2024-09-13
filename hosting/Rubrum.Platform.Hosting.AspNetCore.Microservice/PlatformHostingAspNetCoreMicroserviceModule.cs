@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Rubrum.BackgroundJobs;
 using Rubrum.Modularity;
 using Volo.Abp.AspNetCore.Authentication.JwtBearer;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.Dapr.EventBus;
-using Volo.Abp.BackgroundJobs.RabbitMQ;
 using Volo.Abp.Caching;
 using Volo.Abp.Dapr;
 using Volo.Abp.DistributedLocking.Dapr;
@@ -11,7 +11,6 @@ using Volo.Abp.EventBus.Dapr;
 using Volo.Abp.Http.Client.Dapr;
 using Volo.Abp.Http.Client.IdentityModel.Web;
 using Volo.Abp.Modularity;
-using Volo.Abp.RabbitMQ;
 
 namespace Rubrum.Platform.Hosting;
 
@@ -19,9 +18,9 @@ namespace Rubrum.Platform.Hosting;
 [DependsOn<AbpDistributedLockingDaprModule>]
 [DependsOn<AbpEventBusDaprModule>]
 [DependsOn<AbpAspNetCoreMvcDaprEventBusModule>]
-[DependsOn<AbpBackgroundJobsRabbitMqModule>]
 [DependsOn<AbpAspNetCoreAuthenticationJwtBearerModule>]
 [DependsOn<AbpHttpClientIdentityModelWebModule>]
+[DependsOn<RubrumBackgroundJobsDaprModule>]
 [DependsOn<PlatformHostingAspNetCoreModule>]
 public class PlatformHostingAspNetCoreMicroserviceModule : AbpModule
 {
@@ -38,11 +37,6 @@ public class PlatformHostingAspNetCoreMicroserviceModule : AbpModule
         Configure<AbpAspNetCoreMvcOptions>(options => { options.ExposeIntegrationServices = true; });
 
         Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "Rubrum:"; });
-
-        Configure<AbpRabbitMqOptions>(options =>
-        {
-            options.Connections.Default.Uri = new Uri(configuration["ConnectionStrings:broker"]!);
-        });
 
         Configure<AbpDaprOptions>(options =>
         {

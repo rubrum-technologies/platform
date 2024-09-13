@@ -1,4 +1,3 @@
-using System;
 using Aspire.Hosting;
 using Aspire.Hosting.ApplicationModel;
 

@@ -7,6 +7,6 @@ public class HomeController : AbpController
 {
     public ActionResult Index()
     {
-        return Redirect("~/api/swagger");
+        return Redirect("~/api/graphql/ui/");
     }
 }

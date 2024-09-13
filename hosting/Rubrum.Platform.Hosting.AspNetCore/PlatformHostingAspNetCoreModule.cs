@@ -27,6 +27,7 @@ public class PlatformHostingAspNetCoreModule : AbpModule
             options.AutoValidate = true;
         });
 
+        context.Services.AddGrpc();
         context.Services.AddHealthChecks();
     }
 }

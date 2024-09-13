@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Trace;
 using Rubrum.Graphql;
 using Rubrum.Graphql.SpiceDb;
+using Rubrum.Graphql.Subscriptions;
 using Rubrum.Modularity;
 using Volo.Abp.Modularity;
 
@@ -11,6 +12,7 @@ namespace Rubrum.Platform.Hosting;
 
 [DependsOn<RubrumGraphqlFluentValidationModule>]
 [DependsOn<RubrumGraphqlAuthorizationSpiceDbModule>]
+[DependsOn<RubrumGraphqlSubscriptionsDaprModule>]
 [DependsOn<PlatformHostingAspNetCoreMicroserviceModule>]
 public class PlatformHostingAspNetCoreMicroserviceGraphqlModule : AbpModule
 {

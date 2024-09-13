@@ -38,16 +38,6 @@ public class PlatformBlobStorageServiceHttpApiHostModule : AbpModule
 
         app.UseCorrelationId();
         app.UseAbpRequestLocalization();
-        app.UseStaticFiles(new StaticFileOptions
-        {
-            RequestPath = "/api/blob-storage/static",
-            OnPrepareResponse = ctx =>
-            {
-                ctx.Context.Response.Headers.Append(
-                    "Cache-Control",
-                    $"public, max-age={60 * 60 * 24 * 7}");
-            },
-        });
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
