@@ -1,4 +1,5 @@
 using Rubrum.Modularity;
+using Rubrum.Platform.BlobStorageService.Blobs;
 using Rubrum.Platform.BlobStorageService.DbMigrations;
 using Rubrum.Platform.BlobStorageService.EntityFrameworkCore;
 using Rubrum.Platform.Hosting;
@@ -59,6 +60,8 @@ public class PlatformBlobStorageServiceHttpApiHostModule : AbpModule
         app.UseWebSockets();
         app.UseConfiguredEndpoints(endpoints =>
         {
+            endpoints.MapGrpcService<BlobGrpcService>();
+
             endpoints.MapDefaultEndpoints();
             endpoints.MapGraphQL();
         });

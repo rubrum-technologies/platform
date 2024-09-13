@@ -17,17 +17,12 @@ public class PlatformHostingAspNetCoreModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        Configure<AbpMultiTenancyOptions>(options =>
-        {
-            options.IsEnabled = true;
-        });
+        Configure<AbpMultiTenancyOptions>(options => { options.IsEnabled = true; });
 
-        Configure<AbpAntiForgeryOptions>(options =>
-        {
-            options.AutoValidate = true;
-        });
+        Configure<AbpAntiForgeryOptions>(options => { options.AutoValidate = true; });
 
-        context.Services.AddGrpc();
+        context.Services.AddGrpc(options => { options.EnableDetailedErrors = true; });
+
         context.Services.AddHealthChecks();
     }
 }
