@@ -13,7 +13,6 @@
     <PackageReference Include="Aspire.Hosting.AppHost"/>
     <PackageReference Include="Aspire.Hosting.Keycloak"/>
     <PackageReference Include="Aspire.Hosting.Dapr"/>
-    <PackageReference Include="Aspire.Hosting.RabbitMQ"/>
     <PackageReference Include="Aspire.Hosting.PostgreSQL"/>
     <PackageReference Include="Aspire.Hosting.NodeJs"/>
   </ItemGroup>
@@ -23,8 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\framework\src\Rubrum.Aspire.Hosting.Yarp\Rubrum.Aspire.Hosting.Yarp.csproj" IsAspireProjectResource="false" />
-    <ProjectReference Include="..\..\gateways\Rubrum.Platform.Gateway\Rubrum.Platform.Gateway.csproj" />
-    <ProjectReference Include="..\..\services\blob-storage\src\Rubrum.Platform.BlobStorageService.HttpApi.Host\Rubrum.Platform.BlobStorageService.HttpApi.Host.csproj" />
+    <ProjectReference Include="..\..\framework\src\Rubrum.Aspire.Hosting.SpiceDb\Rubrum.Aspire.Hosting.SpiceDb.csproj" IsAspireProjectResource="false"/>
+    <ProjectReference Include="..\..\framework\src\Rubrum.Aspire.Hosting.Yarp\Rubrum.Aspire.Hosting.Yarp.csproj" IsAspireProjectResource="false"/>
+    <ProjectReference Include="..\..\gateways\Rubrum.Platform.Gateway\Rubrum.Platform.Gateway.csproj"/>
+    <ProjectReference Include="..\..\services\blob-storage\src\Rubrum.Platform.BlobStorageService.HttpApi.Host\Rubrum.Platform.BlobStorageService.HttpApi.Host.csproj"/>
   </ItemGroup>
 </Project>
