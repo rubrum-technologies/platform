@@ -3,6 +3,7 @@ using HotChocolate.Execution;
 using HotChocolate.Execution.Configuration;
 using Rubrum.Graphql;
 using Shouldly;
+using Xunit;
 
 namespace Rubrum.Platform.StoreAppsService;
 
@@ -15,7 +16,7 @@ public sealed class SchemaTests : RubrumGraphqlTestBase<StoreAppsServiceApplicat
         _builder = GetRequiredService<IRequestExecutorBuilder>();
     }
 
-    //[Fact]
+    [Fact]
     public async Task SchemaChangeTest()
     {
         var schema = await _builder.BuildSchemaAsync();

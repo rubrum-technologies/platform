@@ -1,0 +1,282 @@
+schema {
+  query: Query
+}
+
+"This interface can be implemented to store creation information (who and when created)."
+interface CreationAuditedObject implements HasCreationTime & MayHaveCreator {
+  creationTime: DateTime
+  creatorId: ID
+}
+
+"This interface can be implemented to store deletion information (who delete and when deleted)."
+interface DeletionAuditedObject implements HasDeletionTime & SoftDelete {
+  deleterId: ID
+  deletionTime: DateTime
+  isDeleted: Boolean!
+}
+
+"This interface adds IDeletionAuditedObject to IAuditedObject."
+interface FullAuditedObject implements CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & DeletionAuditedObject & HasDeletionTime & SoftDelete {
+  creationTime: DateTime
+  creatorId: ID
+  lastModifierId: ID
+  lastModificationTime: DateTime
+  deleterId: ID
+  deletionTime: DateTime
+  isDeleted: Boolean!
+}
+
+"A standard interface to add CreationTime property."
+interface HasCreationTime {
+  creationTime: DateTime
+}
+
+"A standard interface to add DeletionTime property to a class. It also makes the class soft delete (see ISoftDelete)."
+interface HasDeletionTime implements SoftDelete {
+  deletionTime: DateTime
+  isDeleted: Boolean!
+}
+
+interface HasExtraProperties {
+  extraProperties: JSON
+}
+
+"A standard interface to add DeletionTime property to a class."
+interface HasModificationTime {
+  lastModificationTime: DateTime
+}
+
+"Standard interface for an entity that MAY have a creator."
+interface MayHaveCreator {
+  creatorId: ID
+}
+
+"This interface can be implemented to store modification information (who and when modified lastly)."
+interface ModificationAuditedObject implements HasModificationTime {
+  lastModifierId: ID
+  lastModificationTime: DateTime
+}
+
+interface MultiTenant {
+  tenantId: ID
+}
+
+"Used to standardize soft deleting entities. Soft-delete entities are not actually deleted, marked as IsDeleted = true in the database, but can not be retrieved to the application normally."
+interface SoftDelete {
+  isDeleted: Boolean!
+}
+
+type App implements HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant @aggregate {
+  creatorId: ID
+  lastModifierId: ID
+  deleterId: ID
+  extraProperties: JSON
+  tenantId: ID
+  name: String!
+  version: Version!
+  enabled: Boolean!
+  isDeleted: Boolean!
+  deletionTime: DateTime
+  lastModificationTime: DateTime
+  creationTime: DateTime!
+  concurrencyStamp: String!
+  id: UUID!
+}
+
+"A connection to a list of items."
+type AppsConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [AppsEdge!]
+  "A flattened list of the nodes."
+  nodes: [App!]
+}
+
+"An edge in a connection."
+type AppsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: App!
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+  "Indicates whether more edges exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more edges exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+}
+
+type Query {
+  appById(id: ID!): App @authorize
+  apps("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: AppFilterInput order: [AppSortInput!]): AppsConnection @authorize
+}
+
+type Version {
+  major: Int!
+  minor: Int!
+  patch: Int!
+}
+
+input AppFilterInput {
+  and: [AppFilterInput!]
+  or: [AppFilterInput!]
+  tenantId: UuidOperationFilterInput
+  name: StringOperationFilterInput
+  version: VersionFilterInput
+  enabled: BooleanOperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+  deleterId: UuidOperationFilterInput
+  deletionTime: DateTimeOperationFilterInput
+  lastModificationTime: DateTimeOperationFilterInput
+  lastModifierId: UuidOperationFilterInput
+  creationTime: DateTimeOperationFilterInput
+  creatorId: UuidOperationFilterInput
+  extraProperties: ListFilterInputTypeOfKeyValuePairOfStringAndObjectFilterInput
+  concurrencyStamp: StringOperationFilterInput
+  id: UuidOperationFilterInput
+}
+
+input AppSortInput {
+  tenantId: SortEnumType
+  name: SortEnumType
+  version: VersionSortInput
+  enabled: SortEnumType
+  isDeleted: SortEnumType
+  deleterId: SortEnumType
+  deletionTime: SortEnumType
+  lastModificationTime: SortEnumType
+  lastModifierId: SortEnumType
+  creationTime: SortEnumType
+  creatorId: SortEnumType
+  concurrencyStamp: SortEnumType
+  id: SortEnumType
+}
+
+input BooleanOperationFilterInput {
+  eq: Boolean
+  neq: Boolean
+}
+
+input DateTimeOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime]
+  nin: [DateTime]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+input IntOperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int]
+  nin: [Int]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input KeyValuePairOfStringAndObjectFilterInput {
+  and: [KeyValuePairOfStringAndObjectFilterInput!]
+  or: [KeyValuePairOfStringAndObjectFilterInput!]
+  key: StringOperationFilterInput
+}
+
+input ListFilterInputTypeOfKeyValuePairOfStringAndObjectFilterInput {
+  all: KeyValuePairOfStringAndObjectFilterInput
+  none: KeyValuePairOfStringAndObjectFilterInput
+  some: KeyValuePairOfStringAndObjectFilterInput
+  any: Boolean
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input UuidOperationFilterInput {
+  eq: UUID
+  neq: UUID
+  in: [UUID]
+  nin: [UUID]
+  gt: UUID
+  ngt: UUID
+  gte: UUID
+  ngte: UUID
+  lt: UUID
+  nlt: UUID
+  lte: UUID
+  nlte: UUID
+}
+
+input VersionFilterInput {
+  and: [VersionFilterInput!]
+  or: [VersionFilterInput!]
+  major: IntOperationFilterInput
+  minor: IntOperationFilterInput
+  patch: IntOperationFilterInput
+}
+
+input VersionSortInput {
+  major: SortEnumType
+  minor: SortEnumType
+  patch: SortEnumType
+}
+
+"Defines when a policy shall be executed."
+enum ApplyPolicy {
+  "Before the resolver was executed."
+  BEFORE_RESOLVER
+  "After the resolver was executed."
+  AFTER_RESOLVER
+  "The policy is applied in the validation step before the execution."
+  VALIDATION
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+directive @aggregate on OBJECT
+
+"The authorize directive."
+directive @authorize("The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!] "Defines when when the authorize directive shall be applied.By default the authorize directives are applied during the validation phase." apply: ApplyPolicy! = BEFORE_RESOLVER) repeatable on OBJECT | FIELD_DEFINITION
+
+"The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
+directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
+
+scalar JSON
+
+scalar UUID @specifiedBy(url: "https:\/\/tools.ietf.org\/html\/rfc4122")
