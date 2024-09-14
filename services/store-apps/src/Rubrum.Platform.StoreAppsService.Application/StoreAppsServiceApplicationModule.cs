@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using Rubrum.Graphql;
 using Volo.Abp.Application;
 using Volo.Abp.AutoMapper;
@@ -16,8 +17,8 @@ public class StoreAppsServiceApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        //var graphql = context.Services.GetGraphql();
-        //graphql.AddApplicationTypes();
+        var graphql = context.Services.GetGraphql();
+        graphql.AddApplicationTypes();
 
         Configure<AbpAutoMapperOptions>(options =>
         {
