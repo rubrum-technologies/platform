@@ -10,5 +10,10 @@ public static partial class AppType
     {
         descriptor.FullAuditedAggregateRoot();
         descriptor.MultiTenant();
+
+        descriptor
+            .ImplementsNode()
+            .IdField(x => x.Id)
+            .ResolveNode((context, id) => context.Service<IAppByIdDataLoader>().LoadAsync(id, context.RequestAborted));
     }
 }
