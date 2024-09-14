@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Rubrum.Platform.StoreAppsService.EntityFrameworkCore;
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Rubrum.Platform.StoreAppsService.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(StoreAppsServiceDbContext))]
-    partial class StoreAppsServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240913063252_AddApp")]
+    partial class AddApp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

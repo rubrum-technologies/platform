@@ -1,4 +1,5 @@
 using HotChocolate.Types;
+using Rubrum.Graphql.Ddd;
 
 namespace Rubrum.Platform.StoreAppsService.Apps;
 
@@ -7,6 +8,7 @@ public static partial class AppType
 {
     static partial void Configure(IObjectTypeDescriptor<App> descriptor)
     {
-        // TODO: Описание класса
+        descriptor.FullAuditedAggregateRoot();
+        descriptor.MultiTenant();
     }
 }

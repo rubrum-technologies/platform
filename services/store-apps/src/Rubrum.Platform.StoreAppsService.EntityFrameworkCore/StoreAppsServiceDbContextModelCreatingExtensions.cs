@@ -19,8 +19,21 @@ public static class StoreAppsServiceDbContextModelCreatingExtensions
 
             b.ConfigureByConvention();
 
-            b.Property(x => x.Version).IsRequired();
             b.Property(x => x.Name).IsRequired();
+
+            b.OwnsOne(
+                x => x.Version,
+                a =>
+                {
+                    a.Property(x => x.Major)
+                        .IsRequired();
+
+                    a.Property(x => x.Minor)
+                        .IsRequired();
+
+                    a.Property(x => x.Patch)
+                        .IsRequired();
+                });
         });
     }
 }
