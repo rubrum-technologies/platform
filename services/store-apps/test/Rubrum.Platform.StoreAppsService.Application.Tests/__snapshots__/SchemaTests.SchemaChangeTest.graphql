@@ -61,17 +61,23 @@ interface MultiTenant {
   tenantId: ID
 }
 
+"The node interface is implemented by entities that have a global unique identifier."
+interface Node {
+  id: ID!
+}
+
 "Used to standardize soft deleting entities. Soft-delete entities are not actually deleted, marked as IsDeleted = true in the database, but can not be retrieved to the application normally."
 interface SoftDelete {
   isDeleted: Boolean!
 }
 
-type App implements HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant @aggregate {
+type App implements Node & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant @aggregate {
   creatorId: ID
   lastModifierId: ID
   deleterId: ID
   extraProperties: JSON
   tenantId: ID
+  id: ID!
   name: String!
   version: Version!
   enabled: Boolean!
@@ -80,7 +86,6 @@ type App implements HasExtraProperties & CreationAuditedObject & HasCreationTime
   lastModificationTime: DateTime
   creationTime: DateTime!
   concurrencyStamp: String!
-  id: UUID!
 }
 
 "A connection to a list of items."
