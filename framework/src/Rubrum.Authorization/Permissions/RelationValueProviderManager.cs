@@ -5,30 +5,30 @@ using Volo.Abp.DependencyInjection;
 
 namespace Rubrum.Authorization.Permissions;
 
-public class PermissionValueProviderManager : IPermissionValueProviderManager, ITransientDependency
+public class RelationValueProviderManager : IRelationValueProviderManager, ITransientDependency
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly IOptions<RubrumPermissionOptions> _options;
-    private readonly Lazy<List<IPermissionValueProvider>> _lazyProviders;
+    private readonly Lazy<List<IRelationValueProvider>> _lazyProviders;
 
-    public PermissionValueProviderManager(
+    public RelationValueProviderManager(
         IServiceProvider serviceProvider,
         IOptions<RubrumPermissionOptions> options)
     {
         _serviceProvider = serviceProvider;
         _options = options;
 
-        _lazyProviders = new Lazy<List<IPermissionValueProvider>>(GetProviders, true);
+        _lazyProviders = new Lazy<List<IRelationValueProvider>>(GetProviders, true);
     }
 
-    public IReadOnlyList<IPermissionValueProvider> ValueProviders => _lazyProviders.Value;
+    public IReadOnlyList<IRelationValueProvider> ValueProviders => _lazyProviders.Value;
 
-    protected virtual List<IPermissionValueProvider> GetProviders()
+    protected virtual List<IRelationValueProvider> GetProviders()
     {
         var providers = _options
             .Value
             .ValueProviders
-            .Select(type => (_serviceProvider.GetRequiredService(type) as IPermissionValueProvider)!)
+            .Select(type => (_serviceProvider.GetRequiredService(type) as IRelationValueProvider)!)
             .ToList();
 
         var multipleProviders = providers.GroupBy(p => p.Name).FirstOrDefault(x => x.Count() > 1);

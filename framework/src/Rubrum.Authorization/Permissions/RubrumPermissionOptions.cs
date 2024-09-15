@@ -4,5 +4,5 @@ namespace Rubrum.Authorization.Permissions;
 
 public class RubrumPermissionOptions
 {
-    public ITypeList<IPermissionValueProvider> ValueProviders { get; } = new TypeList<IPermissionValueProvider>();
+    public ITypeList<IRelationValueProvider> ValueProviders { get; } = new TypeList<IRelationValueProvider>();
 }

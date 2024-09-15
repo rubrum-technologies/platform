@@ -4,8 +4,8 @@ using Volo.Abp.DependencyInjection;
 
 namespace Rubrum.Authorization.Permissions;
 
-public class SpiceDbPermissionValueProvider(
-    PermissionsService.PermissionsServiceClient permissionsClient) : IPermissionValueProvider, ITransientDependency
+public class SpiceDbRelationValueProvider(
+    PermissionsService.PermissionsServiceClient permissionsClient) : IRelationValueProvider, ITransientDependency
 {
     public string Name => "SpiceDb";
 

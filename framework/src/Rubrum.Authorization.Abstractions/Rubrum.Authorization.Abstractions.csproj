@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Volo.Abp.Authorization.Abstractions"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Rubrum.Core\Rubrum.Core.csproj"/>
   </ItemGroup>
 </Project>

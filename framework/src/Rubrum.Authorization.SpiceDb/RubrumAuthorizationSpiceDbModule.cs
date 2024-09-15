@@ -13,7 +13,7 @@ public class RubrumAuthorizationSpiceDbModule : AbpModule
     {
         Configure<RubrumPermissionOptions>(options =>
         {
-            options.ValueProviders.Add<SpiceDbPermissionValueProvider>();
+            options.ValueProviders.Add<SpiceDbRelationValueProvider>();
         });
     }
 }

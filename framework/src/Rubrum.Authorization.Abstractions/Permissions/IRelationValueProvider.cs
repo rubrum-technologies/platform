@@ -1,8 +1,10 @@
 ﻿namespace Rubrum.Authorization.Permissions;
 
-public interface IPermissionChecker
+public interface IRelationValueProvider
 {
-    Task<bool> IsGrantedAsync(
+    string Name { get; }
+
+    Task<PermissionGrantResult> GetResultAsync(
         Relationship relationship,
         IReadOnlyDictionary<string, object>? context = null,
         CancellationToken ct = default);

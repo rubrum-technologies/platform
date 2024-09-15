@@ -2,8 +2,8 @@
 
 namespace Rubrum.Authorization.Permissions;
 
-public class PermissionChecker(
-    IPermissionValueProviderManager permissionValueProviderManager) : IPermissionChecker, ITransientDependency
+public class RelationChecker(
+    IRelationValueProviderManager relationValueProviderManager) : IRelationChecker, ITransientDependency
 {
     public async Task<bool> IsGrantedAsync(
         Relationship relationship,
@@ -12,7 +12,7 @@ public class PermissionChecker(
     {
         var isGranted = false;
 
-        foreach (var provider in permissionValueProviderManager.ValueProviders)
+        foreach (var provider in relationValueProviderManager.ValueProviders)
         {
             var result = await provider.GetResultAsync(relationship, context, ct);
 

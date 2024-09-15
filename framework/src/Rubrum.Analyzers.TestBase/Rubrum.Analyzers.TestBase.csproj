@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\common.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Analyzers</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Basic.Reference.Assemblies" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CookieCrumble"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.Analyzers\Rubrum.Analyzers.csproj" />
+  </ItemGroup>
+</Project>
