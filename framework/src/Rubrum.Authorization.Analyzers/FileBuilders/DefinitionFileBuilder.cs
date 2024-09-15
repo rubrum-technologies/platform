@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Microsoft.CodeAnalysis.Text;
 using Rubrum.Analyzers.Helpers;
+using Rubrum.Authorization.Analyzers.Models;
 
 namespace Rubrum.Authorization.Analyzers.FileBuilders;
 
@@ -41,9 +42,26 @@ public sealed class DefinitionFileBuilder : IDisposable
         _writer.IncreaseIndent();
     }
 
-    public void WriteRelationProperty(string type, string name)
+    public void WriteRelationProperty(RelationInfo relation)
     {
-        _writer.WriteIndentedLine("public static {0} {1} {{ get; }} = new {0}();", type, name);
+        _writer.WriteIndentedLine(
+            "public static {0} {1} {{ get; }} = new {0}();",
+            relation.ClassName,
+            relation.PropertyName);
+        _writer.WriteLine();
+    }
+
+    public void WritePermissionProperty(PermissionInfo permission)
+    {
+        _writer.WriteIndentedLine(
+            "public static PermissionLink {0} {{ get; }} = new PermissionLink(\"{0}\");",
+            permission.PropertyName);
+        _writer.WriteLine();
+    }
+
+    public void WritePermissionMethod(PermissionInfo permission)
+    {
+        _writer.WriteIndentedLine("public static partial Permission {0}Configure();", permission.PropertyName);
         _writer.WriteLine();
     }
 

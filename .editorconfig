@@ -82,6 +82,7 @@ resharper_csharp_braces_for_lock = required
 resharper_csharp_braces_for_fixed = required
 
 dotnet_diagnostic.RMG012.severity = error # Unmapped target member
+dotnet_diagnostic.S3236.severity = error;
 
 ###############################
 ## StyleCop.Analyzers         #

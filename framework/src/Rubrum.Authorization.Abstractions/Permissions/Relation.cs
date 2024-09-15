@@ -30,8 +30,8 @@ public abstract class Relation(string name, params Type[] definitions) : IRelati
 
     public static Permission operator &(Relation a, Relation b) => a.ToPermission() & b.ToPermission();
 
-    private PermissionNamed ToPermission()
+    private PermissionField ToPermission()
     {
-        return new PermissionNamed(Name);
+        return new PermissionField(Name);
     }
 }

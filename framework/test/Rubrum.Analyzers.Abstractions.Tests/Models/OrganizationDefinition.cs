@@ -4,7 +4,8 @@ namespace Rubrum.Authorization.Analyzers.Models;
 
 [Definition]
 [Relation("Platform", typeof(PlatformDefinition))]
+[Permission("Admin")]
 public static partial class OrganizationDefinition
 {
-    public static Permission Admin => Platform.SuperAdmin;
+    public static partial Permission AdminConfigure() => Platform.SuperAdmin;
 }

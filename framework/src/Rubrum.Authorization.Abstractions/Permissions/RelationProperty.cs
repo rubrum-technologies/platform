@@ -19,8 +19,8 @@ public class RelationProperty(string name, Type definition)
     private PermissionExpression ToPermission()
     {
         return new PermissionExpression(
-            new PermissionNamed(Definition.Name),
+            new PermissionField(Definition.Name),
             PermissionOperator.Arrow,
-            new PermissionNamed(Name));
+            new PermissionField(Name));
     }
 }

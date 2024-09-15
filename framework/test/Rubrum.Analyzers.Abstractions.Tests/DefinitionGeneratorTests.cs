@@ -1,5 +1,7 @@
-﻿using Rubrum.Analyzers;
+﻿using System.Runtime.CompilerServices;
 using Rubrum.Authorization.Analyzers.Models;
+using Rubrum.Authorization.Permissions;
+using Xunit;
 
 namespace Rubrum.Authorization.Analyzers;
 

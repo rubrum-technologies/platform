@@ -4,7 +4,11 @@ namespace Rubrum.Authorization.Analyzers.Models;
 
 [Definition]
 [Relation("Issue", typeof(IssueDefinition))]
+[Permission("Delete")]
 public static partial class CommentDefinition
 {
-    public static Permission Delete => Issue.ProjectCommentDeleter;
+    public static partial Permission DeleteConfigure()
+    {
+        return null!;
+    }
 }

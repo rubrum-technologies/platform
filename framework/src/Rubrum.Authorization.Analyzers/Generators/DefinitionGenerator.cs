@@ -29,7 +29,17 @@ public class DefinitionGenerator : ISyntaxGenerator
 
             foreach (var relation in definition.Relations)
             {
-                builder.WriteRelationProperty(relation.ClassName, relation.PropertyName);
+                builder.WriteRelationProperty(relation);
+            }
+
+            foreach (var permission in definition.Permissions)
+            {
+                builder.WritePermissionProperty(permission);
+            }
+
+            foreach (var permission in definition.Permissions)
+            {
+                builder.WritePermissionMethod(permission);
             }
 
             foreach (var relation in definition.Relations)

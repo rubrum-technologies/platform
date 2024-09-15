@@ -8,7 +8,6 @@ using Rubrum.Analyzers.Models;
 using Rubrum.Authorization.Analyzers.Models;
 using static System.StringComparison;
 using static Rubrum.Authorization.Analyzers.WellKnownAttributes;
-using static Rubrum.Authorization.Analyzers.WellKnownClasses;
 
 namespace Rubrum.Authorization.Analyzers.Inspectors;
 
@@ -81,17 +80,22 @@ public class DefinitionAttributeInspector : ISyntaxInspector
     {
         var builder = ImmutableArray.CreateBuilder<PermissionInfo>();
 
-        foreach (var property in typeSyntax.Members.OfType<PropertyDeclarationSyntax>())
+        foreach (var attributeSyntax in typeSyntax.AttributeLists.SelectMany(a => a.Attributes))
         {
-            var propertyTypeSymbol = context.SemanticModel.GetSymbolInfo(property.Type).Symbol!;
-            var fullName = propertyTypeSymbol.ToDisplayString();
+            var symbol = context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol;
 
-            if (fullName != PermissionClass)
+            if (symbol is not IMethodSymbol attributeSymbol)
             {
                 continue;
             }
 
-            builder.Add(new PermissionInfo(property.Identifier.Text));
+            var fullName = attributeSymbol.ContainingType.ToDisplayString();
+
+            if (fullName.StartsWith(PermissionAttribute, Ordinal) &&
+                context.SemanticModel.GetDeclaredSymbol(typeSyntax) is ITypeSymbol)
+            {
+                builder.Add(new PermissionInfo(attributeSyntax));
+            }
         }
 
         return builder.ToImmutable();

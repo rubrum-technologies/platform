@@ -24,13 +24,8 @@ public sealed class RelationFileBuilder : IDisposable
 
         var types = string.Join(", ", relation.Classes.Select(x => $"typeof({x})"));
 
-        if (!string.IsNullOrWhiteSpace(types))
-        {
-            types = $", {types}"; // TODO: Удалить
-        }
-
         _writer.WriteIndentedLine(
-            "public sealed class {0}() : Relation(\"{1}\"{2})",
+            "public sealed class {0}() : Relation(\"{1}\", {2})",
             className,
             name,
             types);

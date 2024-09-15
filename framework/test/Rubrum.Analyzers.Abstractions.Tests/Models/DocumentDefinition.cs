@@ -5,9 +5,11 @@ namespace Rubrum.Authorization.Analyzers.Models;
 [Definition]
 [Relation("Writer", typeof(UserDefinition))]
 [Relation("Reader", typeof(UserDefinition))]
+[Permission("Edit")]
+[Permission("View")]
 public static partial class DocumentDefinition
 {
-    public static Permission Edit => Writer;
+    public static partial Permission EditConfigure() => Writer;
 
-    public static Permission View => Reader + Edit;
+    public static partial Permission ViewConfigure() => Reader + Edit;
 }

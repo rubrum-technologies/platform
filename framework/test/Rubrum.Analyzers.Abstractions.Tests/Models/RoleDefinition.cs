@@ -6,13 +6,17 @@ namespace Rubrum.Authorization.Analyzers.Models;
 [Relation("Project", typeof(ProjectDefinition))]
 [Relation("Member", typeof(UserDefinition))]
 [Relation("BuiltInRole", typeof(ProjectDefinition))]
+[Permission("Delete")]
+[Permission("AddUser")]
+[Permission("AddPermission")]
+[Permission("RemovePermission")]
 public static partial class RoleDefinition
 {
-    public static Permission Delete => Project.RoleManager - BuiltInRole.RoleManager;
+    public static partial Permission DeleteConfigure() => Project.RoleManager - BuiltInRole.RoleManager;
 
-    public static Permission AddUser => Project.RoleManager;
+    public static partial Permission AddUserConfigure() => Project.RoleManager;
 
-    public static Permission AddPermission => Project.RoleManager - BuiltInRole.RoleManager;
+    public static partial Permission AddPermissionConfigure() => Project.RoleManager - BuiltInRole.RoleManager;
 
-    public static Permission RemovePermission => Project.RoleManager - BuiltInRole.RoleManager;
+    public static partial Permission RemovePermissionConfigure() => Project.RoleManager - BuiltInRole.RoleManager;
 }

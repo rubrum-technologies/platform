@@ -1,6 +1,17 @@
-﻿namespace Rubrum.Authorization.Analyzers.Models;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-public class PermissionInfo(string propertyName)
+namespace Rubrum.Authorization.Analyzers.Models;
+
+public class PermissionInfo
 {
-    public string PropertyName => propertyName;
+    public PermissionInfo(AttributeSyntax attributeSyntax)
+    {
+        var arguments = attributeSyntax.ArgumentList!.Arguments;
+
+        PropertyName = arguments[0]
+            .ToFullString()
+            .Trim('"');
+    }
+
+    public string PropertyName { get; }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Rubrum.Authorization.Permissions;
 
-internal sealed class PermissionNamed(string name) : Permission
+internal sealed class PermissionField(string name) : Permission
 {
     public string Name => name;
 }

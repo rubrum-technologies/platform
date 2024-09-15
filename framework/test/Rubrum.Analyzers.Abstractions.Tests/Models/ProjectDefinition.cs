@@ -10,9 +10,11 @@ namespace Rubrum.Authorization.Analyzers.Models;
 [Relation("CommentCreator", typeof(RoleDefinition.MemberRelation))]
 [Relation("CommentDeleter", typeof(RoleDefinition.MemberRelation))]
 [Relation("RoleManager", typeof(RoleDefinition.MemberRelation))]
+[Permission("CreateIssue")]
+[Permission("CreateRole")]
 public static partial class ProjectDefinition
 {
-    public static Permission CreateIssue => IssueCreator;
+    public static partial Permission CreateIssueConfigure() => IssueCreator;
 
-    public static Permission CreateRole => RoleManager;
+    public static partial Permission CreateRoleConfigure() => RoleManager;
 }

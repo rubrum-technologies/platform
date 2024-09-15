@@ -4,7 +4,8 @@ namespace Rubrum.Authorization.Analyzers.Models;
 
 [Definition]
 [Relation("Owner", typeof(UserDefinition), typeof(OrganizationDefinition))]
+[Permission("Admin")]
 public static partial class ResourceDefinition
 {
-    public static Permission Admin => Owner + Owner.Admin;
+    public static partial Permission AdminConfigure() => Owner + Owner.Admin;
 }
