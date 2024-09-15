@@ -9,7 +9,7 @@ public class SpiceDbRelationValueProvider(
 {
     public string Name => "SpiceDb";
 
-    public async Task<PermissionGrantResult> GetResultAsync(
+    public async Task<RelationGrantResult> GetResultAsync(
         Relationship relationship,
         IReadOnlyDictionary<string, object>? context = null,
         CancellationToken ct = default)
@@ -39,11 +39,11 @@ public class SpiceDbRelationValueProvider(
 
         return result.Permissionship switch
         {
-            CheckPermissionResponse.Types.Permissionship.Unspecified => PermissionGrantResult.Undefined,
-            CheckPermissionResponse.Types.Permissionship.NoPermission => PermissionGrantResult.Prohibited,
-            CheckPermissionResponse.Types.Permissionship.HasPermission => PermissionGrantResult.Granted,
-            CheckPermissionResponse.Types.Permissionship.ConditionalPermission => PermissionGrantResult.Undefined,
-            _ => PermissionGrantResult.Undefined,
+            CheckPermissionResponse.Types.Permissionship.Unspecified => RelationGrantResult.Undefined,
+            CheckPermissionResponse.Types.Permissionship.NoPermission => RelationGrantResult.Prohibited,
+            CheckPermissionResponse.Types.Permissionship.HasPermission => RelationGrantResult.Granted,
+            CheckPermissionResponse.Types.Permissionship.ConditionalPermission => RelationGrantResult.Undefined,
+            _ => RelationGrantResult.Undefined,
         };
     }
 

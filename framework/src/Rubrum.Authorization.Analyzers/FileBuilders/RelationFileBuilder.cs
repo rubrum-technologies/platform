@@ -30,7 +30,7 @@ public sealed class RelationFileBuilder : IDisposable
         }
 
         _writer.WriteIndentedLine(
-            "public sealed class {0}() : Relation<{0}>(\"{1}\"{2})",
+            "public sealed class {0}() : Relation(\"{1}\"{2})",
             className,
             name,
             types);

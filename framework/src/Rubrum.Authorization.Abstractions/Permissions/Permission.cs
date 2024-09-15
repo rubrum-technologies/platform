@@ -1,10 +1,19 @@
-﻿namespace Rubrum.Authorization.Permissions;
+﻿#pragma warning disable S4050
 
-public sealed class Permission
+namespace Rubrum.Authorization.Permissions;
+
+public abstract class Permission
 {
-    public static Permission operator +(Permission a, Permission b) => new();
+    private protected Permission()
+    {
+    }
 
-    public static Permission operator -(Permission a, Permission b) => new();
+    public static Permission operator +(Permission a, Permission b) =>
+        new PermissionExpression(a, PermissionOperator.Union, b);
 
-    public static Permission operator &(Permission a, Permission b) => new();
+    public static Permission operator -(Permission a, Permission b) =>
+        new PermissionExpression(a, PermissionOperator.Exclusion, b);
+
+    public static Permission operator &(Permission a, Permission b) =>
+        new PermissionExpression(a, PermissionOperator.Intersection, b);
 }

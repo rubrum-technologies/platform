@@ -1,6 +1,6 @@
 ﻿namespace Rubrum.Authorization.Permissions;
 
-public enum PermissionGrantResult
+public enum RelationGrantResult
 {
     /// <summary>
     /// Undefined.

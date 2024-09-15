@@ -16,11 +16,11 @@ public class RelationChecker(
         {
             var result = await provider.GetResultAsync(relationship, context, ct);
 
-            if (result == PermissionGrantResult.Granted)
+            if (result == RelationGrantResult.Granted)
             {
                 isGranted = true;
             }
-            else if (result == PermissionGrantResult.Prohibited)
+            else if (result == RelationGrantResult.Prohibited)
             {
                 return false;
             }
