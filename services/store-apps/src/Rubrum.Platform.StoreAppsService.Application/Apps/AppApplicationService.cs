@@ -6,5 +6,4 @@ public class AppApplicationService(
     IAppRepository appRepository,
     AppManager appManager) : ApplicationService
 {
-
 }

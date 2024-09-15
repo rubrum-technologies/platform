@@ -13,7 +13,7 @@ namespace Rubrum.Platform.StoreAppsService;
 [DependsOn(typeof(AbpTestBaseModule))]
 [DependsOn(typeof(AbpAuthorizationModule))]
 [DependsOn(typeof(AbpGuidsModule))]
-[DependsOn(typeof(StoreAppsServiceDomainModule))]
+[DependsOn(typeof(PlatformStoreAppsServiceDomainModule))]
 public class StoreAppsServiceTestBaseModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

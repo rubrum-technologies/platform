@@ -6,5 +6,5 @@ namespace Rubrum.Platform.StoreAppsService;
 
 [DependsOn(typeof(AbpAuthorizationAbstractionsModule))]
 [DependsOn(typeof(AbpDddApplicationContractsModule))]
-[DependsOn(typeof(StoreAppsServiceDomainSharedModule))]
-public class StoreAppsServiceApplicationContractsModule : AbpModule;
+[DependsOn(typeof(PlatformStoreAppsServiceDomainSharedModule))]
+public class PlatformStoreAppsServiceApplicationContractsModule : AbpModule;
