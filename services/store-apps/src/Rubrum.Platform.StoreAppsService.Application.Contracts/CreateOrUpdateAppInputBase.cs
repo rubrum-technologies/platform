@@ -1,8 +1,10 @@
+using Version = Rubrum.Platform.StoreAppsService.Apps.Version;
+
 namespace Rubrum.Platform.StoreAppsService;
 
 public class CreateOrUpdateAppInputBase
 {
-    public string Version { get; init; }
+    public Version Version { get; init; }
 
     public bool Enabled { get; init; }
 }
