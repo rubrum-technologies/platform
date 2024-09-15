@@ -2,13 +2,12 @@
   <Import Project="..\..\..\..\common.props" />
 
   <PropertyGroup>
-    <AssemblyName>StoreAppsService</AssemblyName>
+    <AssemblyName>Rubrum.Platform.StoreAppsService</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\hosting\Rubrum.Platform.Hosting.AspNetCore.Microservice.Graphql\Rubrum.Platform.Hosting.AspNetCore.Microservice.Graphql.csproj" />
     <ProjectReference Include="..\Rubrum.Platform.StoreAppsService.Application\Rubrum.Platform.StoreAppsService.Application.csproj" />
     <ProjectReference Include="..\Rubrum.Platform.StoreAppsService.EntityFrameworkCore\Rubrum.Platform.StoreAppsService.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\Rubrum.Platform.StoreAppsService.HttpApi\Rubrum.Platform.StoreAppsService.HttpApi.csproj" />
   </ItemGroup>
 </Project>

@@ -6,14 +6,14 @@ namespace Rubrum.Platform.StoreAppsService;
 
 [DependsOn(typeof(AbpAutoMapperModule))]
 [DependsOn(typeof(AbpDddDomainModule))]
-[DependsOn(typeof(StoreAppsServiceDomainSharedModule))]
-public class StoreAppsServiceDomainModule : AbpModule
+[DependsOn(typeof(PlatformStoreAppsServiceDomainSharedModule))]
+public class PlatformStoreAppsServiceDomainModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         Configure<AbpAutoMapperOptions>(options =>
         {
-            options.AddMaps<StoreAppsServiceDomainModule>(validate: true);
+            options.AddMaps<PlatformStoreAppsServiceDomainModule>(validate: true);
         });
     }
 }

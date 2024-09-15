@@ -1,21 +1,22 @@
-using System.Reflection;
 using Rubrum.Graphql;
+using Rubrum.Modularity;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Modularity;
 
 namespace Rubrum.Platform.StoreAppsService;
 
-[DependsOn(typeof(AbpAspNetCoreMvcModule))]
-[DependsOn(typeof(RubrumGraphqlModule))]
-public class GraphqlGenerationModule : AbpModule
+[DependsOn<AbpAspNetCoreMvcModule>]
+[DependsOn<RubrumGraphqlAuthorizationModule>]
+[DependsOn<RubrumGraphqlModule>]
+internal class GraphqlGenerationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         context.Services
             .GetGraphql()
             .AddCoreTypes()
-            //.AddApplicationTypes()
+            .AddApplicationTypes()
             .AddGraphQLServer();
     }
 
