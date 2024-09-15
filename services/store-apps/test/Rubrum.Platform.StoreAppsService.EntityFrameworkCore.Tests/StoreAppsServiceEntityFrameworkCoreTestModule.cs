@@ -14,7 +14,7 @@ namespace Rubrum.Platform.StoreAppsService;
 
 [DependsOn(typeof(AbpEntityFrameworkCoreSqliteModule))]
 [DependsOn(typeof(StoreAppsServiceTestBaseModule))]
-[DependsOn(typeof(StoreAppsServiceEntityFrameworkCoreModule))]
+[DependsOn(typeof(PlatformStoreAppsServiceEntityFrameworkCoreModule))]
 public class StoreAppsServiceEntityFrameworkCoreTestModule : AbpModule
 {
     private SqliteConnection? _sqliteConnection;

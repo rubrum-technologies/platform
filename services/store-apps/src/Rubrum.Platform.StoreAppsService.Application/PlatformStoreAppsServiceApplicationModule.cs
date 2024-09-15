@@ -11,18 +11,21 @@ namespace Rubrum.Platform.StoreAppsService;
 [DependsOn(typeof(AbpDddApplicationModule))]
 [DependsOn(typeof(AbpAutoMapperModule))]
 [DependsOn(typeof(RubrumGraphqlModule))]
-[DependsOn(typeof(StoreAppsServiceApplicationContractsModule))]
-[DependsOn(typeof(StoreAppsServiceDomainModule))]
-public class StoreAppsServiceApplicationModule : AbpModule
+[DependsOn(typeof(PlatformStoreAppsServiceApplicationContractsModule))]
+[DependsOn(typeof(PlatformStoreAppsServiceDomainModule))]
+public class PlatformStoreAppsServiceApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         var graphql = context.Services.GetGraphql();
-        graphql.AddApplicationTypes();
+
+        graphql
+            .AddGlobalObjectIdentification()
+            .AddApplicationTypes();
 
         Configure<AbpAutoMapperOptions>(options =>
         {
-            options.AddMaps<StoreAppsServiceApplicationModule>(validate: true);
+            options.AddMaps<PlatformStoreAppsServiceApplicationModule>(validate: true);
         });
     }
 }

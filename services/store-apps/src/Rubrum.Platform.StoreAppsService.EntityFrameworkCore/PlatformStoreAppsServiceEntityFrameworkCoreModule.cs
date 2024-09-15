@@ -7,8 +7,8 @@ using Volo.Abp.Modularity;
 namespace Rubrum.Platform.StoreAppsService.EntityFrameworkCore;
 
 [DependsOn(typeof(AbpEntityFrameworkCorePostgreSqlModule))]
-[DependsOn(typeof(StoreAppsServiceDomainModule))]
-public class StoreAppsServiceEntityFrameworkCoreModule : AbpModule
+[DependsOn(typeof(PlatformStoreAppsServiceDomainModule))]
+public class PlatformStoreAppsServiceEntityFrameworkCoreModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
