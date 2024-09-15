@@ -8,7 +8,7 @@ using Rubrum.Graphql.Middlewares;
 namespace Rubrum.Platform.StoreAppsService.Apps;
 
 [QueryType]
-public static partial class AppQuery
+public static class AppQueries
 {
     [Authorize]
     [NodeResolver]

@@ -26,5 +26,6 @@
     <ProjectReference Include="..\..\framework\src\Rubrum.Aspire.Hosting.Yarp\Rubrum.Aspire.Hosting.Yarp.csproj" IsAspireProjectResource="false"/>
     <ProjectReference Include="..\..\gateways\Rubrum.Platform.Gateway\Rubrum.Platform.Gateway.csproj"/>
     <ProjectReference Include="..\..\services\blob-storage\src\Rubrum.Platform.BlobStorageService.HttpApi.Host\Rubrum.Platform.BlobStorageService.HttpApi.Host.csproj"/>
+    <ProjectReference Include="..\..\services\store-apps\src\Rubrum.Platform.StoreAppsService.HttpApi.Host\Rubrum.Platform.StoreAppsService.HttpApi.Host.csproj"/>
   </ItemGroup>
 </Project>
