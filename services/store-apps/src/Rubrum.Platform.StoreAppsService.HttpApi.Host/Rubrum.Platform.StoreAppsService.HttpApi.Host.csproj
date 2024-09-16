@@ -2,7 +2,7 @@
   <Import Project="..\..\..\..\common.props" />
 
   <PropertyGroup>
-    <AssemblyName>Rubrum.Platform.StoreAppsService</AssemblyName>
+    <RootNamespace>Rubrum.Platform.StoreAppsService</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
