@@ -16,12 +16,6 @@ public class PlatformStoreAppsServiceHttpApiHostModule : AbpModule
         var configuration = context.Services.GetConfiguration();
 
         JwtBearerConfigurationHelper.Configure(context, configuration["AuthServer:Audience"]!);
-
-        SwaggerConfigurationHelper.ConfigureWithOidc(
-            context: context,
-            authority: configuration["AuthServer:Authority"]!,
-            scopes: [configuration["AuthServer:Audience"]!],
-            apiTitle: "StoreAppsService API");
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -36,32 +30,9 @@ public class PlatformStoreAppsServiceHttpApiHostModule : AbpModule
 
         app.UseCorrelationId();
         app.UseAbpRequestLocalization();
-        app.UseStaticFiles(new StaticFileOptions
-        {
-            RequestPath = "/api/StoreAppsService/static",
-            OnPrepareResponse = ctx =>
-            {
-                ctx.Context.Response.Headers.Append(
-                    "Cache-Control",
-                    $"public, max-age={60 * 60 * 24 * 7}");
-            },
-        });
         app.UseRouting();
         app.UseAuthentication();
-        app.UseAbpClaimsMap();
         app.UseAuthorization();
-        app.UseSwagger(options =>
-        {
-            options.RouteTemplate = "api/StoreAppsService/swagger/{documentname}/swagger.json";
-        });
-        app.UseSwaggerUI(options =>
-        {
-            var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
-            options.RoutePrefix = "api/swagger";
-            options.SwaggerEndpoint("/api/StoreAppsService/swagger/v1/swagger.json", "StoreAppsService API");
-            options.OAuthClientId(configuration["Swagger:ClientId"]);
-            options.OAuthClientSecret(configuration["Swagger:ClientSecret"]);
-        });
         app.UseAbpSerilogEnrichers();
         app.UseAuditing();
         app.UseUnitOfWork();
