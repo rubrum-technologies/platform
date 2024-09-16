@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Graphql\Rubrum.Graphql.csproj" />
     <ProjectReference Include="..\Rubrum.Platform.StoreAppsService.Domain\Rubrum.Platform.StoreAppsService.Domain.csproj" />
     <ProjectReference Include="..\Rubrum.Platform.StoreAppsService.Domain.Shared\Rubrum.Platform.StoreAppsService.Domain.Shared.csproj" />
   </ItemGroup>
