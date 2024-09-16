@@ -44,6 +44,24 @@ public static class AppMutations
     }
 
     [Error<AppNotFoundException>]
+    public static async Task<App> DeleteAsync(
+        [ID<App>] Guid appId,
+        [Service] IAppRepository appRepository,
+        CancellationToken cancellationToken = default)
+    {
+        var app = await appRepository.FindAsync(x => x.Id == appId, false, cancellationToken);
+
+        if (app is null)
+        {
+            throw new AppNotFoundException();
+        }
+
+        await appRepository.DeleteAsync(app, true, cancellationToken);
+
+        return app;
+    }
+
+    [Error<AppNotFoundException>]
     public static async Task<App> ActivateAsync(
         [ID<App>] Guid appId,
         [Service] IAppRepository appRepository,
