@@ -16,6 +16,10 @@ interface DeletionAuditedObject implements HasDeletionTime & SoftDelete {
   isDeleted: Boolean!
 }
 
+interface Error {
+  message: String!
+}
+
 "This interface adds IDeletionAuditedObject to IAuditedObject."
 interface FullAuditedObject implements CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & DeletionAuditedObject & HasDeletionTime & SoftDelete {
   creationTime: DateTime
@@ -72,6 +76,11 @@ interface SoftDelete {
   isDeleted: Boolean!
 }
 
+type ActivatePayload {
+  app: App
+  errors: [ActivateError!]
+}
+
 type App implements Node & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant @aggregate {
   creatorId: ID
   lastModifierId: ID
@@ -87,6 +96,10 @@ type App implements Node & HasExtraProperties & CreationAuditedObject & HasCreat
   lastModificationTime: DateTime
   creationTime: DateTime!
   concurrencyStamp: String!
+}
+
+type AppNotFoundError implements Error {
+  message: String!
 }
 
 "A connection to a list of items."
@@ -107,12 +120,31 @@ type AppsEdge {
   node: App!
 }
 
+type ChangeNamePayload {
+  app: App
+  errors: [ChangeNameError!]
+}
+
 type CreateAppPayload {
-  app: App!
+  app: App
+}
+
+type DeactivatePayload {
+  app: App
+  errors: [DeactivateError!]
+}
+
+type DeletePayload {
+  app: App
+  errors: [DeleteError!]
 }
 
 type Mutation {
   createApp(input: CreateAppInput!): CreateAppPayload!
+  changeName(input: ChangeNameInput!): ChangeNamePayload!
+  delete(input: DeleteInput!): DeletePayload!
+  activate(input: ActivateInput!): ActivatePayload!
+  deactivate(input: DeactivateInput!): DeactivatePayload!
 }
 
 "Information about pagination in a connection."
@@ -140,6 +172,18 @@ type Version {
   major: Int!
   minor: Int!
   patch: Int!
+}
+
+union ActivateError = AppNotFoundError
+
+union ChangeNameError = AppNotFoundError
+
+union DeactivateError = AppNotFoundError
+
+union DeleteError = AppNotFoundError
+
+input ActivateInput {
+  appId: ID!
 }
 
 input AppFilterInput {
@@ -182,7 +226,12 @@ input BooleanOperationFilterInput {
   neq: Boolean
 }
 
+input ChangeNameInput {
+  input: UpdateAppInput!
+}
+
 input CreateAppInput {
+  tenantId: ID
   name: String!
   version: VersionInput!
   enabled: Boolean!
@@ -201,6 +250,14 @@ input DateTimeOperationFilterInput {
   nlt: DateTime
   lte: DateTime
   nlte: DateTime
+}
+
+input DeactivateInput {
+  appId: ID!
+}
+
+input DeleteInput {
+  appId: ID!
 }
 
 input IntOperationFilterInput {
@@ -244,6 +301,11 @@ input StringOperationFilterInput {
   nstartsWith: String
   endsWith: String
   nendsWith: String
+}
+
+input UpdateAppInput {
+  appId: ID!
+  name: String!
 }
 
 input UuidOperationFilterInput {
