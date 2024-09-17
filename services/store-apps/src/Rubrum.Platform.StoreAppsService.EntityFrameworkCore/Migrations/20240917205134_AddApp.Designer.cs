@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Rubrum.Platform.StoreAppsService.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(StoreAppsServiceDbContext))]
-    [Migration("20240913063252_AddApp")]
+    [Migration("20240917205134_AddApp")]
     partial class AddApp
     {
         /// <inheritdoc />
@@ -79,7 +79,8 @@ namespace Rubrum.Platform.StoreAppsService.EntityFrameworkCore.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<Guid?>("TenantId")
                         .HasColumnType("uuid")

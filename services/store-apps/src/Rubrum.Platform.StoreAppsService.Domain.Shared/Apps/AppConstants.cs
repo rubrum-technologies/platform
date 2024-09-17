@@ -1,7 +1,7 @@
 namespace Rubrum.Platform.StoreAppsService.Apps;
 
-public class AppConstants
+public static class AppConstants
 {
     public const string TypeName = "App";
-    public const int NameLength = 50;
+    public const int MaxNameLength = 50;
 }

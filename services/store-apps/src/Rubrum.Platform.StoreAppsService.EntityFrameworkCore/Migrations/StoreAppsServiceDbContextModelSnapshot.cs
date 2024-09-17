@@ -76,7 +76,8 @@ namespace Rubrum.Platform.StoreAppsService.EntityFrameworkCore.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<Guid?>("TenantId")
                         .HasColumnType("uuid")
