@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Rubrum.Analyzers.TestBase\Rubrum.Analyzers.TestBase.csproj" />
-    <ProjectReference Include="..\..\src\Rubrum.Analyzers\Rubrum.Analyzers.csproj" />
     <ProjectReference Include="..\..\src\Rubrum.Authorization.Abstractions\Rubrum.Authorization.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Rubrum.Authorization.Analyzers\Rubrum.Authorization.Analyzers.csproj" OutputItemType="Analyzer"/>
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿using Rubrum.Authorization.Permissions;
+﻿using Rubrum.Authorization.Relations;
 
 namespace Rubrum.Authorization.Analyzers.Models;
 

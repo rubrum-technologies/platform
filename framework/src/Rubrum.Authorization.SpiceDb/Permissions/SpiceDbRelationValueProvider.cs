@@ -1,6 +1,8 @@
 ﻿using Authzed.Api.V1;
 using Google.Protobuf.WellKnownTypes;
+using Rubrum.Authorization.Relations;
 using Volo.Abp.DependencyInjection;
+using Relationship = Rubrum.Authorization.Relations.Relationship;
 
 namespace Rubrum.Authorization.Permissions;
 
@@ -17,7 +19,7 @@ public class SpiceDbRelationValueProvider(
         var result = await permissionsClient.CheckPermissionAsync(
             new CheckPermissionRequest
             {
-                Permission = relationship.Relation,
+                Permission = relationship.Relation.Name,
                 Resource = new Authzed.Api.V1.ObjectReference
                 {
                     ObjectType = relationship.Resource.Type,

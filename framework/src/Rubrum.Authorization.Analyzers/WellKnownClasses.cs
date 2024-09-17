@@ -2,5 +2,5 @@
 
 public static class WellKnownClasses
 {
-    public const string PermissionClass = "Rubrum.Authorization.Permissions.Permission";
+    public const string PermissionClass = "Rubrum.Authorization.Relations.Permission";
 }

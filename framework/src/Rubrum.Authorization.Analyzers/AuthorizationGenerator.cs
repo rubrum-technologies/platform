@@ -1,12 +1,10 @@
 ﻿using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
-using Rubrum.Analyzers.Extensions;
-using Rubrum.Analyzers.Filters;
-using Rubrum.Analyzers.Generators;
-using Rubrum.Analyzers.Inspectors;
-using Rubrum.Analyzers.Models;
+using Rubrum.Authorization.Analyzers.Extensions;
+using Rubrum.Authorization.Analyzers.Filters;
 using Rubrum.Authorization.Analyzers.Generators;
 using Rubrum.Authorization.Analyzers.Inspectors;
+using Rubrum.Authorization.Analyzers.Models;
 
 namespace Rubrum.Authorization.Analyzers;
 

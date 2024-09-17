@@ -16,8 +16,4 @@
   <ItemGroup>
     <PackageReference Include="CookieCrumble"/>
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Rubrum.Analyzers\Rubrum.Analyzers.csproj" />
-  </ItemGroup>
 </Project>

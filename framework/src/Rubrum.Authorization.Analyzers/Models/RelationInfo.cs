@@ -20,6 +20,7 @@ public sealed class RelationInfo
         FullName = $"{typeSymbol.ToDisplayString()}.{ClassName}";
 
         Classes = GetValues(context, attributeSyntax);
+        AttributeSyntax = attributeSyntax;
     }
 
     public string FullName { get; }
@@ -29,6 +30,13 @@ public sealed class RelationInfo
     public string PropertyName { get; }
 
     public ImmutableArray<string> Classes { get; }
+
+    public AttributeSyntax AttributeSyntax { get; }
+
+    internal bool Equals(RelationInfo other)
+    {
+        return AttributeSyntax.IsEquivalentTo(other.AttributeSyntax);
+    }
 
     private static ImmutableArray<string> GetValues(
         GeneratorSyntaxContext context,

@@ -1,4 +1,5 @@
 ﻿using Rubrum.Authorization.Permissions;
+using Rubrum.Authorization.Relations;
 using Rubrum.Modularity;
 using Rubrum.SpiceDb;
 using Volo.Abp.Modularity;

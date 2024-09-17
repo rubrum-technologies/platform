@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using Microsoft.CodeAnalysis.Text;
-using Rubrum.Analyzers.Helpers;
+using Rubrum.Authorization.Analyzers.Helpers;
 using Rubrum.Authorization.Analyzers.Models;
 
 namespace Rubrum.Authorization.Analyzers.FileBuilders;
@@ -24,7 +24,7 @@ public sealed class DefinitionFileBuilder : IDisposable
         _writer.WriteIndentedLine("#pragma warning disable");
         _writer.WriteLine();
         _writer.WriteIndentedLine("using System;");
-        _writer.WriteIndentedLine("using Rubrum.Authorization.Permissions;");
+        _writer.WriteIndentedLine("using Rubrum.Authorization.Relations;");
         _writer.WriteLine();
     }
 

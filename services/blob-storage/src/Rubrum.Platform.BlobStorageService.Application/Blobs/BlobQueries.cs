@@ -1,10 +1,7 @@
 ﻿using HotChocolate;
 using HotChocolate.Authorization;
-using HotChocolate.Data;
 using HotChocolate.Types;
 using HotChocolate.Types.Relay;
-using Rubrum.Authorization.Permissions;
-using Rubrum.Graphql.Middlewares;
 
 namespace Rubrum.Platform.BlobStorageService.Blobs;
 

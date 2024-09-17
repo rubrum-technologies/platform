@@ -2,9 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Rubrum.Analyzers.Filters;
-using Rubrum.Analyzers.Inspectors;
-using Rubrum.Analyzers.Models;
+using Rubrum.Authorization.Analyzers.Filters;
 using Rubrum.Authorization.Analyzers.Models;
 using static System.StringComparison;
 using static Rubrum.Authorization.Analyzers.WellKnownAttributes;

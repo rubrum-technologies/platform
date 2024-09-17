@@ -1,8 +1,6 @@
 ﻿using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
-using Rubrum.Analyzers.Generators;
-using Rubrum.Analyzers.Models;
 using Rubrum.Authorization.Analyzers.FileBuilders;
 using Rubrum.Authorization.Analyzers.Models;
 
