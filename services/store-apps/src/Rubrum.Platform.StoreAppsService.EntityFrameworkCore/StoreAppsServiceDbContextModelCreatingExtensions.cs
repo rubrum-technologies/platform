@@ -19,7 +19,9 @@ public static class StoreAppsServiceDbContextModelCreatingExtensions
 
             b.ConfigureByConvention();
 
-            b.Property(x => x.Name).IsRequired();
+            b.Property(x => x.Name)
+                .HasMaxLength(AppConstants.MaxNameLength)
+                .IsRequired();
 
             b.OwnsOne(
                 x => x.Version,
