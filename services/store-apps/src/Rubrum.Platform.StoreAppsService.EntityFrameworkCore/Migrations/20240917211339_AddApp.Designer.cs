@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Rubrum.Platform.StoreAppsService.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(StoreAppsServiceDbContext))]
-    [Migration("20240917205134_AddApp")]
+    [Migration("20240917211339_AddApp")]
     partial class AddApp
     {
         /// <inheritdoc />

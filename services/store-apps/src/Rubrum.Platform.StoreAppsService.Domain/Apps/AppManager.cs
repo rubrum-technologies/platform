@@ -1,12 +1,14 @@
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
+using Volo.Abp.MultiTenancy;
 using Volo.Abp.Threading;
 
 namespace Rubrum.Platform.StoreAppsService.Apps;
 
 public class AppManager(
-    IAppRepository appRepository,
-    ICancellationTokenProvider cancellationTokenProvider) : DomainService
+    IAppRepository repository,
+    ICurrentTenant currentTenant,
+    ICancellationTokenProvider ctProvider) : DomainService
 {
     public async Task<App> CreateAsync(
         Guid? tenantId,
@@ -14,9 +16,12 @@ public class AppManager(
         Version version,
         bool enabled)
     {
-        await CheckNameAsync(name);
+        using (currentTenant.Change(tenantId))
+        {
+            await CheckNameAsync(name);
 
-        return new App(GuidGenerator.Create(), tenantId, name, version, enabled);
+            return new App(GuidGenerator.Create(), tenantId, name, version, enabled);
+        }
     }
 
     public async Task ChangeNameAsync(App app, string name)
@@ -33,9 +38,9 @@ public class AppManager(
 
     private async Task CheckNameAsync(string name)
     {
-        var cancellationToken = cancellationTokenProvider.Token;
+        var cancellationToken = ctProvider.Token;
 
-        if (await appRepository.AnyAsync(x => x.Name == name, cancellationToken))
+        if (await repository.AnyAsync(x => x.Name == name, cancellationToken))
         {
             throw new AppNameAlreadyExistsException(name);
         }
