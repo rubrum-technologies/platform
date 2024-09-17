@@ -1,98 +1,84 @@
 using HotChocolate;
 using HotChocolate.Types;
 using HotChocolate.Types.Relay;
+using Rubrum.Graphql.Middlewares;
 
 namespace Rubrum.Platform.StoreAppsService.Apps;
 
 [MutationType]
 public static class AppMutations
 {
+    [UseUnitOfWork]
     public static async Task<App> CreateAppAsync(
         CreateAppInput input,
-        [Service] IAppRepository appRepository,
-        [Service] AppManager appManager,
-        CancellationToken cancellationToken = default)
+        [Service] IAppRepository repository,
+        [Service] AppManager manager,
+        CancellationToken ct = default)
     {
-        var app = await appManager.CreateAsync(
+        var app = await manager.CreateAsync(
             input.TenantId,
             input.Name,
             input.Version,
             input.Enabled);
 
-        await appRepository.InsertAsync(app, true, cancellationToken);
+        await repository.InsertAsync(app, true, ct);
 
         return app;
     }
 
-    [Error<AppNotFoundException>]
-    public static async Task<App> ChangeNameAsync(
-        UpdateAppInput input,
-        [Service] IAppRepository appRepository,
-        [Service] AppManager appManager,
-        CancellationToken cancellationToken = default)
+    [UseUnitOfWork]
+    public static async Task<App> ChangeNameAppAsync(
+        ChangeNameAppInput input,
+        [Service] IAppRepository repository,
+        [Service] AppManager manager,
+        CancellationToken ct = default)
     {
-        var app = await appRepository.FindAsync(x => x.Id == input.AppId, false, cancellationToken);
+        var app = await repository.GetAsync(x => x.Id == input.Id, true, ct);
 
-        if (app is null)
-        {
-           throw new AppNotFoundException();
-        }
-
-        await appManager.ChangeNameAsync(app, input.Name);
+        await manager.ChangeNameAsync(app, input.Name);
 
         return app;
     }
 
-    [Error<AppNotFoundException>]
-    public static async Task<App> DeleteAsync(
-        [ID<App>] Guid appId,
-        [Service] IAppRepository appRepository,
-        CancellationToken cancellationToken = default)
+    [UseUnitOfWork]
+    public static async Task<App> DeleteAppAsync(
+        [ID<App>] Guid id,
+        [Service] IAppRepository repository,
+        CancellationToken ct = default)
     {
-        var app = await appRepository.FindAsync(x => x.Id == appId, false, cancellationToken);
+        var app = await repository.GetAsync(x => x.Id == id, true, ct);
 
-        if (app is null)
-        {
-            throw new AppNotFoundException();
-        }
-
-        await appRepository.DeleteAsync(app, true, cancellationToken);
+        await repository.DeleteAsync(app, true, ct);
 
         return app;
     }
 
-    [Error<AppNotFoundException>]
-    public static async Task<App> ActivateAsync(
-        [ID<App>] Guid appId,
-        [Service] IAppRepository appRepository,
-        CancellationToken cancellationToken = default)
+    [UseUnitOfWork]
+    public static async Task<App> ActivateAppAsync(
+        [ID<App>] Guid id,
+        [Service] IAppRepository repository,
+        CancellationToken ct = default)
     {
-        var app = await appRepository.FindAsync(x => x.Id == appId, false, cancellationToken);
-
-        if (app is null)
-        {
-            throw new AppNotFoundException();
-        }
+        var app = await repository.GetAsync(x => x.Id == id, true, ct);
 
         app.Activate();
 
+        await repository.UpdateAsync(app, true, ct);
+
         return app;
     }
 
-    [Error<AppNotFoundException>]
-    public static async Task<App> DeactivateAsync(
-        [ID<App>] Guid appId,
-        [Service] IAppRepository appRepository,
-        CancellationToken cancellationToken = default)
+    [UseUnitOfWork]
+    public static async Task<App> DeactivateAppAsync(
+        [ID<App>] Guid id,
+        [Service] IAppRepository repository,
+        CancellationToken ct = default)
     {
-        var app = await appRepository.FindAsync(x => x.Id == appId, false, cancellationToken);
-
-        if (app is null)
-        {
-            throw new AppNotFoundException();
-        }
+        var app = await repository.GetAsync(x => x.Id == id, true, ct);
 
         app.Deactivate();
+
+        await repository.UpdateAsync(app, true, ct);
 
         return app;
     }

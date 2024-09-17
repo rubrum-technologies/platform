@@ -52,7 +52,6 @@ var storeAppsService = builder
     .WithReference(auth)
     .WithReference(database.AddDatabase("store-apps-service-db"))
     .WithDaprSidecar(defaultDaprSidecarOptions)
-    .WithYarpDaprRoute("/api/store-apps/{**everything}")
     .DefaultMicroserviceConfiguration(authority, swaggerClient);
 
 var (graphql, gateway) = FusionHelper.AddFusionGateway<Rubrum_Platform_Gateway>(builder, "gateway");
