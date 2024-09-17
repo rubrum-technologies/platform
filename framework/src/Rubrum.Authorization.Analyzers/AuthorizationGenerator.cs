@@ -45,7 +45,6 @@ public class AuthorizationGenerator : IIncrementalGenerator
                     predicate: static (s, _) => Predicate?.Invoke(s) ?? false,
                     transform: static (ctx, _) => Transform(ctx))
                 .WhereNotNull()
-                .WithComparer(SyntaxInfoComparer.Default)
                 .Collect();
 
         var valueProvider = context.CompilationProvider.Combine(syntaxInfos);
