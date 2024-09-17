@@ -1,11 +1,14 @@
-using HotChocolate.Types.Relay;
-using Rubrum.Platform.StoreAppsService.Apps;
 using Version = Rubrum.Platform.StoreAppsService.Apps.Version;
 
 namespace Rubrum.Platform.StoreAppsService;
 
-public sealed record CreateAppInput(
-    [property: ID<App>] Guid? TenantId,
-    string Name,
-    Version Version,
-    bool Enabled);
+public class CreateAppInput
+{
+    public string Name { get; init; }
+
+    public Version Version { get; init; }
+
+    public Guid? TenantId { get; init; }
+
+    public bool Enabled { get; init; }
+}

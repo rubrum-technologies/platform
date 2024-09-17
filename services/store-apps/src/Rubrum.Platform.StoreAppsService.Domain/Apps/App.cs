@@ -1,8 +1,5 @@
-using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Entities.Auditing;
-using Volo.Abp.Localization;
 using Volo.Abp.MultiTenancy;
-using Volo.Abp.Settings;
 
 namespace Rubrum.Platform.StoreAppsService.Apps;
 
@@ -12,7 +9,7 @@ public class App : FullAuditedAggregateRoot<Guid>, IMultiTenant
         : base(id)
     {
         TenantId = tenantId;
-        Name = name;
+        SetName(name);
         Version = version;
         Enabled = enabled;
     }
@@ -22,6 +19,14 @@ public class App : FullAuditedAggregateRoot<Guid>, IMultiTenant
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
     }
+
+    public string Name { get; private set; }
+
+    public Version Version { get; private set; }
+
+    public bool Enabled { get; private set; }
+
+    public Guid? TenantId { get; }
 
     internal void SetName(string name)
     {
@@ -37,12 +42,4 @@ public class App : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         Enabled = false;
     }
-
-    public Guid? TenantId { get; }
-
-    public string Name { get; private set; }
-
-    public Version Version { get; private set; }
-
-    public bool Enabled { get; private set; }
 }
