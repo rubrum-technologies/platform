@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -28,11 +30,6 @@ public class App : FullAuditedAggregateRoot<Guid>, IMultiTenant
 
     public Guid? TenantId { get; }
 
-    internal void SetName(string name)
-    {
-        Name = name;
-    }
-
     public void Activate()
     {
         Enabled = true;
@@ -41,5 +38,11 @@ public class App : FullAuditedAggregateRoot<Guid>, IMultiTenant
     public void Deactivate()
     {
         Enabled = false;
+    }
+
+    [MemberNotNull(nameof(Name))]
+    internal void SetName(string name)
+    {
+        Name = Check.NotNullOrWhiteSpace(name, nameof(name), AppConstants.MaxNameLength);
     }
 }

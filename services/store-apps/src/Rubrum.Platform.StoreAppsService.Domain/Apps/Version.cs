@@ -5,16 +5,6 @@ namespace Rubrum.Platform.StoreAppsService.Apps;
 
 public class Version : ValueObject
 {
-    public int Major { get; private set; }
-
-    public int Minor { get; private set; }
-
-    public int Patch { get; private set; }
-
-    private Version()
-    {
-    }
-
     public Version(int major, int minor, int patch)
     {
         Check.Positive(major, "major must be greater than 0");
@@ -26,6 +16,18 @@ public class Version : ValueObject
         Check.Positive(minor, "minor must be greater than 0");
         Patch = patch;
     }
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    protected Version()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    {
+    }
+
+    public int Major { get; }
+
+    public int Minor { get; }
+
+    public int Patch { get; }
 
     protected override IEnumerable<object> GetAtomicValues()
     {
