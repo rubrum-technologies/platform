@@ -7,13 +7,13 @@ public class Version : ValueObject
 {
     public Version(int major, int minor, int patch)
     {
-        Check.Positive(major, "major must be greater than 0");
+        Check.Positive(major, nameof(major));
         Major = major;
 
-        Check.Positive(minor, "minor must be greater than 0");
+        Check.Positive(minor, nameof(minor));
         Minor = minor;
 
-        Check.Positive(minor, "minor must be greater than 0");
+        Check.Positive(patch, nameof(patch));
         Patch = patch;
     }
 
