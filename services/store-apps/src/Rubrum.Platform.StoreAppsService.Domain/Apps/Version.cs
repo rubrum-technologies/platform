@@ -7,13 +7,13 @@ public class Version : ValueObject
 {
     public Version(int major, int minor, int patch)
     {
-        Check.Positive(major, nameof(major));
+        Check.Range(major, nameof(major), 0);
         Major = major;
 
-        Check.Positive(minor, nameof(minor));
+        Check.Range(minor, nameof(minor), 0);
         Minor = minor;
 
-        Check.Positive(patch, nameof(patch));
+        Check.Range(patch, nameof(patch), 0);
         Patch = patch;
     }
 
