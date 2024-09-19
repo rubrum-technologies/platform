@@ -1,7 +1,6 @@
 ﻿using HotChocolate;
 using HotChocolate.Types;
 using Rubrum.Graphql.Ddd;
-using Rubrum.Graphql.Relations;
 
 namespace Rubrum.Platform.BlobStorageService.Blobs;
 

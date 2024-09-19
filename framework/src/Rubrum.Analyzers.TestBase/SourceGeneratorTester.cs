@@ -10,21 +10,18 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace Rubrum.Analyzers;
 
-public static class TestHelper
+public static class SourceGeneratorTester
 {
     private static readonly HashSet<string> IgnoreCodes = ["CS8652", "CS8632", "CS5001", "CS8019"];
 
-    public static Snapshot GetGeneratedSourceSnapshot<TGenerator>(
+    public static Snapshot GetSnapshot<TGenerator>(
         [StringSyntax("csharp")] string sourceText,
-        IEnumerable<PortableExecutableReference>? references = null)
+        IReadOnlyList<PortableExecutableReference>? references = null)
         where TGenerator : IIncrementalGenerator, new()
     {
         var syntaxTree = CSharpSyntaxTree.ParseText(sourceText);
 
-        var compilation = CSharpCompilation.Create(
-            assemblyName: "Tests",
-            syntaxTrees: [syntaxTree],
-            ReferenceAssemblies.Net80.Concat(references ?? []));
+        var compilation = Compile([syntaxTree], references);
 
         IIncrementalGenerator generator = new TGenerator();
 
@@ -32,7 +29,12 @@ public static class TestHelper
 
         driver = driver.RunGenerators(compilation);
 
-        return CreateSnapshot(compilation, driver);
+        var syntaxTrees = new List<SyntaxTree> { syntaxTree };
+        syntaxTrees.AddRange(driver.GetRunResult().Results
+            .SelectMany(r => r.GeneratedSources)
+            .Select(source => source.SyntaxTree));
+
+        return CreateSnapshot(Compile(syntaxTrees, references), driver);
     }
 
     private static Snapshot CreateSnapshot(CSharpCompilation compilation, GeneratorDriver driver)
@@ -140,5 +142,15 @@ public static class TestHelper
         {
             snapshot.Add(Encoding.UTF8.GetString(stream.ToArray()), title, MarkdownLanguages.Json);
         }
+    }
+
+    private static CSharpCompilation Compile(
+        IEnumerable<SyntaxTree> syntaxTrees,
+        IEnumerable<PortableExecutableReference>? references = null)
+    {
+        return CSharpCompilation.Create(
+            assemblyName: "Tests",
+            syntaxTrees: syntaxTrees,
+            ReferenceAssemblies.Net80.Concat(references ?? []));
     }
 }
