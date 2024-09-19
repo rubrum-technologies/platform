@@ -1,6 +1,7 @@
 using HotChocolate;
 using HotChocolate.Types;
 using HotChocolate.Types.Relay;
+using Rubrum.Graphql.Errors;
 using Rubrum.Graphql.Middlewares;
 
 namespace Rubrum.Platform.StoreAppsService.Apps;
@@ -9,6 +10,8 @@ namespace Rubrum.Platform.StoreAppsService.Apps;
 public static class AppMutations
 {
     [UseUnitOfWork]
+    [UseAbpError]
+    [Error<AppNameAlreadyExistsException>]
     public static async Task<App> CreateAppAsync(
         CreateAppInput input,
         [Service] IAppRepository repository,
@@ -16,7 +19,6 @@ public static class AppMutations
         CancellationToken ct = default)
     {
         var app = await manager.CreateAsync(
-            input.TenantId,
             input.Name,
             input.Version,
             input.Enabled);
@@ -27,6 +29,8 @@ public static class AppMutations
     }
 
     [UseUnitOfWork]
+    [UseAbpError]
+    [Error<AppNameAlreadyExistsException>]
     public static async Task<App> ChangeNameAppAsync(
         ChangeNameAppInput input,
         [Service] IAppRepository repository,
@@ -41,6 +45,7 @@ public static class AppMutations
     }
 
     [UseUnitOfWork]
+    [UseAbpError]
     public static async Task<App> DeleteAppAsync(
         [ID<App>] Guid id,
         [Service] IAppRepository repository,
@@ -54,6 +59,7 @@ public static class AppMutations
     }
 
     [UseUnitOfWork]
+    [UseAbpError]
     public static async Task<App> ActivateAppAsync(
         [ID<App>] Guid id,
         [Service] IAppRepository repository,
@@ -69,6 +75,7 @@ public static class AppMutations
     }
 
     [UseUnitOfWork]
+    [UseAbpError]
     public static async Task<App> DeactivateAppAsync(
         [ID<App>] Guid id,
         [Service] IAppRepository repository,

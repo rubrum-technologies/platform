@@ -8,7 +8,5 @@ public class CreateAppInput
 
     public required Version Version { get; init; }
 
-    public Guid? TenantId { get; init; }
-
     public bool Enabled { get; init; }
 }
