@@ -22,13 +22,13 @@ public class App : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
     }
 
+    public Guid? TenantId { get; }
+
     public string Name { get; private set; }
 
     public Version Version { get; private set; }
 
     public bool Enabled { get; private set; }
-
-    public Guid? TenantId { get; }
 
     public void Activate()
     {
