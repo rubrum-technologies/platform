@@ -66,17 +66,17 @@ interface SoftDelete {
   isDeleted: Boolean!
 }
 
-type Document @relation(value: "relation Reader: UserDefinition") @relation(value: "relation Writer: UserDefinition") @permission(value: "permission View = Reader + Edit") @permission(value: "permission Edit = Writer") {
+type Document @relation(value: "relation reader: user") @relation(value: "relation writer: user") @permission(value: "permission view = reader + edit") @permission(value: "permission edit = writer") {
   name: String!
   id: UUID!
 }
 
-type Organization @relation(value: "relation Platform: PlatformDefinition") @permission(value: "permission Admin = PlatformDefinition->SuperAdmin") {
+type Organization @relation(value: "relation platform: platform") @permission(value: "permission admin = platform->super_admin") {
   name: String!
   id: UUID!
 }
 
-type Platform @relation(value: "relation Administrator: UserDefinition") @permission(value: "permission SuperAdmin = Administrator") {
+type Platform @relation(value: "relation administrator: user") @permission(value: "permission super_admin = administrator") {
   name: String!
   id: UUID!
 }
@@ -85,7 +85,7 @@ type Query {
   document: Document!
 }
 
-type Resource @relation(value: "relation Owner: UserDefinition | OrganizationDefinition") @permission(value: "permission Admin = Owner + OrganizationDefinition->Admin") {
+type Resource @relation(value: "relation owner: user | organization") @permission(value: "permission admin = owner + organization->admin") {
   name: String!
   id: UUID!
 }

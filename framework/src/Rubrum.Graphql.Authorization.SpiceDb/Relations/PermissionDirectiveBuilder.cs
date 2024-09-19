@@ -11,7 +11,7 @@ public class PermissionDirectiveBuilder : IPermissionDirectiveBuilder, ITransien
     {
         return new PermissionDirective
         {
-            Value = $"permission {link.Name} = {CreatePermissionValue(link.Config())}",
+            Value = $"permission {link.Name.ToSnakeCase()} = {CreatePermissionValue(link.Config())}",
         };
     }
 
@@ -21,7 +21,7 @@ public class PermissionDirectiveBuilder : IPermissionDirectiveBuilder, ITransien
 
         if (permission is PermissionField field)
         {
-            sb.Append(field.Name);
+            sb.Append(field.Name.Replace("Definition", string.Empty).ToSnakeCase());
         }
 
         if (permission is PermissionExpression expression)

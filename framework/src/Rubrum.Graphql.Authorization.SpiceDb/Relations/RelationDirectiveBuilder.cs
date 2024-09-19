@@ -11,7 +11,7 @@ public sealed class RelationDirectiveBuilder : IRelationDirectiveBuilder, ITrans
     {
         return new RelationDirective
         {
-            Value = $"relation {relation.Name}: {string.Join(" | ", CreateRelations(relation))}",
+            Value = $"relation {relation.Name.ToSnakeCase()}: {string.Join(" | ", CreateRelations(relation))}",
         };
     }
 
@@ -23,7 +23,7 @@ public sealed class RelationDirectiveBuilder : IRelationDirectiveBuilder, ITrans
         {
             if (definition is { IsClass: true, IsAbstract: true })
             {
-                builder.Add(definition.Name);
+                builder.Add(definition.Name.Replace("Definition", string.Empty).ToSnakeCase());
             }
         }
 
