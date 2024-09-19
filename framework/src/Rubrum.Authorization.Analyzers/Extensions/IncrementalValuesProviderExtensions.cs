@@ -5,7 +5,7 @@ namespace Rubrum.Authorization.Analyzers.Extensions;
 
 public static class IncrementalValuesProviderExtensions
 {
-    public static IncrementalValuesProvider<SyntaxInfo> WhereNotNull(
-        this IncrementalValuesProvider<SyntaxInfo?> source)
+    public static IncrementalValuesProvider<ISyntaxInfo> WhereNotNull(
+        this IncrementalValuesProvider<ISyntaxInfo?> source)
         => source.Where(static t => t is not null)!;
 }

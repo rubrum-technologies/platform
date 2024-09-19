@@ -54,7 +54,7 @@ public sealed class DefinitionFileBuilder : IDisposable
     public void WritePermissionProperty(PermissionInfo permission)
     {
         _writer.WriteIndentedLine(
-            "public static PermissionLink {0} {{ get; }} = new PermissionLink(\"{0}\");",
+            "public static PermissionLink {0} {{ get; }} = new PermissionLink(\"{0}\", {0}Configure);",
             permission.PropertyName);
         _writer.WriteLine();
     }

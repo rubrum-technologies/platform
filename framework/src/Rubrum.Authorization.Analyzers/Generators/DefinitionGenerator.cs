@@ -11,7 +11,7 @@ public class DefinitionGenerator : ISyntaxGenerator
     public void Generate(
         SourceProductionContext context,
         Compilation compilation,
-        ImmutableArray<SyntaxInfo> syntaxInfos)
+        ImmutableArray<ISyntaxInfo> syntaxInfos)
     {
         var definitions = syntaxInfos.OfType<DefinitionInfo>().ToList();
 
@@ -55,7 +55,7 @@ public class DefinitionGenerator : ISyntaxGenerator
 
     private static SourceText CreateRelationClass(
         RelationInfo relation,
-        ImmutableArray<SyntaxInfo> syntaxInfos)
+        ImmutableArray<ISyntaxInfo> syntaxInfos)
     {
         var builder = new RelationFileBuilder();
         var definitions = syntaxInfos

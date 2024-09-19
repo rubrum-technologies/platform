@@ -11,7 +11,7 @@ namespace Rubrum.Platform.BlobStorageService;
 [DependsOn<AbpFluentValidationModule>]
 [DependsOn<AbpDddApplicationModule>]
 [DependsOn<AbpAutoMapperModule>]
-[DependsOn<RubrumGraphqlModule>]
+[DependsOn<RubrumGraphqlAuthorizationModule>]
 [DependsOn<PlatformBlobStorageServiceApplicationContractsModule>]
 [DependsOn<PlatformBlobStorageServiceDomainModule>]
 public class PlatformBlobStorageServiceApplicationModule : AbpModule

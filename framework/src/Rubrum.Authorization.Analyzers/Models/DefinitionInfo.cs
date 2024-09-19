@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Rubrum.Authorization.Analyzers.Models;
 
-public class DefinitionInfo : SyntaxInfo
+public sealed class DefinitionInfo : ISyntaxInfo, IEquatable<DefinitionInfo>, IEqualityComparer<DefinitionInfo>
 {
     public DefinitionInfo(
         ITypeSymbol typeSymbol,
@@ -27,10 +27,18 @@ public class DefinitionInfo : SyntaxInfo
 
     public ImmutableArray<PermissionInfo> Permissions { get; }
 
-    public override bool Equals(SyntaxInfo other)
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(FullName, ClassName, Namespace, Relations, Permissions);
+    }
+
+    public override bool Equals(object? obj)
+        => obj is DefinitionInfo info && Equals(info);
+
+    public bool Equals(ISyntaxInfo other)
         => other is DefinitionInfo info && Equals(info);
 
-    private bool Equals(DefinitionInfo other)
+    public bool Equals(DefinitionInfo other)
     {
         if (Relations.Length != other.Relations.Length || Permissions.Length != other.Permissions.Length)
         {
@@ -60,5 +68,15 @@ public class DefinitionInfo : SyntaxInfo
         }
 
         return true;
+    }
+
+    public bool Equals(DefinitionInfo x, DefinitionInfo y)
+    {
+        return x.Equals(y);
+    }
+
+    public int GetHashCode(DefinitionInfo obj)
+    {
+        return HashCode.Combine(obj.FullName, obj.ClassName, obj.Namespace, obj.Relations, obj.Permissions);
     }
 }

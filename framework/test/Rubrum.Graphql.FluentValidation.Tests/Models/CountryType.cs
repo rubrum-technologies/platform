@@ -5,7 +5,7 @@ using Rubrum.Graphql.Errors;
 namespace Rubrum.Graphql.Models;
 
 [ObjectType<Country>]
-public static partial class CountryNode
+public static partial class CountryType
 {
     [Query]
     public static Country GetCountry()

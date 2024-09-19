@@ -11,5 +11,5 @@ public interface ISyntaxInspector
 
     bool TryHandle(
         GeneratorSyntaxContext context,
-        [NotNullWhen(true)] out SyntaxInfo? syntaxInfo);
+        [NotNullWhen(true)] out ISyntaxInfo? syntaxInfo);
 }

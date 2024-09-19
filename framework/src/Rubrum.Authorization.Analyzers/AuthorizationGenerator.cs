@@ -57,7 +57,7 @@ public class AuthorizationGenerator : IIncrementalGenerator
     private static void Execute(
         SourceProductionContext context,
         Compilation compilation,
-        ImmutableArray<SyntaxInfo> syntaxInfos)
+        ImmutableArray<ISyntaxInfo> syntaxInfos)
     {
         foreach (var generator in Generators.AsSpan())
         {
@@ -65,7 +65,7 @@ public class AuthorizationGenerator : IIncrementalGenerator
         }
     }
 
-    private static SyntaxInfo? Transform(GeneratorSyntaxContext context)
+    private static ISyntaxInfo? Transform(GeneratorSyntaxContext context)
     {
         foreach (var inspector in Inspectors)
         {

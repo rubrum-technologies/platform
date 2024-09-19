@@ -22,15 +22,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Authorization.Abstractions\Rubrum.Authorization.Abstractions.csproj" />
-    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Graphql\Rubrum.Graphql.csproj"/>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Authorization.Analyzers\Rubrum.Authorization.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Graphql.Authorization\Rubrum.Graphql.Authorization.csproj"/>
     <ProjectReference Include="..\Rubrum.Platform.BlobStorageService.Application.Contracts\Rubrum.Platform.BlobStorageService.Application.Contracts.csproj"/>
     <ProjectReference Include="..\Rubrum.Platform.BlobStorageService.Domain\Rubrum.Platform.BlobStorageService.Domain.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\blob.proto" GrpcServices="Server" Generator="MSBuild:Compile" />
-    <Content Include="@(Protobuf)" />
-    <None Remove="@(Protobuf)" />
+    <Protobuf Include="Protos\blob.proto" GrpcServices="Server" Generator="MSBuild:Compile"/>
+    <Content Include="@(Protobuf)"/>
+    <None Remove="@(Protobuf)"/>
   </ItemGroup>
 </Project>

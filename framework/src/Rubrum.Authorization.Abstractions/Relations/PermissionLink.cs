@@ -2,9 +2,11 @@
 
 namespace Rubrum.Authorization.Relations;
 
-public sealed class PermissionLink(string name)
+public sealed class PermissionLink(string name, Func<Permission> config)
 {
     public string Name => name;
+
+    public Func<Permission> Config => config;
 
     public static implicit operator Permission(PermissionLink link) => link.ToPermission();
 

@@ -13,7 +13,7 @@ public class DefinitionAttributeInspector : ISyntaxInspector
 {
     public IReadOnlyList<ISyntaxFilter> Filters => [new TypeWithAttribute()];
 
-    public bool TryHandle(GeneratorSyntaxContext context, [NotNullWhen(true)] out SyntaxInfo? syntaxInfo)
+    public bool TryHandle(GeneratorSyntaxContext context, [NotNullWhen(true)] out ISyntaxInfo? syntaxInfo)
     {
         if (context.Node is ClassDeclarationSyntax { AttributeLists.Count: > 0, } possibleType)
         {

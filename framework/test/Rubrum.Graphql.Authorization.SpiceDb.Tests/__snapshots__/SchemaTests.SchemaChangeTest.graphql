@@ -61,39 +61,38 @@ interface MultiTenant {
   tenantId: ID
 }
 
-"The node interface is implemented by entities that have a global unique identifier."
-interface Node {
-  id: ID!
-}
-
 "Used to standardize soft deleting entities. Soft-delete entities are not actually deleted, marked as IsDeleted = true in the database, but can not be retrieved to the application normally."
 interface SoftDelete {
   isDeleted: Boolean!
 }
 
-type Blob implements Node & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant @aggregate {
-  url: String!
-  creatorId: ID
-  lastModifierId: ID
-  deleterId: ID
-  extraProperties: JSON
-  tenantId: ID
-  id: ID!
-  fileName: String!
-  entityVersion: Int!
-  isDeleted: Boolean!
-  deletionTime: DateTime
-  lastModificationTime: DateTime
-  creationTime: DateTime!
-  concurrencyStamp: String!
+type Document @relation(value: "relation Reader: UserDefinition") @relation(value: "relation Writer: UserDefinition") @permission(value: "permission View = Reader + Edit") @permission(value: "permission Edit = Writer") {
+  name: String!
+  id: UUID!
+}
+
+type Organization @relation(value: "relation Platform: PlatformDefinition") @permission(value: "permission Admin = PlatformDefinition->SuperAdmin") {
+  name: String!
+  id: UUID!
+}
+
+type Platform @relation(value: "relation Administrator: UserDefinition") @permission(value: "permission SuperAdmin = Administrator") {
+  name: String!
+  id: UUID!
 }
 
 type Query {
-  "Fetches an object given its ID."
-  node("ID of the object." id: ID!): Node
-  "Lookup nodes by a list of IDs."
-  nodes("The list of node IDs." ids: [ID!]!): [Node]!
-  blobById(id: ID!): Blob @authorize
+  document: Document!
+}
+
+type Resource @relation(value: "relation Owner: UserDefinition | OrganizationDefinition") @permission(value: "permission Admin = Owner + OrganizationDefinition->Admin") {
+  name: String!
+  id: UUID!
+}
+
+type User {
+  name: String!
+  id: UUID!
 }
 
 "Defines when a policy shall be executed."
@@ -106,10 +105,9 @@ enum ApplyPolicy {
   VALIDATION
 }
 
-directive @aggregate on OBJECT
+directive @permission(value: String) repeatable on OBJECT
 
-"The authorize directive."
-directive @authorize("The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!] "Defines when when the authorize directive shall be applied.By default the authorize directives are applied during the validation phase." apply: ApplyPolicy! = BEFORE_RESOLVER) repeatable on OBJECT | FIELD_DEFINITION
+directive @relation(value: String) repeatable on OBJECT
 
 "The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
 directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR
@@ -118,3 +116,5 @@ directive @specifiedBy("The specifiedBy URL points to a human-readable specifica
 scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
 
 scalar JSON
+
+scalar UUID @specifiedBy(url: "https:\/\/tools.ietf.org\/html\/rfc4122")
