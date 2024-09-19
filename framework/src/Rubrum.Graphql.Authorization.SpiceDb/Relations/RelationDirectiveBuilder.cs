@@ -9,10 +9,9 @@ public sealed class RelationDirectiveBuilder : IRelationDirectiveBuilder, ITrans
 {
     public RelationDirective Build(Relation relation)
     {
-        return new RelationDirective
-        {
-            Value = $"relation {relation.Name.ToSnakeCase()}: {string.Join(" | ", CreateRelations(relation))}",
-        };
+        return new RelationDirective(
+            Name: relation.Name.ToSnakeCase(),
+            Value: string.Join(" | ", CreateRelations(relation)));
     }
 
     private static ImmutableArray<string> CreateRelations(Relation relation)

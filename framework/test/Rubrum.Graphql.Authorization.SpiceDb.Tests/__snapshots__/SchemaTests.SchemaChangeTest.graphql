@@ -66,18 +66,26 @@ interface SoftDelete {
   isDeleted: Boolean!
 }
 
-type Document @relation(value: "relation reader: user") @relation(value: "relation writer: user") @permission(value: "permission view = reader + edit") @permission(value: "permission edit = writer") {
+type Document @relation(name: "reader", value: "user") @relation(name: "writer", value: "user") @permission(name: "view", value: "reader + edit") @permission(name: "edit", value: "writer") {
   name: String!
   id: UUID!
 }
 
-type Organization @relation(value: "relation platform: platform") @permission(value: "permission admin = platform->super_admin") {
+type Issue @relation(name: "project", value: "project") @relation(name: "assigned", value: "user") @permission(name: "assign", value: "project->issue_assigner") @permission(name: "resolve", value: "project->assigned_issue_resolver & assign + project->any_issue_resolver") @permission(name: "create_comment", value: "project->comment_creator") @permission(name: "project_comment_deleter", value: "project->comment_deleter") {
+  id: UUID!
+}
+
+type Organization @relation(name: "platform", value: "platform") @permission(name: "admin", value: "platform->super_admin") {
   name: String!
   id: UUID!
 }
 
-type Platform @relation(value: "relation administrator: user") @permission(value: "permission super_admin = administrator") {
+type Platform @relation(name: "administrator", value: "user") @permission(name: "super_admin", value: "administrator") {
   name: String!
+  id: UUID!
+}
+
+type Project @relation(name: "issue_creator", value: "") @relation(name: "issue_assigner", value: "") @relation(name: "any_issue_resolver", value: "") @relation(name: "assigned_issue_resolver", value: "") @relation(name: "comment_creator", value: "") @relation(name: "comment_deleter", value: "") @relation(name: "role_manager", value: "") @permission(name: "create_issue", value: "issue_creator") @permission(name: "create_role", value: "role_manager") {
   id: UUID!
 }
 
@@ -85,8 +93,12 @@ type Query {
   document: Document!
 }
 
-type Resource @relation(value: "relation owner: user | organization") @permission(value: "permission admin = owner + organization->admin") {
+type Resource @relation(name: "owner", value: "user | organization") @permission(name: "admin", value: "owner + organization->admin") {
   name: String!
+  id: UUID!
+}
+
+type Role @relation(name: "project", value: "project") @relation(name: "member", value: "user") @relation(name: "built_in_role", value: "project") @permission(name: "delete", value: "project->role_manager - project->role_manager") @permission(name: "add_permission", value: "project->role_manager - project->role_manager") @permission(name: "add_user", value: "project->role_manager") @permission(name: "remove_permission", value: "project->role_manager - project->role_manager") {
   id: UUID!
 }
 
@@ -105,9 +117,9 @@ enum ApplyPolicy {
   VALIDATION
 }
 
-directive @permission(value: String) repeatable on OBJECT
+directive @permission(name: String! value: String!) repeatable on OBJECT
 
-directive @relation(value: String) repeatable on OBJECT
+directive @relation(name: String! value: String!) repeatable on OBJECT
 
 "The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
 directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR

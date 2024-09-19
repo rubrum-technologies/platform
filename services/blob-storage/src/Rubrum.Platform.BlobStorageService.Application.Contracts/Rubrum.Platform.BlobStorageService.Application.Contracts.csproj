@@ -10,6 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rubrum.Platform.BlobStorageService.Domain.Shared\Rubrum.Platform.BlobStorageService.Domain.Shared.csproj"/>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Core\Rubrum.Core.csproj" />
   </ItemGroup>
 </Project>

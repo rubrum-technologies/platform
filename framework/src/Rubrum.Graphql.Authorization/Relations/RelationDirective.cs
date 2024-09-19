@@ -1,6 +1,3 @@
 ﻿namespace Rubrum.Graphql.Relations;
 
-public sealed class RelationDirective
-{
-    public string? Value { get; set; }
-}
+public sealed record RelationDirective(string Name, string Value);

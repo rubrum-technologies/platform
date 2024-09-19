@@ -15,6 +15,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Auditing.Contracts\Rubrum.Auditing.Contracts.csproj" />
-    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Core\Rubrum.Core.csproj" />
   </ItemGroup>
 </Project>

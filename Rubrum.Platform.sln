@@ -98,8 +98,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.BlobStorage
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.BlobStorageService.Domain", "services\blob-storage\src\Rubrum.Platform.BlobStorageService.Domain\Rubrum.Platform.BlobStorageService.Domain.csproj", "{3E27FDF6-0391-4A89-BE39-8961BB315B93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.BlobStorageService.Domain.Shared", "services\blob-storage\src\Rubrum.Platform.BlobStorageService.Domain.Shared\Rubrum.Platform.BlobStorageService.Domain.Shared.csproj", "{3575CFE4-4CCB-4642-BDAD-C2CB8B55E6F1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.BlobStorageService.EntityFrameworkCore", "services\blob-storage\src\Rubrum.Platform.BlobStorageService.EntityFrameworkCore\Rubrum.Platform.BlobStorageService.EntityFrameworkCore.csproj", "{AD9E7511-0F0E-479D-BAED-DEC9D016B9B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.BlobStorageService.HttpApi", "services\blob-storage\src\Rubrum.Platform.BlobStorageService.HttpApi\Rubrum.Platform.BlobStorageService.HttpApi.csproj", "{A1879107-2BA0-4014-8A0E-1B703E3C4F1D}"
@@ -274,10 +272,6 @@ Global
 		{3E27FDF6-0391-4A89-BE39-8961BB315B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E27FDF6-0391-4A89-BE39-8961BB315B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E27FDF6-0391-4A89-BE39-8961BB315B93}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3575CFE4-4CCB-4642-BDAD-C2CB8B55E6F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3575CFE4-4CCB-4642-BDAD-C2CB8B55E6F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3575CFE4-4CCB-4642-BDAD-C2CB8B55E6F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3575CFE4-4CCB-4642-BDAD-C2CB8B55E6F1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD9E7511-0F0E-479D-BAED-DEC9D016B9B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD9E7511-0F0E-479D-BAED-DEC9D016B9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD9E7511-0F0E-479D-BAED-DEC9D016B9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -437,7 +431,6 @@ Global
 		{EA3D8244-9ACE-4E16-8FD4-5F38EB637615} = {DC177800-E7FF-4B41-916F-34BA28A16B07}
 		{D5808FD6-B52F-48C5-8514-FF4D2DC5E363} = {DC177800-E7FF-4B41-916F-34BA28A16B07}
 		{3E27FDF6-0391-4A89-BE39-8961BB315B93} = {DC177800-E7FF-4B41-916F-34BA28A16B07}
-		{3575CFE4-4CCB-4642-BDAD-C2CB8B55E6F1} = {DC177800-E7FF-4B41-916F-34BA28A16B07}
 		{AD9E7511-0F0E-479D-BAED-DEC9D016B9B9} = {DC177800-E7FF-4B41-916F-34BA28A16B07}
 		{A1879107-2BA0-4014-8A0E-1B703E3C4F1D} = {DC177800-E7FF-4B41-916F-34BA28A16B07}
 		{E0D8DD94-D3D0-4187-BD96-B0D9D87FB1EE} = {DC177800-E7FF-4B41-916F-34BA28A16B07}

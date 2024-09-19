@@ -3,6 +3,4 @@
 namespace Rubrum.Authorization.Analyzers.Models;
 
 [Definition]
-public static partial class UserDefinition
-{
-}
+public static partial class UserDefinition;

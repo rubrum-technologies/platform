@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Rubrum.Auditing;
 using Volo.Abp;
 using Volo.Abp.Auditing;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -6,17 +7,24 @@ using Volo.Abp.MultiTenancy;
 
 namespace Rubrum.Platform.BlobStorageService.Blobs;
 
-public class Blob : FullAuditedAggregateRoot<Guid>, IMultiTenant, IHasEntityVersion
+public class Blob : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMustHaveOwner, IHasEntityVersion
 {
-    internal Blob(Guid id, Guid? tenantId, string fileName)
+    internal Blob(
+        Guid id,
+        Guid? tenantId,
+        Guid ownerId,
+        string fileName)
         : base(id)
     {
         SetFileName(fileName);
         TenantId = tenantId;
+        OwnerId = ownerId;
         IsDisposable = true;
     }
 
     public Guid? TenantId { get; }
+
+    public Guid OwnerId { get; }
 
     public string FileName { get; protected set; }
 

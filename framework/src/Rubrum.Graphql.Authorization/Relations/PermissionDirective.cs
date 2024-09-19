@@ -1,6 +1,3 @@
 ﻿namespace Rubrum.Graphql.Relations;
 
-public sealed class PermissionDirective
-{
-    public string? Value { get; set; }
-}
+public sealed record PermissionDirective(string Name, string Value);

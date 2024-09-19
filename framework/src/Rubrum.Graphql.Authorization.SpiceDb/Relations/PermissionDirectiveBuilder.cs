@@ -9,10 +9,9 @@ public class PermissionDirectiveBuilder : IPermissionDirectiveBuilder, ITransien
 {
     public PermissionDirective Build(PermissionLink link)
     {
-        return new PermissionDirective
-        {
-            Value = $"permission {link.Name.ToSnakeCase()} = {CreatePermissionValue(link.Config())}",
-        };
+        return new PermissionDirective(
+            Name: link.Name.ToSnakeCase(),
+            Value: CreatePermissionValue(link.Config()).ToString());
     }
 
     private static StringBuilder CreatePermissionValue(Permission permission, StringBuilder? sb = null)
