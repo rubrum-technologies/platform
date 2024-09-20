@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Rubrum.Cqrs;
 using Rubrum.Graphql;
 using Rubrum.Modularity;
 using Volo.Abp.Application;
@@ -10,6 +11,7 @@ namespace Rubrum.Platform.BlobStorageService;
 [DependsOn<AbpFluentValidationModule>]
 [DependsOn<AbpDddApplicationModule>]
 [DependsOn<RubrumGraphqlAuthorizationModule>]
+[DependsOn<RubrumCqrsModule>]
 [DependsOn<PlatformBlobStorageServiceApplicationContractsModule>]
 [DependsOn<PlatformBlobStorageServiceDomainModule>]
 public class PlatformBlobStorageServiceApplicationModule : AbpModule

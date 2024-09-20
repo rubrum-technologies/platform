@@ -4,7 +4,7 @@ using Volo.Abp.MultiTenancy;
 namespace Rubrum.Graphql.Ddd;
 
 [InterfaceType<IMultiTenant>]
-public static partial class MultiTenantInterface
+public static partial class MultiTenantType
 {
     static partial void Configure(IInterfaceTypeDescriptor<IMultiTenant> descriptor)
     {

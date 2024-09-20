@@ -1,49 +1,38 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Rubrum.Auditing;
-using Volo.Abp;
-using Volo.Abp.Auditing;
+﻿using Rubrum.Auditing;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
 namespace Rubrum.Platform.BlobStorageService.Blobs;
 
-public class Blob : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMustHaveOwner, IHasEntityVersion
+public class Blob : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMustHaveOwner
 {
     internal Blob(
         Guid id,
         Guid? tenantId,
         Guid ownerId,
-        string fileName)
+        Guid? folderId,
+        BlobMetadata metadata)
         : base(id)
     {
-        SetFileName(fileName);
         TenantId = tenantId;
         OwnerId = ownerId;
-        IsDisposable = true;
+        FolderId = folderId;
+        Metadata = metadata;
+    }
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    protected Blob()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    {
     }
 
     public Guid? TenantId { get; }
 
     public Guid OwnerId { get; }
 
-    public string FileName { get; protected set; }
+    public Guid? FolderId { get; internal set; }
 
-    public string Extension => FileName.Split('.')[^1];
+    public BlobMetadata Metadata { get; internal set; }
 
-    public string SystemFileName => $".{Extension}";
-
-    public bool IsDisposable { get; protected set; }
-
-    public int EntityVersion { get; protected set; }
-
-    [MemberNotNull(nameof(FileName))]
-    internal void SetFileName(string fileName)
-    {
-        FileName = Check.NotNullOrWhiteSpace(fileName, nameof(fileName), BlobConstants.FileNameLength);
-    }
-
-    internal void MarkAsPermanent()
-    {
-        IsDisposable = false;
-    }
+    internal string SystemFileName => $"{Id}.{Metadata.Extension}";
 }

@@ -7,6 +7,7 @@ namespace Rubrum.Platform.BlobStorageService;
 
 [DependsOn<RubrumGraphqlTestModule>]
 [DependsOn<RubrumGraphqlAuthorizationSpiceDbModule>]
+[DependsOn<RubrumGraphqlFluentValidationModule>]
 [DependsOn<PlatformBlobStorageServiceApplicationModule>]
 [DependsOn<PlatformBlobStorageServiceEntityFrameworkCoreTestModule>]
 public class PlatformBlobStorageServiceApplicationTestModule : AbpModule;

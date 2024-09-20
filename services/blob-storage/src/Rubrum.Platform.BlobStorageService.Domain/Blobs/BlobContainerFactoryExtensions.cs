@@ -4,8 +4,8 @@ namespace Rubrum.Platform.BlobStorageService.Blobs;
 
 public static class BlobContainerFactoryExtensions
 {
-    public static IBlobContainer Create(this IBlobContainerFactory factory)
+    public static IBlobContainer Create(this IBlobContainerFactory blobContainerFactory, Blob blob)
     {
-        return factory.Create("files");
+        return blobContainerFactory.Create(blob.OwnerId.ToString());
     }
 }

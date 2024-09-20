@@ -16,14 +16,11 @@ public static partial class BlobType
     {
         descriptor.FullAuditedAggregateRoot();
         descriptor.MultiTenant();
+        descriptor.Owner();
 
         descriptor
             .ImplementsNode()
             .IdField(x => x.Id)
             .ResolveNode((context, id) => context.Service<IBlobByIdDataLoader>().LoadAsync(id, context.RequestAborted));
-
-        descriptor.Ignore(x => x.Extension);
-        descriptor.Ignore(x => x.SystemFileName);
-        descriptor.Ignore(x => x.IsDisposable);
     }
 }

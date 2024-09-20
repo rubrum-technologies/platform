@@ -17,6 +17,10 @@ public class PlatformHostingAspNetCoreModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+#if DEBUG
+        context.Services.AddAlwaysAllowAuthorization();
+#endif
+
         Configure<AbpMultiTenancyOptions>(options => { options.IsEnabled = true; });
 
         Configure<AbpAntiForgeryOptions>(options => { options.AutoValidate = true; });

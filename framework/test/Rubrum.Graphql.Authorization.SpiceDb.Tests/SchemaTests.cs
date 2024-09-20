@@ -7,8 +7,7 @@ using Xunit;
 
 namespace Rubrum.Authorization.Analyzers;
 
-public sealed class
-    SchemaTests : RubrumGraphqlTestBase<RubrumGraphqlAuthorizationSpiceDbTestModule>
+public sealed class SchemaTests : RubrumGraphqlTestBase<RubrumGraphqlAuthorizationSpiceDbTestModule>
 {
     private readonly IRequestExecutorBuilder _builder;
 

@@ -3,6 +3,7 @@ using Rubrum.EntityFrameworkCore;
 using Rubrum.Modularity;
 using Rubrum.Platform.BlobStorageService.Blobs;
 using Rubrum.Platform.BlobStorageService.EntityFrameworkCore.Repositories;
+using Rubrum.Platform.BlobStorageService.Folders;
 using Volo.Abp.EntityFrameworkCore.PostgreSql;
 using Volo.Abp.Modularity;
 
@@ -23,9 +24,10 @@ public class PlatformBlobStorageServiceEntityFrameworkCoreModule : AbpModule
     {
         context.Services.AddAbpDbContext<BlobStorageServiceDbContext>(options =>
         {
-            options.AddRepository<Blob, EfCoreBlobRepository>();
-
-            options.AddDefaultRepositories();
+            options
+                .AddRepository<Blob, EfCoreBlobRepository>()
+                .AddRepository<FolderBlob, EfCoreFolderBlobRepository>()
+                .AddDefaultRepositories();
         });
     }
 }

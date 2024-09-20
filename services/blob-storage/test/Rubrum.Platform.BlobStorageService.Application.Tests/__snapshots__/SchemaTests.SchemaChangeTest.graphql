@@ -1,5 +1,6 @@
 schema {
   query: Query
+  mutation: Mutation
 }
 
 "This interface can be implemented to store creation information (who and when created)."
@@ -13,6 +14,10 @@ interface DeletionAuditedObject implements HasDeletionTime & SoftDelete {
   deleterId: ID
   deletionTime: DateTime
   isDeleted: Boolean!
+}
+
+interface Error {
+  message: String!
 }
 
 "This interface adds IDeletionAuditedObject to IAuditedObject."
@@ -61,6 +66,11 @@ interface MultiTenant {
   tenantId: ID
 }
 
+interface MustHaveOwner {
+  "Id of the owner."
+  ownerId: ID!
+}
+
 "The node interface is implemented by entities that have a global unique identifier."
 interface Node {
   id: ID!
@@ -71,21 +81,88 @@ interface SoftDelete {
   isDeleted: Boolean!
 }
 
-type Blob implements Node & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant @aggregate {
+type Blob implements Node & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate {
   url: String!
   creatorId: ID
   lastModifierId: ID
   deleterId: ID
   extraProperties: JSON
   tenantId: ID
+  ownerId: ID!
   id: ID!
-  fileName: String!
-  entityVersion: Int!
+  folderId: UUID
+  metadata: BlobMetadata!
   isDeleted: Boolean!
   deletionTime: DateTime
   lastModificationTime: DateTime
   creationTime: DateTime!
   concurrencyStamp: String!
+}
+
+type BlobMetadata {
+  size: Long!
+  mimeType: String!
+  filename: String!
+  extension: String!
+}
+
+type BusinessError implements Error {
+  code: String
+  details: String
+  message: String!
+}
+
+type CreateFolderBlobPayload {
+  folderBlob: FolderBlob
+  errors: [CreateFolderBlobError!]
+}
+
+type EntityNotFoundError implements Error {
+  id: String
+  type: String
+  message: String!
+}
+
+type FolderBlob implements Node & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate {
+  parent: FolderBlob
+  blobs: [Blob!]!
+  creatorId: ID
+  lastModifierId: ID
+  deleterId: ID
+  extraProperties: JSON
+  tenantId: ID
+  ownerId: ID!
+  id: ID!
+  parentId: ID
+  name: String!
+  isDeleted: Boolean!
+  deletionTime: DateTime
+  lastModificationTime: DateTime
+  creationTime: DateTime!
+  concurrencyStamp: String!
+}
+
+type FolderBlobNameAlreadyExistsError implements Error {
+  message: String!
+  ownerId: UUID!
+  parentId: UUID
+  name: String!
+  code: String
+  details: String
+  logLevel: LogLevel!
+}
+
+type FolderBlobParentHasDifferentOwnerError implements Error {
+  message: String!
+  ownerId: UUID!
+  parentId: UUID!
+  code: String
+  details: String
+  logLevel: LogLevel!
+}
+
+type Mutation {
+  createFolderBlob(input: CreateFolderBlobInput!): CreateFolderBlobPayload!
 }
 
 type Query {
@@ -94,6 +171,123 @@ type Query {
   "Lookup nodes by a list of IDs."
   nodes("The list of node IDs." ids: [ID!]!): [Node]!
   blobById(id: ID!): Blob @authorize
+  folderBlobById(id: ID!): FolderBlob @authorize
+  folders(parentId: ID where: FolderBlobFilterInput order: [FolderBlobSortInput!]): [FolderBlob!]! @authorize
+}
+
+type ValidationError implements Error {
+  message: String!
+  results: [ValidationResult!]!
+}
+
+type ValidationResult {
+  errorMessage: String
+}
+
+union CreateFolderBlobError = ValidationError | BusinessError | EntityNotFoundError | FolderBlobNameAlreadyExistsError | FolderBlobParentHasDifferentOwnerError
+
+input BooleanOperationFilterInput {
+  eq: Boolean
+  neq: Boolean
+}
+
+input CreateFolderBlobInput {
+  parentId: ID
+  "Maximum length '30'"
+  name: String!
+}
+
+input DateTimeOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime]
+  nin: [DateTime]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+input FolderBlobFilterInput {
+  and: [FolderBlobFilterInput!]
+  or: [FolderBlobFilterInput!]
+  tenantId: UuidOperationFilterInput
+  ownerId: UuidOperationFilterInput
+  parentId: UuidOperationFilterInput
+  name: StringOperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+  deleterId: UuidOperationFilterInput
+  deletionTime: DateTimeOperationFilterInput
+  lastModificationTime: DateTimeOperationFilterInput
+  lastModifierId: UuidOperationFilterInput
+  creationTime: DateTimeOperationFilterInput
+  creatorId: UuidOperationFilterInput
+  extraProperties: ListFilterInputTypeOfKeyValuePairOfStringAndObjectFilterInput
+  concurrencyStamp: StringOperationFilterInput
+  id: UuidOperationFilterInput
+}
+
+input FolderBlobSortInput {
+  tenantId: SortEnumType
+  ownerId: SortEnumType
+  parentId: SortEnumType
+  name: SortEnumType
+  isDeleted: SortEnumType
+  deleterId: SortEnumType
+  deletionTime: SortEnumType
+  lastModificationTime: SortEnumType
+  lastModifierId: SortEnumType
+  creationTime: SortEnumType
+  creatorId: SortEnumType
+  concurrencyStamp: SortEnumType
+  id: SortEnumType
+}
+
+input KeyValuePairOfStringAndObjectFilterInput {
+  and: [KeyValuePairOfStringAndObjectFilterInput!]
+  or: [KeyValuePairOfStringAndObjectFilterInput!]
+  key: StringOperationFilterInput
+}
+
+input ListFilterInputTypeOfKeyValuePairOfStringAndObjectFilterInput {
+  all: KeyValuePairOfStringAndObjectFilterInput
+  none: KeyValuePairOfStringAndObjectFilterInput
+  some: KeyValuePairOfStringAndObjectFilterInput
+  any: Boolean
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input UuidOperationFilterInput {
+  eq: UUID
+  neq: UUID
+  in: [UUID]
+  nin: [UUID]
+  gt: UUID
+  ngt: UUID
+  gte: UUID
+  ngte: UUID
+  lt: UUID
+  nlt: UUID
+  lte: UUID
+  nlte: UUID
 }
 
 "Defines when a policy shall be executed."
@@ -104,6 +298,21 @@ enum ApplyPolicy {
   AFTER_RESOLVER
   "The policy is applied in the validation step before the execution."
   VALIDATION
+}
+
+enum LogLevel {
+  TRACE
+  DEBUG
+  INFORMATION
+  WARNING
+  ERROR
+  CRITICAL
+  NONE
+}
+
+enum SortEnumType {
+  ASC
+  DESC
 }
 
 directive @aggregate on OBJECT
@@ -118,3 +327,8 @@ directive @specifiedBy("The specifiedBy URL points to a human-readable specifica
 scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
 
 scalar JSON
+
+"The `Long` scalar type represents non-fractional signed whole 64-bit numeric values. Long can represent values between -(2^63) and 2^63 - 1."
+scalar Long
+
+scalar UUID @specifiedBy(url: "https:\/\/tools.ietf.org\/html\/rfc4122")

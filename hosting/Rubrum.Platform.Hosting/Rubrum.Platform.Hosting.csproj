@@ -13,11 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Autofac" />
+    <PackageReference Include="Volo.Abp.Autofac"/>
+    <PackageReference Include="Volo.Abp.Timing"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\framework\src\Rubrum.Core\Rubrum.Core.csproj" />
+    <ProjectReference Include="..\..\framework\src\Rubrum.Core\Rubrum.Core.csproj"/>
   </ItemGroup>
 </Project>
 

@@ -12,9 +12,9 @@ public static class BlobQueries
     [NodeResolver]
     public static async Task<Blob?> GetBlobByIdAsync(
         [ID<Blob>] Guid id,
-        [Service] IBlobByIdDataLoader blobByIdDataLoader,
-        CancellationToken cancellationToken)
+        [Service] IBlobByIdDataLoader dataLoader,
+        CancellationToken ct)
     {
-        return await blobByIdDataLoader.LoadAsync(id, cancellationToken);
+        return await dataLoader.LoadAsync(id, ct);
     }
 }

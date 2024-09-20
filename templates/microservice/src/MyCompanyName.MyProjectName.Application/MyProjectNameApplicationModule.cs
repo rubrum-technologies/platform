@@ -1,4 +1,4 @@
-using Rubrum.Graphql.SpiceDb;
+using Rubrum.Graphql;
 using Rubrum.Modularity;
 using Volo.Abp.Application;
 using Volo.Abp.FluentValidation;
@@ -8,7 +8,7 @@ namespace MyCompanyName.MyProjectName;
 
 [DependsOn<AbpFluentValidationModule>]
 [DependsOn<AbpDddApplicationModule>]
-[DependsOn<RubrumGraphqlSpiceDbModule>]
+[DependsOn<RubrumGraphqlAuthorizationModule>]
 [DependsOn<MyProjectNameApplicationContractsModule>]
 [DependsOn<MyProjectNameDomainModule>]
 public class MyProjectNameApplicationModule : AbpModule;

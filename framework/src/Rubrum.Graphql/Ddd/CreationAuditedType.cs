@@ -4,7 +4,7 @@ using Volo.Abp.Auditing;
 namespace Rubrum.Graphql.Ddd;
 
 [InterfaceType<ICreationAuditedObject>]
-public static partial class CreationAuditedInterface
+public static partial class CreationAuditedType
 {
     static partial void Configure(IInterfaceTypeDescriptor<ICreationAuditedObject> descriptor)
     {

@@ -5,7 +5,7 @@
     <RootNamespace>Rubrum.Platform.AppHost</RootNamespace>
     <OutputType>Exe</OutputType>
     <IsAspireHost>true</IsAspireHost>
-    <!--<DisableFusionAnalyzerBuild>true</DisableFusionAnalyzerBuild>-->
+    <DisableFusionAnalyzerBuild>true</DisableFusionAnalyzerBuild>
   </PropertyGroup>
 
   <ItemGroup>

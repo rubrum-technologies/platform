@@ -4,7 +4,7 @@ using Volo.Abp.Auditing;
 namespace Rubrum.Graphql.Ddd;
 
 [InterfaceType<IHasDeletionTime>]
-public static partial class HasDeletionTimeInterface
+public static partial class HasDeletionTimeType
 {
     static partial void Configure(IInterfaceTypeDescriptor<IHasDeletionTime> descriptor)
     {

@@ -4,7 +4,7 @@ using Volo.Abp.Auditing;
 namespace Rubrum.Graphql.Ddd;
 
 [InterfaceType<IHasCreationTime>]
-public static partial class HasCreationTimeInterface
+public static partial class HasCreationTimeType
 {
     static partial void Configure(IInterfaceTypeDescriptor<IHasCreationTime> descriptor)
     {

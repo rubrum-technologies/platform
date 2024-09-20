@@ -4,7 +4,7 @@ using Volo.Abp.Data;
 namespace Rubrum.Graphql.Ddd;
 
 [InterfaceType<IHasExtraProperties>]
-public static partial class HasExtraPropertiesInterface
+public static partial class HasExtraPropertiesType
 {
     static partial void Configure(IInterfaceTypeDescriptor<IHasExtraProperties> descriptor)
     {

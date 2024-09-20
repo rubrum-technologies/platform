@@ -4,7 +4,7 @@ using Volo.Abp;
 namespace Rubrum.Graphql.Ddd;
 
 [InterfaceType<ISoftDelete>]
-public static partial class SoftDeleteInterface
+public static partial class SoftDeleteType
 {
     static partial void Configure(IInterfaceTypeDescriptor<ISoftDelete> descriptor)
     {

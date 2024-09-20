@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Rubrum.Auditing;
 using Rubrum.Graphql.Interceptors;
 using Rubrum.Modularity;
 using Volo.Abp.Application;
@@ -11,6 +12,7 @@ namespace Rubrum.Graphql;
 [DependsOn<AbpDddApplicationModule>]
 [DependsOn<AbpAuthorizationAbstractionsModule>]
 [DependsOn<AbpExceptionHandlingModule>]
+[DependsOn<RubrumAuditingContractsModule>]
 public class RubrumGraphqlModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

@@ -19,14 +19,11 @@ public class BlobAppController(IBlobAppService service) : AbpControllerBase, IBl
     }
 
     [HttpPost("upload")]
-    public async Task<string> UploadAsync(IRemoteStreamContent content, CancellationToken ct = default)
+    public async Task<string> UploadAsync(
+        IRemoteStreamContent content,
+        Guid? folderId = null,
+        CancellationToken ct = default)
     {
-        return await service.UploadAsync(content, ct);
-    }
-
-    [HttpPut("upload/{id:guid}")]
-    public async Task<string> UploadAsync(Guid id, IRemoteStreamContent content, CancellationToken ct = default)
-    {
-        return await service.UploadAsync(id, content, ct);
+        return await service.UploadAsync(content, folderId, ct);
     }
 }
