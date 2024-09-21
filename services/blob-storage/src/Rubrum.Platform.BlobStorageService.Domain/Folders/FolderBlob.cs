@@ -37,8 +37,8 @@ public class FolderBlob : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMustHav
     public string Name { get; protected set; }
 
     [MemberNotNull(nameof(Name))]
-    internal void SetName(string fileName)
+    internal void SetName(string name)
     {
-        Name = Check.NotNullOrWhiteSpace(fileName, nameof(fileName), FolderBlobConstants.NameLength);
+        Name = Check.NotNullOrWhiteSpace(name, nameof(name), FolderBlobConstants.NameLength);
     }
 }

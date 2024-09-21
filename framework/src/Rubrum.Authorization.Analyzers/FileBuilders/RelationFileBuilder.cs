@@ -21,7 +21,7 @@ public sealed class RelationFileBuilder : IDisposable
         var name = relation.PropertyName;
         var className = relation.ClassName;
 
-        var types = string.Join(", ", relation.Classes.Select(x => $"typeof({x})"));
+        var types = string.Join(", ", relation.Values.Select(v => $"typeof({v.ToDisplayString()})"));
 
         _writer.WriteIndentedLine(
             "public sealed class {0}() : Relation(\"{1}\", {2})",

@@ -26,6 +26,41 @@ public class FolderBlobManager(IFolderBlobRepository repository) : DomainService
             name);
     }
 
+    public async Task ChangeParentIdAsync(
+        FolderBlob folder,
+        Guid? parentId,
+        CancellationToken ct = default)
+    {
+        if (folder.ParentId == parentId)
+        {
+            return;
+        }
+
+        if (parentId is not null)
+        {
+            await CheckParentAsync(folder.OwnerId, parentId.Value, ct);
+        }
+
+        await CheckNameAsync(folder.OwnerId, parentId, folder.Name, ct);
+
+        folder.ParentId = parentId;
+    }
+
+    public async Task ChangeNameAsync(
+        FolderBlob folder,
+        string name,
+        CancellationToken ct = default)
+    {
+        if (folder.Name == name)
+        {
+            return;
+        }
+
+        await CheckNameAsync(folder.OwnerId, folder.ParentId, name, ct);
+
+        folder.SetName(name);
+    }
+
     private async Task CheckNameAsync(Guid ownerId, Guid? parentId, string name, CancellationToken ct = default)
     {
         if (await repository.AnyAsync(x => x.OwnerId == ownerId && x.ParentId == parentId && x.Name == name, ct))

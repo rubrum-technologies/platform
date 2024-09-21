@@ -8,14 +8,14 @@ using Volo.Abp.Users;
 namespace Rubrum.Platform.BlobStorageService.Folders.Commands;
 
 [GraphQLName("CreateFolderBlobInput")]
-public class CreateFolderBlobCommand : IRequest<FolderBlob>
+public sealed class CreateFolderBlobCommand : IRequest<FolderBlob>
 {
     [ID<FolderBlob>]
     public required Guid? ParentId { get; init; }
 
     public required string Name { get; init; }
 
-    public class Handler(
+    public sealed class Handler(
         ICurrentUser currentUser,
         FolderBlobManager manager,
         IFolderBlobRepository repository) : IRequestHandler<CreateFolderBlobCommand, FolderBlob>, ITransientDependency
@@ -36,7 +36,7 @@ public class CreateFolderBlobCommand : IRequest<FolderBlob>
         }
     }
 
-    public class Validator : AbstractValidator<CreateFolderBlobCommand>
+    public sealed class Validator : AbstractValidator<CreateFolderBlobCommand>
     {
         public Validator()
         {

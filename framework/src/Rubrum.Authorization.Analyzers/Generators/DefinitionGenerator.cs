@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using Rubrum.Authorization.Analyzers.FileBuilders;
 using Rubrum.Authorization.Analyzers.Models;
+using static Rubrum.Authorization.Analyzers.WellKnownClasses;
 
 namespace Rubrum.Authorization.Analyzers.Generators;
 
@@ -61,51 +62,42 @@ public class DefinitionGenerator : ISyntaxGenerator
         var definitions = syntaxInfos
             .OfType<DefinitionInfo>()
             .ToList();
-        var relations = definitions
-            .SelectMany(d => d.Relations)
-            .ToList();
 
         builder.WriteBeginClass(relation);
 
-        foreach (var fullName in relation.Classes)
+        foreach (var value in relation.Values)
         {
-            var isRelation = relations.Exists(r => r.FullName == fullName);
+            var definition = definitions
+                .SingleOrDefault(d => d.TypeSymbol.Equals(value, SymbolEqualityComparer.Default));
 
-            if (isRelation)
+            if (definition is not null)
             {
-                var relationLink = relations.Single(r => r.FullName == fullName);
-
-                foreach (var definition in definitions.Where(d => relationLink.Classes.Contains(d.FullName)))
+                foreach (var propertyName in definition.Relations.Select(p => p.PropertyName))
                 {
-                    CreateRelationProperty(builder, fullName, definition);
+                    builder.WriteProperty(propertyName, value.ToDisplayString());
+                }
+
+                foreach (var propertyName in definition.Permissions.Select(p => p.PropertyName))
+                {
+                    builder.WriteProperty(propertyName, value.ToDisplayString());
                 }
             }
-            else
-            {
-                var definition = definitions.Single(d => d.FullName == fullName);
 
-                CreateRelationProperty(builder, fullName, definition);
+            var properties = value.GetMembers()
+                .OfType<IPropertySymbol>()
+                .Where(p =>
+                    p.Type.BaseType?.ToDisplayString() == RelationClass ||
+                    p.Type.ToDisplayString() == PermissionLinkClass)
+                .ToList();
+
+            foreach (var property in properties)
+            {
+                builder.WriteProperty(property.Name, value.ToDisplayString());
             }
         }
 
         builder.WriteEndClass();
 
         return builder.ToSourceText();
-    }
-
-    private static void CreateRelationProperty(
-        RelationFileBuilder builder,
-        string fullName,
-        DefinitionInfo definition)
-    {
-        foreach (var propertyName in definition.Relations.Select(r => r.PropertyName))
-        {
-            builder.WriteProperty(propertyName, fullName);
-        }
-
-        foreach (var propertyName in definition.Permissions.Select(r => r.PropertyName))
-        {
-            builder.WriteProperty(propertyName, fullName);
-        }
     }
 }

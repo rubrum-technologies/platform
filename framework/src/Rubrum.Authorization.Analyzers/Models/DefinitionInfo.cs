@@ -10,18 +10,18 @@ public sealed class DefinitionInfo : ISyntaxInfo, IEquatable<DefinitionInfo>, IE
         ImmutableArray<RelationInfo> relations,
         ImmutableArray<PermissionInfo> permissions)
     {
-        FullName = typeSymbol.ToDisplayString();
         ClassName = typeSymbol.Name;
         Namespace = typeSymbol.ContainingNamespace.ToDisplayString();
+        TypeSymbol = typeSymbol;
         Relations = relations;
         Permissions = permissions;
     }
 
-    public string FullName { get; }
-
     public string ClassName { get; }
 
     public string Namespace { get; }
+
+    public ITypeSymbol TypeSymbol { get; }
 
     public ImmutableArray<RelationInfo> Relations { get; }
 
@@ -29,7 +29,7 @@ public sealed class DefinitionInfo : ISyntaxInfo, IEquatable<DefinitionInfo>, IE
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(FullName, ClassName, Namespace, Relations, Permissions);
+        return HashCode.Combine(ClassName, Namespace, Relations, Permissions);
     }
 
     public override bool Equals(object? obj)
@@ -40,6 +40,11 @@ public sealed class DefinitionInfo : ISyntaxInfo, IEquatable<DefinitionInfo>, IE
 
     public bool Equals(DefinitionInfo other)
     {
+        if (!TypeSymbol.Equals(other.TypeSymbol, SymbolEqualityComparer.Default))
+        {
+            return false;
+        }
+
         if (Relations.Length != other.Relations.Length || Permissions.Length != other.Permissions.Length)
         {
             return false;
@@ -50,7 +55,7 @@ public sealed class DefinitionInfo : ISyntaxInfo, IEquatable<DefinitionInfo>, IE
             var r1 = Relations[i];
             var r2 = other.Relations[i];
 
-            if (!r1.Equals(r2))
+            if (!r1.AttributeData.Equals(r2.AttributeData))
             {
                 return false;
             }
@@ -61,7 +66,7 @@ public sealed class DefinitionInfo : ISyntaxInfo, IEquatable<DefinitionInfo>, IE
             var p1 = Permissions[i];
             var p2 = other.Permissions[i];
 
-            if (!p1.Equals(p2))
+            if (!p1.AttributeData.Equals(p2.AttributeData))
             {
                 return false;
             }
@@ -77,6 +82,6 @@ public sealed class DefinitionInfo : ISyntaxInfo, IEquatable<DefinitionInfo>, IE
 
     public int GetHashCode(DefinitionInfo obj)
     {
-        return HashCode.Combine(obj.FullName, obj.ClassName, obj.Namespace, obj.Relations, obj.Permissions);
+        return HashCode.Combine(obj.ClassName, obj.Namespace, obj.Relations, obj.Permissions);
     }
 }

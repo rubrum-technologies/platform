@@ -112,6 +112,16 @@ type BusinessError implements Error {
   message: String!
 }
 
+type ChangeFolderBlobNamePayload {
+  folderBlob: FolderBlob
+  errors: [ChangeFolderBlobNameError!]
+}
+
+type ChangeFolderBlobParentIdPayload {
+  folderBlob: FolderBlob
+  errors: [ChangeFolderBlobParentIdError!]
+}
+
 type CreateFolderBlobPayload {
   folderBlob: FolderBlob
   errors: [CreateFolderBlobError!]
@@ -163,6 +173,8 @@ type FolderBlobParentHasDifferentOwnerError implements Error {
 
 type Mutation {
   createFolderBlob(input: CreateFolderBlobInput!): CreateFolderBlobPayload!
+  changeFolderBlobParentId(input: ChangeFolderBlobParentIdInput!): ChangeFolderBlobParentIdPayload!
+  changeFolderBlobName(input: ChangeFolderBlobNameInput!): ChangeFolderBlobNamePayload!
 }
 
 type Query {
@@ -184,11 +196,26 @@ type ValidationResult {
   errorMessage: String
 }
 
+union ChangeFolderBlobNameError = ValidationError | BusinessError | EntityNotFoundError | FolderBlobNameAlreadyExistsError
+
+union ChangeFolderBlobParentIdError = ValidationError | BusinessError | EntityNotFoundError | FolderBlobNameAlreadyExistsError | FolderBlobParentHasDifferentOwnerError
+
 union CreateFolderBlobError = ValidationError | BusinessError | EntityNotFoundError | FolderBlobNameAlreadyExistsError | FolderBlobParentHasDifferentOwnerError
 
 input BooleanOperationFilterInput {
   eq: Boolean
   neq: Boolean
+}
+
+input ChangeFolderBlobNameInput {
+  id: ID!
+  "Maximum length '30'"
+  name: String!
+}
+
+input ChangeFolderBlobParentIdInput {
+  id: ID!
+  parentId: ID
 }
 
 input CreateFolderBlobInput {

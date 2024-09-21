@@ -8,4 +8,3 @@ public class BlobFolderHasDifferentOwnerException(Guid ownerId, Guid folderId) :
 
     public Guid FolderId => folderId;
 }
-

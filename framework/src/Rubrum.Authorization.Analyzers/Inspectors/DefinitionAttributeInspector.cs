@@ -33,8 +33,8 @@ public class DefinitionAttributeInspector : ISyntaxInspector
                 {
                     syntaxInfo = new DefinitionInfo(
                         typeSymbol,
-                        GetRelations(context, possibleType, typeSymbol),
-                        GetPermissions(context, possibleType));
+                        GetRelations(typeSymbol),
+                        GetPermissions(typeSymbol));
                     return true;
                 }
             }
@@ -44,56 +44,31 @@ public class DefinitionAttributeInspector : ISyntaxInspector
         return false;
     }
 
-    private static ImmutableArray<RelationInfo> GetRelations(
-        GeneratorSyntaxContext context,
-        ClassDeclarationSyntax typeSyntax,
-        ITypeSymbol typeSymbol)
+    private static ImmutableArray<RelationInfo> GetRelations(ITypeSymbol typeSymbol)
     {
         var builder = ImmutableArray.CreateBuilder<RelationInfo>();
 
-        foreach (var attributeSyntax in typeSyntax.AttributeLists.SelectMany(a => a.Attributes))
+        foreach (var attributeData in from attributeData in typeSymbol.GetAttributes()
+                 let fullName = attributeData.AttributeClass?.ToDisplayString() ?? string.Empty
+                 where fullName.StartsWith(RelationAttribute, Ordinal)
+                 select attributeData)
         {
-            var symbol = context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol;
-
-            if (symbol is not IMethodSymbol attributeSymbol)
-            {
-                continue;
-            }
-
-            var fullName = attributeSymbol.ContainingType.ToDisplayString();
-
-            if (fullName.StartsWith(RelationAttribute, Ordinal) &&
-                context.SemanticModel.GetDeclaredSymbol(typeSyntax) is ITypeSymbol)
-            {
-                builder.Add(new RelationInfo(context, typeSymbol, attributeSyntax));
-            }
+            builder.Add(new RelationInfo(attributeData));
         }
 
         return builder.ToImmutable();
     }
 
-    private static ImmutableArray<PermissionInfo> GetPermissions(
-        GeneratorSyntaxContext context,
-        ClassDeclarationSyntax typeSyntax)
+    private static ImmutableArray<PermissionInfo> GetPermissions(ITypeSymbol typeSymbol)
     {
         var builder = ImmutableArray.CreateBuilder<PermissionInfo>();
 
-        foreach (var attributeSyntax in typeSyntax.AttributeLists.SelectMany(a => a.Attributes))
+        foreach (var attributeData in from attributeData in typeSymbol.GetAttributes()
+                 let fullName = attributeData.AttributeClass?.ToDisplayString() ?? string.Empty
+                 where fullName.StartsWith(PermissionAttribute, Ordinal)
+                 select attributeData)
         {
-            var symbol = context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol;
-
-            if (symbol is not IMethodSymbol attributeSymbol)
-            {
-                continue;
-            }
-
-            var fullName = attributeSymbol.ContainingType.ToDisplayString();
-
-            if (fullName.StartsWith(PermissionAttribute, Ordinal) &&
-                context.SemanticModel.GetDeclaredSymbol(typeSyntax) is ITypeSymbol)
-            {
-                builder.Add(new PermissionInfo(attributeSyntax));
-            }
+            builder.Add(new PermissionInfo(attributeData));
         }
 
         return builder.ToImmutable();

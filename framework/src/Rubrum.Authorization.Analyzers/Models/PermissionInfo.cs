@@ -1,26 +1,21 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis;
 
 namespace Rubrum.Authorization.Analyzers.Models;
 
 public class PermissionInfo
 {
-    public PermissionInfo(AttributeSyntax attributeSyntax)
+    public PermissionInfo(AttributeData attributeData)
     {
-        var arguments = attributeSyntax.ArgumentList!.Arguments;
-
-        PropertyName = arguments[0]
-            .ToFullString()
+        PropertyName = attributeData
+            .ConstructorArguments[0]
+            .Value!
+            .ToString()
             .Trim('"');
 
-        AttributeSyntax = attributeSyntax;
+        AttributeData = attributeData;
     }
 
     public string PropertyName { get; }
 
-    public AttributeSyntax AttributeSyntax { get; }
-
-    internal bool Equals(PermissionInfo other)
-    {
-        return AttributeSyntax.IsEquivalentTo(other.AttributeSyntax);
-    }
+    public AttributeData AttributeData { get; }
 }

@@ -2,4 +2,4 @@
 
 namespace Rubrum.Platform.BlobStorageService.Folders;
 
-public interface IFolderBlobRepository : IRepository<FolderBlob>;
+public interface IFolderBlobRepository : IRepository<FolderBlob, Guid>;
