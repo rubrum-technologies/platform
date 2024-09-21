@@ -11,10 +11,6 @@ public static partial class DocumentType
     {
         descriptor.Entity();
 
-        descriptor
-            .AddRelation(DocumentDefinition.Reader)
-            .AddRelation(DocumentDefinition.Writer)
-            .AddPermission(DocumentDefinition.View)
-            .AddPermission(DocumentDefinition.Edit);
+        descriptor.BingDefinition(typeof(DocumentDefinition));
     }
 }

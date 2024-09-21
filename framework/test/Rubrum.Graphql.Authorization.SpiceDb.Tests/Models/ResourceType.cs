@@ -11,8 +11,6 @@ public static partial class ResourceType
     {
         descriptor.Entity();
 
-        descriptor
-            .AddRelation(ResourceDefinition.Owner)
-            .AddPermission(ResourceDefinition.Admin);
+        descriptor.BingDefinition(typeof(ResourceDefinition));
     }
 }

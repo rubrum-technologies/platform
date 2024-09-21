@@ -11,8 +11,6 @@ public static partial class OrganizationType
     {
         descriptor.Entity();
 
-        descriptor
-            .AddRelation(OrganizationDefinition.Platform)
-            .AddPermission(OrganizationDefinition.Admin);
+        descriptor.BingDefinition(typeof(OrganizationDefinition));
     }
 }

@@ -11,13 +11,6 @@ public static partial class RoleType
     {
         descriptor.Entity();
 
-        descriptor
-            .AddRelation(RoleDefinition.Project)
-            .AddRelation(RoleDefinition.Member)
-            .AddRelation(RoleDefinition.BuiltInRole)
-            .AddPermission(RoleDefinition.Delete)
-            .AddPermission(RoleDefinition.AddPermission)
-            .AddPermission(RoleDefinition.AddUser)
-            .AddPermission(RoleDefinition.RemovePermission);
+        descriptor.BingDefinition(typeof(RoleDefinition));
     }
 }

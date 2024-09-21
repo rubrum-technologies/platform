@@ -11,15 +11,6 @@ public static partial class ProjectType
     {
         descriptor.Entity();
 
-        descriptor
-            .AddRelation(ProjectDefinition.IssueCreator)
-            .AddRelation(ProjectDefinition.IssueAssigner)
-            .AddRelation(ProjectDefinition.AnyIssueResolver)
-            .AddRelation(ProjectDefinition.AssignedIssueResolver)
-            .AddRelation(ProjectDefinition.CommentCreator)
-            .AddRelation(ProjectDefinition.CommentDeleter)
-            .AddRelation(ProjectDefinition.RoleManager)
-            .AddPermission(ProjectDefinition.CreateIssue)
-            .AddPermission(ProjectDefinition.CreateRole);
+        descriptor.BingDefinition(typeof(ProjectDefinition));
     }
 }

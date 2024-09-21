@@ -133,7 +133,7 @@ type EntityNotFoundError implements Error {
   message: String!
 }
 
-type FolderBlob implements Node & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate {
+type FolderBlob implements Node & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate @relation(name: "owner", value: "user") @permission(name: "edit", value: "owner") {
   parent: FolderBlob
   blobs: [Blob!]!
   creatorId: ID
@@ -346,6 +346,10 @@ directive @aggregate on OBJECT
 
 "The authorize directive."
 directive @authorize("The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!] "Defines when when the authorize directive shall be applied.By default the authorize directives are applied during the validation phase." apply: ApplyPolicy! = BEFORE_RESOLVER) repeatable on OBJECT | FIELD_DEFINITION
+
+directive @permission(name: String! value: String!) repeatable on OBJECT
+
+directive @relation(name: String! value: String!) repeatable on OBJECT
 
 "The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
 directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR

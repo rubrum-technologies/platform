@@ -11,8 +11,6 @@ public static partial class PlatformType
     {
         descriptor.Entity();
 
-        descriptor
-            .AddRelation(PlatformDefinition.Administrator)
-            .AddPermission(PlatformDefinition.SuperAdmin);
+        descriptor.BingDefinition(typeof(PlatformDefinition));
     }
 }

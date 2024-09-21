@@ -11,12 +11,6 @@ public static partial class IssueType
     {
         descriptor.Entity();
 
-        descriptor
-            .AddRelation(IssueDefinition.Project)
-            .AddRelation(IssueDefinition.Assigned)
-            .AddPermission(IssueDefinition.Assign)
-            .AddPermission(IssueDefinition.Resolve)
-            .AddPermission(IssueDefinition.CreateComment)
-            .AddPermission(IssueDefinition.ProjectCommentDeleter);
+        descriptor.BingDefinition(typeof(IssueDefinition));
     }
 }

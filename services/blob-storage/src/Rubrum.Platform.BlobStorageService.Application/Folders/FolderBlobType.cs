@@ -3,6 +3,7 @@ using HotChocolate;
 using HotChocolate.Types;
 using Rubrum.Graphql;
 using Rubrum.Graphql.Ddd;
+using Rubrum.Graphql.Relations;
 using Rubrum.Platform.BlobStorageService.Blobs;
 
 namespace Rubrum.Platform.BlobStorageService.Folders;
@@ -36,6 +37,7 @@ public static partial class FolderBlobType
         descriptor.FullAuditedAggregateRoot();
         descriptor.MultiTenant();
         descriptor.Owner();
+        descriptor.BingDefinition(typeof(FolderBlobDefinition));
 
         descriptor
             .ImplementsNode()

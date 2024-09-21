@@ -71,7 +71,7 @@ interface SoftDelete {
   isDeleted: Boolean!
 }
 
-type Document @relation(name: "reader", value: "user") @relation(name: "writer", value: "user") @permission(name: "view", value: "reader + edit") @permission(name: "edit", value: "writer") {
+type Document @relation(name: "writer", value: "user") @relation(name: "reader", value: "user") @permission(name: "edit", value: "writer") @permission(name: "view", value: "reader + edit") {
   name: String!
   id: UUID!
 }
@@ -103,7 +103,7 @@ type Resource @relation(name: "owner", value: "user | organization") @permission
   id: UUID!
 }
 
-type Role @relation(name: "project", value: "project") @relation(name: "member", value: "user") @relation(name: "built_in_role", value: "project") @permission(name: "delete", value: "project->role_manager - project->role_manager") @permission(name: "add_permission", value: "project->role_manager - project->role_manager") @permission(name: "add_user", value: "project->role_manager") @permission(name: "remove_permission", value: "project->role_manager - project->role_manager") {
+type Role @relation(name: "project", value: "project") @relation(name: "member", value: "user") @relation(name: "built_in_role", value: "project") @permission(name: "delete", value: "project->role_manager - project->role_manager") @permission(name: "add_user", value: "project->role_manager") @permission(name: "add_permission", value: "project->role_manager - project->role_manager") @permission(name: "remove_permission", value: "project->role_manager - project->role_manager") {
   id: UUID!
 }
 
