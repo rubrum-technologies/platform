@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Rubrum.BackgroundJobs.Dapr.Test": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
