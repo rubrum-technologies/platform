@@ -5,6 +5,7 @@ using Volo.Abp.DependencyInjection;
 
 namespace Rubrum.Graphql.SpiceDb.Relations;
 
+[Dependency(ReplaceServices = true)]
 public class PermissionDirectiveBuilder : IPermissionDirectiveBuilder, ITransientDependency
 {
     public PermissionDirective Build(PermissionLink link)

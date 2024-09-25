@@ -1,13 +1,13 @@
 using Rubrum.Graphql;
-using Rubrum.Graphql.SpiceDb;
 using Rubrum.Modularity;
 using Volo.Abp.Modularity;
 
 namespace Rubrum.Platform.BlobStorageService;
 
 [DependsOn<RubrumGraphqlTestModule>]
-[DependsOn<RubrumGraphqlAuthorizationSpiceDbModule>]
 [DependsOn<RubrumGraphqlFluentValidationModule>]
 [DependsOn<PlatformBlobStorageServiceApplicationModule>]
 [DependsOn<PlatformBlobStorageServiceEntityFrameworkCoreTestModule>]
-public class PlatformBlobStorageServiceApplicationTestModule : AbpModule;
+public class PlatformBlobStorageServiceApplicationTestModule : AbpModule
+{
+}

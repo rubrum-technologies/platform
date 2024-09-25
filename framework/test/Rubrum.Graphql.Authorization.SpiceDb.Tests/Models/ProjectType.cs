@@ -11,6 +11,6 @@ public static partial class ProjectType
     {
         descriptor.Entity();
 
-        descriptor.BingDefinition(typeof(ProjectDefinition));
+        descriptor.BindDefinition(typeof(ProjectDefinition));
     }
 }

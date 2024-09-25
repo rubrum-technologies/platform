@@ -11,6 +11,6 @@ public static partial class RoleType
     {
         descriptor.Entity();
 
-        descriptor.BingDefinition(typeof(RoleDefinition));
+        descriptor.BindDefinition(typeof(RoleDefinition));
     }
 }

@@ -14,7 +14,7 @@ public static class ObjectTypeDescriptorExtensions
         .GetMethods()
         .Single(m => m is { Name: "AddPermission", IsGenericMethod: true });
 
-    public static IObjectTypeDescriptor<T> BingDefinition<T>(
+    public static IObjectTypeDescriptor<T> BindDefinition<T>(
         this IObjectTypeDescriptor<T> descriptor,
         Type definition)
         where T : class

@@ -2,14 +2,14 @@
 
 public interface IRelationChecker
 {
-    Task<bool> IsGrantedAsync(
-        Relationship relationship,
-        IReadOnlyDictionary<string, object>? context = null,
+    Task IsGrantedAsync(
+        PermissionLink permission,
+        ResourceReference resource,
+        SubjectReference subject,
         CancellationToken ct = default);
 
-    Task<bool> IsGrantedWithUserAsync(
-        PermissionLink relation,
+    Task IsGrantedWithUserAsync(
+        PermissionLink permission,
         ResourceReference resource,
-        IReadOnlyDictionary<string, object>? context = null,
         CancellationToken ct = default);
 }

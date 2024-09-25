@@ -20,5 +20,8 @@ public class RubrumGraphqlTestModule : AbpModule
 
         context.Services.AddSingleton(sp =>
             new RequestExecutorProxy(sp.GetRequiredService<IRequestExecutorResolver>(), "_Default"));
+
+        context.Services.GetGraphql()
+            .AddFakeAuthorizationHandler();
     }
 }

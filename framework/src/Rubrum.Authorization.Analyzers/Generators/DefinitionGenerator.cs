@@ -41,6 +41,8 @@ public class DefinitionGenerator : ISyntaxGenerator
                 builder.WritePermissionMethod(permission);
             }
 
+            builder.WritePermissionsClass(definition);
+
             foreach (var relation in definition.Relations)
             {
                 builder.WriteRelationClass(CreateRelationClass(relation, syntaxInfos));

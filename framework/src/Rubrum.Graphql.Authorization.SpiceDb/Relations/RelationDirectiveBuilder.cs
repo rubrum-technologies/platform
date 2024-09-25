@@ -5,6 +5,7 @@ using Volo.Abp.DependencyInjection;
 
 namespace Rubrum.Graphql.SpiceDb.Relations;
 
+[Dependency(ReplaceServices = true)]
 public sealed class RelationDirectiveBuilder : IRelationDirectiveBuilder, ITransientDependency
 {
     public RelationDirective Build(Relation relation)

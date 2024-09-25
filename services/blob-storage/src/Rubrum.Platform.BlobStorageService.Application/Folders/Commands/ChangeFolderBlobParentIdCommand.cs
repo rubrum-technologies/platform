@@ -1,7 +1,7 @@
-﻿using FluentValidation;
-using HotChocolate;
+﻿using HotChocolate;
 using HotChocolate.Types.Relay;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Rubrum.Platform.BlobStorageService.Folders.Commands;
 

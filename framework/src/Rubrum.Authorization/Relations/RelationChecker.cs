@@ -1,48 +1,34 @@
-﻿using Volo.Abp.DependencyInjection;
-using Volo.Abp.Users;
+﻿using Volo.Abp.Authorization;
+using Volo.Abp.DependencyInjection;
 
 namespace Rubrum.Authorization.Relations;
 
-public class RelationChecker(
-    ICurrentUser currentUser,
-    IRelationValueProviderManager relationValueProviderManager) : IRelationChecker, ITransientDependency
+public class RelationChecker(IRelationStore store) : IRelationChecker, ITransientDependency
 {
-    public async Task<bool> IsGrantedAsync(
-        Relationship relationship,
-        IReadOnlyDictionary<string, object>? context = null,
+    public async Task IsGrantedAsync(
+        PermissionLink permission,
+        ResourceReference resource,
+        SubjectReference subject,
         CancellationToken ct = default)
     {
-        var isGranted = false;
+        var result = await store.IsGrantedAsync(permission, resource, subject, ct);
 
-        foreach (var provider in relationValueProviderManager.ValueProviders)
+        if (!result)
         {
-            var result = await provider.GetResultAsync(relationship, context, ct);
-
-            if (result == RelationGrantResult.Granted)
-            {
-                isGranted = true;
-            }
-            else if (result == RelationGrantResult.Prohibited)
-            {
-                return false;
-            }
+            throw new AbpAuthorizationException(code: AbpAuthorizationErrorCodes.GivenPolicyHasNotGranted);
         }
-
-        return isGranted;
     }
 
-    public Task<bool> IsGrantedWithUserAsync(
-        PermissionLink relation,
+    public async Task IsGrantedWithUserAsync(
+        PermissionLink permission,
         ResourceReference resource,
-        IReadOnlyDictionary<string, object>? context = null,
         CancellationToken ct = default)
     {
-        return IsGrantedAsync(
-            new Relationship(
-                relation,
-                resource,
-                new SubjectReference("UserDefinition", currentUser.GetId().ToString())),
-            context,
-            ct);
+        var result = await store.IsGrantedWithUserAsync(permission, resource, ct);
+
+        if (!result)
+        {
+            throw new AbpAuthorizationException(code: AbpAuthorizationErrorCodes.GivenPolicyHasNotGranted);
+        }
     }
 }

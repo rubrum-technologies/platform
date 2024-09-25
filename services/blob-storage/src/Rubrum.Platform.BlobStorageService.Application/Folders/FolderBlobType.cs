@@ -37,7 +37,7 @@ public static partial class FolderBlobType
         descriptor.FullAuditedAggregateRoot();
         descriptor.MultiTenant();
         descriptor.Owner();
-        descriptor.BingDefinition(typeof(FolderBlobDefinition));
+        descriptor.BindDefinition(typeof(FolderBlobDefinition));
 
         descriptor
             .ImplementsNode()

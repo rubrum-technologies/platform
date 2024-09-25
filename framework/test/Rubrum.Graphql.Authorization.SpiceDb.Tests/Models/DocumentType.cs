@@ -11,6 +11,6 @@ public static partial class DocumentType
     {
         descriptor.Entity();
 
-        descriptor.BingDefinition(typeof(DocumentDefinition));
+        descriptor.BindDefinition(typeof(DocumentDefinition));
     }
 }

@@ -54,7 +54,7 @@ public sealed class DefinitionFileBuilder : IDisposable
     public void WritePermissionProperty(PermissionInfo permission)
     {
         _writer.WriteIndentedLine(
-            "public static PermissionLink {0} {{ get; }} = new PermissionLink(\"{0}\", {0}Configure);",
+            "public static PermissionLink {0} {{ get; }} = new PermissionLink(Permissions.{0}, {0}Configure);",
             permission.PropertyName);
         _writer.WriteLine();
     }
@@ -62,6 +62,23 @@ public sealed class DefinitionFileBuilder : IDisposable
     public void WritePermissionMethod(PermissionInfo permission)
     {
         _writer.WriteIndentedLine("public static partial Permission {0}Configure();", permission.PropertyName);
+        _writer.WriteLine();
+    }
+
+    public void WritePermissionsClass(DefinitionInfo definition)
+    {
+        _writer.WriteIndentedLine("public static class Permissions");
+        _writer.WriteIndentedLine("{");
+
+        using (_writer.IncreaseIndent())
+        {
+            foreach (var name in definition.Permissions.Select(p => p.PropertyName))
+            {
+                _writer.WriteIndentedLine("public const string {0} = \"{0}\";", name);
+            }
+        }
+
+        _writer.WriteIndentedLine("}");
         _writer.WriteLine();
     }
 

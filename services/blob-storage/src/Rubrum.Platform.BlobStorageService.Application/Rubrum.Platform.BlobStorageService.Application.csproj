@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Authorization.Analyzers\Rubrum.Authorization.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Authorization\Rubrum.Authorization.csproj" />
     <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Cqrs\Rubrum.Cqrs.csproj" />
     <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Graphql.Authorization\Rubrum.Graphql.Authorization.csproj"/>
     <ProjectReference Include="..\..\..\..\shared\Rubrum.Platform.Relations\Rubrum.Platform.Relations.csproj" />

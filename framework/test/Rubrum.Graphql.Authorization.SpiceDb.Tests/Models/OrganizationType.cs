@@ -11,6 +11,6 @@ public static partial class OrganizationType
     {
         descriptor.Entity();
 
-        descriptor.BingDefinition(typeof(OrganizationDefinition));
+        descriptor.BindDefinition(typeof(OrganizationDefinition));
     }
 }

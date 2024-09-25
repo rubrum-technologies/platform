@@ -11,6 +11,6 @@ public static partial class IssueType
     {
         descriptor.Entity();
 
-        descriptor.BingDefinition(typeof(IssueDefinition));
+        descriptor.BindDefinition(typeof(IssueDefinition));
     }
 }

@@ -11,6 +11,6 @@ public static partial class ResourceType
     {
         descriptor.Entity();
 
-        descriptor.BingDefinition(typeof(ResourceDefinition));
+        descriptor.BindDefinition(typeof(ResourceDefinition));
     }
 }

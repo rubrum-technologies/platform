@@ -11,6 +11,6 @@ public static partial class PlatformType
     {
         descriptor.Entity();
 
-        descriptor.BingDefinition(typeof(PlatformDefinition));
+        descriptor.BindDefinition(typeof(PlatformDefinition));
     }
 }

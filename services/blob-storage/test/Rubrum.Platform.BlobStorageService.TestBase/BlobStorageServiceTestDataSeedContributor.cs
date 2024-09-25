@@ -1,12 +1,17 @@
+using Rubrum.Platform.BlobStorageService.Folders;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
+using static Rubrum.Platform.BlobStorageService.BlobStorageServiceTestConstants;
 
 namespace Rubrum.Platform.BlobStorageService;
 
-public class BlobStorageServiceTestDataSeedContributor : IDataSeedContributor, ITransientDependency
+public class BlobStorageServiceTestDataSeedContributor(
+    IFolderBlobRepository folderBlobRepository) : IDataSeedContributor, ITransientDependency
 {
-    public Task SeedAsync(DataSeedContext context)
+    public async Task SeedAsync(DataSeedContext context)
     {
-        return Task.CompletedTask;
+        var folderBlob = new FolderBlob(FolderBlobId, null, Guid.Empty, null, "Test");
+
+        await folderBlobRepository.InsertAsync(folderBlob);
     }
 }

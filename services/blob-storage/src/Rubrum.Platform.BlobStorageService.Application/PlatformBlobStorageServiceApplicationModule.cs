@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Rubrum.Authorization;
 using Rubrum.Cqrs;
 using Rubrum.Graphql;
 using Rubrum.Modularity;
@@ -10,6 +11,7 @@ namespace Rubrum.Platform.BlobStorageService;
 
 [DependsOn<AbpFluentValidationModule>]
 [DependsOn<AbpDddApplicationModule>]
+[DependsOn<RubrumAuthorizationModule>]
 [DependsOn<RubrumGraphqlAuthorizationModule>]
 [DependsOn<RubrumCqrsModule>]
 [DependsOn<PlatformBlobStorageServiceApplicationContractsModule>]

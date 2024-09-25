@@ -1,3 +1,4 @@
+using Rubrum.Authorization;
 using Rubrum.Graphql;
 using Rubrum.Modularity;
 using Volo.Abp.Application;
@@ -8,6 +9,7 @@ namespace MyCompanyName.MyProjectName;
 
 [DependsOn<AbpFluentValidationModule>]
 [DependsOn<AbpDddApplicationModule>]
+[DependsOn<RubrumAuthorizationModule>]
 [DependsOn<RubrumGraphqlAuthorizationModule>]
 [DependsOn<MyProjectNameApplicationContractsModule>]
 [DependsOn<MyProjectNameDomainModule>]
