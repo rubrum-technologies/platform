@@ -23,7 +23,17 @@ public class StoreAppsServiceEntityFrameworkCoreTestModule : AbpModule
     {
         context.Services.AddAlwaysDisableUnitOfWorkTransaction();
 
+        Configure<AbpUnitOfWorkDefaultOptions>(options =>
+        {
+            options.TransactionBehavior = UnitOfWorkTransactionBehavior.Disabled;
+        });
+
         ConfigureInMemorySqlite(context.Services);
+    }
+
+    public override void OnPreApplicationInitialization(ApplicationInitializationContext context)
+    {
+        context.ServiceProvider.GetRequiredService<IUnitOfWorkManager>().Begin();
     }
 
     public override void OnApplicationShutdown(ApplicationShutdownContext context)
