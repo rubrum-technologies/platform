@@ -1,12 +1,23 @@
+using Rubrum.Platform.StoreAppsService.Apps;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
+using static Rubrum.Platform.StoreAppsService.AppTestConstants;
 
 namespace Rubrum.Platform.StoreAppsService;
 
-public class StoreAppsServiceTestDataSeedContributor : IDataSeedContributor, ITransientDependency
+public class StoreAppsServiceTestDataSeedContributor(
+    IAppRepository repository,
+    AppManager manager) : IDataSeedContributor, ITransientDependency
 {
-    public Task SeedAsync(DataSeedContext context)
+    public async Task SeedAsync(DataSeedContext context)
     {
-        return Task.CompletedTask;
+        if (await repository.GetCountAsync() > 0)
+        {
+            return;
+        }
+
+        await repository.InsertAsync(
+            await manager.CreateAsync(TestName, TestVersion, true),
+            true);
     }
 }
