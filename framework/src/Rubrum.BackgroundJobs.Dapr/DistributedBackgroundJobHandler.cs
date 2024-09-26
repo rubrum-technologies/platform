@@ -1,0 +1,31 @@
+using Volo.Abp.BackgroundJobs;
+using Volo.Abp.EventBus.Distributed;
+
+namespace Rubrum.BackgroundJobs;
+
+public class DistributedBackgroundJobHandler: IDistributedEventHandler<JobEnqueuedEvent<object>>
+{
+    public async Task HandleEventAsync(JobEnqueuedEvent<object> eventData)
+    {
+        var jobArgs = eventData.Args;
+
+        /*
+        var context = new JobExecutionContext(
+            scope.ServiceProvider,
+            JobConfiguration.JobType,
+            Serializer.Deserialize(ea.Body.ToArray(), typeof(TArgs))
+        );
+
+        try
+        {
+            await JobExecuter.ExecuteAsync(context);
+            ChannelAccessor!.Channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+        }
+        catch (BackgroundJobExecutionException)
+        {
+        }
+        catch (Exception)
+        {
+        }*/
+    }
+}
