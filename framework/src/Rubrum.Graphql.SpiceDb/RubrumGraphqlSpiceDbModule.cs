@@ -1,4 +1,5 @@
-﻿using Rubrum.Modularity;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Rubrum.Modularity;
 using Volo.Abp.Modularity;
 
 namespace Rubrum.Graphql.SpiceDb;

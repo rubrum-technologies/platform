@@ -8,6 +8,15 @@ namespace Rubrum.Graphql;
 [DependsOn<RubrumGraphqlFluentValidationModule>]
 public class RubrumGraphqlFluentValidationTestModule : AbpModule
 {
+    public override void PreConfigureServices(ServiceConfigurationContext context)
+    {
+        context.Services.GetGraphql()
+            .AddMutationConventions()
+            .AddFiltering()
+            .AddSorting()
+            .AddProjections();
+    }
+
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         var graphql = context.Services.GetGraphql();

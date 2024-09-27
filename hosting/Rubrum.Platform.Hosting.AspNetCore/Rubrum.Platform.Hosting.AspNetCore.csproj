@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\framework\src\Rubrum.Authorization.SpiceDb\Rubrum.Authorization.SpiceDb.csproj" />
     <ProjectReference Include="..\..\framework\src\Rubrum.SpiceDb.Dapr\Rubrum.SpiceDb.Dapr.csproj" />
     <ProjectReference Include="..\Rubrum.Platform.Hosting.ServiceDefaults\Rubrum.Platform.Hosting.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Rubrum.Platform.Hosting\Rubrum.Platform.Hosting.csproj" />

@@ -12,18 +12,26 @@ namespace Rubrum.Platform.BlobStorageService;
 [DependsOn<AbpFluentValidationModule>]
 [DependsOn<AbpDddApplicationModule>]
 [DependsOn<RubrumAuthorizationModule>]
+[DependsOn<RubrumGraphqlDddModule>]
 [DependsOn<RubrumGraphqlAuthorizationModule>]
 [DependsOn<RubrumCqrsModule>]
 [DependsOn<PlatformBlobStorageServiceApplicationContractsModule>]
 [DependsOn<PlatformBlobStorageServiceDomainModule>]
 public class PlatformBlobStorageServiceApplicationModule : AbpModule
 {
+    public override void PreConfigureServices(ServiceConfigurationContext context)
+    {
+        context.Services.GetGraphql()
+            .AddGlobalObjectIdentification()
+            .AddMutationConventions()
+            .AddFiltering()
+            .AddSorting()
+            .AddProjections();
+    }
+
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        var graphql = context.Services.GetGraphql();
-
-        graphql
-            .AddGlobalObjectIdentification()
+        context.Services.GetGraphql()
             .AddApplicationTypes();
     }
 }

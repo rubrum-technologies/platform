@@ -1,4 +1,6 @@
+using Microsoft.Extensions.DependencyInjection;
 using Rubrum.Authorization;
+using Rubrum.Cqrs;
 using Rubrum.Graphql;
 using Rubrum.Modularity;
 using Volo.Abp.Application;
@@ -10,7 +12,20 @@ namespace MyCompanyName.MyProjectName;
 [DependsOn<AbpFluentValidationModule>]
 [DependsOn<AbpDddApplicationModule>]
 [DependsOn<RubrumAuthorizationModule>]
+[DependsOn<RubrumGraphqlDddModule>]
 [DependsOn<RubrumGraphqlAuthorizationModule>]
+[DependsOn<RubrumCqrsModule>]
 [DependsOn<MyProjectNameApplicationContractsModule>]
 [DependsOn<MyProjectNameDomainModule>]
-public class MyProjectNameApplicationModule : AbpModule;
+public class MyProjectNameApplicationModule : AbpModule
+{
+    public override void PreConfigureServices(ServiceConfigurationContext context)
+    {
+        context.Services.GetGraphql()
+            .AddGlobalObjectIdentification()
+            .AddMutationConventions()
+            .AddFiltering()
+            .AddSorting()
+            .AddProjections();
+    }
+}

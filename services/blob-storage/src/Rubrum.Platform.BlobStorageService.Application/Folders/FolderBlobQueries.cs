@@ -15,10 +15,15 @@ public static class FolderBlobQueries
     [NodeResolver]
     public static async Task<FolderBlob?> GetFolderBlobByIdAsync(
         [ID<FolderBlob>] Guid id,
-        [Service] IFolderBlobByIdDataLoader dataLoader,
+        [Service] IMediator mediator,
         CancellationToken ct = default)
     {
-        return await dataLoader.LoadAsync(id, ct);
+        return await mediator.Send(
+            new GetFolderByIdQuery
+            {
+                Id = id,
+            },
+            ct);
     }
 
     [Authorize]

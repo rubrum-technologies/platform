@@ -17,9 +17,14 @@ namespace TestNamespace
     {
         public static PlatformRelation Platform { get; } = new PlatformRelation();
 
-        public static PermissionLink Admin { get; } = new PermissionLink("Admin", AdminConfigure);
+        public static PermissionLink Admin { get; } = new PermissionLink(Permissions.Admin, AdminConfigure);
 
         public static partial Permission AdminConfigure();
+
+        public static class Permissions
+        {
+            public const string Admin = "Admin";
+        }
 
         public sealed class PlatformRelation() : Relation("Platform", typeof(TestNamespace.PlatformDefinition))
         {
@@ -50,9 +55,14 @@ namespace TestNamespace
     {
         public static AdministratorRelation Administrator { get; } = new AdministratorRelation();
 
-        public static PermissionLink SuperAdmin { get; } = new PermissionLink("SuperAdmin", SuperAdminConfigure);
+        public static PermissionLink SuperAdmin { get; } = new PermissionLink(Permissions.SuperAdmin, SuperAdminConfigure);
 
         public static partial Permission SuperAdminConfigure();
+
+        public static class Permissions
+        {
+            public const string SuperAdmin = "SuperAdmin";
+        }
 
         public sealed class AdministratorRelation() : Relation("Administrator", typeof(TestNamespace.UserDefinition))
         {
@@ -81,9 +91,14 @@ namespace TestNamespace
     {
         public static OwnerRelation Owner { get; } = new OwnerRelation();
 
-        public static PermissionLink Admin { get; } = new PermissionLink("Admin", AdminConfigure);
+        public static PermissionLink Admin { get; } = new PermissionLink(Permissions.Admin, AdminConfigure);
 
         public static partial Permission AdminConfigure();
+
+        public static class Permissions
+        {
+            public const string Admin = "Admin";
+        }
 
         public sealed class OwnerRelation() : Relation("Owner", typeof(TestNamespace.UserDefinition), typeof(TestNamespace.OrganizationDefinition))
         {
@@ -112,6 +127,10 @@ namespace TestNamespace
 {
     public static partial class UserDefinition
     {
+        public static class Permissions
+        {
+        }
+
     }
 }
 

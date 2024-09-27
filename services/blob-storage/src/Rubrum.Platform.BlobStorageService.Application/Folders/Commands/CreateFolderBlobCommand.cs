@@ -1,7 +1,9 @@
-﻿using FluentValidation;
+﻿using System.Security.Claims;
+using FluentValidation;
 using HotChocolate;
 using HotChocolate.Types.Relay;
 using MediatR;
+using Rubrum.Authorization.Relations;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Users;
 
@@ -17,6 +19,7 @@ public sealed class CreateFolderBlobCommand : IRequest<FolderBlob>
 
     public sealed class Handler(
         ICurrentUser currentUser,
+        IRelationStore relationStore,
         FolderBlobManager manager,
         IFolderBlobRepository repository) : IRequestHandler<CreateFolderBlobCommand, FolderBlob>, ITransientDependency
     {
@@ -31,6 +34,11 @@ public sealed class CreateFolderBlobCommand : IRequest<FolderBlob>
                 cancellationToken);
 
             folder = await repository.InsertAsync(folder, true, cancellationToken);
+
+            await relationStore.GiveGrantWithUserAsync<FolderBlob>(
+                FolderBlobDefinition.Owner,
+                folder.Id,
+                cancellationToken);
 
             return folder;
         }

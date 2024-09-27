@@ -19,13 +19,19 @@ namespace TestNamespace
 
         public static ReaderRelation Reader { get; } = new ReaderRelation();
 
-        public static PermissionLink Edit { get; } = new PermissionLink("Edit", EditConfigure);
+        public static PermissionLink Edit { get; } = new PermissionLink(Permissions.Edit, EditConfigure);
 
-        public static PermissionLink View { get; } = new PermissionLink("View", ViewConfigure);
+        public static PermissionLink View { get; } = new PermissionLink(Permissions.View, ViewConfigure);
 
         public static partial Permission EditConfigure();
 
         public static partial Permission ViewConfigure();
+
+        public static class Permissions
+        {
+            public const string Edit = "Edit";
+            public const string View = "View";
+        }
 
         public sealed class WriterRelation() : Relation("Writer", typeof(TestNamespace.UserDefinition))
         {
@@ -56,6 +62,10 @@ namespace TestNamespace
 {
     public static partial class UserDefinition
     {
+        public static class Permissions
+        {
+        }
+
     }
 }
 

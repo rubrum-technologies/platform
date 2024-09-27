@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Authzed.Api.V1;
+using HotChocolate.Fusion;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Rewrite;
 using OpenTelemetry.Trace;
+using Rubrum.Graphql;
+using Rubrum.Graphql.SpiceDb;
 using Rubrum.Modularity;
 using Rubrum.Platform.Gateway.Fusion;
 using Rubrum.Platform.Hosting;
@@ -9,6 +13,8 @@ using Volo.Abp.Modularity;
 
 namespace Rubrum.Platform.Gateway;
 
+[DependsOn<RubrumGraphqlModule>]
+[DependsOn<RubrumGraphqlSpiceDbModule>]
 [DependsOn<PlatformHostingAspNetCoreModule>]
 public class PlatformGatewayModule : AbpModule
 {
@@ -69,6 +75,11 @@ public class PlatformGatewayModule : AbpModule
         graphql.CoreBuilder.InitializeOnStartup();
     }
 
+    public override async Task OnPostApplicationInitializationAsync(ApplicationInitializationContext context)
+    {
+        await ConfigSpiceDbAsync(context);
+    }
+
     private static void ConfigCors(ServiceConfigurationContext context)
     {
         var configuration = context.Services.GetConfiguration();
@@ -95,6 +106,8 @@ public class PlatformGatewayModule : AbpModule
             {
                 c.Headers.Add("GraphQL-Preflight");
                 c.Headers.Add("Authorization");
+                c.Headers.Add("Accept-Language");
+                c.Headers.Add("Content-Language");
             });
     }
 
@@ -133,5 +146,16 @@ public class PlatformGatewayModule : AbpModule
         context.Services
             .AddOpenTelemetry()
             .WithTracing(tracing => { tracing.AddHotChocolateInstrumentation(); });
+    }
+
+    private static async Task ConfigSpiceDbAsync(ApplicationInitializationContext context)
+    {
+        var spiceDbSchemaBuilder = context.ServiceProvider.GetRequiredService<ISpiceDbSchemaBuilder>();
+        var spiceDbSchemaClient = context.ServiceProvider.GetRequiredService<SchemaService.SchemaServiceClient>();
+        await using var package = FusionGraphPackage.Open("./gateway.fgp", FileAccess.Read);
+
+        var spiceDbSchema = await spiceDbSchemaBuilder.BuildAsync(package);
+
+        await spiceDbSchemaClient.WriteSchemaAsync(new WriteSchemaRequest { Schema = spiceDbSchema });
     }
 }

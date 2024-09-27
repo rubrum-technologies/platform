@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Rubrum.Authorization;
 using Rubrum.Modularity;
 using Rubrum.SpiceDb;
 using Volo.Abp.AspNetCore.Mvc.AntiForgery;
@@ -12,15 +13,12 @@ namespace Rubrum.Platform.Hosting;
 [DependsOn<AbpSwashbuckleModule>]
 [DependsOn<AbpAspNetCoreSerilogModule>]
 [DependsOn<RubrumSpiceDbDaprModule>]
+[DependsOn<RubrumAuthorizationSpiceDbModule>]
 [DependsOn<PlatformHostingModule>]
 public class PlatformHostingAspNetCoreModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-#if DEBUG
-        context.Services.AddAlwaysAllowAuthorization();
-#endif
-
         Configure<AbpMultiTenancyOptions>(options => { options.IsEnabled = true; });
 
         Configure<AbpAntiForgeryOptions>(options => { options.AutoValidate = true; });

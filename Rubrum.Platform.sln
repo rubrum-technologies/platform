@@ -162,6 +162,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{41BFB8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.Relations", "shared\Rubrum.Platform.Relations\Rubrum.Platform.Relations.csproj", "{500A9CAC-0F18-4673-96EE-AD364AEF746F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Graphql.Ddd", "framework\src\Rubrum.Graphql.Ddd\Rubrum.Graphql.Ddd.csproj", "{1ED649A2-63AF-4E76-8FE1-7CBB1A2E596F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Graphql.SpiceDb.Tests", "framework\test\Rubrum.Graphql.SpiceDb.Tests\Rubrum.Graphql.SpiceDb.Tests.csproj", "{2D6E5C2E-2F37-42C4-AAE4-33C057D970C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -404,6 +408,14 @@ Global
 		{500A9CAC-0F18-4673-96EE-AD364AEF746F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{500A9CAC-0F18-4673-96EE-AD364AEF746F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{500A9CAC-0F18-4673-96EE-AD364AEF746F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ED649A2-63AF-4E76-8FE1-7CBB1A2E596F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ED649A2-63AF-4E76-8FE1-7CBB1A2E596F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ED649A2-63AF-4E76-8FE1-7CBB1A2E596F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ED649A2-63AF-4E76-8FE1-7CBB1A2E596F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D6E5C2E-2F37-42C4-AAE4-33C057D970C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D6E5C2E-2F37-42C4-AAE4-33C057D970C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D6E5C2E-2F37-42C4-AAE4-33C057D970C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D6E5C2E-2F37-42C4-AAE4-33C057D970C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -482,5 +494,7 @@ Global
 		{5F196F8E-D6A4-4A1C-976F-16C0B6382611} = {7035B868-1E06-4E84-A160-D092C73467C2}
 		{EA501654-EE27-423C-BA50-693AA99F9426} = {7035B868-1E06-4E84-A160-D092C73467C2}
 		{500A9CAC-0F18-4673-96EE-AD364AEF746F} = {41BFB8EE-0DDC-4CCD-8168-3064518AEEDC}
+		{1ED649A2-63AF-4E76-8FE1-7CBB1A2E596F} = {7035B868-1E06-4E84-A160-D092C73467C2}
+		{2D6E5C2E-2F37-42C4-AAE4-33C057D970C8} = {9A5F5A68-BDA2-4D92-8792-4E7C2E2B7260}
 	EndGlobalSection
 EndGlobal

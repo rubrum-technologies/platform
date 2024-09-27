@@ -1,30 +1,19 @@
 using Microsoft.Extensions.DependencyInjection;
-using Rubrum.Auditing;
 using Rubrum.Graphql.Interceptors;
 using Rubrum.Modularity;
-using Volo.Abp.Application;
 using Volo.Abp.Authorization;
 using Volo.Abp.ExceptionHandling;
 using Volo.Abp.Modularity;
 
 namespace Rubrum.Graphql;
 
-[DependsOn<AbpDddApplicationModule>]
 [DependsOn<AbpAuthorizationAbstractionsModule>]
 [DependsOn<AbpExceptionHandlingModule>]
-[DependsOn<RubrumAuditingContractsModule>]
 public class RubrumGraphqlModule : AbpModule
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void PreConfigureServices(ServiceConfigurationContext context)
     {
         var graphql = context.Services.AddGraphQL();
-
-        graphql
-            .AddCoreTypes()
-            .AddMutationConventions()
-            .AddFiltering()
-            .AddSorting()
-            .AddProjections();
 
         context.Services.AddSingleton(graphql);
     }
@@ -33,8 +22,6 @@ public class RubrumGraphqlModule : AbpModule
     {
         var graphql = context.Services.GetGraphql();
 
-        graphql
-            .TryAddTypeInterceptor<DtoTypeInterceptor>()
-            .TryAddTypeInterceptor<NewLineTypeInterceptor>();
+        graphql.TryAddTypeInterceptor<NewLineTypeInterceptor>();
     }
 }

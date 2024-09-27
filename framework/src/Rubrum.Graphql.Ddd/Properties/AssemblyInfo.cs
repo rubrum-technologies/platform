@@ -2,3 +2,4 @@
 using HotChocolate;
 
 [assembly: InternalsVisibleTo("Rubrum.Graphql.Tests")]
+[assembly: Module("DddTypes")]

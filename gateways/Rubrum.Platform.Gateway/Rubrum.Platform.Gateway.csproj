@@ -21,6 +21,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\..\framework\src\Rubrum.Graphql.SpiceDb\Rubrum.Graphql.SpiceDb.csproj" />
     <ProjectReference Include="..\..\hosting\Rubrum.Platform.Hosting.AspNetCore\Rubrum.Platform.Hosting.AspNetCore.csproj"/>
     <ProjectReference Include="..\..\hosting\Rubrum.Platform.Hosting.ServiceDefaults\Rubrum.Platform.Hosting.ServiceDefaults.csproj"/>
   </ItemGroup>

@@ -18,17 +18,17 @@ public class SpiceDbRelationStore(
         var result = await permissionsClient.CheckPermissionAsync(
             new CheckPermissionRequest
             {
-                Permission = permission.Name,
+                Permission = permission.Name.ToSnakeCase(),
                 Resource = new Authzed.Api.V1.ObjectReference
                 {
-                    ObjectType = resource.Type,
+                    ObjectType = resource.Type.ToSnakeCase(),
                     ObjectId = resource.Id,
                 },
                 Subject = new Authzed.Api.V1.SubjectReference
                 {
                     Object = new Authzed.Api.V1.ObjectReference
                     {
-                        ObjectType = subject.Type,
+                        ObjectType = subject.Type.ToSnakeCase(),
                         ObjectId = subject.Id,
                     },
                 },
@@ -68,17 +68,17 @@ public class SpiceDbRelationStore(
                         Operation = RelationshipUpdate.Types.Operation.Touch,
                         Relationship = new Relationship
                         {
-                            Relation = relation.Name,
+                            Relation = relation.Name.ToSnakeCase(),
                             Resource = new Authzed.Api.V1.ObjectReference
                             {
-                                ObjectType = resource.Type,
+                                ObjectType = resource.Type.ToSnakeCase(),
                                 ObjectId = resource.Id,
                             },
                             Subject = new Authzed.Api.V1.SubjectReference
                             {
                                 Object = new Authzed.Api.V1.ObjectReference
                                 {
-                                    ObjectType = subject.Type,
+                                    ObjectType = subject.Type.ToSnakeCase(),
                                     ObjectId = subject.Id,
                                 },
                             },

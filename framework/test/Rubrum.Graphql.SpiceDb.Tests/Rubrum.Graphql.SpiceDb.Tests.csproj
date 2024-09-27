@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\common.test.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Graphql</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+    <PackageReference Include="NSubstitute"/>
+    <PackageReference Include="Shouldly"/>
+    <PackageReference Include="xunit"/>
+    <PackageReference Include="xunit.extensibility.execution"/>
+    <PackageReference Include="xunit.runner.visualstudio"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Rubrum.Graphql.SpiceDb\Rubrum.Graphql.SpiceDb.csproj" />
+    <ProjectReference Include="..\..\src\Rubrum.Graphql.TestBase\Rubrum.Graphql.TestBase.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="*.fgp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

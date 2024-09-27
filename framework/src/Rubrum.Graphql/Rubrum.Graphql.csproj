@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Application" />
     <PackageReference Include="Volo.Abp.Authorization.Abstractions" />
     <PackageReference Include="Volo.Abp.ExceptionHandling" />
   </ItemGroup>
@@ -22,6 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rubrum.Auditing.Contracts\Rubrum.Auditing.Contracts.csproj" />
+    <ProjectReference Include="..\Rubrum.Core\Rubrum.Core.csproj" />
   </ItemGroup>
 </Project>

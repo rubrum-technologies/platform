@@ -7,6 +7,7 @@ using Volo.Abp.Modularity;
 namespace Rubrum.Authorization.Analyzers;
 
 [DependsOn<RubrumGraphqlTestModule>]
+[DependsOn<RubrumGraphqlDddModule>]
 [DependsOn<RubrumGraphqlAuthorizationSpiceDbModule>]
 public class RubrumGraphqlAuthorizationSpiceDbTestModule : AbpModule
 {

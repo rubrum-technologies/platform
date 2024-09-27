@@ -41,9 +41,7 @@ public static partial class FolderBlobType
 
         descriptor
             .ImplementsNode()
-            .IdField(x => x.Id)
-            .ResolveNode((context, id) =>
-                context.Service<IFolderBlobByIdDataLoader>().LoadAsync(id, context.RequestAborted));
+            .IdField(x => x.Id);
 
         descriptor
             .Field(x => x.ParentId)

@@ -15,7 +15,7 @@ public class RubrumSpiceDbDaprModule : AbpModule
 
         Action<GrpcClientFactoryOptions> configureClient = options =>
         {
-            options.Address = new Uri(configuration["Test"]!);
+            options.Address = new Uri(configuration["DAPR_GRPC_ENDPOINT"]!); // TODO: Возможность переопределять
         };
 
         Action<GrpcChannelOptions> configureChannel = options =>
@@ -25,7 +25,7 @@ public class RubrumSpiceDbDaprModule : AbpModule
 
         Action<HttpClient> configureHttpClient = options =>
         {
-            options.DefaultRequestHeaders.Add("dapr-app-id", "spice-db-service");
+            options.DefaultRequestHeaders.Add("dapr-app-id", "spicedb-service"); // TODO: Возможность переопределять
         };
 
         PreConfigure<RubrumSpiceDbOptions>(spiceDbOptions =>

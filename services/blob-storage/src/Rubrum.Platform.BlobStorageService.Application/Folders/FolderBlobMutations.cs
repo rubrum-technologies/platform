@@ -1,12 +1,10 @@
 ﻿using HotChocolate;
+using HotChocolate.Authorization;
 using HotChocolate.Types;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Rubrum.Authorization.Relations;
 using Rubrum.Graphql.Errors;
 using Rubrum.Graphql.Middlewares;
 using Rubrum.Platform.BlobStorageService.Folders.Commands;
-using AuthorizeAttribute = HotChocolate.Authorization.AuthorizeAttribute;
 
 namespace Rubrum.Platform.BlobStorageService.Folders;
 
@@ -34,11 +32,8 @@ public static class FolderBlobMutations
     public static async Task<FolderBlob> ChangeFolderBlobParentIdAsync(
         ChangeFolderBlobParentIdCommand input,
         [Service] IMediator mediator,
-        [Service] IAuthorizationService authorization,
         CancellationToken ct = default)
     {
-        await authorization.CheckAsync<FolderBlob>(FolderBlobDefinition.Edit, input.Id);
-
         return await mediator.Send(input, ct);
     }
 
@@ -49,11 +44,8 @@ public static class FolderBlobMutations
     public static async Task<FolderBlob> ChangeFolderBlobNameAsync(
         ChangeFolderBlobNameCommand input,
         [Service] IMediator mediator,
-        [Service] IAuthorizationService authorization,
         CancellationToken ct = default)
     {
-        await authorization.CheckAsync<FolderBlob>(FolderBlobDefinition.Edit, input.Id);
-
         return await mediator.Send(input, ct);
     }
 }

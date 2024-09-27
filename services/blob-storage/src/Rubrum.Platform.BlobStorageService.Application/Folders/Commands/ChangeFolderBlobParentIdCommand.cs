@@ -2,6 +2,7 @@
 using HotChocolate.Types.Relay;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Rubrum.Authorization.Relations;
 
 namespace Rubrum.Platform.BlobStorageService.Folders.Commands;
 
@@ -16,12 +17,15 @@ public class ChangeFolderBlobParentIdCommand : IRequest<FolderBlob>
 
     public class Handler(
         FolderBlobManager manager,
-        IFolderBlobRepository repository) : IRequestHandler<ChangeFolderBlobParentIdCommand, FolderBlob>
+        IFolderBlobRepository repository,
+        IAuthorizationService authorization) : IRequestHandler<ChangeFolderBlobParentIdCommand, FolderBlob>
     {
         public async Task<FolderBlob> Handle(
             ChangeFolderBlobParentIdCommand request,
             CancellationToken cancellationToken)
         {
+            await authorization.CheckAsync<FolderBlob>(FolderBlobDefinition.Edit, request.Id);
+
             var folder = await repository.GetAsync(request.Id, true, cancellationToken);
 
             await manager.ChangeParentIdAsync(folder, request.ParentId, cancellationToken);

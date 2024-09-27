@@ -17,9 +17,14 @@ namespace TestNamespace
     {
         public static IssueRelation Issue { get; } = new IssueRelation();
 
-        public static PermissionLink Delete { get; } = new PermissionLink("Delete", DeleteConfigure);
+        public static PermissionLink Delete { get; } = new PermissionLink(Permissions.Delete, DeleteConfigure);
 
         public static partial Permission DeleteConfigure();
+
+        public static class Permissions
+        {
+            public const string Delete = "Delete";
+        }
 
         public sealed class IssueRelation() : Relation("Issue", typeof(TestNamespace.IssueDefinition))
         {
@@ -56,13 +61,13 @@ namespace TestNamespace
 
         public static AssignedRelation Assigned { get; } = new AssignedRelation();
 
-        public static PermissionLink Assign { get; } = new PermissionLink("Assign", AssignConfigure);
+        public static PermissionLink Assign { get; } = new PermissionLink(Permissions.Assign, AssignConfigure);
 
-        public static PermissionLink Resolve { get; } = new PermissionLink("Resolve", ResolveConfigure);
+        public static PermissionLink Resolve { get; } = new PermissionLink(Permissions.Resolve, ResolveConfigure);
 
-        public static PermissionLink CreateComment { get; } = new PermissionLink("CreateComment", CreateCommentConfigure);
+        public static PermissionLink CreateComment { get; } = new PermissionLink(Permissions.CreateComment, CreateCommentConfigure);
 
-        public static PermissionLink ProjectCommentDeleter { get; } = new PermissionLink("ProjectCommentDeleter", ProjectCommentDeleterConfigure);
+        public static PermissionLink ProjectCommentDeleter { get; } = new PermissionLink(Permissions.ProjectCommentDeleter, ProjectCommentDeleterConfigure);
 
         public static partial Permission AssignConfigure();
 
@@ -71,6 +76,14 @@ namespace TestNamespace
         public static partial Permission CreateCommentConfigure();
 
         public static partial Permission ProjectCommentDeleterConfigure();
+
+        public static class Permissions
+        {
+            public const string Assign = "Assign";
+            public const string Resolve = "Resolve";
+            public const string CreateComment = "CreateComment";
+            public const string ProjectCommentDeleter = "ProjectCommentDeleter";
+        }
 
         public sealed class ProjectRelation() : Relation("Project", typeof(TestNamespace.ProjectDefinition))
         {
@@ -124,13 +137,19 @@ namespace TestNamespace
 
         public static RoleManagerRelation RoleManager { get; } = new RoleManagerRelation();
 
-        public static PermissionLink CreateIssue { get; } = new PermissionLink("CreateIssue", CreateIssueConfigure);
+        public static PermissionLink CreateIssue { get; } = new PermissionLink(Permissions.CreateIssue, CreateIssueConfigure);
 
-        public static PermissionLink CreateRole { get; } = new PermissionLink("CreateRole", CreateRoleConfigure);
+        public static PermissionLink CreateRole { get; } = new PermissionLink(Permissions.CreateRole, CreateRoleConfigure);
 
         public static partial Permission CreateIssueConfigure();
 
         public static partial Permission CreateRoleConfigure();
+
+        public static class Permissions
+        {
+            public const string CreateIssue = "CreateIssue";
+            public const string CreateRole = "CreateRole";
+        }
 
         public sealed class IssueCreatorRelation() : Relation("IssueCreator", typeof(TestNamespace.RoleDefinition.MemberRelation))
         {
@@ -187,13 +206,13 @@ namespace TestNamespace
 
         public static BuiltInRoleRelation BuiltInRole { get; } = new BuiltInRoleRelation();
 
-        public static PermissionLink Delete { get; } = new PermissionLink("Delete", DeleteConfigure);
+        public static PermissionLink Delete { get; } = new PermissionLink(Permissions.Delete, DeleteConfigure);
 
-        public static PermissionLink AddUser { get; } = new PermissionLink("AddUser", AddUserConfigure);
+        public static PermissionLink AddUser { get; } = new PermissionLink(Permissions.AddUser, AddUserConfigure);
 
-        public static PermissionLink AddPermission { get; } = new PermissionLink("AddPermission", AddPermissionConfigure);
+        public static PermissionLink AddPermission { get; } = new PermissionLink(Permissions.AddPermission, AddPermissionConfigure);
 
-        public static PermissionLink RemovePermission { get; } = new PermissionLink("RemovePermission", RemovePermissionConfigure);
+        public static PermissionLink RemovePermission { get; } = new PermissionLink(Permissions.RemovePermission, RemovePermissionConfigure);
 
         public static partial Permission DeleteConfigure();
 
@@ -202,6 +221,14 @@ namespace TestNamespace
         public static partial Permission AddPermissionConfigure();
 
         public static partial Permission RemovePermissionConfigure();
+
+        public static class Permissions
+        {
+            public const string Delete = "Delete";
+            public const string AddUser = "AddUser";
+            public const string AddPermission = "AddPermission";
+            public const string RemovePermission = "RemovePermission";
+        }
 
         public sealed class ProjectRelation() : Relation("Project", typeof(TestNamespace.ProjectDefinition))
         {
@@ -254,6 +281,10 @@ namespace TestNamespace
 {
     public static partial class UserDefinition
     {
+        public static class Permissions
+        {
+        }
+
     }
 }
 

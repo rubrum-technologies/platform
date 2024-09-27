@@ -15,7 +15,7 @@ internal class GraphqlGenerationModule : AbpModule
     {
         context.Services
             .GetGraphql()
-            .AddCoreTypes()
+            .AddDddTypes()
             .AddGraphQLServer();
     }
 

@@ -1,4 +1,5 @@
 ﻿using Authzed.Api.V1;
+using Grpc.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Modularity;
 
@@ -10,6 +11,13 @@ public class RubrumSpiceDbModule : AbpModule
     {
         var spiceDbOptions = context.Services.ExecutePreConfiguredActions<RubrumSpiceDbOptions>();
 
+        var credentials = CallCredentials.FromInterceptor((_, metadata) =>
+        {
+            metadata.Add("Authorization", "Bearer asdasd");  // TODO: Возможность переопределять
+
+            return Task.CompletedTask;
+        });
+
         context.Services
             .AddGrpcClient<PermissionsService.PermissionsServiceClient>(options =>
             {
@@ -17,12 +25,10 @@ public class RubrumSpiceDbModule : AbpModule
             })
             .ConfigureChannel(options =>
             {
+                options.Credentials = ChannelCredentials.Create(ChannelCredentials.Insecure, credentials);
                 spiceDbOptions.PermissionsClient?.ConfigureChannel?.Invoke(options);
             })
-            .ConfigureHttpClient(client =>
-            {
-                spiceDbOptions.PermissionsClient?.ConfigureHttpClient?.Invoke(client);
-            });
+            .ConfigureHttpClient(client => { spiceDbOptions.PermissionsClient?.ConfigureHttpClient?.Invoke(client); });
 
         context.Services
             .AddGrpcClient<SchemaService.SchemaServiceClient>(options =>
@@ -31,6 +37,7 @@ public class RubrumSpiceDbModule : AbpModule
             })
             .ConfigureChannel(options =>
             {
+                options.Credentials = ChannelCredentials.Create(ChannelCredentials.Insecure, credentials);
                 spiceDbOptions.SchemaClient?.ConfigureChannel?.Invoke(options);
             })
             .ConfigureHttpClient(client =>
@@ -45,6 +52,7 @@ public class RubrumSpiceDbModule : AbpModule
             })
             .ConfigureChannel(options =>
             {
+                options.Credentials = ChannelCredentials.Create(ChannelCredentials.Insecure, credentials);
                 spiceDbOptions.WatchClient?.ConfigureChannel?.Invoke(options);
             })
             .ConfigureHttpClient(client =>

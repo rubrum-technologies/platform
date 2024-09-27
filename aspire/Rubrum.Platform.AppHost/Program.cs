@@ -37,7 +37,10 @@ var database = builder
 builder
     .AddSpiceDb("spicedb-service")
     .WithPostgres(database.AddDatabase("spicedb-service-db"))
-    .WithDaprSidecar(defaultDaprSidecarOptions);
+    .WithDaprSidecar(defaultDaprSidecarOptions with
+    {
+        AppProtocol = "grpc",
+    });
 
 var blobStorageService = builder
     .AddProject<Rubrum_Platform_BlobStorageService_HttpApi_Host>("blob-storage-service")

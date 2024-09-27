@@ -10,6 +10,7 @@ using Volo.Abp.Modularity;
 
 namespace Rubrum.Platform.Hosting;
 
+[DependsOn<RubrumGraphqlDddModule>]
 [DependsOn<RubrumGraphqlFluentValidationModule>]
 [DependsOn<RubrumGraphqlAuthorizationSpiceDbModule>]
 [DependsOn<RubrumGraphqlSubscriptionsDaprModule>]
