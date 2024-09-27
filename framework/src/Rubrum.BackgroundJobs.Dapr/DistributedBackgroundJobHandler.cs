@@ -3,12 +3,13 @@ using Volo.Abp.EventBus.Distributed;
 
 namespace Rubrum.BackgroundJobs;
 
-public class DistributedBackgroundJobHandler: IDistributedEventHandler<JobEnqueuedEvent<object>>
+public class DistributedBackgroundJobHandler : IDistributedEventHandler<JobEnqueuedEvent<object>>
 {
     public async Task HandleEventAsync(JobEnqueuedEvent<object> eventData)
     {
         var jobArgs = eventData.Args;
 
+        await Console.Out.WriteAsync("Handle");
         /*
         var context = new JobExecutionContext(
             scope.ServiceProvider,
