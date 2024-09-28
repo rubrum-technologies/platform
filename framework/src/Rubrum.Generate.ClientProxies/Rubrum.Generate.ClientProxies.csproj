@@ -6,6 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rubrum.Generate\Rubrum.Generate.csproj" />
+    <ProjectReference Include="..\Rubrum.Generate\Rubrum.Generate.csproj"/>
   </ItemGroup>
 </Project>

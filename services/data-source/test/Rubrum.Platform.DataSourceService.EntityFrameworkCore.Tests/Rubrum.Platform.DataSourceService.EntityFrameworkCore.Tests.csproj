@@ -1,9 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.test.props"/>
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.DataSourceService</RootNamespace>
+  </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Rubrum.Platform.DataSourceService.EntityFrameworkCore\Rubrum.Platform.DataSourceService.EntityFrameworkCore.csproj"/>
+    <ProjectReference Include="..\Rubrum.Platform.DataSourceService.TestBase\Rubrum.Platform.DataSourceService.TestBase.csproj"/>
+  </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\..\common.props" />
+  <Import Project="..\..\..\common.props"/>
 
   <PropertyGroup>
     <RootNamespace>Rubrum.Graphql</RootNamespace>
@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rubrum.Authorization.Abstractions\Rubrum.Authorization.Abstractions.csproj" />
+    <ProjectReference Include="..\Rubrum.Authorization.Abstractions\Rubrum.Authorization.Abstractions.csproj"/>
     <ProjectReference Include="..\Rubrum.Graphql.AspNetCore\Rubrum.Graphql.AspNetCore.csproj"/>
   </ItemGroup>
 </Project>

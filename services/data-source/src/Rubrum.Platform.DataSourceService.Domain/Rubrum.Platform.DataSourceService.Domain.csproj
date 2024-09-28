@@ -1,9 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.props"/>
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.DataSourceService</RootNamespace>
+  </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Domain"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Auditing.Contracts\Rubrum.Auditing.Contracts.csproj"/>
+  </ItemGroup>
 </Project>

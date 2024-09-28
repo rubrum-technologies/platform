@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rubrum.Authorization\Rubrum.Authorization.csproj" />
-    <ProjectReference Include="..\Rubrum.SpiceDb\Rubrum.SpiceDb.csproj" />
+    <ProjectReference Include="..\Rubrum.Authorization\Rubrum.Authorization.csproj"/>
+    <ProjectReference Include="..\Rubrum.SpiceDb\Rubrum.SpiceDb.csproj"/>
   </ItemGroup>
 </Project>

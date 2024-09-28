@@ -15,11 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Rubrum.Analyzers.TestBase\Rubrum.Analyzers.TestBase.csproj" />
-    <ProjectReference Include="..\..\src\Rubrum.Authorization.Abstractions\Rubrum.Authorization.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Rubrum.Analyzers.TestBase\Rubrum.Analyzers.TestBase.csproj"/>
+    <ProjectReference Include="..\..\src\Rubrum.Authorization.Abstractions\Rubrum.Authorization.Abstractions.csproj"/>
     <ProjectReference Include="..\..\src\Rubrum.Authorization.Analyzers\Rubrum.Authorization.Analyzers.csproj" OutputItemType="Analyzer"/>
-    <ProjectReference Include="..\..\src\Rubrum.Graphql.Authorization.SpiceDb\Rubrum.Graphql.Authorization.SpiceDb.csproj" />
-    <ProjectReference Include="..\..\src\Rubrum.Graphql.Ddd\Rubrum.Graphql.Ddd.csproj" />
-    <ProjectReference Include="..\..\src\Rubrum.Graphql.TestBase\Rubrum.Graphql.TestBase.csproj" />
+    <ProjectReference Include="..\..\src\Rubrum.Graphql.Authorization.SpiceDb\Rubrum.Graphql.Authorization.SpiceDb.csproj"/>
+    <ProjectReference Include="..\..\src\Rubrum.Graphql.Ddd\Rubrum.Graphql.Ddd.csproj"/>
+    <ProjectReference Include="..\..\src\Rubrum.Graphql.TestBase\Rubrum.Graphql.TestBase.csproj"/>
   </ItemGroup>
 </Project>

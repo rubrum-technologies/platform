@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\..\..\common.props" />
+  <Import Project="..\..\..\..\common.props"/>
 
   <PropertyGroup>
     <RootNamespace>Rubrum.Platform.BlobStorageService.EntityFrameworkCore</RootNamespace>
@@ -13,15 +13,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL"/>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.EntityFrameworkCore.PostgreSql" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.PostgreSql"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.EntityFrameworkCore\Rubrum.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\Rubrum.Platform.BlobStorageService.Domain\Rubrum.Platform.BlobStorageService.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.EntityFrameworkCore\Rubrum.EntityFrameworkCore.csproj"/>
+    <ProjectReference Include="..\Rubrum.Platform.BlobStorageService.Domain\Rubrum.Platform.BlobStorageService.Domain.csproj"/>
   </ItemGroup>
 </Project>

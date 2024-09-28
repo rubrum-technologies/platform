@@ -10,6 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rubrum.Cqrs.Contracts\Rubrum.Cqrs.Contracts.csproj" />
+    <ProjectReference Include="..\Rubrum.Cqrs.Contracts\Rubrum.Cqrs.Contracts.csproj"/>
   </ItemGroup>
 </Project>

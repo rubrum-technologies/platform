@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\..\..\common.props" />
+  <Import Project="..\..\..\..\common.props"/>
 
   <PropertyGroup>
     <RootNamespace>Rubrum.Platform.BlobStorageService</RootNamespace>
@@ -10,11 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Domain" />
-    <PackageReference Include="Volo.Abp.BlobStoring" />
+    <PackageReference Include="Volo.Abp.Ddd.Domain"/>
+    <PackageReference Include="Volo.Abp.BlobStoring"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Auditing.Contracts\Rubrum.Auditing.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Auditing.Contracts\Rubrum.Auditing.Contracts.csproj"/>
   </ItemGroup>
 </Project>

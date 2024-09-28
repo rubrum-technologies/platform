@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite"/>
   </ItemGroup>
 
   <ItemGroup>

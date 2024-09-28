@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\..\common.props" />
+  <Import Project="..\..\..\common.props"/>
 
   <PropertyGroup>
     <RootNamespace>Rubrum.Graphql</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Application" />
+    <PackageReference Include="Volo.Abp.Ddd.Application"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rubrum.Auditing.Contracts\Rubrum.Auditing.Contracts.csproj" />
-    <ProjectReference Include="..\Rubrum.Graphql\Rubrum.Graphql.csproj" />
+    <ProjectReference Include="..\Rubrum.Auditing.Contracts\Rubrum.Auditing.Contracts.csproj"/>
+    <ProjectReference Include="..\Rubrum.Graphql\Rubrum.Graphql.csproj"/>
   </ItemGroup>
 </Project>

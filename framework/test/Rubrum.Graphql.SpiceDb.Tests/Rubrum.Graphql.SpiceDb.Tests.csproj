@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Rubrum.Graphql.SpiceDb\Rubrum.Graphql.SpiceDb.csproj" />
-    <ProjectReference Include="..\..\src\Rubrum.Graphql.TestBase\Rubrum.Graphql.TestBase.csproj" />
+    <ProjectReference Include="..\..\src\Rubrum.Graphql.SpiceDb\Rubrum.Graphql.SpiceDb.csproj"/>
+    <ProjectReference Include="..\..\src\Rubrum.Graphql.TestBase\Rubrum.Graphql.TestBase.csproj"/>
   </ItemGroup>
 
   <ItemGroup>

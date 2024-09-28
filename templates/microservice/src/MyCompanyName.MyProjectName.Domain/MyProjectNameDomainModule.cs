@@ -1,3 +1,4 @@
+using Rubrum.Auditing;
 using Rubrum.Modularity;
 using Volo.Abp.Domain;
 using Volo.Abp.Modularity;
@@ -5,5 +6,5 @@ using Volo.Abp.Modularity;
 namespace MyCompanyName.MyProjectName;
 
 [DependsOn<AbpDddDomainModule>]
-[DependsOn<MyProjectNameDomainSharedModule>]
+[DependsOn<RubrumAuditingContractsModule>]
 public class MyProjectNameDomainModule : AbpModule;

@@ -15,6 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rubrum.Graphql.Authorization\Rubrum.Graphql.Authorization.csproj" />
+    <ProjectReference Include="..\Rubrum.Graphql.Authorization\Rubrum.Graphql.Authorization.csproj"/>
   </ItemGroup>
 </Project>

@@ -9,7 +9,6 @@ namespace MyCompanyName.MyProjectName;
 
 [DependsOn<PlatformHostingAspNetCoreMicroserviceGraphqlModule>]
 [DependsOn<MyProjectNameApplicationModule>]
-[DependsOn<MyProjectNameHttpApiModule>]
 [DependsOn<MyProjectNameEntityFrameworkCoreModule>]
 public class MyProjectNameHttpApiHostModule : AbpModule
 {

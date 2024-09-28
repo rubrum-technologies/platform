@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\framework\src\Rubrum.BackgroundJobs.Dapr\Rubrum.BackgroundJobs.Dapr.csproj" />
+    <ProjectReference Include="..\..\framework\src\Rubrum.BackgroundJobs.Dapr\Rubrum.BackgroundJobs.Dapr.csproj"/>
     <ProjectReference Include="..\Rubrum.Platform.Hosting.AspNetCore\Rubrum.Platform.Hosting.AspNetCore.csproj"/>
   </ItemGroup>
 </Project>

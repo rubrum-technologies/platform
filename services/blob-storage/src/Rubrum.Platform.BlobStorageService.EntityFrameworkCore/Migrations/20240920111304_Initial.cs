@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Rubrum.Platform.BlobStorageService.EntityFrameworkCore.Migrations
 {
-    /// <inheritdoc />
+    /// <inheritdoc/>
     public partial class Initial : Migration
     {
-        /// <inheritdoc />
+        /// <inheritdoc/>
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -73,7 +73,7 @@ namespace Rubrum.Platform.BlobStorageService.EntityFrameworkCore.Migrations
                 column: "ParentId");
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

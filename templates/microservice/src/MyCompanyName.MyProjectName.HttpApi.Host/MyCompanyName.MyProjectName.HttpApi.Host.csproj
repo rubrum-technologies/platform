@@ -6,9 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\hosting\Rubrum.Platform.Hosting.AspNetCore.Microservice.Graphql\Rubrum.Platform.Hosting.AspNetCore.Microservice.Graphql.csproj" />
+    <ProjectReference Include="..\..\..\..\hosting\Rubrum.Platform.Hosting.AspNetCore.Microservice.Graphql\Rubrum.Platform.Hosting.AspNetCore.Microservice.Graphql.csproj"/>
     <ProjectReference Include="..\MyCompanyName.MyProjectName.Application\MyCompanyName.MyProjectName.Application.csproj"/>
     <ProjectReference Include="..\MyCompanyName.MyProjectName.EntityFrameworkCore\MyCompanyName.MyProjectName.EntityFrameworkCore.csproj"/>
-    <ProjectReference Include="..\MyCompanyName.MyProjectName.HttpApi\MyCompanyName.MyProjectName.HttpApi.csproj"/>
   </ItemGroup>
 </Project>

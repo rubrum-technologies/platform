@@ -15,7 +15,6 @@ namespace MyCompanyName.MyProjectName;
 [DependsOn<RubrumGraphqlDddModule>]
 [DependsOn<RubrumGraphqlAuthorizationModule>]
 [DependsOn<RubrumCqrsModule>]
-[DependsOn<MyProjectNameApplicationContractsModule>]
 [DependsOn<MyProjectNameDomainModule>]
 public class MyProjectNameApplicationModule : AbpModule
 {

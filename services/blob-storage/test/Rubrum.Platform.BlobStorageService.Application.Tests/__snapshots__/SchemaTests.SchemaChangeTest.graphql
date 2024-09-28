@@ -214,7 +214,6 @@ input BooleanOperationFilterInput {
 
 input ChangeFolderBlobNameInput {
   id: ID!
-  "Maximum length '30'"
   name: String!
 }
 
@@ -225,7 +224,6 @@ input ChangeFolderBlobParentIdInput {
 
 input CreateFolderBlobInput {
   parentId: ID
-  "Maximum length '30'"
   name: String!
 }
 
