@@ -1,6 +1,7 @@
 ﻿using HotChocolate;
 using HotChocolate.Types;
 using Rubrum.Graphql.Ddd;
+using Rubrum.Graphql.Relations;
 
 namespace Rubrum.Platform.BlobStorageService.Blobs;
 
@@ -17,10 +18,10 @@ public static partial class BlobType
         descriptor.FullAuditedAggregateRoot();
         descriptor.MultiTenant();
         descriptor.Owner();
+        descriptor.BindDefinition(typeof(BlobDefinition));
 
         descriptor
             .ImplementsNode()
-            .IdField(x => x.Id)
-            .ResolveNode((context, id) => context.Service<IBlobByIdDataLoader>().LoadAsync(id, context.RequestAborted));
+            .IdField(x => x.Id);
     }
 }

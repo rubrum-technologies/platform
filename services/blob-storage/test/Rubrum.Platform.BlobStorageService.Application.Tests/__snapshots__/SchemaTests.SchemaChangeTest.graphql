@@ -86,7 +86,7 @@ type AuthorizationError implements Error {
   message: String!
 }
 
-type Blob implements Node & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate {
+type Blob implements Node & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate @relation(name: "", value: "") @permission(name: "", value: "") @permission(name: "", value: "") {
   url: String!
   creatorId: ID
   lastModifierId: ID
@@ -94,7 +94,6 @@ type Blob implements Node & HasExtraProperties & CreationAuditedObject & HasCrea
   extraProperties: JSON
   tenantId: ID
   ownerId: ID!
-  id: ID!
   folderId: UUID
   metadata: BlobMetadata!
   isDeleted: Boolean!
@@ -102,6 +101,7 @@ type Blob implements Node & HasExtraProperties & CreationAuditedObject & HasCrea
   lastModificationTime: DateTime
   creationTime: DateTime!
   concurrencyStamp: String!
+  id: ID!
 }
 
 type BlobMetadata {

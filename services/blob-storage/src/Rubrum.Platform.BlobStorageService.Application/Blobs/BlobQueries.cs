@@ -2,6 +2,8 @@
 using HotChocolate.Authorization;
 using HotChocolate.Types;
 using HotChocolate.Types.Relay;
+using MediatR;
+using Rubrum.Platform.BlobStorageService.Blobs.Queries;
 
 namespace Rubrum.Platform.BlobStorageService.Blobs;
 
@@ -12,9 +14,14 @@ public static class BlobQueries
     [NodeResolver]
     public static async Task<Blob?> GetBlobByIdAsync(
         [ID<Blob>] Guid id,
-        [Service] IBlobByIdDataLoader dataLoader,
+        [Service] IMediator mediator,
         CancellationToken ct)
     {
-        return await dataLoader.LoadAsync(id, ct);
+        return await mediator.Send(
+            new GetBlobByIdQuery
+            {
+                Id = id,
+            },
+            ct);
     }
 }

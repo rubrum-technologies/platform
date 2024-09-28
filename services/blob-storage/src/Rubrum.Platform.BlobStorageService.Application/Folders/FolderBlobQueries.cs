@@ -19,7 +19,7 @@ public static class FolderBlobQueries
         CancellationToken ct = default)
     {
         return await mediator.Send(
-            new GetFolderByIdQuery
+            new GetFolderBlobByIdQuery
             {
                 Id = id,
             },
@@ -35,7 +35,7 @@ public static class FolderBlobQueries
         CancellationToken ct = default)
     {
         return mediator.Send(
-            new GetFoldersQuery
+            new GetFoldersBlobQuery
             {
                 ParentId = parentId,
             },

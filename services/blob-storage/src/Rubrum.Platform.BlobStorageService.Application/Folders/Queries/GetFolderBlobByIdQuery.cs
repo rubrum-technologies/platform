@@ -4,15 +4,15 @@ using Rubrum.Authorization.Relations;
 
 namespace Rubrum.Platform.BlobStorageService.Folders.Queries;
 
-public class GetFolderByIdQuery : IRequest<FolderBlob?>
+public class GetFolderBlobByIdQuery : IRequest<FolderBlob?>
 {
     public required Guid Id { get; init; }
 
     public class Handler(
         IFolderBlobByIdDataLoader dataLoader,
-        IAuthorizationService authorization) : IRequestHandler<GetFolderByIdQuery, FolderBlob?>
+        IAuthorizationService authorization) : IRequestHandler<GetFolderBlobByIdQuery, FolderBlob?>
     {
-        public async Task<FolderBlob?> Handle(GetFolderByIdQuery request, CancellationToken cancellationToken)
+        public async Task<FolderBlob?> Handle(GetFolderBlobByIdQuery request, CancellationToken cancellationToken)
         {
             await authorization.CheckAsync<FolderBlob>(FolderBlobDefinition.View, request.Id);
 
