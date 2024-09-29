@@ -1,7 +1,7 @@
 ﻿using HotChocolate.Types;
 using Volo.Abp.Auditing;
 
-namespace Rubrum.Graphql.Ddd;
+namespace Rubrum.Graphql;
 
 public static class DeletionAuditedExtensions
 {
@@ -10,6 +10,7 @@ public static class DeletionAuditedExtensions
     {
         descriptor
             .Field(x => x.DeleterId)
+            .Description("Id of the deleter user.")
             .ID("User");
 
         return descriptor;

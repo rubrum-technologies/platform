@@ -1,9 +1,9 @@
 ﻿using HotChocolate.Types;
 using Volo.Abp.Auditing;
 
-namespace Rubrum.Graphql.Ddd;
+namespace Rubrum.Graphql;
 
-public static class CreationAuditedExtensions
+public static class CreationAuditedObjectExtensions
 {
     public static IObjectTypeDescriptor<T> CreationAudited<T>(this IObjectTypeDescriptor<T> descriptor)
         where T : ICreationAuditedObject

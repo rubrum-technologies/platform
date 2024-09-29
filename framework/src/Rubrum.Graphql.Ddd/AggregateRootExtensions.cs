@@ -1,19 +1,22 @@
 ﻿using HotChocolate.Types;
 using Volo.Abp.Domain.Entities;
 
-namespace Rubrum.Graphql.Ddd;
+namespace Rubrum.Graphql;
 
 public static class AggregateRootExtensions
 {
+    public static IObjectTypeDescriptor<T> AggregateRoot<T, TKey>(this IObjectTypeDescriptor<T> descriptor)
+        where T : AggregateRoot<TKey>
+    {
+        descriptor.Entity<T, TKey>();
+        descriptor.Aggregate();
+
+        return descriptor;
+    }
+
     public static IObjectTypeDescriptor<T> AggregateRoot<T>(this IObjectTypeDescriptor<T> descriptor)
         where T : AggregateRoot<Guid>
     {
-        descriptor.Entity();
-        descriptor.Aggregate();
-        descriptor.Ignore(x => x.GetLocalEvents());
-        descriptor.Ignore(x => x.GetDistributedEvents());
-        descriptor.Ignore(x => x.Validate(default!));
-
-        return descriptor;
+        return descriptor.AggregateRoot<T, Guid>();
     }
 }

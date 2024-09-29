@@ -1,7 +1,7 @@
 ﻿using HotChocolate.Types;
 using Rubrum.Auditing;
 
-namespace Rubrum.Graphql.Ddd;
+namespace Rubrum.Graphql;
 
 public static class MustHaveOwnerExtensions
 {
@@ -10,6 +10,7 @@ public static class MustHaveOwnerExtensions
     {
         descriptor
             .Field(x => x.OwnerId)
+            .Description("Id of the owner.")
             .ID("User");
 
         return descriptor;

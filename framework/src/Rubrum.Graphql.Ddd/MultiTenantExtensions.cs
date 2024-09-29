@@ -1,7 +1,7 @@
 ﻿using HotChocolate.Types;
 using Volo.Abp.MultiTenancy;
 
-namespace Rubrum.Graphql.Ddd;
+namespace Rubrum.Graphql;
 
 public static class MultiTenantExtensions
 {
@@ -10,6 +10,7 @@ public static class MultiTenantExtensions
     {
         descriptor
             .Field(x => x.TenantId)
+            .Description("Id of the related tenant.")
             .ID("Tenant");
 
         return descriptor;

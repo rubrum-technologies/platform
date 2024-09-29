@@ -1,5 +1,5 @@
 ﻿using HotChocolate.Types;
-using Rubrum.Graphql.Ddd;
+using Rubrum.Graphql;
 
 namespace Rubrum.Authorization.Analyzers.Models;
 

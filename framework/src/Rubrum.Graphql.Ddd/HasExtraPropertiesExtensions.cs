@@ -1,7 +1,7 @@
 ﻿using HotChocolate.Types;
 using Volo.Abp.Data;
 
-namespace Rubrum.Graphql.Ddd;
+namespace Rubrum.Graphql;
 
 public static class HasExtraPropertiesExtensions
 {

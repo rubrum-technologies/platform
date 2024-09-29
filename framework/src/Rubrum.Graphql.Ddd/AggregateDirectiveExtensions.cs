@@ -1,6 +1,6 @@
 ﻿using HotChocolate.Types;
 
-namespace Rubrum.Graphql.Ddd;
+namespace Rubrum.Graphql;
 
 public static class AggregateDirectiveExtensions
 {

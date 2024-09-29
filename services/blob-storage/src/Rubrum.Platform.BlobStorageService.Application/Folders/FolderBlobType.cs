@@ -2,7 +2,6 @@
 using HotChocolate;
 using HotChocolate.Types;
 using Rubrum.Graphql;
-using Rubrum.Graphql.Ddd;
 using Rubrum.Graphql.Relations;
 using Rubrum.Platform.BlobStorageService.Blobs;
 
@@ -46,5 +45,7 @@ public static partial class FolderBlobType
         descriptor
             .Field(x => x.ParentId)
             .ID<FolderBlob>();
+
+        descriptor.Field(x => x.Name);
     }
 }

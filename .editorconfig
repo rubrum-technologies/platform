@@ -130,5 +130,8 @@ dotnet_diagnostic.S2094.severity = None
 # Change this condition so that it does not always evaluate to 'True'
 dotnet_diagnostic.S2589.severity = None
 
+# Use 'Guid.NewGuid()' or 'Guid.Empty' or add arguments to this GUID instantiation.
+dotnet_diagnostic.S4581.severity = None
+
 # ModelState.IsValid should be checked in controller actions.
 dotnet_diagnostic.S6967.severity = None

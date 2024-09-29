@@ -1,19 +1,20 @@
 ﻿using HotChocolate.Types;
 using Rubrum.Auditing;
 
-namespace Rubrum.Graphql.Ddd;
+namespace Rubrum.Graphql;
 
 [InterfaceType<IMustHaveOwner>]
-public static partial class MustHaveOwnerInterface
+public static partial class MustHaveOwnerType
 {
     static partial void Configure(IInterfaceTypeDescriptor<IMustHaveOwner> descriptor)
     {
-        descriptor.Name("MustHaveOwner");
-
         descriptor.BindFieldsExplicitly();
+
+        descriptor.Name("MustHaveOwner");
 
         descriptor
             .Field(x => x.OwnerId)
+            .Description("Id of the owner.")
             .ID();
     }
 }

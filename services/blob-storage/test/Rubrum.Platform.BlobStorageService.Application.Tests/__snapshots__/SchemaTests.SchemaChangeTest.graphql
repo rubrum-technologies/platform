@@ -3,17 +3,54 @@ schema {
   mutation: Mutation
 }
 
+"Defines an aggregate root. It's primary key may not be \"Id\" or it may have a composite primary key."
+interface AggregateRoot implements Entity {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+}
+
+"This interface can be implemented to add standard auditing properties to a class."
+interface AuditedObject implements CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime {
+  "Creation time."
+  creationTime: DateTime
+  "Id of the creator."
+  creatorId: ID
+  "Last modifier user for this entity."
+  lastModifierId: ID
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+}
+
 "This interface can be implemented to store creation information (who and when created)."
 interface CreationAuditedObject implements HasCreationTime & MayHaveCreator {
+  "Creation time."
   creationTime: DateTime
+  "Id of the creator."
   creatorId: ID
 }
 
 "This interface can be implemented to store deletion information (who delete and when deleted)."
 interface DeletionAuditedObject implements HasDeletionTime & SoftDelete {
+  "Id of the deleter user."
   deleterId: ID
+  "Deletion time."
   deletionTime: DateTime
+  "Used to mark an Entity as 'Deleted'."
   isDeleted: Boolean!
+}
+
+"Defines an entity. It's primary key may not be \"Id\" or it may have a composite primary key."
+interface Entity {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+}
+
+"Defines an entity with a single primary key with \"Id\" property."
+interface EntityOfGuid implements Entity {
+  "Unique identifier for this entity."
+  id: ID!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
 }
 
 interface Error {
@@ -21,24 +58,34 @@ interface Error {
 }
 
 "This interface adds IDeletionAuditedObject to IAuditedObject."
-interface FullAuditedObject implements CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & DeletionAuditedObject & HasDeletionTime & SoftDelete {
+interface FullAuditedObject implements AuditedObject & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & DeletionAuditedObject & HasDeletionTime & SoftDelete {
+  "Creation time."
   creationTime: DateTime
+  "Id of the creator."
   creatorId: ID
+  "Last modifier user for this entity."
   lastModifierId: ID
+  "The last modified time for this entity."
   lastModificationTime: DateTime
+  "Id of the deleter user."
   deleterId: ID
+  "Deletion time."
   deletionTime: DateTime
+  "Used to mark an Entity as 'Deleted'."
   isDeleted: Boolean!
 }
 
 "A standard interface to add CreationTime property."
 interface HasCreationTime {
+  "Creation time."
   creationTime: DateTime
 }
 
 "A standard interface to add DeletionTime property to a class. It also makes the class soft delete (see ISoftDelete)."
 interface HasDeletionTime implements SoftDelete {
+  "Deletion time."
   deletionTime: DateTime
+  "Used to mark an Entity as 'Deleted'."
   isDeleted: Boolean!
 }
 
@@ -48,21 +95,26 @@ interface HasExtraProperties {
 
 "A standard interface to add DeletionTime property to a class."
 interface HasModificationTime {
+  "The last modified time for this entity."
   lastModificationTime: DateTime
 }
 
 "Standard interface for an entity that MAY have a creator."
 interface MayHaveCreator {
+  "Id of the creator."
   creatorId: ID
 }
 
 "This interface can be implemented to store modification information (who and when modified lastly)."
 interface ModificationAuditedObject implements HasModificationTime {
+  "Last modifier user for this entity."
   lastModifierId: ID
+  "The last modified time for this entity."
   lastModificationTime: DateTime
 }
 
 interface MultiTenant {
+  "Id of the related tenant."
   tenantId: ID
 }
 
@@ -78,6 +130,7 @@ interface Node {
 
 "Used to standardize soft deleting entities. Soft-delete entities are not actually deleted, marked as IsDeleted = true in the database, but can not be retrieved to the application normally."
 interface SoftDelete {
+  "Used to mark an Entity as 'Deleted'."
   isDeleted: Boolean!
 }
 
@@ -86,22 +139,33 @@ type AuthorizationError implements Error {
   message: String!
 }
 
-type Blob implements Node & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate @relation(name: "", value: "") @permission(name: "", value: "") @permission(name: "", value: "") {
+type Blob implements Node & Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate @relation(name: "", value: "") @permission(name: "", value: "") @permission(name: "", value: "") {
   url: String!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "Unique identifier for this entity."
+  id: ID!
+  "Id of the creator."
   creatorId: ID
+  "Last modifier user for this entity."
   lastModifierId: ID
+  "Id of the deleter user."
   deleterId: ID
   extraProperties: JSON
+  "Id of the related tenant."
   tenantId: ID
+  "Id of the owner."
   ownerId: ID!
-  folderId: UUID
+  folderId: ID
   metadata: BlobMetadata!
-  isDeleted: Boolean!
-  deletionTime: DateTime
+  "Creation time."
+  creationTime: DateTime
+  "The last modified time for this entity."
   lastModificationTime: DateTime
-  creationTime: DateTime!
-  concurrencyStamp: String!
-  id: ID!
+  "Deletion time."
+  deletionTime: DateTime
+  "Used to mark an Entity as 'Deleted'."
+  isDeleted: Boolean!
 }
 
 type BlobMetadata {
@@ -138,23 +202,34 @@ type EntityNotFoundError implements Error {
   message: String!
 }
 
-type FolderBlob implements Node & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate @relation(name: "", value: "") @permission(name: "", value: "") @permission(name: "", value: "") {
+type FolderBlob implements Node & Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate @relation(name: "", value: "") @permission(name: "", value: "") @permission(name: "", value: "") {
   parent: FolderBlob
   blobs: [Blob!]!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "Unique identifier for this entity."
+  id: ID!
+  "Id of the creator."
   creatorId: ID
+  "Last modifier user for this entity."
   lastModifierId: ID
+  "Id of the deleter user."
   deleterId: ID
   extraProperties: JSON
+  "Id of the related tenant."
   tenantId: ID
+  "Id of the owner."
   ownerId: ID!
   parentId: ID
   name: String!
-  isDeleted: Boolean!
-  deletionTime: DateTime
+  "Creation time."
+  creationTime: DateTime
+  "The last modified time for this entity."
   lastModificationTime: DateTime
-  creationTime: DateTime!
-  concurrencyStamp: String!
-  id: ID!
+  "Deletion time."
+  deletionTime: DateTime
+  "Used to mark an Entity as 'Deleted'."
+  isDeleted: Boolean!
 }
 
 type FolderBlobNameAlreadyExistsError implements Error {
@@ -356,6 +431,8 @@ directive @relation(name: String! value: String!) repeatable on OBJECT
 
 "The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
 directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR
+
+scalar Any
 
 "The `DateTime` scalar represents an ISO-8601 compliant date time type."
 scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")

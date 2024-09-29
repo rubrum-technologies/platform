@@ -1,3 +1,4 @@
+using HotChocolate.Types;
 using Microsoft.Extensions.DependencyInjection;
 using Rubrum.Graphql.Interceptors;
 using Rubrum.Modularity;

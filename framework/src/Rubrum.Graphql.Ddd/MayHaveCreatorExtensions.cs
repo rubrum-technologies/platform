@@ -1,7 +1,7 @@
 ﻿using HotChocolate.Types;
 using Volo.Abp.Auditing;
 
-namespace Rubrum.Graphql.Ddd;
+namespace Rubrum.Graphql;
 
 public static class MayHaveCreatorExtensions
 {
@@ -10,6 +10,7 @@ public static class MayHaveCreatorExtensions
     {
         descriptor
             .Field(x => x.CreatorId)
+            .Description("Id of the creator.")
             .ID("User");
 
         return descriptor;

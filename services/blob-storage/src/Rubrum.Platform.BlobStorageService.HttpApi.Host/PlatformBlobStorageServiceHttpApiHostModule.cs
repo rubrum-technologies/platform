@@ -1,4 +1,3 @@
-using Rubrum.Graphql.SpiceDb;
 using Rubrum.Modularity;
 using Rubrum.Platform.BlobStorageService.Blobs;
 using Rubrum.Platform.BlobStorageService.DbMigrations;
