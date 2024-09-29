@@ -21,15 +21,21 @@ namespace TestNamespace
 
         public static partial Permission AdminConfigure();
 
+        public sealed record Ref() : DefinitionReference("OrganizationDefinition", false)
+        {
+            public sealed record All() : DefinitionReference("OrganizationDefinition", true);
+            public sealed record Platform() : DefinitionReference("OrganizationDefinition", false, "Platform");
+        }
+
         public static class Permissions
         {
             public const string Admin = "Admin";
         }
 
-        public sealed class PlatformRelation() : Relation("Platform", typeof(TestNamespace.PlatformDefinition))
+        public sealed class PlatformRelation() : Relation("Platform", new TestNamespace.PlatformDefinition.Ref())
         {
-            public RelationProperty Administrator { get; } = new RelationProperty("Administrator", typeof(TestNamespace.PlatformDefinition));
-            public RelationProperty SuperAdmin { get; } = new RelationProperty("SuperAdmin", typeof(TestNamespace.PlatformDefinition));
+            public RelationProperty Administrator { get; } = new RelationProperty("Administrator", "PlatformDefinition");
+            public RelationProperty SuperAdmin { get; } = new RelationProperty("SuperAdmin", "PlatformDefinition");
         }
         
     }
@@ -59,12 +65,18 @@ namespace TestNamespace
 
         public static partial Permission SuperAdminConfigure();
 
+        public sealed record Ref() : DefinitionReference("PlatformDefinition", false)
+        {
+            public sealed record All() : DefinitionReference("PlatformDefinition", true);
+            public sealed record Administrator() : DefinitionReference("PlatformDefinition", false, "Administrator");
+        }
+
         public static class Permissions
         {
             public const string SuperAdmin = "SuperAdmin";
         }
 
-        public sealed class AdministratorRelation() : Relation("Administrator", typeof(TestNamespace.UserDefinition))
+        public sealed class AdministratorRelation() : Relation("Administrator", new TestNamespace.UserDefinition.Ref())
         {
         }
         
@@ -95,15 +107,21 @@ namespace TestNamespace
 
         public static partial Permission AdminConfigure();
 
+        public sealed record Ref() : DefinitionReference("ResourceDefinition", false)
+        {
+            public sealed record All() : DefinitionReference("ResourceDefinition", true);
+            public sealed record Owner() : DefinitionReference("ResourceDefinition", false, "Owner");
+        }
+
         public static class Permissions
         {
             public const string Admin = "Admin";
         }
 
-        public sealed class OwnerRelation() : Relation("Owner", typeof(TestNamespace.UserDefinition), typeof(TestNamespace.OrganizationDefinition))
+        public sealed class OwnerRelation() : Relation("Owner", new TestNamespace.UserDefinition.Ref(), new TestNamespace.OrganizationDefinition.Ref())
         {
-            public RelationProperty Platform { get; } = new RelationProperty("Platform", typeof(TestNamespace.OrganizationDefinition));
-            public RelationProperty Admin { get; } = new RelationProperty("Admin", typeof(TestNamespace.OrganizationDefinition));
+            public RelationProperty Platform { get; } = new RelationProperty("Platform", "OrganizationDefinition");
+            public RelationProperty Admin { get; } = new RelationProperty("Admin", "OrganizationDefinition");
         }
         
     }
@@ -127,6 +145,11 @@ namespace TestNamespace
 {
     public static partial class UserDefinition
     {
+        public sealed record Ref() : DefinitionReference("UserDefinition", false)
+        {
+            public sealed record All() : DefinitionReference("UserDefinition", true);
+        }
+
         public static class Permissions
         {
         }

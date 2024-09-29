@@ -1,14 +1,14 @@
 ﻿using Rubrum.Authorization.Relations;
 
-namespace Rubrum.Authorization.Analyzers.Models;
+namespace Rubrum.Authorization.Analyzers.Definitions;
 
 [Definition]
-[Relation("Issue", typeof(IssueDefinition))]
+[Relation<IssueDefinition.Ref>("Issue")]
 [Permission("Delete")]
 public static partial class CommentDefinition
 {
     public static partial Permission DeleteConfigure()
     {
-        return null!;
+        return Issue;
     }
 }

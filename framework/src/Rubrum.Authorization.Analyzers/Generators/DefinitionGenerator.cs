@@ -41,6 +41,8 @@ public class DefinitionGenerator : ISyntaxGenerator
                 builder.WritePermissionMethod(permission);
             }
 
+            builder.WriteRefClass(definition);
+
             builder.WritePermissionsClass(definition);
 
             foreach (var relation in definition.Relations)
@@ -70,31 +72,21 @@ public class DefinitionGenerator : ISyntaxGenerator
         foreach (var value in relation.Values)
         {
             var definition = definitions
-                .SingleOrDefault(d => d.TypeSymbol.Equals(value, SymbolEqualityComparer.Default));
+                .Find(d => value.ToDisplayString().StartsWith($"{d.TypeSymbol.ToDisplayString()}.Ref"));
 
-            if (definition is not null)
+            if (definition is null)
             {
-                foreach (var propertyName in definition.Relations.Select(p => p.PropertyName))
-                {
-                    builder.WriteProperty(propertyName, value.ToDisplayString());
-                }
-
-                foreach (var propertyName in definition.Permissions.Select(p => p.PropertyName))
-                {
-                    builder.WriteProperty(propertyName, value.ToDisplayString());
-                }
+                continue;
             }
 
-            var properties = value.GetMembers()
-                .OfType<IPropertySymbol>()
-                .Where(p =>
-                    p.Type.BaseType?.ToDisplayString() == RelationClass ||
-                    p.Type.ToDisplayString() == PermissionLinkClass)
-                .ToList();
-
-            foreach (var property in properties)
+            foreach (var propertyName in definition.Relations.Select(p => p.PropertyName))
             {
-                builder.WriteProperty(property.Name, value.ToDisplayString());
+                builder.WriteProperty(propertyName, definition.ClassName);
+            }
+
+            foreach (var propertyName in definition.Permissions.Select(p => p.PropertyName))
+            {
+                builder.WriteProperty(propertyName, definition.ClassName);
             }
         }
 

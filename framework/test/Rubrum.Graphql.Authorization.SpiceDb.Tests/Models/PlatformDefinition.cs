@@ -3,7 +3,7 @@
 namespace Rubrum.Authorization.Analyzers.Models;
 
 [Definition]
-[Relation("Administrator", typeof(UserDefinition))]
+[Relation<UserDefinition.Ref>("Administrator")]
 [Permission("SuperAdmin")]
 public static partial class PlatformDefinition
 {

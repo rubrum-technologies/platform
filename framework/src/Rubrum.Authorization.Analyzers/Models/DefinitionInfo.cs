@@ -55,7 +55,7 @@ public sealed class DefinitionInfo : ISyntaxInfo, IEquatable<DefinitionInfo>, IE
             var r1 = Relations[i];
             var r2 = other.Relations[i];
 
-            if (!r1.AttributeData.Equals(r2.AttributeData))
+            if (!r1.AttributeSyntax.IsEquivalentTo(r2.AttributeSyntax))
             {
                 return false;
             }
@@ -66,7 +66,7 @@ public sealed class DefinitionInfo : ISyntaxInfo, IEquatable<DefinitionInfo>, IE
             var p1 = Permissions[i];
             var p2 = other.Permissions[i];
 
-            if (!p1.AttributeData.Equals(p2.AttributeData))
+            if (!p1.AttributeSyntax.IsEquivalentTo(p2.AttributeSyntax))
             {
                 return false;
             }

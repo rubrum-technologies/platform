@@ -4,11 +4,11 @@
 
 namespace Rubrum.Authorization.Relations;
 
-public abstract class Relation(string name, params Type[] definitions) : IRelation
+public abstract class Relation(string name, params DefinitionReference[] definitions)
 {
     public string Name => name;
 
-    public ImmutableArray<Type> Definitions { get; } = [..definitions];
+    public ImmutableArray<DefinitionReference> Definitions { get; } = [..definitions];
 
     public static implicit operator Permission(Relation relation) => relation.ToPermission();
 

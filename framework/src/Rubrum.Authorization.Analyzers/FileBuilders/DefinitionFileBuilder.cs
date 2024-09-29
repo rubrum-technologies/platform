@@ -65,6 +65,32 @@ public sealed class DefinitionFileBuilder : IDisposable
         _writer.WriteLine();
     }
 
+    public void WriteRefClass(DefinitionInfo definition)
+    {
+        _writer.WriteIndentedLine(
+            "public sealed record Ref() : DefinitionReference(\"{0}\", false)",
+            definition.ClassName);
+        _writer.WriteIndentedLine("{");
+
+        using (_writer.IncreaseIndent())
+        {
+            _writer.WriteIndentedLine(
+                "public sealed record All() : DefinitionReference(\"{0}\", true);",
+                definition.ClassName);
+
+            foreach (var propertyName in definition.Relations.Select(r => r.PropertyName))
+            {
+                _writer.WriteIndentedLine(
+                    "public sealed record {0}() : DefinitionReference(\"{1}\", false, \"{0}\");",
+                    propertyName,
+                    definition.ClassName);
+            }
+        }
+
+        _writer.WriteIndentedLine("}");
+        _writer.WriteLine();
+    }
+
     public void WritePermissionsClass(DefinitionInfo definition)
     {
         _writer.WriteIndentedLine("public static class Permissions");

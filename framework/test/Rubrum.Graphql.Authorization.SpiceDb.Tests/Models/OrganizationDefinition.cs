@@ -3,7 +3,7 @@
 namespace Rubrum.Authorization.Analyzers.Models;
 
 [Definition]
-[Relation("Platform", typeof(PlatformDefinition))]
+[Relation<PlatformDefinition.Ref>("Platform")]
 [Permission("Admin")]
 public static partial class OrganizationDefinition
 {

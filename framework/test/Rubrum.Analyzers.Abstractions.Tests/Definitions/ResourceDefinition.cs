@@ -1,9 +1,9 @@
 ﻿using Rubrum.Authorization.Relations;
 
-namespace Rubrum.Authorization.Analyzers.Models;
+namespace Rubrum.Authorization.Analyzers.Definitions;
 
 [Definition]
-[Relation("Owner", typeof(UserDefinition), typeof(OrganizationDefinition))]
+[Relation<UserDefinition.Ref, OrganizationDefinition.Ref>("Owner")]
 [Permission("Admin")]
 public static partial class ResourceDefinition
 {

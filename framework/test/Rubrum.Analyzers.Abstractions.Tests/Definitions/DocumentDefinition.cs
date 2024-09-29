@@ -1,10 +1,10 @@
 ﻿using Rubrum.Authorization.Relations;
 
-namespace Rubrum.Authorization.Analyzers.Models;
+namespace Rubrum.Authorization.Analyzers.Definitions;
 
 [Definition]
-[Relation("Writer", typeof(UserDefinition))]
-[Relation("Reader", typeof(UserDefinition))]
+[Relation<UserDefinition.Ref>("Writer")]
+[Relation<UserDefinition.Ref>("Reader")]
 [Permission("Edit")]
 [Permission("View")]
 public static partial class DocumentDefinition

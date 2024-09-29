@@ -1,11 +1,11 @@
 ﻿using Rubrum.Authorization.Relations;
 
-namespace Rubrum.Authorization.Analyzers.Models;
+namespace Rubrum.Authorization.Analyzers.Definitions;
 
 [Definition]
-[Relation("Project", typeof(ProjectDefinition))]
-[Relation("Member", typeof(UserDefinition))]
-[Relation("BuiltInRole", typeof(ProjectDefinition))]
+[Relation<ProjectDefinition.Ref>("Project")]
+[Relation<UserDefinition.Ref>("Member")]
+[Relation<ProjectDefinition.Ref>("BuiltInRole")]
 [Permission("Delete")]
 [Permission("AddUser")]
 [Permission("AddPermission")]

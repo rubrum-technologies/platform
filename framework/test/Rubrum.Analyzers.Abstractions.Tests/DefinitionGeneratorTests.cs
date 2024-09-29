@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Rubrum.Analyzers;
 using Rubrum.Authorization.Relations;
+using Shouldly;
 using Xunit;
 
 namespace Rubrum.Authorization.Analyzers;
@@ -28,8 +29,8 @@ public class DefinitionGeneratorTests
 
 
             [Definition]
-            [Relation("Writer", typeof(UserDefinition))]
-            [Relation("Reader", typeof(UserDefinition))]
+            [Relation<UserDefinition.Ref>("Writer")]
+            [Relation<UserDefinition.Ref>("Reader")]
             [Permission("Edit")]
             [Permission("View")]
             public static partial class DocumentDefinition
@@ -39,8 +40,7 @@ public class DefinitionGeneratorTests
                 public static partial Permission ViewConfigure() => Reader + Edit;
             }
             """,
-            _references
-        ).MatchMarkdownAsync();
+            _references).ShouldNotBeNull().MatchMarkdownAsync();
     }
 
     [Fact]
@@ -58,7 +58,7 @@ public class DefinitionGeneratorTests
             }
 
             [Definition]
-            [Relation("Administrator", typeof(UserDefinition))]
+            [Relation<UserDefinition.Ref>("Administrator")]
             [Permission("SuperAdmin")]
             public static partial class PlatformDefinition
             {
@@ -67,7 +67,7 @@ public class DefinitionGeneratorTests
 
 
             [Definition]
-            [Relation("Platform", typeof(PlatformDefinition))]
+            [Relation<PlatformDefinition.Ref>("Platform")]
             [Permission("Admin")]
             public static partial class OrganizationDefinition
             {
@@ -75,7 +75,7 @@ public class DefinitionGeneratorTests
             }
 
             [Definition]
-            [Relation("Owner", typeof(UserDefinition), typeof(OrganizationDefinition))]
+            [Relation<UserDefinition.Ref, OrganizationDefinition.Ref>("Owner")]
             [Permission("Admin")]
             public static partial class ResourceDefinition
             {
@@ -83,8 +83,7 @@ public class DefinitionGeneratorTests
             }
 
             """,
-            _references
-        ).MatchMarkdownAsync();
+            _references).ShouldNotBeNull().MatchMarkdownAsync();
     }
 
     [Fact]
@@ -102,9 +101,9 @@ public class DefinitionGeneratorTests
             }
 
             [Definition]
-            [Relation("Project", typeof(ProjectDefinition))]
-            [Relation("Member", typeof(UserDefinition))]
-            [Relation("BuiltInRole", typeof(ProjectDefinition))]
+            [Relation<ProjectDefinition.Ref>("Project")]
+            [Relation<UserDefinition.Ref>("Member")]
+            [Relation<ProjectDefinition.Ref>("BuiltInRole")]
             [Permission("Delete")]
             [Permission("AddUser")]
             [Permission("AddPermission")]
@@ -121,19 +120,14 @@ public class DefinitionGeneratorTests
             }
 
             [Definition]
-            [Relation("Issue", typeof(IssueDefinition))]
-            [Permission("Delete")]
+            [Relation<IssueDefinition.Ref>("Issue")]
             public static partial class CommentDefinition
             {
-                public static partial Permission DeleteConfigure()
-                {
-                    return null!;
-                }
             }
 
             [Definition]
-            [Relation("Project", typeof(ProjectDefinition))]
-            [Relation("Assigned", typeof(UserDefinition))]
+            [Relation<ProjectDefinition.Ref>("Project")]
+            [Relation<UserDefinition.Ref>("Assigned")]
             [Permission("Assign")]
             [Permission("Resolve")]
             [Permission("CreateComment")]
@@ -151,13 +145,13 @@ public class DefinitionGeneratorTests
             }
 
             [Definition]
-            [Relation("IssueCreator", typeof(RoleDefinition.MemberRelation))]
-            [Relation("IssueAssigner", typeof(RoleDefinition.MemberRelation))]
-            [Relation("AnyIssueResolver", typeof(RoleDefinition.MemberRelation))]
-            [Relation("AssignedIssueResolver", typeof(RoleDefinition.MemberRelation))]
-            [Relation("CommentCreator", typeof(RoleDefinition.MemberRelation))]
-            [Relation("CommentDeleter", typeof(RoleDefinition.MemberRelation))]
-            [Relation("RoleManager", typeof(RoleDefinition.MemberRelation))]
+            [Relation<RoleDefinition.Ref.Member>("IssueCreator")]
+            [Relation<RoleDefinition.Ref.Member>("IssueAssigner")]
+            [Relation<RoleDefinition.Ref.Member>("AnyIssueResolver")]
+            [Relation<RoleDefinition.Ref.Member>("AssignedIssueResolver")]
+            [Relation<RoleDefinition.Ref.Member>("CommentCreator")]
+            [Relation<RoleDefinition.Ref.Member>("CommentDeleter")]
+            [Relation<RoleDefinition.Ref.Member>("RoleManager")]
             [Permission("CreateIssue")]
             [Permission("CreateRole")]
             public static partial class ProjectDefinition
@@ -167,7 +161,6 @@ public class DefinitionGeneratorTests
                 public static partial Permission CreateRoleConfigure() => RoleManager;
             }
             """,
-            _references
-        ).MatchMarkdownAsync();
+            _references).ShouldNotBeNull().MatchMarkdownAsync();
     }
 }

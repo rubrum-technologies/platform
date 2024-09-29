@@ -21,10 +21,7 @@ public sealed class RelationDirectiveBuilder : IRelationDirectiveBuilder, ITrans
 
         foreach (var definition in relation.Definitions) // TODO: Реализовать ссылки на relations
         {
-            if (definition is { IsClass: true, IsAbstract: true })
-            {
-                builder.Add(definition.Name.Replace("Definition", string.Empty).ToSnakeCase());
-            }
+            builder.Add(definition.Name.Replace("Definition", string.Empty).ToSnakeCase());
         }
 
         return builder.ToImmutable();

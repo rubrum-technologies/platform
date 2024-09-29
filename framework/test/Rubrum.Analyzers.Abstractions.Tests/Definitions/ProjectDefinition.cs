@@ -1,6 +1,6 @@
 ﻿using Rubrum.Authorization.Relations;
 
-namespace Rubrum.Authorization.Analyzers.Models;
+namespace Rubrum.Authorization.Analyzers.Definitions;
 
 [Definition]
 [Relation<RoleDefinition.Ref.Member>("IssueCreator")]

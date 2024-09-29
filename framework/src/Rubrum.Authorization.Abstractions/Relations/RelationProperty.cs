@@ -2,11 +2,11 @@
 
 namespace Rubrum.Authorization.Relations;
 
-public class RelationProperty(string name, Type definition)
+public class RelationProperty(string name, string definition)
 {
     public string Name => name;
 
-    public Type Definition => definition;
+    public string Definition => definition;
 
     public static implicit operator Permission(RelationProperty property) => property.ToPermission();
 
@@ -19,7 +19,7 @@ public class RelationProperty(string name, Type definition)
     private PermissionExpression ToPermission()
     {
         return new PermissionExpression(
-            new PermissionField(Definition.Name),
+            new PermissionField(Definition),
             PermissionOperator.Arrow,
             new PermissionField(Name));
     }

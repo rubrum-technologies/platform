@@ -27,17 +27,24 @@ namespace TestNamespace
 
         public static partial Permission ViewConfigure();
 
+        public sealed record Ref() : DefinitionReference("DocumentDefinition", false)
+        {
+            public sealed record All() : DefinitionReference("DocumentDefinition", true);
+            public sealed record Writer() : DefinitionReference("DocumentDefinition", false, "Writer");
+            public sealed record Reader() : DefinitionReference("DocumentDefinition", false, "Reader");
+        }
+
         public static class Permissions
         {
             public const string Edit = "Edit";
             public const string View = "View";
         }
 
-        public sealed class WriterRelation() : Relation("Writer", typeof(TestNamespace.UserDefinition))
+        public sealed class WriterRelation() : Relation("Writer", new TestNamespace.UserDefinition.Ref())
         {
         }
         
-        public sealed class ReaderRelation() : Relation("Reader", typeof(TestNamespace.UserDefinition))
+        public sealed class ReaderRelation() : Relation("Reader", new TestNamespace.UserDefinition.Ref())
         {
         }
         
@@ -62,6 +69,11 @@ namespace TestNamespace
 {
     public static partial class UserDefinition
     {
+        public sealed record Ref() : DefinitionReference("UserDefinition", false)
+        {
+            public sealed record All() : DefinitionReference("UserDefinition", true);
+        }
+
         public static class Permissions
         {
         }

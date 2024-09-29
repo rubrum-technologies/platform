@@ -3,8 +3,8 @@
 namespace Rubrum.Authorization.Analyzers.Models;
 
 [Definition]
-[Relation("Writer", typeof(UserDefinition))]
-[Relation("Reader", typeof(UserDefinition))]
+[Relation<UserDefinition.Ref>("Writer")]
+[Relation<UserDefinition.Ref>("Reader")]
 [Permission("Edit")]
 [Permission("View")]
 public static partial class DocumentDefinition

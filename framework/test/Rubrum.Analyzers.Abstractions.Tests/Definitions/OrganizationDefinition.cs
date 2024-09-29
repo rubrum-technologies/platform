@@ -1,9 +1,9 @@
 ﻿using Rubrum.Authorization.Relations;
 
-namespace Rubrum.Authorization.Analyzers.Models;
+namespace Rubrum.Authorization.Analyzers.Definitions;
 
 [Definition]
-[Relation("Platform", typeof(PlatformDefinition))]
+[Relation<PlatformDefinition.Ref>("Platform")]
 [Permission("Admin")]
 public static partial class OrganizationDefinition
 {

@@ -2,9 +2,9 @@
 
 namespace Rubrum.Authorization.Relations;
 
-public interface IRelation
+public interface IRelationAttribute
 {
     string Name { get; }
 
-    ImmutableArray<Type> Definitions { get; }
+    ImmutableArray<DefinitionReference> Definitions { get; }
 }

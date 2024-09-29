@@ -4,7 +4,7 @@ using Rubrum.Platform.Relations;
 namespace Rubrum.Platform.BlobStorageService.Blobs;
 
 [Definition]
-[Relation("Owner", typeof(UserDefinition))]
+[Relation<UserDefinition.Ref>("Owner")]
 [Permission("View")]
 [Permission("Edit")]
 public static partial class BlobDefinition

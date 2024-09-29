@@ -17,7 +17,13 @@ public class DefinitionAttributeInspector : ISyntaxInspector
     {
         if (context.Node is ClassDeclarationSyntax { AttributeLists.Count: > 0, } possibleType)
         {
-            foreach (var attributeSyntax in possibleType.AttributeLists.SelectMany(a => a.Attributes))
+            AttributeSyntax? definitionSyntax = null;
+            var relationsSyntax = new List<AttributeSyntax>();
+            var permissionsSyntax = new List<AttributeSyntax>();
+
+            var attributesSyntax = possibleType.AttributeLists.SelectMany(a => a.Attributes).ToList();
+
+            foreach (var attributeSyntax in attributesSyntax)
             {
                 var symbol = context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol;
 
@@ -28,49 +34,44 @@ public class DefinitionAttributeInspector : ISyntaxInspector
 
                 var fullName = attributeSymbol.ContainingType.ToDisplayString();
 
-                if (fullName.StartsWith(DefinitionAttribute, Ordinal) &&
-                    context.SemanticModel.GetDeclaredSymbol(possibleType) is ITypeSymbol typeSymbol)
+                if (fullName.StartsWith(DefinitionAttribute, Ordinal))
                 {
-                    syntaxInfo = new DefinitionInfo(
-                        typeSymbol,
-                        GetRelations(typeSymbol),
-                        GetPermissions(typeSymbol));
-                    return true;
+                    definitionSyntax = attributeSyntax;
+                }
+
+                if (fullName.StartsWith(RelationAttribute, Ordinal))
+                {
+                    relationsSyntax.Add(attributeSyntax);
+                }
+
+                if (fullName.StartsWith(PermissionAttribute, Ordinal))
+                {
+                    permissionsSyntax.Add(attributeSyntax);
                 }
             }
+
+            if (definitionSyntax is null)
+            {
+                syntaxInfo = null;
+                return false;
+            }
+
+            var relations = relationsSyntax
+                .Select(syntax => new RelationInfo(
+                    syntax,
+                    (IMethodSymbol)context.SemanticModel.GetSymbolInfo(syntax).Symbol!))
+                .ToImmutableArray();
+            var permissions = permissionsSyntax.Select(syntax => new PermissionInfo(syntax))
+                .ToImmutableArray();
+
+            syntaxInfo = new DefinitionInfo(
+                (ITypeSymbol)context.SemanticModel.GetDeclaredSymbol(possibleType)!,
+                relations,
+                permissions);
+            return true;
         }
 
         syntaxInfo = null;
         return false;
-    }
-
-    private static ImmutableArray<RelationInfo> GetRelations(ITypeSymbol typeSymbol)
-    {
-        var builder = ImmutableArray.CreateBuilder<RelationInfo>();
-
-        foreach (var attributeData in from attributeData in typeSymbol.GetAttributes()
-                 let fullName = attributeData.AttributeClass?.ToDisplayString() ?? string.Empty
-                 where fullName.StartsWith(RelationAttribute, Ordinal)
-                 select attributeData)
-        {
-            builder.Add(new RelationInfo(attributeData));
-        }
-
-        return builder.ToImmutable();
-    }
-
-    private static ImmutableArray<PermissionInfo> GetPermissions(ITypeSymbol typeSymbol)
-    {
-        var builder = ImmutableArray.CreateBuilder<PermissionInfo>();
-
-        foreach (var attributeData in from attributeData in typeSymbol.GetAttributes()
-                 let fullName = attributeData.AttributeClass?.ToDisplayString() ?? string.Empty
-                 where fullName.StartsWith(PermissionAttribute, Ordinal)
-                 select attributeData)
-        {
-            builder.Add(new PermissionInfo(attributeData));
-        }
-
-        return builder.ToImmutable();
     }
 }

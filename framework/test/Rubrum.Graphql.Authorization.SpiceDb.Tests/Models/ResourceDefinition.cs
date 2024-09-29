@@ -3,7 +3,7 @@
 namespace Rubrum.Authorization.Analyzers.Models;
 
 [Definition]
-[Relation("Owner", typeof(UserDefinition), typeof(OrganizationDefinition))]
+[Relation<UserDefinition.Ref, OrganizationDefinition.Ref>("Owner")]
 [Permission("Admin")]
 public static partial class ResourceDefinition
 {

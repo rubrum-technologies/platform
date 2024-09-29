@@ -21,23 +21,19 @@ public sealed class RelationFileBuilder : IDisposable
         var name = relation.PropertyName;
         var className = relation.ClassName;
 
-        var types = string.Join(", ", relation.Values.Select(v => $"typeof({v.ToDisplayString()})"));
+        var definitions = relation.Values.Select(d => $"new {d.ToDisplayString()}()");
 
-        _writer.WriteIndentedLine(
-            "public sealed class {0}() : Relation(\"{1}\", {2})",
-            className,
-            name,
-            types);
+        _writer.WriteIndentedLine("public sealed class {0}() : Relation(\"{1}\", {2})", className, name, string.Join(", ", definitions));
         _writer.WriteIndentedLine("{");
         _writer.IncreaseIndent();
     }
 
-    public void WriteProperty(string propertyName, string type)
+    public void WriteProperty(string propertyName, string definition)
     {
         _writer.WriteIndentedLine(
-            "public RelationProperty {0} {{ get; }} = new RelationProperty(\"{0}\", typeof({1}));",
+            "public RelationProperty {0} {{ get; }} = new RelationProperty(\"{0}\", \"{1}\");",
             propertyName,
-            type);
+            definition);
     }
 
     public void WriteEndClass()

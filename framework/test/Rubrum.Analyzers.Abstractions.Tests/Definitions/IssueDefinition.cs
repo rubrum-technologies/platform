@@ -1,10 +1,10 @@
 ﻿using Rubrum.Authorization.Relations;
 
-namespace Rubrum.Authorization.Analyzers.Models;
+namespace Rubrum.Authorization.Analyzers.Definitions;
 
 [Definition]
-[Relation("Project", typeof(ProjectDefinition))]
-[Relation("Assigned", typeof(UserDefinition))]
+[Relation<ProjectDefinition.Ref>("Project")]
+[Relation<UserDefinition.Ref>("Assigned")]
 [Permission("Assign")]
 [Permission("Resolve")]
 [Permission("CreateComment")]

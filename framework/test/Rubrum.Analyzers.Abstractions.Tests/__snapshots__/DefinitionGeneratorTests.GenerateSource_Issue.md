@@ -17,23 +17,24 @@ namespace TestNamespace
     {
         public static IssueRelation Issue { get; } = new IssueRelation();
 
-        public static PermissionLink Delete { get; } = new PermissionLink(Permissions.Delete, DeleteConfigure);
-
-        public static partial Permission DeleteConfigure();
+        public sealed record Ref() : DefinitionReference("CommentDefinition", false)
+        {
+            public sealed record All() : DefinitionReference("CommentDefinition", true);
+            public sealed record Issue() : DefinitionReference("CommentDefinition", false, "Issue");
+        }
 
         public static class Permissions
         {
-            public const string Delete = "Delete";
         }
 
-        public sealed class IssueRelation() : Relation("Issue", typeof(TestNamespace.IssueDefinition))
+        public sealed class IssueRelation() : Relation("Issue", new TestNamespace.IssueDefinition.Ref())
         {
-            public RelationProperty Project { get; } = new RelationProperty("Project", typeof(TestNamespace.IssueDefinition));
-            public RelationProperty Assigned { get; } = new RelationProperty("Assigned", typeof(TestNamespace.IssueDefinition));
-            public RelationProperty Assign { get; } = new RelationProperty("Assign", typeof(TestNamespace.IssueDefinition));
-            public RelationProperty Resolve { get; } = new RelationProperty("Resolve", typeof(TestNamespace.IssueDefinition));
-            public RelationProperty CreateComment { get; } = new RelationProperty("CreateComment", typeof(TestNamespace.IssueDefinition));
-            public RelationProperty ProjectCommentDeleter { get; } = new RelationProperty("ProjectCommentDeleter", typeof(TestNamespace.IssueDefinition));
+            public RelationProperty Project { get; } = new RelationProperty("Project", "IssueDefinition");
+            public RelationProperty Assigned { get; } = new RelationProperty("Assigned", "IssueDefinition");
+            public RelationProperty Assign { get; } = new RelationProperty("Assign", "IssueDefinition");
+            public RelationProperty Resolve { get; } = new RelationProperty("Resolve", "IssueDefinition");
+            public RelationProperty CreateComment { get; } = new RelationProperty("CreateComment", "IssueDefinition");
+            public RelationProperty ProjectCommentDeleter { get; } = new RelationProperty("ProjectCommentDeleter", "IssueDefinition");
         }
         
     }
@@ -77,6 +78,13 @@ namespace TestNamespace
 
         public static partial Permission ProjectCommentDeleterConfigure();
 
+        public sealed record Ref() : DefinitionReference("IssueDefinition", false)
+        {
+            public sealed record All() : DefinitionReference("IssueDefinition", true);
+            public sealed record Project() : DefinitionReference("IssueDefinition", false, "Project");
+            public sealed record Assigned() : DefinitionReference("IssueDefinition", false, "Assigned");
+        }
+
         public static class Permissions
         {
             public const string Assign = "Assign";
@@ -85,20 +93,20 @@ namespace TestNamespace
             public const string ProjectCommentDeleter = "ProjectCommentDeleter";
         }
 
-        public sealed class ProjectRelation() : Relation("Project", typeof(TestNamespace.ProjectDefinition))
+        public sealed class ProjectRelation() : Relation("Project", new TestNamespace.ProjectDefinition.Ref())
         {
-            public RelationProperty IssueCreator { get; } = new RelationProperty("IssueCreator", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty IssueAssigner { get; } = new RelationProperty("IssueAssigner", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty AnyIssueResolver { get; } = new RelationProperty("AnyIssueResolver", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty AssignedIssueResolver { get; } = new RelationProperty("AssignedIssueResolver", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty CommentCreator { get; } = new RelationProperty("CommentCreator", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty CommentDeleter { get; } = new RelationProperty("CommentDeleter", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty RoleManager { get; } = new RelationProperty("RoleManager", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty CreateIssue { get; } = new RelationProperty("CreateIssue", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty CreateRole { get; } = new RelationProperty("CreateRole", typeof(TestNamespace.ProjectDefinition));
+            public RelationProperty IssueCreator { get; } = new RelationProperty("IssueCreator", "ProjectDefinition");
+            public RelationProperty IssueAssigner { get; } = new RelationProperty("IssueAssigner", "ProjectDefinition");
+            public RelationProperty AnyIssueResolver { get; } = new RelationProperty("AnyIssueResolver", "ProjectDefinition");
+            public RelationProperty AssignedIssueResolver { get; } = new RelationProperty("AssignedIssueResolver", "ProjectDefinition");
+            public RelationProperty CommentCreator { get; } = new RelationProperty("CommentCreator", "ProjectDefinition");
+            public RelationProperty CommentDeleter { get; } = new RelationProperty("CommentDeleter", "ProjectDefinition");
+            public RelationProperty RoleManager { get; } = new RelationProperty("RoleManager", "ProjectDefinition");
+            public RelationProperty CreateIssue { get; } = new RelationProperty("CreateIssue", "ProjectDefinition");
+            public RelationProperty CreateRole { get; } = new RelationProperty("CreateRole", "ProjectDefinition");
         }
         
-        public sealed class AssignedRelation() : Relation("Assigned", typeof(TestNamespace.UserDefinition))
+        public sealed class AssignedRelation() : Relation("Assigned", new TestNamespace.UserDefinition.Ref())
         {
         }
         
@@ -145,38 +153,99 @@ namespace TestNamespace
 
         public static partial Permission CreateRoleConfigure();
 
+        public sealed record Ref() : DefinitionReference("ProjectDefinition", false)
+        {
+            public sealed record All() : DefinitionReference("ProjectDefinition", true);
+            public sealed record IssueCreator() : DefinitionReference("ProjectDefinition", false, "IssueCreator");
+            public sealed record IssueAssigner() : DefinitionReference("ProjectDefinition", false, "IssueAssigner");
+            public sealed record AnyIssueResolver() : DefinitionReference("ProjectDefinition", false, "AnyIssueResolver");
+            public sealed record AssignedIssueResolver() : DefinitionReference("ProjectDefinition", false, "AssignedIssueResolver");
+            public sealed record CommentCreator() : DefinitionReference("ProjectDefinition", false, "CommentCreator");
+            public sealed record CommentDeleter() : DefinitionReference("ProjectDefinition", false, "CommentDeleter");
+            public sealed record RoleManager() : DefinitionReference("ProjectDefinition", false, "RoleManager");
+        }
+
         public static class Permissions
         {
             public const string CreateIssue = "CreateIssue";
             public const string CreateRole = "CreateRole";
         }
 
-        public sealed class IssueCreatorRelation() : Relation("IssueCreator", typeof(TestNamespace.RoleDefinition.MemberRelation))
+        public sealed class IssueCreatorRelation() : Relation("IssueCreator", new TestNamespace.RoleDefinition.Ref.Member())
         {
+            public RelationProperty Project { get; } = new RelationProperty("Project", "RoleDefinition");
+            public RelationProperty Member { get; } = new RelationProperty("Member", "RoleDefinition");
+            public RelationProperty BuiltInRole { get; } = new RelationProperty("BuiltInRole", "RoleDefinition");
+            public RelationProperty Delete { get; } = new RelationProperty("Delete", "RoleDefinition");
+            public RelationProperty AddUser { get; } = new RelationProperty("AddUser", "RoleDefinition");
+            public RelationProperty AddPermission { get; } = new RelationProperty("AddPermission", "RoleDefinition");
+            public RelationProperty RemovePermission { get; } = new RelationProperty("RemovePermission", "RoleDefinition");
         }
         
-        public sealed class IssueAssignerRelation() : Relation("IssueAssigner", typeof(TestNamespace.RoleDefinition.MemberRelation))
+        public sealed class IssueAssignerRelation() : Relation("IssueAssigner", new TestNamespace.RoleDefinition.Ref.Member())
         {
+            public RelationProperty Project { get; } = new RelationProperty("Project", "RoleDefinition");
+            public RelationProperty Member { get; } = new RelationProperty("Member", "RoleDefinition");
+            public RelationProperty BuiltInRole { get; } = new RelationProperty("BuiltInRole", "RoleDefinition");
+            public RelationProperty Delete { get; } = new RelationProperty("Delete", "RoleDefinition");
+            public RelationProperty AddUser { get; } = new RelationProperty("AddUser", "RoleDefinition");
+            public RelationProperty AddPermission { get; } = new RelationProperty("AddPermission", "RoleDefinition");
+            public RelationProperty RemovePermission { get; } = new RelationProperty("RemovePermission", "RoleDefinition");
         }
         
-        public sealed class AnyIssueResolverRelation() : Relation("AnyIssueResolver", typeof(TestNamespace.RoleDefinition.MemberRelation))
+        public sealed class AnyIssueResolverRelation() : Relation("AnyIssueResolver", new TestNamespace.RoleDefinition.Ref.Member())
         {
+            public RelationProperty Project { get; } = new RelationProperty("Project", "RoleDefinition");
+            public RelationProperty Member { get; } = new RelationProperty("Member", "RoleDefinition");
+            public RelationProperty BuiltInRole { get; } = new RelationProperty("BuiltInRole", "RoleDefinition");
+            public RelationProperty Delete { get; } = new RelationProperty("Delete", "RoleDefinition");
+            public RelationProperty AddUser { get; } = new RelationProperty("AddUser", "RoleDefinition");
+            public RelationProperty AddPermission { get; } = new RelationProperty("AddPermission", "RoleDefinition");
+            public RelationProperty RemovePermission { get; } = new RelationProperty("RemovePermission", "RoleDefinition");
         }
         
-        public sealed class AssignedIssueResolverRelation() : Relation("AssignedIssueResolver", typeof(TestNamespace.RoleDefinition.MemberRelation))
+        public sealed class AssignedIssueResolverRelation() : Relation("AssignedIssueResolver", new TestNamespace.RoleDefinition.Ref.Member())
         {
+            public RelationProperty Project { get; } = new RelationProperty("Project", "RoleDefinition");
+            public RelationProperty Member { get; } = new RelationProperty("Member", "RoleDefinition");
+            public RelationProperty BuiltInRole { get; } = new RelationProperty("BuiltInRole", "RoleDefinition");
+            public RelationProperty Delete { get; } = new RelationProperty("Delete", "RoleDefinition");
+            public RelationProperty AddUser { get; } = new RelationProperty("AddUser", "RoleDefinition");
+            public RelationProperty AddPermission { get; } = new RelationProperty("AddPermission", "RoleDefinition");
+            public RelationProperty RemovePermission { get; } = new RelationProperty("RemovePermission", "RoleDefinition");
         }
         
-        public sealed class CommentCreatorRelation() : Relation("CommentCreator", typeof(TestNamespace.RoleDefinition.MemberRelation))
+        public sealed class CommentCreatorRelation() : Relation("CommentCreator", new TestNamespace.RoleDefinition.Ref.Member())
         {
+            public RelationProperty Project { get; } = new RelationProperty("Project", "RoleDefinition");
+            public RelationProperty Member { get; } = new RelationProperty("Member", "RoleDefinition");
+            public RelationProperty BuiltInRole { get; } = new RelationProperty("BuiltInRole", "RoleDefinition");
+            public RelationProperty Delete { get; } = new RelationProperty("Delete", "RoleDefinition");
+            public RelationProperty AddUser { get; } = new RelationProperty("AddUser", "RoleDefinition");
+            public RelationProperty AddPermission { get; } = new RelationProperty("AddPermission", "RoleDefinition");
+            public RelationProperty RemovePermission { get; } = new RelationProperty("RemovePermission", "RoleDefinition");
         }
         
-        public sealed class CommentDeleterRelation() : Relation("CommentDeleter", typeof(TestNamespace.RoleDefinition.MemberRelation))
+        public sealed class CommentDeleterRelation() : Relation("CommentDeleter", new TestNamespace.RoleDefinition.Ref.Member())
         {
+            public RelationProperty Project { get; } = new RelationProperty("Project", "RoleDefinition");
+            public RelationProperty Member { get; } = new RelationProperty("Member", "RoleDefinition");
+            public RelationProperty BuiltInRole { get; } = new RelationProperty("BuiltInRole", "RoleDefinition");
+            public RelationProperty Delete { get; } = new RelationProperty("Delete", "RoleDefinition");
+            public RelationProperty AddUser { get; } = new RelationProperty("AddUser", "RoleDefinition");
+            public RelationProperty AddPermission { get; } = new RelationProperty("AddPermission", "RoleDefinition");
+            public RelationProperty RemovePermission { get; } = new RelationProperty("RemovePermission", "RoleDefinition");
         }
         
-        public sealed class RoleManagerRelation() : Relation("RoleManager", typeof(TestNamespace.RoleDefinition.MemberRelation))
+        public sealed class RoleManagerRelation() : Relation("RoleManager", new TestNamespace.RoleDefinition.Ref.Member())
         {
+            public RelationProperty Project { get; } = new RelationProperty("Project", "RoleDefinition");
+            public RelationProperty Member { get; } = new RelationProperty("Member", "RoleDefinition");
+            public RelationProperty BuiltInRole { get; } = new RelationProperty("BuiltInRole", "RoleDefinition");
+            public RelationProperty Delete { get; } = new RelationProperty("Delete", "RoleDefinition");
+            public RelationProperty AddUser { get; } = new RelationProperty("AddUser", "RoleDefinition");
+            public RelationProperty AddPermission { get; } = new RelationProperty("AddPermission", "RoleDefinition");
+            public RelationProperty RemovePermission { get; } = new RelationProperty("RemovePermission", "RoleDefinition");
         }
         
     }
@@ -222,6 +291,14 @@ namespace TestNamespace
 
         public static partial Permission RemovePermissionConfigure();
 
+        public sealed record Ref() : DefinitionReference("RoleDefinition", false)
+        {
+            public sealed record All() : DefinitionReference("RoleDefinition", true);
+            public sealed record Project() : DefinitionReference("RoleDefinition", false, "Project");
+            public sealed record Member() : DefinitionReference("RoleDefinition", false, "Member");
+            public sealed record BuiltInRole() : DefinitionReference("RoleDefinition", false, "BuiltInRole");
+        }
+
         public static class Permissions
         {
             public const string Delete = "Delete";
@@ -230,34 +307,34 @@ namespace TestNamespace
             public const string RemovePermission = "RemovePermission";
         }
 
-        public sealed class ProjectRelation() : Relation("Project", typeof(TestNamespace.ProjectDefinition))
+        public sealed class ProjectRelation() : Relation("Project", new TestNamespace.ProjectDefinition.Ref())
         {
-            public RelationProperty IssueCreator { get; } = new RelationProperty("IssueCreator", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty IssueAssigner { get; } = new RelationProperty("IssueAssigner", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty AnyIssueResolver { get; } = new RelationProperty("AnyIssueResolver", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty AssignedIssueResolver { get; } = new RelationProperty("AssignedIssueResolver", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty CommentCreator { get; } = new RelationProperty("CommentCreator", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty CommentDeleter { get; } = new RelationProperty("CommentDeleter", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty RoleManager { get; } = new RelationProperty("RoleManager", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty CreateIssue { get; } = new RelationProperty("CreateIssue", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty CreateRole { get; } = new RelationProperty("CreateRole", typeof(TestNamespace.ProjectDefinition));
+            public RelationProperty IssueCreator { get; } = new RelationProperty("IssueCreator", "ProjectDefinition");
+            public RelationProperty IssueAssigner { get; } = new RelationProperty("IssueAssigner", "ProjectDefinition");
+            public RelationProperty AnyIssueResolver { get; } = new RelationProperty("AnyIssueResolver", "ProjectDefinition");
+            public RelationProperty AssignedIssueResolver { get; } = new RelationProperty("AssignedIssueResolver", "ProjectDefinition");
+            public RelationProperty CommentCreator { get; } = new RelationProperty("CommentCreator", "ProjectDefinition");
+            public RelationProperty CommentDeleter { get; } = new RelationProperty("CommentDeleter", "ProjectDefinition");
+            public RelationProperty RoleManager { get; } = new RelationProperty("RoleManager", "ProjectDefinition");
+            public RelationProperty CreateIssue { get; } = new RelationProperty("CreateIssue", "ProjectDefinition");
+            public RelationProperty CreateRole { get; } = new RelationProperty("CreateRole", "ProjectDefinition");
         }
         
-        public sealed class MemberRelation() : Relation("Member", typeof(TestNamespace.UserDefinition))
+        public sealed class MemberRelation() : Relation("Member", new TestNamespace.UserDefinition.Ref())
         {
         }
         
-        public sealed class BuiltInRoleRelation() : Relation("BuiltInRole", typeof(TestNamespace.ProjectDefinition))
+        public sealed class BuiltInRoleRelation() : Relation("BuiltInRole", new TestNamespace.ProjectDefinition.Ref())
         {
-            public RelationProperty IssueCreator { get; } = new RelationProperty("IssueCreator", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty IssueAssigner { get; } = new RelationProperty("IssueAssigner", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty AnyIssueResolver { get; } = new RelationProperty("AnyIssueResolver", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty AssignedIssueResolver { get; } = new RelationProperty("AssignedIssueResolver", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty CommentCreator { get; } = new RelationProperty("CommentCreator", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty CommentDeleter { get; } = new RelationProperty("CommentDeleter", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty RoleManager { get; } = new RelationProperty("RoleManager", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty CreateIssue { get; } = new RelationProperty("CreateIssue", typeof(TestNamespace.ProjectDefinition));
-            public RelationProperty CreateRole { get; } = new RelationProperty("CreateRole", typeof(TestNamespace.ProjectDefinition));
+            public RelationProperty IssueCreator { get; } = new RelationProperty("IssueCreator", "ProjectDefinition");
+            public RelationProperty IssueAssigner { get; } = new RelationProperty("IssueAssigner", "ProjectDefinition");
+            public RelationProperty AnyIssueResolver { get; } = new RelationProperty("AnyIssueResolver", "ProjectDefinition");
+            public RelationProperty AssignedIssueResolver { get; } = new RelationProperty("AssignedIssueResolver", "ProjectDefinition");
+            public RelationProperty CommentCreator { get; } = new RelationProperty("CommentCreator", "ProjectDefinition");
+            public RelationProperty CommentDeleter { get; } = new RelationProperty("CommentDeleter", "ProjectDefinition");
+            public RelationProperty RoleManager { get; } = new RelationProperty("RoleManager", "ProjectDefinition");
+            public RelationProperty CreateIssue { get; } = new RelationProperty("CreateIssue", "ProjectDefinition");
+            public RelationProperty CreateRole { get; } = new RelationProperty("CreateRole", "ProjectDefinition");
         }
         
     }
@@ -281,6 +358,11 @@ namespace TestNamespace
 {
     public static partial class UserDefinition
     {
+        public sealed record Ref() : DefinitionReference("UserDefinition", false)
+        {
+            public sealed record All() : DefinitionReference("UserDefinition", true);
+        }
+
         public static class Permissions
         {
         }

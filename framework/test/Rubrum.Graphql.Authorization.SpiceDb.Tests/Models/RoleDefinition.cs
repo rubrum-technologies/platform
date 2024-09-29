@@ -3,9 +3,9 @@
 namespace Rubrum.Authorization.Analyzers.Models;
 
 [Definition]
-[Relation("Project", typeof(ProjectDefinition))]
-[Relation("Member", typeof(UserDefinition))]
-[Relation("BuiltInRole", typeof(ProjectDefinition))]
+[Relation<ProjectDefinition.Ref>("Project")]
+[Relation<UserDefinition.Ref>("Member")]
+[Relation<ProjectDefinition.Ref>("BuiltInRole")]
 [Permission("Delete")]
 [Permission("AddUser")]
 [Permission("AddPermission")]
