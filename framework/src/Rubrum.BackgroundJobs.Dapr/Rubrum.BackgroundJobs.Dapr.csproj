@@ -7,6 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.BackgroundJobs.Abstractions" />
-    <PackageReference Include="Volo.Abp.BackgroundJobs.RabbitMQ" />
+    <PackageReference Include="Volo.Abp.EventBus.RabbitMQ" />
   </ItemGroup>
 </Project>

@@ -1,11 +1,12 @@
 using Volo.Abp.BackgroundJobs;
+using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus.Distributed;
 
 namespace Rubrum.BackgroundJobs;
 
-public class DistributedBackgroundJobHandler : IDistributedEventHandler<JobEnqueuedEvent<object>>
+public class DistributedBackgroundJobHandler<TArgs> : IDistributedEventHandler<JobEnqueuedEvent<TArgs>>, ITransientDependency
 {
-    public async Task HandleEventAsync(JobEnqueuedEvent<object> eventData)
+    public async Task HandleEventAsync(JobEnqueuedEvent<TArgs> eventData)
     {
         var jobArgs = eventData.Args;
 

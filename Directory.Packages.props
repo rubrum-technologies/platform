@@ -76,11 +76,11 @@
     <PackageVersion Include="Volo.Abp.DistributedLocking" Version="8.3.0" />
     <PackageVersion Include="Volo.Abp.Caching.StackExchangeRedis" Version="8.3.0" />
     <PackageVersion Include="Volo.Abp.EventBus.Dapr" Version="8.3.0" />
+    <PackageVersion Include="Volo.Abp.EventBus.RabbitMQ" Version="8.3.0" />
     <PackageVersion Include="Volo.Abp.AspNetCore.Mvc.Dapr.EventBus" Version="8.3.0" />
     <PackageVersion Include="Volo.Abp.DistributedLocking.Dapr" Version="8.3.0" />
     <PackageVersion Include="Volo.Abp.AspNetCore.Authentication.JwtBearer" Version="8.3.0" />
     <PackageVersion Include="Volo.Abp.BackgroundJobs.Abstractions" Version="8.3.0" />
-    <PackageVersion Include="Volo.Abp.BackgroundJobs.RabbitMQ" Version="8.3.0" />
     <PackageVersion Include="Volo.Abp.Http.Client.IdentityModel.Web" Version="8.3.0" />
     <PackageVersion Include="Volo.Abp.BlobStoring" Version="8.3.0" />
     <PackageVersion Include="Volo.Abp.Ddd.Domain" Version="8.3.0" />
