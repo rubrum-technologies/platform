@@ -40,7 +40,7 @@ public class DatabaseTableTests
     }
 
     [Fact]
-    public void SetName_MaxLenght()
+    public void SetName_MaxLength()
     {
         var table = CreateDatabaseTable();
 
@@ -72,7 +72,7 @@ public class DatabaseTableTests
     }
 
     [Fact]
-    public void SetSystemName_MaxLenght()
+    public void SetSystemName_MaxLength()
     {
         var table = CreateDatabaseTable();
 

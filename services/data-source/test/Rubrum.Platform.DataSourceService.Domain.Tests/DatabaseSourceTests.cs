@@ -29,7 +29,7 @@ public class DatabaseSourceTests
     }
 
     [Fact]
-    public void SetName_MaxLenght()
+    public void SetName_MaxLength()
     {
         var source = CreateDatabaseSource();
 
@@ -73,7 +73,7 @@ public class DatabaseSourceTests
             systemName,
             [new CreateDatabaseColumn(DatabaseColumnKind.Unknown, "Column", "ColumnS")]);
 
-        table.DatabaseSourceId.ShouldBe(table.Id);
+        table.DatabaseSourceId.ShouldBe(source.Id);
         table.Name.ShouldBe(name);
         table.SystemName.ShouldBe(systemName);
     }
