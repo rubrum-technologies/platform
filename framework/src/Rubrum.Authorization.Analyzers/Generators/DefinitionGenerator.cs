@@ -3,7 +3,6 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using Rubrum.Authorization.Analyzers.FileBuilders;
 using Rubrum.Authorization.Analyzers.Models;
-using static Rubrum.Authorization.Analyzers.WellKnownClasses;
 
 namespace Rubrum.Authorization.Analyzers.Generators;
 
