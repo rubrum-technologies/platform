@@ -1,0 +1,42 @@
+{
+  "data": {
+    "schemaDatabase": {
+      "tables": [
+        {
+          "name": "documents",
+          "columns": [
+            {
+              "kind": "UNKNOWN",
+              "name": "createAt"
+            },
+            {
+              "kind": "UNKNOWN",
+              "name": "id"
+            },
+            {
+              "kind": "UNKNOWN",
+              "name": "name"
+            },
+            {
+              "kind": "UNKNOWN",
+              "name": "userId"
+            }
+          ]
+        },
+        {
+          "name": "users",
+          "columns": [
+            {
+              "kind": "UNKNOWN",
+              "name": "id"
+            },
+            {
+              "kind": "UNKNOWN",
+              "name": "name"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

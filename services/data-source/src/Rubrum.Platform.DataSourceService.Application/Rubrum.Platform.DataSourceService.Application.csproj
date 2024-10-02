@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="Npgsql"/>
+    <PackageReference Include="MySql.Data"/>
+    <PackageReference Include="Microsoft.Data.SqlClient"/>
   </ItemGroup>
 
   <ItemGroup>

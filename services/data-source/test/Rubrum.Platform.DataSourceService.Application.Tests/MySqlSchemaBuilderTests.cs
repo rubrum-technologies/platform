@@ -1,22 +1,22 @@
 ﻿using CookieCrumble;
-using Npgsql;
+using MySql.Data.MySqlClient;
 using Rubrum.Platform.DataSourceService.Database.Exceptions;
 using Rubrum.Platform.DataSourceService.Database.Schema;
 using Shouldly;
-using Testcontainers.PostgreSql;
+using Testcontainers.MySql;
 using Xunit;
-using static Rubrum.Platform.DataSourceService.PostgresHelper;
+using static Rubrum.Platform.DataSourceService.MySqlHelper;
 
 namespace Rubrum.Platform.DataSourceService;
 
-public sealed class PostgresqlSchemaBuilderTests : DataSourceServiceApplicationTestBase, IAsyncLifetime
+public sealed class MySqlSchemaBuilderTests : DataSourceServiceApplicationTestBase, IAsyncLifetime
 {
-    private readonly PostgreSqlContainer _container = new PostgreSqlBuilder().Build();
-    private readonly PostgresqlSchemaBuilder _builder;
+    private readonly MySqlContainer _container = new MySqlBuilder().Build();
+    private readonly MySqlSchemaBuilder _builder;
 
-    public PostgresqlSchemaBuilderTests()
+    public MySqlSchemaBuilderTests()
     {
-        _builder = GetRequiredService<PostgresqlSchemaBuilder>();
+        _builder = GetRequiredService<MySqlSchemaBuilder>();
     }
 
     public async Task InitializeAsync()
@@ -32,9 +32,11 @@ public sealed class PostgresqlSchemaBuilderTests : DataSourceServiceApplicationT
     [Fact]
     public async Task Build_Users()
     {
-        await using var dataSource = NpgsqlDataSource.Create(_container.GetConnectionString());
+        await using var connection = new MySqlConnection(_container.GetConnectionString());
 
-        await CreateTableUsersAsync(dataSource);
+        await connection.OpenAsync();
+
+        await CreateTableUsersAsync(connection);
 
         var schema = await _builder.BuildAsync(_container.GetConnectionString());
 
@@ -46,10 +48,12 @@ public sealed class PostgresqlSchemaBuilderTests : DataSourceServiceApplicationT
     [Fact]
     public async Task Build_Users_or_Documents()
     {
-        await using var dataSource = NpgsqlDataSource.Create(_container.GetConnectionString());
+        await using var connection = new MySqlConnection(_container.GetConnectionString());
 
-        await CreateTableUsersAsync(dataSource);
-        await CreateTableDocumentsAsync(dataSource);
+        await connection.OpenAsync();
+
+        await CreateTableUsersAsync(connection);
+        await CreateTableDocumentsAsync(connection);
 
         var schema = await _builder.BuildAsync(_container.GetConnectionString());
 
@@ -72,8 +76,7 @@ public sealed class PostgresqlSchemaBuilderTests : DataSourceServiceApplicationT
     {
         await Assert.ThrowsAsync<FailConnectException>(async () =>
         {
-            await _builder.BuildAsync(
-                "Host=127.0.0.1;Port=55217;Database=postgres;Username=postgres;Password=postgres");
+            await _builder.BuildAsync("Server=127.0.0.1;Port=63838;Database=test;Uid=mysql;Pwd=mysql");
         });
     }
 }
