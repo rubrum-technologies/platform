@@ -28,6 +28,19 @@ public class DataSourceServiceTestDataSeedContributor(
                     [new CreateDatabaseColumn(DatabaseColumnKind.Uuid, "Column", "Column")]),
             ]));
 
+        await databaseSourceRepository.InsertAsync(new DatabaseSource(
+            guidGenerator.Create(),
+            null,
+            DatabaseKind.MySql,
+            "Test",
+            "ConnectionTest",
+            [
+                new CreateDatabaseTable(
+                    "Table",
+                    "Table",
+                    [new CreateDatabaseColumn(DatabaseColumnKind.Uuid, "Column", "Column")]),
+            ]));
+
         await uow.CompleteAsync();
     }
 }
