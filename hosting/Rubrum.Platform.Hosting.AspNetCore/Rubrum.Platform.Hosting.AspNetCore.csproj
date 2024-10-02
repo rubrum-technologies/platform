@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\common.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.Hosting</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Http.Polly"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore"/>
+    <PackageReference Include="Serilog.Sinks.OpenTelemetry"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AspNetCore.Serilog"/>
+    <PackageReference Include="Volo.Abp.Swashbuckle"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\framework\src\Rubrum.Authorization.SpiceDb\Rubrum.Authorization.SpiceDb.csproj"/>
+    <ProjectReference Include="..\..\framework\src\Rubrum.SpiceDb.Dapr\Rubrum.SpiceDb.Dapr.csproj"/>
+    <ProjectReference Include="..\Rubrum.Platform.Hosting.ServiceDefaults\Rubrum.Platform.Hosting.ServiceDefaults.csproj"/>
+    <ProjectReference Include="..\Rubrum.Platform.Hosting\Rubrum.Platform.Hosting.csproj"/>
+  </ItemGroup>
+</Project>

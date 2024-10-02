@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.test.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.DataSourceService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.Platform.DataSourceService.EntityFrameworkCore.Tests\Rubrum.Platform.DataSourceService.EntityFrameworkCore.Tests.csproj"/>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,209 @@
+schema {
+  query: Query
+}
+
+"Defines an aggregate root. It's primary key may not be \"Id\" or it may have a composite primary key."
+interface AggregateRoot implements Entity {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+}
+
+"This interface can be implemented to add standard auditing properties to a class."
+interface AuditedObject implements CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime {
+  "Creation time."
+  creationTime: DateTime
+  "Id of the creator."
+  creatorId: ID
+  "Last modifier user for this entity."
+  lastModifierId: ID
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+}
+
+"This interface can be implemented to store creation information (who and when created)."
+interface CreationAuditedObject implements HasCreationTime & MayHaveCreator {
+  "Creation time."
+  creationTime: DateTime
+  "Id of the creator."
+  creatorId: ID
+}
+
+"This interface can be implemented to store deletion information (who delete and when deleted)."
+interface DeletionAuditedObject implements HasDeletionTime & SoftDelete {
+  "Id of the deleter user."
+  deleterId: ID
+  "Deletion time."
+  deletionTime: DateTime
+  "Used to mark an Entity as 'Deleted'."
+  isDeleted: Boolean!
+}
+
+"Defines an entity. It's primary key may not be \"Id\" or it may have a composite primary key."
+interface Entity {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+}
+
+"Defines an entity with a single primary key with \"Id\" property."
+interface EntityOfGuid implements Entity {
+  "Unique identifier for this entity."
+  id: ID!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+}
+
+"This interface adds IDeletionAuditedObject to IAuditedObject."
+interface FullAuditedObject implements AuditedObject & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & DeletionAuditedObject & HasDeletionTime & SoftDelete {
+  "Creation time."
+  creationTime: DateTime
+  "Id of the creator."
+  creatorId: ID
+  "Last modifier user for this entity."
+  lastModifierId: ID
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+  "Id of the deleter user."
+  deleterId: ID
+  "Deletion time."
+  deletionTime: DateTime
+  "Used to mark an Entity as 'Deleted'."
+  isDeleted: Boolean!
+}
+
+"A standard interface to add CreationTime property."
+interface HasCreationTime {
+  "Creation time."
+  creationTime: DateTime
+}
+
+"A standard interface to add DeletionTime property to a class. It also makes the class soft delete (see ISoftDelete)."
+interface HasDeletionTime implements SoftDelete {
+  "Deletion time."
+  deletionTime: DateTime
+  "Used to mark an Entity as 'Deleted'."
+  isDeleted: Boolean!
+}
+
+interface HasExtraProperties {
+  extraProperties: JSON
+}
+
+"A standard interface to add DeletionTime property to a class."
+interface HasModificationTime {
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+}
+
+"Standard interface for an entity that MAY have a creator."
+interface MayHaveCreator {
+  "Id of the creator."
+  creatorId: ID
+}
+
+"This interface can be implemented to store modification information (who and when modified lastly)."
+interface ModificationAuditedObject implements HasModificationTime {
+  "Last modifier user for this entity."
+  lastModifierId: ID
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+}
+
+interface MultiTenant {
+  "Id of the related tenant."
+  tenantId: ID
+}
+
+interface MustHaveOwner {
+  "Id of the owner."
+  ownerId: ID!
+}
+
+"Used to standardize soft deleting entities. Soft-delete entities are not actually deleted, marked as IsDeleted = true in the database, but can not be retrieved to the application normally."
+interface SoftDelete {
+  "Used to mark an Entity as 'Deleted'."
+  isDeleted: Boolean!
+}
+
+type Document implements Entity & EntityOfGuid @relation(name: "writer", value: "user") @relation(name: "reader", value: "user") @permission(name: "edit", value: "writer") @permission(name: "view", value: "reader + edit") {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "Unique identifier for this entity."
+  id: ID!
+}
+
+type Issue implements Entity & EntityOfGuid @relation(name: "project", value: "project") @relation(name: "assigned", value: "user") @permission(name: "assign", value: "project->issue_assigner") @permission(name: "resolve", value: "project->assigned_issue_resolver & assign + project->any_issue_resolver") @permission(name: "create_comment", value: "project->comment_creator") @permission(name: "project_comment_deleter", value: "project->comment_deleter") {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "Unique identifier for this entity."
+  id: ID!
+}
+
+type Organization implements Entity & EntityOfGuid @relation(name: "platform", value: "platform") @permission(name: "admin", value: "platform->super_admin") {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "Unique identifier for this entity."
+  id: ID!
+}
+
+type Platform implements Entity & EntityOfGuid @relation(name: "administrator", value: "user") @permission(name: "super_admin", value: "administrator") {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "Unique identifier for this entity."
+  id: ID!
+}
+
+type Project implements Entity & EntityOfGuid @relation(name: "issue_creator", value: "role") @relation(name: "issue_assigner", value: "role") @relation(name: "any_issue_resolver", value: "role") @relation(name: "assigned_issue_resolver", value: "role") @relation(name: "comment_creator", value: "role") @relation(name: "comment_deleter", value: "role") @relation(name: "role_manager", value: "role") @permission(name: "create_issue", value: "issue_creator") @permission(name: "create_role", value: "role_manager") {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "Unique identifier for this entity."
+  id: ID!
+}
+
+type Query {
+  document: Document!
+}
+
+type Resource implements Entity & EntityOfGuid @relation(name: "owner", value: "user | organization") @permission(name: "admin", value: "owner + organization->admin") {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "Unique identifier for this entity."
+  id: ID!
+}
+
+type Role implements Entity & EntityOfGuid @relation(name: "project", value: "project") @relation(name: "member", value: "user") @relation(name: "built_in_role", value: "project") @permission(name: "delete", value: "project->role_manager - project->role_manager") @permission(name: "add_user", value: "project->role_manager") @permission(name: "add_permission", value: "project->role_manager - project->role_manager") @permission(name: "remove_permission", value: "project->role_manager - project->role_manager") {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "Unique identifier for this entity."
+  id: ID!
+}
+
+type User implements Entity & EntityOfGuid {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "Unique identifier for this entity."
+  id: ID!
+}
+
+"Defines when a policy shall be executed."
+enum ApplyPolicy {
+  "Before the resolver was executed."
+  BEFORE_RESOLVER
+  "After the resolver was executed."
+  AFTER_RESOLVER
+  "The policy is applied in the validation step before the execution."
+  VALIDATION
+}
+
+directive @permission(name: String! value: String!) repeatable on OBJECT
+
+directive @relation(name: String! value: String!) repeatable on OBJECT
+
+"The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
+directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR
+
+scalar Any
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
+
+scalar JSON

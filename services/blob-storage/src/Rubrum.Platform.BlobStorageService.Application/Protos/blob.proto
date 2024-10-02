@@ -1,0 +1,18 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Rubrum.Platform.BlobStorageService.Grpc";
+
+package BlobStorageApi;
+
+service BlobGrpc {
+  rpc GetById(BlobByIdRequest) returns (BlobByIdResponse);
+}
+
+message BlobByIdResponse {
+  string id = 1;
+  bytes file = 2;
+}
+
+message BlobByIdRequest {
+  string id = 1;
+}

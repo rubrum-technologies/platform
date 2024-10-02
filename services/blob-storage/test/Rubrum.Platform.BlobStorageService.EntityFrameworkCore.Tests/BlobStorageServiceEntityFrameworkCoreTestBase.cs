@@ -1,0 +1,4 @@
+namespace Rubrum.Platform.BlobStorageService;
+
+public class BlobStorageServiceEntityFrameworkCoreTestBase
+    : BlobStorageServiceTestBase<PlatformBlobStorageServiceEntityFrameworkCoreTestModule>;

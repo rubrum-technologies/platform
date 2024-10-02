@@ -1,0 +1,3 @@
+namespace Rubrum.Platform.DataSourceService;
+
+public abstract class DataSourceServiceApplicationTestBase : DataSourceServiceTestBase<DataSourceServiceApplicationTestModule>;

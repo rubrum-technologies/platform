@@ -1,0 +1,73 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+interface Error {
+  message: String!
+}
+
+type AuthorizationError implements Error {
+  code: String
+  message: String!
+}
+
+type BusinessError implements Error {
+  code: String
+  details: String
+  message: String!
+}
+
+type Country {
+  id: ID!
+  name: String!
+}
+
+type CreateCountryPayload {
+  country: Country
+  errors: [CreateCountryError!]
+}
+
+type EntityNotFoundError implements Error {
+  id: String
+  type: String
+  message: String!
+}
+
+type Mutation {
+  createCountry(input: CreateCountryInput!): CreateCountryPayload!
+}
+
+type Query {
+  country: Country!
+}
+
+type ValidationError implements Error {
+  message: String!
+  results: [ValidationResult!]!
+}
+
+type ValidationResult {
+  errorMessage: String
+}
+
+union CreateCountryError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError
+
+input CreateCountryInput {
+  """
+  Maximum length '20',
+  Minimum length '1',
+  Required and not empty
+  """
+  name: String!
+}
+
+"Defines when a policy shall be executed."
+enum ApplyPolicy {
+  "Before the resolver was executed."
+  BEFORE_RESOLVER
+  "After the resolver was executed."
+  AFTER_RESOLVER
+  "The policy is applied in the validation step before the execution."
+  VALIDATION
+}

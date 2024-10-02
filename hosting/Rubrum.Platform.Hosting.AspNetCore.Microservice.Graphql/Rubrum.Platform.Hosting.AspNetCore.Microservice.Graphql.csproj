@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\common.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.Hosting</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HotChocolate.Diagnostics"/>
+    <PackageReference Include="HotChocolate.Subscriptions.Postgres"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\framework\src\Rubrum.Graphql.Authorization.SpiceDb\Rubrum.Graphql.Authorization.SpiceDb.csproj"/>
+    <ProjectReference Include="..\..\framework\src\Rubrum.Graphql.Ddd\Rubrum.Graphql.Ddd.csproj"/>
+    <ProjectReference Include="..\..\framework\src\Rubrum.Graphql.FluentValidation\Rubrum.Graphql.FluentValidation.csproj"/>
+    <ProjectReference Include="..\..\framework\src\Rubrum.Graphql.Subscriptions.Dapr\Rubrum.Graphql.Subscriptions.Dapr.csproj"/>
+    <ProjectReference Include="..\Rubrum.Platform.Hosting.AspNetCore.Microservice\Rubrum.Platform.Hosting.AspNetCore.Microservice.csproj"/>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,172 @@
+{
+  "realm": "rubrum",
+  "displayName": "Rubrum",
+  "displayNameHtml": "<div class=\"kc-logo-text\"><span>Rubrum</span></div>",
+  "enabled": true,
+  "roles": {
+    "realm": [
+      {
+        "name": "admin",
+        "description": "${role_admin}"
+      }
+    ]
+  },
+  "users": [
+    {
+      "username": "rubrum",
+      "email": "admin@rubrum.tech",
+      "emailVerified": true,
+      "firstName": "Шарыпов",
+      "lastName": "Артем",
+      "realmRoles": [
+        "admin",
+        "default-roles-rubrum",
+        "offline_access",
+        "uma_authorization"
+      ],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "12345"
+        }
+      ],
+      "enabled": true
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "swagger",
+      "name": "Swagger",
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "frontchannelLogout": true,
+      "defaultClientScopes": [
+        "offline_access",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "blob-storage-service"
+      ],
+      "redirectUris": [
+        "https://localhost:12000/api/swagger/oauth2-redirect.html",
+        "https://localhost:12000/api/graphql/ui/"
+      ],
+      "webOrigins": [
+        "https://localhost:12000"
+      ],
+      "enabled": true
+    },
+    {
+      "clientId": "blob-storage-service",
+      "name": "blob Storage Service",
+      "protocol": "openid-connect",
+      "clientAuthenticatorType": "client-secret",
+      "secret": "9Hz1QJMrDtcnIEFZdOm5kGSJloDCpw363nmy",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "client_credentials.use_refresh_token": "false",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "enabled": true
+    }
+  ],
+  "clientScopes": [
+    {
+      "name": "email",
+      "description": "OpenID Connect built-in scope: email",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true",
+        "consent.screen.text": "${emailScopeConsentText}"
+      },
+      "protocolMappers": [
+        {
+          "name": "email verified",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "emailVerified",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "email_verified",
+            "jsonType.label": "boolean"
+          }
+        },
+        {
+          "name": "email",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "email",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "email",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    },
+    {
+      "name": "roles",
+      "description": "OpenID Connect scope for add user roles to the access token",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "false",
+        "display.on.consent.screen": "true",
+        "consent.screen.text": "${rolesScopeConsentText}"
+      },
+      "protocolMappers": [
+        {
+          "name": "realm roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "role",
+            "multivalued": "true",
+            "userinfo.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "name": "offline_access",
+      "description": "OpenID Connect built-in scope: offline_access",
+      "protocol": "openid-connect",
+      "attributes": {
+        "consent.screen.text": "${offlineAccessScopeConsentText}",
+        "display.on.consent.screen": "true"
+      }
+    },
+    {
+      "name": "blob-storage-service",
+      "description": "blob-storage-service scope",
+      "protocol": "openid-connect",
+      "protocolMappers": [
+        {
+          "name": "blob-storage-service",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "id.token.claim": "false",
+            "access.token.claim": "true",
+            "included.custom.audience": "blob-storage-service",
+            "userinfo.token.claim": "false"
+          }
+        }
+      ]
+    }
+  ]
+}

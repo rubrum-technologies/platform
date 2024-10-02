@@ -1,0 +1,18 @@
+{
+  "cSpell.words": [
+    "authzed",
+    "Autofac",
+    "Dapr",
+    "Dtos",
+    "Keycloak",
+    "Mapperly",
+    "Otlp",
+    "rabbitmq",
+    "Riok",
+    "Rubrum",
+    "spicedb",
+    "Volo",
+    "Yarp"
+  ],
+  "editor.formatOnSave": true
+}

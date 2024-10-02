@@ -1,0 +1,12 @@
+{
+  "data": {
+    "createCountry": {
+      "country": null,
+      "errors": [
+        {
+          "message": "There are 1 validation errors:\nThe length of 'Maximum length 20' must be 20 characters or fewer. You entered 24 characters. (Name)\n"
+        }
+      ]
+    }
+  }
+}

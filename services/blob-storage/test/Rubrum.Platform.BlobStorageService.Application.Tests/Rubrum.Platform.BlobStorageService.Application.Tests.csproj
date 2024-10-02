@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.test.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.BlobStorageService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Graphql.TestBase\Rubrum.Graphql.TestBase.csproj"/>
+    <ProjectReference Include="..\..\src\Rubrum.Platform.BlobStorageService.Application\Rubrum.Platform.BlobStorageService.Application.csproj"/>
+    <ProjectReference Include="..\Rubrum.Platform.BlobStorageService.EntityFrameworkCore.Tests\Rubrum.Platform.BlobStorageService.EntityFrameworkCore.Tests.csproj"/>
+  </ItemGroup>
+</Project>

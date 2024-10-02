@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\common.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Graphql.Subscriptions</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Dapr"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HotChocolate.Execution.Abstractions"/>
+    <PackageReference Include="HotChocolate.Subscriptions"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.Core\Rubrum.Core.csproj"/>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\common.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Graphql</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.TestBase"/>
+    <PackageReference Include="Volo.Abp.Autofac"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CookieCrumble"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.Graphql.Authorization\Rubrum.Graphql.Authorization.csproj"/>
+  </ItemGroup>
+</Project>
