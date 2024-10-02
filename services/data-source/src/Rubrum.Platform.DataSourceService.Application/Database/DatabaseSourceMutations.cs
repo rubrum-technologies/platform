@@ -19,8 +19,10 @@ public static class DatabaseSourceMutations
     [Error<IncorrectConnectionStringException>]
     [Error<FailConnectException>]
     [Error<DataSourceNameAlreadyExistsException>]
+    [Error<DatabaseSourceTablesEmptyException>]
     [Error<DatabaseTableNameAlreadyExistsException>]
     [Error<DatabaseTableSystemNameAlreadyExistsException>]
+    [Error<DatabaseTableColumnsEmptyException>]
     [Error<DatabaseColumnNameAlreadyExistsException>]
     [Error<DatabaseColumnSystemNameAlreadyExistsException>]
     public static Task<DatabaseSource> CreateDatabaseSourceAsync(

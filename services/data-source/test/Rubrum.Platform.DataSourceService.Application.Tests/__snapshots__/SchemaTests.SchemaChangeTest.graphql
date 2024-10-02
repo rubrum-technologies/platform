@@ -245,6 +245,13 @@ type DatabaseSource implements Entity & EntityOfGuid & AggregateRoot & HasExtraP
   connectionString: String!
 }
 
+type DatabaseSourceTablesEmptyError implements Error {
+  message: String!
+  code: String
+  details: String
+  logLevel: LogLevel!
+}
+
 type DatabaseTable implements Node & Entity & EntityOfGuid {
   "Returns an array of ordered keys for this entity."
   keys: [Any]!
@@ -254,6 +261,13 @@ type DatabaseTable implements Node & Entity & EntityOfGuid {
   name: String!
   systemName: String!
   columns: [DatabaseColumn!]!
+}
+
+type DatabaseTableColumnsEmptyError implements Error {
+  message: String!
+  code: String
+  details: String
+  logLevel: LogLevel!
 }
 
 type DatabaseTableNameAlreadyExistsError implements Error {
@@ -320,7 +334,7 @@ type ValidationResult {
   errorMessage: String
 }
 
-union CreateDatabaseSourceError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | IncorrectConnectionStringError | FailConnectError | DataSourceNameAlreadyExistsError | DatabaseTableNameAlreadyExistsError | DatabaseTableSystemNameAlreadyExistsError | DatabaseColumnNameAlreadyExistsError | DatabaseColumnSystemNameAlreadyExistsError
+union CreateDatabaseSourceError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | IncorrectConnectionStringError | FailConnectError | DataSourceNameAlreadyExistsError | DatabaseSourceTablesEmptyError | DatabaseTableNameAlreadyExistsError | DatabaseTableSystemNameAlreadyExistsError | DatabaseTableColumnsEmptyError | DatabaseColumnNameAlreadyExistsError | DatabaseColumnSystemNameAlreadyExistsError
 
 union SchemaDatabaseResult = DatabaseSchemaInformation | IncorrectConnectionStringError | FailConnectError
 

@@ -221,6 +221,39 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
     }
 
     [Fact]
+    public async Task Create_DatabaseSourceTablesEmptyException()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            mutation {
+                createDatabaseSource(input: {
+                    kind: SQL_SERVER,
+                    name: "Test98",
+                    connectionString: "Connection47",
+                    tables: []
+                }) {
+                    databaseSource {
+                        name
+                        __typename
+                    }
+                    errors {
+                        ... on DatabaseSourceTablesEmptyError {
+                            code
+                            details
+                            logLevel
+                            message
+                        }
+                        __typename
+                    }
+                }
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task Create_DatabaseTableNameAlreadyExistsException()
     {
         await using var result = await ExecuteRequestAsync(b => b.SetDocument(
@@ -319,6 +352,45 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
                     errors {
                         ... on DatabaseTableSystemNameAlreadyExistsError {
                             tableSystemName
+                            code
+                            details
+                            logLevel
+                            message
+                        }
+                        __typename
+                    }
+                }
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task Create_DatabaseTableColumnsEmptyException()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            mutation {
+                createDatabaseSource(input: {
+                    kind: MY_SQL,
+                    name: "Test56",
+                    connectionString: "ConnectionStringTest47",
+                    tables: [
+                        {
+                            name: "Table1",
+                            systemName: "Table_1",
+                            columns: []
+                        }
+                    ]
+                }) {
+                    databaseSource {
+                        name
+                        __typename
+                    }
+                    errors {
+                        ... on DatabaseTableColumnsEmptyError {
                             code
                             details
                             logLevel
