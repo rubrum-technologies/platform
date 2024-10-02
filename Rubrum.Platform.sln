@@ -182,6 +182,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.DataSourceS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.DataSourceService.TestBase", "services\data-source\test\Rubrum.Platform.DataSourceService.TestBase\Rubrum.Platform.DataSourceService.TestBase.csproj", "{8C5B606D-9747-446F-9EB6-E8D7BA6CDE56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.TestContainers.PostgreSql", "framework\src\Rubrum.TestContainers.PostgreSql\Rubrum.TestContainers.PostgreSql.csproj", "{6F5C3C9D-9ACA-437A-B163-19F842A8A68B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -452,6 +454,10 @@ Global
 		{8C5B606D-9747-446F-9EB6-E8D7BA6CDE56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C5B606D-9747-446F-9EB6-E8D7BA6CDE56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C5B606D-9747-446F-9EB6-E8D7BA6CDE56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F5C3C9D-9ACA-437A-B163-19F842A8A68B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F5C3C9D-9ACA-437A-B163-19F842A8A68B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F5C3C9D-9ACA-437A-B163-19F842A8A68B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F5C3C9D-9ACA-437A-B163-19F842A8A68B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -540,5 +546,6 @@ Global
 		{C1341BE6-EA77-4FBB-B7AD-B19DF0FB13B6} = {D31DBA01-B5DE-4D04-93D5-632EE5F95635}
 		{B6D9C70C-0D49-48F9-B575-4329F390E482} = {D31DBA01-B5DE-4D04-93D5-632EE5F95635}
 		{8C5B606D-9747-446F-9EB6-E8D7BA6CDE56} = {D31DBA01-B5DE-4D04-93D5-632EE5F95635}
+		{6F5C3C9D-9ACA-437A-B163-19F842A8A68B} = {7035B868-1E06-4E84-A160-D092C73467C2}
 	EndGlobalSection
 EndGlobal

@@ -42,6 +42,7 @@
     <PackageVersion Include="Basic.Reference.Assemblies" Version="1.7.8"/>
     <PackageVersion Include="MediatR" Version="12.4.1"/>
     <PackageVersion Include="MediatR.Contracts" Version="2.0.1"/>
+    <PackageVersion Include="Npgsql" Version="8.0.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -158,7 +159,11 @@
     <PackageVersion Include="xunit.extensibility.execution" Version="2.9.0"/>
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2"/>
     <PackageVersion Include="coverlet.collector" Version="6.0.2"/>
-    <PackageVersion Include="Testcontainers.PostgreSql" Version="3.9.0"/>
+    <PackageVersion Include="Testcontainers.MsSql" Version="3.10.0"/>
+    <PackageVersion Include="Testcontainers.PostgreSql" Version="3.10.0"/>
+    <PackageVersion Include="Testcontainers.MySql" Version="3.10.0"/>
+    <PackageVersion Include="Testcontainers.MongoDb" Version="3.10.0"/>
+    <PackageVersion Include="Testcontainers.RabbitMq" Version="3.10.0"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -168,6 +173,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageVersion Include="Roslynator.Analyzers" Version="4.12.6"/>
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556"/>
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.32.0.97167"/>
   </ItemGroup>

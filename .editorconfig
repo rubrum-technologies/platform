@@ -135,3 +135,9 @@ dotnet_diagnostic.S4581.severity = None
 
 # ModelState.IsValid should be checked in controller actions.
 dotnet_diagnostic.S6967.severity = None
+
+# Use expression-bodied lambda
+dotnet_diagnostic.RCS1021.severity = None
+
+# Implement exception constructors
+dotnet_diagnostic.RCS1194.severity = None
