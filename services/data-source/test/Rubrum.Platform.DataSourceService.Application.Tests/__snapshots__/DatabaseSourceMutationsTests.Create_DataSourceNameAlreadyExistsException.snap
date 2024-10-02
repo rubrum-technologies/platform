@@ -1,0 +1,17 @@
+{
+  "data": {
+    "createDatabaseSource": {
+      "databaseSource": null,
+      "errors": [
+        {
+          "name": "Test_Duplicate",
+          "code": null,
+          "details": null,
+          "logLevel": "WARNING",
+          "message": "Exception of type 'Rubrum.Platform.DataSourceService.DataSourceNameAlreadyExistsException' was thrown.",
+          "__typename": "DataSourceNameAlreadyExistsError"
+        }
+      ]
+    }
+  }
+}

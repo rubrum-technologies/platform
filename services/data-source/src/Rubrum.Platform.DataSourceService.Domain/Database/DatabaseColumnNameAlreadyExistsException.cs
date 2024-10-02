@@ -2,7 +2,7 @@
 
 namespace Rubrum.Platform.DataSourceService.Database;
 
-public class DatabaseColumnNameAlreadyExistsException(string name) : BusinessException
+public class DatabaseColumnNameAlreadyExistsException(string columnName) : BusinessException
 {
-    public string Name => name;
+    public string ColumnName => columnName;
 }

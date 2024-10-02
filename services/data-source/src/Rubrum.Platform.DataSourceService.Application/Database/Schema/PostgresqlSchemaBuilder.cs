@@ -1,17 +1,31 @@
 ﻿using Npgsql;
+using Rubrum.Platform.DataSourceService.Database.Exceptions;
+using Volo.Abp.DependencyInjection;
 
 namespace Rubrum.Platform.DataSourceService.Database.Schema;
 
-public class PostgresqlSchemaBuilder : IDatabaseSchemaBuilder
+[ExposeServices(typeof(PostgresqlSchemaBuilder))]
+public class PostgresqlSchemaBuilder : IDatabaseSchemaBuilder, ITransientDependency
 {
     public async Task<DatabaseSchemaInformation> BuildAsync(string connectionString)
     {
-        await using var dataSource = NpgsqlDataSource.Create(connectionString);
-
-        return new DatabaseSchemaInformation
+        try
         {
-            Tables = await GetTablesAsync(dataSource),
-        };
+            await using var dataSource = NpgsqlDataSource.Create(connectionString);
+
+            return new DatabaseSchemaInformation
+            {
+                Tables = await GetTablesAsync(dataSource),
+            };
+        }
+        catch (ArgumentException ex) when (ex.Message.StartsWith("Format of the initialization string"))
+        {
+            throw new IncorrectConnectionStringException(ex.Message, connectionString);
+        }
+        catch (NpgsqlException ex) when (ex.Message.StartsWith("Failed to connect"))
+        {
+            throw new FailConnectException(ex.Message, connectionString);
+        }
     }
 
     private static async Task<IReadOnlyList<InfoAboutTable>> GetTablesAsync(NpgsqlDataSource dataSource)

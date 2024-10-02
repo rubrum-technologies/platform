@@ -1,0 +1,66 @@
+{
+  "data": {
+    "createDatabaseSource": {
+      "databaseSource": {
+        "kind": "MY_SQL",
+        "name": "MySql",
+        "prefix": "PR",
+        "connectionString": "ConnectionStringTest",
+        "tables": [
+          {
+            "name": "Table1",
+            "systemName": "Table_MySql_Test_1",
+            "columns": [
+              {
+                "kind": "UNKNOWN",
+                "name": "Column1",
+                "systemName": "Column_MySql_1",
+                "__typename": "DatabaseColumn"
+              },
+              {
+                "kind": "STRING",
+                "name": "MySqlColumn2",
+                "systemName": "Column_2",
+                "__typename": "DatabaseColumn"
+              },
+              {
+                "kind": "NUMBER",
+                "name": "Column3",
+                "systemName": "Column_3",
+                "__typename": "DatabaseColumn"
+              }
+            ],
+            "__typename": "DatabaseTable"
+          },
+          {
+            "name": "Table2",
+            "systemName": "Table_2",
+            "columns": [
+              {
+                "kind": "DATE_TIME",
+                "name": "Column1",
+                "systemName": "Column_1",
+                "__typename": "DatabaseColumn"
+              },
+              {
+                "kind": "BOOLEAN",
+                "name": "Column2",
+                "systemName": "Column_2",
+                "__typename": "DatabaseColumn"
+              },
+              {
+                "kind": "STRING",
+                "name": "Column3",
+                "systemName": "Column_3",
+                "__typename": "DatabaseColumn"
+              }
+            ],
+            "__typename": "DatabaseTable"
+          }
+        ],
+        "__typename": "DatabaseSource"
+      },
+      "errors": null
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "data": {
+    "schemaDatabase": {
+      "tables": [
+        {
+          "name": "users",
+          "columns": [
+            {
+              "kind": "NUMBER",
+              "name": "id"
+            },
+            {
+              "kind": "STRING",
+              "name": "name"
+            }
+          ]
+        },
+        {
+          "name": "documents",
+          "columns": [
+            {
+              "kind": "NUMBER",
+              "name": "id"
+            },
+            {
+              "kind": "UNKNOWN",
+              "name": "createat"
+            },
+            {
+              "kind": "UNKNOWN",
+              "name": "userid"
+            },
+            {
+              "kind": "STRING",
+              "name": "name"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

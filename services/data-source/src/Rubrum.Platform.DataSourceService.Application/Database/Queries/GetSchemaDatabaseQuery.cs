@@ -9,8 +9,7 @@ public class GetSchemaDatabaseQuery : IRequest<DatabaseSchemaInformation>
 
     public required string ConnectionString { get; init; }
 
-    public class Handler(
-        IDatabaseSchemaBuilderFactory schemaBuilderFactory)
+    public class Handler(IDatabaseSchemaBuilderFactory schemaBuilderFactory)
         : IRequestHandler<GetSchemaDatabaseQuery, DatabaseSchemaInformation>
     {
         public async Task<DatabaseSchemaInformation> Handle(

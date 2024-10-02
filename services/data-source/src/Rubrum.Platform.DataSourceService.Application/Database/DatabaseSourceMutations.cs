@@ -5,6 +5,7 @@ using MediatR;
 using Rubrum.Graphql.Errors;
 using Rubrum.Graphql.Middlewares;
 using Rubrum.Platform.DataSourceService.Database.Commands;
+using Rubrum.Platform.DataSourceService.Database.Exceptions;
 using Rubrum.Platform.DataSourceService.Permissions;
 
 namespace Rubrum.Platform.DataSourceService.Database;
@@ -15,6 +16,8 @@ public static class DatabaseSourceMutations
     [Authorize(Policy = DataSourceServicePermissions.DataSources.Create)]
     [UseUnitOfWork]
     [UseAbpError]
+    [Error<IncorrectConnectionStringException>]
+    [Error<FailConnectException>]
     [Error<DataSourceNameAlreadyExistsException>]
     [Error<DatabaseTableNameAlreadyExistsException>]
     [Error<DatabaseTableSystemNameAlreadyExistsException>]

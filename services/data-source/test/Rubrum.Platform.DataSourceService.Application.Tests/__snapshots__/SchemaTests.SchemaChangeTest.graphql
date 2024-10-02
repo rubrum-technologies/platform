@@ -1,5 +1,6 @@
-﻿schema {
+schema {
   query: Query
+  mutation: Mutation
 }
 
 "Defines an aggregate root. It's primary key may not be \"Id\" or it may have a composite primary key."
@@ -55,34 +56,6 @@ interface DataSource implements Entity & EntityOfGuid & AggregateRoot & HasExtra
   tenantId: ID
 }
 
-interface DatabaseSource implements Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & DataSource {
-  tables: [DatabaseTable!]!
-  "Returns an array of ordered keys for this entity."
-  keys: [Any]!
-  "Unique identifier for this entity."
-  id: ID!
-  extraProperties: JSON
-  "Creation time."
-  creationTime: DateTime
-  "Id of the creator."
-  creatorId: ID
-  "Last modifier user for this entity."
-  lastModifierId: ID
-  "The last modified time for this entity."
-  lastModificationTime: DateTime
-  "Id of the deleter user."
-  deleterId: ID
-  "Deletion time."
-  deletionTime: DateTime
-  "Used to mark an Entity as 'Deleted'."
-  isDeleted: Boolean!
-  "Id of the related tenant."
-  tenantId: ID
-  name: String!
-  prefix: String
-  connectionString: String!
-}
-
 "This interface can be implemented to store deletion information (who delete and when deleted)."
 interface DeletionAuditedObject implements HasDeletionTime & SoftDelete {
   "Id of the deleter user."
@@ -105,6 +78,10 @@ interface EntityOfGuid implements Entity {
   id: ID!
   "Returns an array of ordered keys for this entity."
   keys: [Any]!
+}
+
+interface Error {
+  message: String!
 }
 
 "This interface adds IDeletionAuditedObject to IAuditedObject."
@@ -184,6 +161,30 @@ interface SoftDelete {
   isDeleted: Boolean!
 }
 
+type AuthorizationError implements Error {
+  code: String
+  message: String!
+}
+
+type BusinessError implements Error {
+  code: String
+  details: String
+  message: String!
+}
+
+type CreateDatabaseSourcePayload {
+  databaseSource: DatabaseSource
+  errors: [CreateDatabaseSourceError!]
+}
+
+type DataSourceNameAlreadyExistsError implements Error {
+  message: String!
+  name: String!
+  code: String
+  details: String
+  logLevel: LogLevel!
+}
+
 type DatabaseColumn implements Node & Entity & EntityOfGuid {
   "Returns an array of ordered keys for this entity."
   keys: [Any]!
@@ -195,8 +196,53 @@ type DatabaseColumn implements Node & Entity & EntityOfGuid {
   systemName: String!
 }
 
+type DatabaseColumnNameAlreadyExistsError implements Error {
+  message: String!
+  columnName: String!
+  code: String
+  details: String
+  logLevel: LogLevel!
+}
+
+type DatabaseColumnSystemNameAlreadyExistsError implements Error {
+  message: String!
+  columnSystemName: String!
+  code: String
+  details: String
+  logLevel: LogLevel!
+}
+
 type DatabaseSchemaInformation {
   tables: [InfoAboutTable!]!
+}
+
+type DatabaseSource implements Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & DataSource @aggregate {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "Unique identifier for this entity."
+  id: ID!
+  "Id of the creator."
+  creatorId: ID
+  "Last modifier user for this entity."
+  lastModifierId: ID
+  "Id of the deleter user."
+  deleterId: ID
+  extraProperties: JSON
+  "Id of the related tenant."
+  tenantId: ID
+  kind: DatabaseKind!
+  tables: [DatabaseTable!]!
+  "Creation time."
+  creationTime: DateTime
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+  "Deletion time."
+  deletionTime: DateTime
+  "Used to mark an Entity as 'Deleted'."
+  isDeleted: Boolean!
+  name: String!
+  prefix: String
+  connectionString: String!
 }
 
 type DatabaseTable implements Node & Entity & EntityOfGuid {
@@ -210,6 +256,38 @@ type DatabaseTable implements Node & Entity & EntityOfGuid {
   columns: [DatabaseColumn!]!
 }
 
+type DatabaseTableNameAlreadyExistsError implements Error {
+  message: String!
+  tableName: String!
+  code: String
+  details: String
+  logLevel: LogLevel!
+}
+
+type DatabaseTableSystemNameAlreadyExistsError implements Error {
+  message: String!
+  tableSystemName: String!
+  code: String
+  details: String
+  logLevel: LogLevel!
+}
+
+type EntityNotFoundError implements Error {
+  id: String
+  type: String
+  message: String!
+}
+
+type FailConnectError implements Error {
+  message: String!
+  connectionString: String!
+}
+
+type IncorrectConnectionStringError implements Error {
+  message: String!
+  incorrectConnectionString: String!
+}
+
 type InfoAboutColumn {
   kind: DatabaseColumnKind!
   name: String!
@@ -220,60 +298,8 @@ type InfoAboutTable {
   columns: [InfoAboutColumn!]!
 }
 
-type MySqlSource implements Node & Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & DatabaseSource & DataSource @aggregate {
-  "Returns an array of ordered keys for this entity."
-  keys: [Any]!
-  "Unique identifier for this entity."
-  id: ID!
-  "Id of the creator."
-  creatorId: ID
-  "Last modifier user for this entity."
-  lastModifierId: ID
-  "Id of the deleter user."
-  deleterId: ID
-  extraProperties: JSON
-  "Id of the related tenant."
-  tenantId: ID
-  name: String!
-  prefix: String
-  connectionString: String!
-  tables: [DatabaseTable!]!
-  "Creation time."
-  creationTime: DateTime
-  "The last modified time for this entity."
-  lastModificationTime: DateTime
-  "Deletion time."
-  deletionTime: DateTime
-  "Used to mark an Entity as 'Deleted'."
-  isDeleted: Boolean!
-}
-
-type PostgresqlSource implements Node & Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & DatabaseSource & DataSource @aggregate {
-  "Returns an array of ordered keys for this entity."
-  keys: [Any]!
-  "Unique identifier for this entity."
-  id: ID!
-  "Id of the creator."
-  creatorId: ID
-  "Last modifier user for this entity."
-  lastModifierId: ID
-  "Id of the deleter user."
-  deleterId: ID
-  extraProperties: JSON
-  "Id of the related tenant."
-  tenantId: ID
-  name: String!
-  prefix: String
-  connectionString: String!
-  tables: [DatabaseTable!]!
-  "Creation time."
-  creationTime: DateTime
-  "The last modified time for this entity."
-  lastModificationTime: DateTime
-  "Deletion time."
-  deletionTime: DateTime
-  "Used to mark an Entity as 'Deleted'."
-  isDeleted: Boolean!
+type Mutation {
+  createDatabaseSource(input: CreateDatabaseSourceInput!): CreateDatabaseSourcePayload! @authorize(policy: "DataSourceService.DataSources.Create")
 }
 
 type Query {
@@ -281,36 +307,41 @@ type Query {
   node("ID of the object." id: ID!): Node
   "Lookup nodes by a list of IDs."
   nodes("The list of node IDs." ids: [ID!]!): [Node]!
-  schemaDatabase(kind: DatabaseKind! connectionString: String!): DatabaseSchemaInformation! @authorize
+  schemaDatabase(kind: DatabaseKind! connectionString: String!): SchemaDatabaseResult! @authorize
   dataSourceById(id: ID!): DataSource @authorize
 }
 
-type SqlServerSource implements Node & Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & DatabaseSource & DataSource @aggregate {
-  "Returns an array of ordered keys for this entity."
-  keys: [Any]!
-  "Unique identifier for this entity."
-  id: ID!
-  "Id of the creator."
-  creatorId: ID
-  "Last modifier user for this entity."
-  lastModifierId: ID
-  "Id of the deleter user."
-  deleterId: ID
-  extraProperties: JSON
-  "Id of the related tenant."
-  tenantId: ID
+type ValidationError implements Error {
+  message: String!
+  results: [ValidationResult!]!
+}
+
+type ValidationResult {
+  errorMessage: String
+}
+
+union CreateDatabaseSourceError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | IncorrectConnectionStringError | FailConnectError | DataSourceNameAlreadyExistsError | DatabaseTableNameAlreadyExistsError | DatabaseTableSystemNameAlreadyExistsError | DatabaseColumnNameAlreadyExistsError | DatabaseColumnSystemNameAlreadyExistsError
+
+union SchemaDatabaseResult = DatabaseSchemaInformation | IncorrectConnectionStringError | FailConnectError
+
+input CreateDatabaseColumnInput {
+  kind: DatabaseColumnKind!
   name: String!
-  prefix: String
+  systemName: String!
+}
+
+input CreateDatabaseSourceInput {
+  kind: DatabaseKind!
+  name: String!
   connectionString: String!
-  tables: [DatabaseTable!]!
-  "Creation time."
-  creationTime: DateTime
-  "The last modified time for this entity."
-  lastModificationTime: DateTime
-  "Deletion time."
-  deletionTime: DateTime
-  "Used to mark an Entity as 'Deleted'."
-  isDeleted: Boolean!
+  tables: [CreateDatabaseTableInput!]!
+  prefix: String
+}
+
+input CreateDatabaseTableInput {
+  name: String!
+  systemName: String!
+  columns: [CreateDatabaseColumnInput!]!
 }
 
 "Defines when a policy shall be executed."
@@ -339,9 +370,22 @@ enum DatabaseColumnKind {
 }
 
 enum DatabaseKind {
+  "MySql."
   MY_SQL
+  "Postgresql."
   POSTGRESQL
+  "SqlServer."
   SQL_SERVER
+}
+
+enum LogLevel {
+  TRACE
+  DEBUG
+  INFORMATION
+  WARNING
+  ERROR
+  CRITICAL
+  NONE
 }
 
 directive @aggregate on OBJECT

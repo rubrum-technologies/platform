@@ -22,6 +22,7 @@ public class DataSourceServiceApplicationModule : AbpModule
     {
         context.Services.GetGraphql()
             .AddGlobalObjectIdentification()
+            .AddQueryConventions()
             .AddMutationConventions()
             .AddFiltering()
             .AddSorting()

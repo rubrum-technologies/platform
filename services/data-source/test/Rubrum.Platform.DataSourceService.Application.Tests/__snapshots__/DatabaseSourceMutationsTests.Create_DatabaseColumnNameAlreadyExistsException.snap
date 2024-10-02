@@ -1,0 +1,17 @@
+{
+  "data": {
+    "createDatabaseSource": {
+      "databaseSource": null,
+      "errors": [
+        {
+          "columnName": "Column10",
+          "code": null,
+          "details": null,
+          "logLevel": "WARNING",
+          "message": "Exception of type 'Rubrum.Platform.DataSourceService.Database.DatabaseColumnNameAlreadyExistsException' was thrown.",
+          "__typename": "DatabaseColumnNameAlreadyExistsError"
+        }
+      ]
+    }
+  }
+}

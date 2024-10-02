@@ -1,0 +1,66 @@
+{
+  "data": {
+    "createDatabaseSource": {
+      "databaseSource": {
+        "kind": "POSTGRESQL",
+        "name": "Postgres",
+        "prefix": null,
+        "connectionString": "ConnectionStringTest",
+        "tables": [
+          {
+            "name": "Table1",
+            "systemName": "Table_1",
+            "columns": [
+              {
+                "kind": "BOOLEAN",
+                "name": "Column1",
+                "systemName": "Column_1",
+                "__typename": "DatabaseColumn"
+              },
+              {
+                "kind": "STRING",
+                "name": "Column2",
+                "systemName": "Column_2",
+                "__typename": "DatabaseColumn"
+              },
+              {
+                "kind": "NUMBER",
+                "name": "Column3",
+                "systemName": "Column_3",
+                "__typename": "DatabaseColumn"
+              }
+            ],
+            "__typename": "DatabaseTable"
+          },
+          {
+            "name": "Table2",
+            "systemName": "Table_2",
+            "columns": [
+              {
+                "kind": "DATE_TIME",
+                "name": "Column1",
+                "systemName": "Column_1",
+                "__typename": "DatabaseColumn"
+              },
+              {
+                "kind": "UUID",
+                "name": "Column2",
+                "systemName": "Column_2",
+                "__typename": "DatabaseColumn"
+              },
+              {
+                "kind": "NUMBER",
+                "name": "Column3",
+                "systemName": "Column_3",
+                "__typename": "DatabaseColumn"
+              }
+            ],
+            "__typename": "DatabaseTable"
+          }
+        ],
+        "__typename": "DatabaseSource"
+      },
+      "errors": null
+    }
+  }
+}
