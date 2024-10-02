@@ -1,59 +1,39 @@
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
+using MyCompanyName.MyProjectName.DbMigrations;
 using MyCompanyName.MyProjectName.EntityFrameworkCore;
 using Rubrum.Modularity;
+using Rubrum.TestContainers.PostgreSql;
+using Testcontainers.PostgreSql;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.Sqlite;
 using Volo.Abp.Modularity;
-using Volo.Abp.Uow;
+using Volo.Abp.Threading;
 
 namespace MyCompanyName.MyProjectName;
 
-[DependsOn<AbpEntityFrameworkCoreSqliteModule>]
+[DependsOn<RubrumTestContainersPostgreSqlModule>]
 [DependsOn<MyProjectNameTestBaseModule>]
 [DependsOn<MyProjectNameEntityFrameworkCoreModule>]
 public class MyProjectNameEntityFrameworkCoreTestModule : AbpModule
 {
-    private SqliteConnection? _sqliteConnection;
-
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        context.Services.AddAlwaysDisableUnitOfWorkTransaction();
+        var postgres = context.Services.GetSingletonInstance<PostgreSqlContainer>();
 
-        ConfigureInMemorySqlite(context.Services);
-    }
-
-    public override void OnApplicationShutdown(ApplicationShutdownContext context)
-    {
-        _sqliteConnection?.Dispose();
-    }
-
-    private static SqliteConnection CreateDatabaseAndGetConnection()
-    {
-        var connection = new SqliteConnection("Data Source=:memory:");
-        connection.Open();
-
-        var options = new DbContextOptionsBuilder<MyProjectNameDbContext>()
-            .UseSqlite(connection)
-            .Options;
-
-        using var context = new MyProjectNameDbContext(options);
-        context.GetService<IRelationalDatabaseCreator>().CreateTables();
-
-        return connection;
-    }
-
-    private void ConfigureInMemorySqlite(IServiceCollection services)
-    {
-        _sqliteConnection = CreateDatabaseAndGetConnection();
-
-        services.Configure<AbpDbContextOptions>(options =>
+        Configure<AbpDbContextOptions>(options =>
         {
-            options.Configure(context => { context.DbContextOptions.UseSqlite(_sqliteConnection); });
+            options.Configure(config =>
+            {
+                config.DbContextOptions.UseNpgsql(postgres.GetConnectionString());
+            });
         });
+    }
+
+    public override void OnPreApplicationInitialization(ApplicationInitializationContext context)
+    {
+        AsyncHelper.RunSync(() => context.ServiceProvider
+            .GetRequiredService<EfCoreRuntimeDatabaseMigrator>()
+            .CheckAndApplyDatabaseMigrationsAsync());
     }
 }
