@@ -14,10 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite"/>
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.TestContainers.PostgreSql\Rubrum.TestContainers.PostgreSql.csproj" />
     <ProjectReference Include="..\..\src\Rubrum.Platform.BlobStorageService.EntityFrameworkCore\Rubrum.Platform.BlobStorageService.EntityFrameworkCore.csproj"/>
     <ProjectReference Include="..\Rubrum.Platform.BlobStorageService.TestBase\Rubrum.Platform.BlobStorageService.TestBase.csproj"/>
   </ItemGroup>

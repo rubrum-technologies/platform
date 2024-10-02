@@ -1,6 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Rubrum.EntityFrameworkCore;
 using Rubrum.Modularity;
+using Rubrum.Platform.DataSourceService.Database;
+using Rubrum.Platform.DataSourceService.EntityFrameworkCore.Repositories;
 using Volo.Abp.EntityFrameworkCore.PostgreSql;
 using Volo.Abp.Modularity;
 
@@ -21,7 +23,10 @@ public class DataSourceServiceEntityFrameworkCoreModule : AbpModule
     {
         context.Services.AddAbpDbContext<DataSourceServiceDbContext>(options =>
         {
-            options.AddDefaultRepositories();
+            options
+                .AddRepository<DataSource, EfCoreDataSourceRepository>()
+                .AddRepository<DatabaseSource, EfCoreDatabaseSourceRepository>()
+                .AddDefaultRepositories();
         });
     }
 }

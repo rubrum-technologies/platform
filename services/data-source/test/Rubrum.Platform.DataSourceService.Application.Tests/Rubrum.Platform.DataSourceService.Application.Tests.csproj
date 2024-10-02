@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Graphql.FluentValidation\Rubrum.Graphql.FluentValidation.csproj"/>
     <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Graphql.TestBase\Rubrum.Graphql.TestBase.csproj"/>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.TestContainers.PostgreSql\Rubrum.TestContainers.PostgreSql.csproj" />
     <ProjectReference Include="..\..\src\Rubrum.Platform.DataSourceService.Application\Rubrum.Platform.DataSourceService.Application.csproj"/>
     <ProjectReference Include="..\Rubrum.Platform.DataSourceService.EntityFrameworkCore.Tests\Rubrum.Platform.DataSourceService.EntityFrameworkCore.Tests.csproj"/>
   </ItemGroup>

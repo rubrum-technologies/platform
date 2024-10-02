@@ -27,4 +27,10 @@ public class DataSourceServiceApplicationModule : AbpModule
             .AddSorting()
             .AddProjections();
     }
+
+    public override void ConfigureServices(ServiceConfigurationContext context)
+    {
+        context.Services.GetGraphql()
+            .AddApplicationTypes();
+    }
 }
