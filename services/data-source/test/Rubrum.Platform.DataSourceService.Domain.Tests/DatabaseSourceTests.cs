@@ -35,7 +35,7 @@ public class DatabaseSourceTests
 
         Assert.Throws<ArgumentException>(() =>
         {
-            source.SetName(string.Empty.PadRight(DatabaseTableConstants.NameLength + 1, '-'));
+            source.SetName(string.Empty.PadRight(DataSourceConstants.NameLength + 1, '-'));
         });
     }
 
@@ -73,6 +73,7 @@ public class DatabaseSourceTests
             systemName,
             [new CreateDatabaseColumn(DatabaseColumnKind.Unknown, "Column", "ColumnS")]);
 
+        table.DatabaseSourceId.ShouldBe(table.Id);
         table.Name.ShouldBe(name);
         table.SystemName.ShouldBe(systemName);
     }
