@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.props" />
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.StoreAppsService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AutoMapper" />
+    <PackageReference Include="Volo.Abp.Ddd.Domain" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rubrum.Platform.StoreAppsService.Domain.Shared\Rubrum.Platform.StoreAppsService.Domain.Shared.csproj" />
+  </ItemGroup>
+</Project>
