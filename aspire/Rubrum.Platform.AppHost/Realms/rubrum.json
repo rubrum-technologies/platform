@@ -48,7 +48,8 @@
         "email"
       ],
       "optionalClientScopes": [
-        "blob-storage-service"
+        "blob-storage-service",
+        "store-apps-service"
       ],
       "redirectUris": [
         "https://localhost:12000/api/swagger/oauth2-redirect.html",
@@ -80,6 +81,21 @@
       "protocol": "openid-connect",
       "clientAuthenticatorType": "client-secret",
       "secret": "9Hz1QJMrDtcnIEFZdOm5kGSJloDCpw363nmy",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "client_credentials.use_refresh_token": "false",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "enabled": true
+    },
+    {
+      "clientId": "store-apps-service",
+      "name": "Store Apps Service",
+      "protocol": "openid-connect",
+      "clientAuthenticatorType": "client-secret",
+      "secret": "2Z4qfoWMe7Yz81mFrCaV",
       "attributes": {
         "oidc.ciba.grant.enabled": "false",
         "oauth2.device.authorization.grant.enabled": "false",
@@ -235,6 +251,25 @@
             "id.token.claim": "false",
             "access.token.claim": "true",
             "included.custom.audience": "blob-storage-service",
+            "userinfo.token.claim": "false"
+          }
+        }
+      ]
+    },
+    {
+      "name": "store-apps-service",
+      "description": "store-apps-service scope",
+      "protocol": "openid-connect",
+      "protocolMappers": [
+        {
+          "name": "store-apps-service",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "id.token.claim": "false",
+            "access.token.claim": "true",
+            "included.custom.audience": "store-apps-service",
             "userinfo.token.claim": "false"
           }
         }

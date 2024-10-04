@@ -28,5 +28,6 @@
     <ProjectReference Include="..\..\gateways\Rubrum.Platform.Gateway\Rubrum.Platform.Gateway.csproj"/>
     <ProjectReference Include="..\..\services\administration\src\Rubrum.Platform.AdministrationService.HttpApi.Host\Rubrum.Platform.AdministrationService.HttpApi.Host.csproj" />
     <ProjectReference Include="..\..\services\blob-storage\src\Rubrum.Platform.BlobStorageService.HttpApi.Host\Rubrum.Platform.BlobStorageService.HttpApi.Host.csproj"/>
+    <ProjectReference Include="..\..\services\store-apps\src\Rubrum.Platform.StoreAppsService.HttpApi.Host\Rubrum.Platform.StoreAppsService.HttpApi.Host.csproj"/>
   </ItemGroup>
 </Project>

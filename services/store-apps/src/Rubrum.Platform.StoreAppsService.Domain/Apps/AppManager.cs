@@ -5,36 +5,34 @@ using Volo.Abp.Threading;
 
 namespace Rubrum.Platform.StoreAppsService.Apps;
 
-public class AppManager(
-    IAppRepository repository,
-    ICancellationTokenProvider cancellationTokenProvider) : DomainService
+public class AppManager(IAppRepository repository) : DomainService
 {
     public async Task<App> CreateAsync(
+        Guid ownerId,
         string name,
         Version version,
-        bool enabled)
+        bool enabled,
+        CancellationToken ct = default)
     {
-        await CheckNameAsync(name);
+        await CheckNameAsync(name, ct);
 
-        return new App(GuidGenerator.Create(), CurrentTenant.Id, name, version, enabled);
+        return new App(GuidGenerator.Create(), CurrentTenant.Id, ownerId, name, version, enabled);
     }
 
-    public async Task ChangeNameAsync(App app, string name)
+    public async Task ChangeNameAsync(App app, string name, CancellationToken ct = default)
     {
         if (app.Name == name)
         {
             return;
         }
 
-        await CheckNameAsync(name);
+        await CheckNameAsync(name, ct);
 
         app.SetName(name);
     }
 
-    private async Task CheckNameAsync(string name)
+    private async Task CheckNameAsync(string name, CancellationToken ct)
     {
-        var ct = cancellationTokenProvider.Token;
-
         if (await repository.AnyAsync(x => x.Name == name, ct))
         {
             throw new AppNameAlreadyExistsException(name);

@@ -10,10 +10,15 @@ public static partial class AppType
     {
         descriptor.FullAuditedAggregateRoot();
         descriptor.MultiTenant();
+        descriptor.Owner();
 
         descriptor
             .ImplementsNode()
             .IdField(x => x.Id)
             .ResolveNode((context, id) => context.Service<IAppByIdDataLoader>().LoadAsync(id, context.RequestAborted));
+
+        descriptor.Field(x => x.Name);
+        descriptor.Field(x => x.Version);
+        descriptor.Field(x => x.Enabled);
     }
 }
