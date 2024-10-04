@@ -4,7 +4,7 @@ using Volo.Abp.Domain.Entities;
 
 namespace Rubrum.Platform.DataSourceService.Database;
 
-public class DatabaseTable : Entity<Guid>
+public class DatabaseTable : DataSourceEntity
 {
     private readonly List<DatabaseColumn> _columns = [];
 
@@ -14,9 +14,8 @@ public class DatabaseTable : Entity<Guid>
         string name,
         string systemName,
         IEnumerable<CreateDatabaseColumn> columns)
-        : base(id)
+        : base(id, databaseSourceId)
     {
-        DatabaseSourceId = databaseSourceId;
         SetName(name);
         SetSystemName(systemName);
 
@@ -37,13 +36,13 @@ public class DatabaseTable : Entity<Guid>
     {
     }
 
-    public Guid DatabaseSourceId { get; protected init; }
-
-    public string Name { get; private set; }
+    public override string Name { get; protected set; }
 
     public string SystemName { get; private set; }
 
     public IReadOnlyList<DatabaseColumn> Columns => _columns.AsReadOnly();
+
+    public override IReadOnlyList<DataSourceEntityProperty> Properties => Columns;
 
     public DatabaseColumn GetColumnById(Guid id)
     {
@@ -57,7 +56,7 @@ public class DatabaseTable : Entity<Guid>
         return column;
     }
 
-    public DatabaseColumn AddColumn(DatabaseColumnKind kind, string name, string systemName)
+    public DatabaseColumn AddColumn(DataSourceEntityPropertyKind kind, string name, string systemName)
     {
         ColumnNameCheck(name);
         ColumnSystemNameCheck(systemName);

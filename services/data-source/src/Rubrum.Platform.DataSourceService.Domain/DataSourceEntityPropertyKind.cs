@@ -1,6 +1,6 @@
-﻿namespace Rubrum.Platform.DataSourceService.Database;
+﻿namespace Rubrum.Platform.DataSourceService;
 
-public enum DatabaseColumnKind
+public enum DataSourceEntityPropertyKind
 {
     /// <summary>
     /// Boolean.
@@ -8,9 +8,14 @@ public enum DatabaseColumnKind
     Boolean,
 
     /// <summary>
-    /// Number.
+    /// Int.
     /// </summary>
-    Number,
+    Int,
+
+    /// <summary>
+    /// Float.
+    /// </summary>
+    Float,
 
     /// <summary>
     /// String.

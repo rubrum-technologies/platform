@@ -23,7 +23,7 @@ public class DataSourceServiceEntityFrameworkCoreTestModule : AbpModule
 
         Configure<AbpDbContextOptions>(options =>
         {
-            options.Configure(config =>
+            options.Configure<DataSourceServiceDbContext>(config =>
             {
                 config.DbContextOptions.UseNpgsql(postgres.GetConnectionString());
             });

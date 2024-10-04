@@ -39,6 +39,59 @@ public class DatabaseSourceTests
         });
     }
 
+    [Theory]
+    [InlineData("PR")]
+    [InlineData("Qsf")]
+    [InlineData("Zxc")]
+    public void SetPrefix(string name)
+    {
+        var source = CreateDatabaseSource();
+
+        source.SetPrefix(name);
+
+        source.Prefix.ShouldBe(name);
+    }
+
+    [Fact]
+    public void SetPrefix_Empty()
+    {
+        var source = CreateDatabaseSource();
+
+        Assert.Throws<ArgumentException>(() => { source.SetPrefix(string.Empty.PadRight(10)); });
+    }
+
+    [Fact]
+    public void SetPrefix_MaxLength()
+    {
+        var source = CreateDatabaseSource();
+
+        Assert.Throws<ArgumentException>(() =>
+        {
+            source.SetPrefix(string.Empty.PadRight(DataSourceConstants.NameLength + 1, 'Z'));
+        });
+    }
+
+    [Theory]
+    [InlineData("Qwe1")]
+    [InlineData("Zxc-")]
+    [InlineData("asd*")]
+    [InlineData("zxcvq/")]
+    [InlineData("/qwe/")]
+    [InlineData(".asd.")]
+    [InlineData(",w2")]
+    [InlineData("^%@#$")]
+    [InlineData("!QWE")]
+    [InlineData("(asd)")]
+    [InlineData("[ZXVC]")]
+    [InlineData("asd\nasd")]
+    [InlineData("xxx xxx")]
+    public void SetPrefix_Regex(string prefix)
+    {
+        var source = CreateDatabaseSource();
+
+        Assert.Throws<ArgumentException>(() => { source.SetPrefix(prefix); });
+    }
+
     [Fact]
     public void GetTableById()
     {
@@ -71,7 +124,7 @@ public class DatabaseSourceTests
         var table = source.AddTable(
             name,
             systemName,
-            [new CreateDatabaseColumn(DatabaseColumnKind.Unknown, "Column", "ColumnS")]);
+            [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "Column", "ColumnS")]);
 
         table.DatabaseSourceId.ShouldBe(source.Id);
         table.Name.ShouldBe(name);
@@ -88,7 +141,7 @@ public class DatabaseSourceTests
             source.AddTable(
                 "Table",
                 "TableS_Custom",
-                [new CreateDatabaseColumn(DatabaseColumnKind.Unknown, "Column", "ColumnS")]);
+                [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "Column", "ColumnS")]);
         });
     }
 
@@ -102,7 +155,7 @@ public class DatabaseSourceTests
             source.AddTable(
                 "Table_Custom",
                 "TableS",
-                [new CreateDatabaseColumn(DatabaseColumnKind.Unknown, "Column", "ColumnS")]);
+                [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "Column", "ColumnS")]);
         });
     }
 
@@ -184,9 +237,174 @@ public class DatabaseSourceTests
 
         source.Tables.Count.ShouldBe(1);
 
-        Assert.Throws<DatabaseSourceTablesEmptyException>(() =>
+        Assert.Throws<DatabaseSourceTablesEmptyException>(() => { source.DeleteTable(source.Tables[0].Id); });
+    }
+
+    [Theory]
+    [InlineData(DataSourceRelationDirection.OneToMany, 0, 0, 1, 0)]
+    [InlineData(DataSourceRelationDirection.ManyToOne, 1, 0, 0, 0)]
+    [InlineData(DataSourceRelationDirection.OneToMany, 0, 0, 1, 1)]
+    [InlineData(DataSourceRelationDirection.ManyToOne, 1, 0, 0, 1)]
+    [InlineData(DataSourceRelationDirection.OneToMany, 0, 1, 1, 0)]
+    [InlineData(DataSourceRelationDirection.ManyToOne, 1, 1, 0, 0)]
+    [InlineData(DataSourceRelationDirection.OneToMany, 0, 1, 1, 1)]
+    [InlineData(DataSourceRelationDirection.ManyToOne, 1, 1, 0, 1)]
+    public void AddRelation(
+        DataSourceRelationDirection direction,
+        int leftTableIndex,
+        int leftColumnIndex,
+        int rightTableIndex,
+        int rightColumnIndex)
+    {
+        var source = CreateDatabaseSource();
+
+        source.InternalRelations.Count.ShouldBe(0);
+
+        var relation = source.AddInternalRelation(
+            direction,
+            new DataSourceInternalLink(
+                source.Tables[leftTableIndex].Id,
+                source.Tables[leftTableIndex].Columns[leftColumnIndex].Id),
+            new DataSourceInternalLink(
+                source.Tables[rightTableIndex].Id,
+                source.Tables[rightTableIndex].Columns[rightColumnIndex].Id));
+
+        source.InternalRelations.Count.ShouldBe(1);
+
+        relation.Direction.ShouldBe(direction);
+        relation.Left.EntityId.ShouldBe(source.Tables[leftTableIndex].Id);
+        relation.Left.PropertyId.ShouldBe(source.Tables[leftTableIndex].Columns[leftColumnIndex].Id);
+        relation.Right.EntityId.ShouldBe(source.Tables[rightTableIndex].Id);
+        relation.Right.PropertyId.ShouldBe(source.Tables[rightTableIndex].Columns[rightColumnIndex].Id);
+    }
+
+    [Theory]
+    [InlineData(DataSourceRelationDirection.OneToMany, 0, 0, 1, 0)]
+    [InlineData(DataSourceRelationDirection.ManyToOne, 1, 0, 0, 0)]
+    [InlineData(DataSourceRelationDirection.OneToMany, 0, 0, 1, 1)]
+    [InlineData(DataSourceRelationDirection.ManyToOne, 1, 0, 0, 1)]
+    [InlineData(DataSourceRelationDirection.OneToMany, 0, 1, 1, 0)]
+    [InlineData(DataSourceRelationDirection.ManyToOne, 1, 1, 0, 0)]
+    [InlineData(DataSourceRelationDirection.OneToMany, 0, 1, 1, 1)]
+    [InlineData(DataSourceRelationDirection.ManyToOne, 1, 1, 0, 1)]
+    public void AddRelation_DataSourceInternalRelationAlreadyExistsException(
+        DataSourceRelationDirection direction,
+        int leftTableIndex,
+        int leftColumnIndex,
+        int rightTableIndex,
+        int rightColumnIndex)
+    {
+        var source = CreateDatabaseSource();
+
+        source.InternalRelations.Count.ShouldBe(0);
+
+        source.AddInternalRelation(
+            direction,
+            new DataSourceInternalLink(
+                source.Tables[leftTableIndex].Id,
+                source.Tables[leftTableIndex].Columns[leftColumnIndex].Id),
+            new DataSourceInternalLink(
+                source.Tables[rightTableIndex].Id,
+                source.Tables[rightTableIndex].Columns[rightColumnIndex].Id));
+
+        Assert.Throws<DataSourceInternalRelationAlreadyExistsException>(() =>
         {
-            source.DeleteTable(source.Tables[0].Id);
+            source.AddInternalRelation(
+                DataSourceRelationDirection.ManyToOne,
+                new DataSourceInternalLink(
+                    source.Tables[leftTableIndex].Id,
+                    source.Tables[leftTableIndex].Columns[leftColumnIndex].Id),
+                new DataSourceInternalLink(
+                    source.Tables[rightTableIndex].Id,
+                    source.Tables[rightTableIndex].Columns[rightColumnIndex].Id));
+        });
+    }
+
+    [Theory]
+    [InlineData(DataSourceRelationDirection.OneToMany, 0, 0, 1, 0)]
+    [InlineData(DataSourceRelationDirection.ManyToOne, 1, 0, 0, 0)]
+    [InlineData(DataSourceRelationDirection.OneToMany, 0, 0, 1, 1)]
+    [InlineData(DataSourceRelationDirection.ManyToOne, 1, 0, 0, 1)]
+    [InlineData(DataSourceRelationDirection.OneToMany, 0, 1, 1, 0)]
+    [InlineData(DataSourceRelationDirection.ManyToOne, 1, 1, 0, 0)]
+    [InlineData(DataSourceRelationDirection.OneToMany, 0, 1, 1, 1)]
+    [InlineData(DataSourceRelationDirection.ManyToOne, 1, 1, 0, 1)]
+    public void DeleteRelation(
+        DataSourceRelationDirection direction,
+        int leftTableIndex,
+        int leftColumnIndex,
+        int rightTableIndex,
+        int rightColumnIndex)
+    {
+        var source = CreateDatabaseSource();
+
+        source.InternalRelations.Count.ShouldBe(0);
+
+        var relation = source.AddInternalRelation(
+            direction,
+            new DataSourceInternalLink(
+                source.Tables[leftTableIndex].Id,
+                source.Tables[leftTableIndex].Columns[leftColumnIndex].Id),
+            new DataSourceInternalLink(
+                source.Tables[rightTableIndex].Id,
+                source.Tables[rightTableIndex].Columns[rightColumnIndex].Id));
+
+        source.DeleteInternalRelation(relation.Id);
+
+        source.InternalRelations.Count.ShouldBe(0);
+    }
+
+    [Fact]
+    public void DeleteRelation_EntityNotFoundException()
+    {
+        var source = CreateDatabaseSource();
+
+        Assert.Throws<EntityNotFoundException>(() =>
+        {
+            source.AddInternalRelation(
+                DataSourceRelationDirection.ManyToOne,
+                new DataSourceInternalLink(
+                    Guid.NewGuid(),
+                    source.Tables[0].Columns[0].Id),
+                new DataSourceInternalLink(
+                    source.Tables[1].Id,
+                    source.Tables[1].Columns[0].Id));
+        });
+
+        Assert.Throws<EntityNotFoundException>(() =>
+        {
+            source.AddInternalRelation(
+                DataSourceRelationDirection.ManyToOne,
+                new DataSourceInternalLink(
+                    source.Tables[0].Id,
+                    Guid.NewGuid()),
+                new DataSourceInternalLink(
+                    source.Tables[1].Id,
+                    source.Tables[1].Columns[0].Id));
+        });
+
+        Assert.Throws<EntityNotFoundException>(() =>
+        {
+            source.AddInternalRelation(
+                DataSourceRelationDirection.ManyToOne,
+                new DataSourceInternalLink(
+                    source.Tables[0].Id,
+                    source.Tables[0].Columns[0].Id),
+                new DataSourceInternalLink(
+                    Guid.NewGuid(),
+                    source.Tables[1].Columns[0].Id));
+        });
+
+        Assert.Throws<EntityNotFoundException>(() =>
+        {
+            source.AddInternalRelation(
+                DataSourceRelationDirection.ManyToOne,
+                new DataSourceInternalLink(
+                    source.Tables[0].Id,
+                    source.Tables[0].Columns[0].Id),
+                new DataSourceInternalLink(
+                    source.Tables[1].Id,
+                    Guid.NewGuid()));
         });
     }
 
@@ -197,16 +415,23 @@ public class DatabaseSourceTests
             null,
             DatabaseKind.SqlServer,
             "Test",
+            "Za",
             "Connection",
             [
                 new CreateDatabaseTable(
                     "Table",
                     "TableS",
-                    [new CreateDatabaseColumn(DatabaseColumnKind.Unknown, "Column", "ColumnS")]),
+                    [
+                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "Column", "ColumnS"),
+                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "ColumnX", "ColumnX"),
+                    ]),
                 new CreateDatabaseTable(
                     "Table2",
                     "Table2S",
-                    [new CreateDatabaseColumn(DatabaseColumnKind.Unknown, "Column", "ColumnS")])
+                    [
+                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "Column", "ColumnS"),
+                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "ColumnQ", "ColumnQ"),
+                    ]),
             ]);
     }
 }

@@ -2,4 +2,5 @@
 
 public class GrpcSource : DataSource
 {
+    public override IReadOnlyList<DataSourceEntity> Entities { get; } = default!;
 }

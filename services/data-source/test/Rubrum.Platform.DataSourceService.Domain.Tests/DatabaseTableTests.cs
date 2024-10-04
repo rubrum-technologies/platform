@@ -89,6 +89,6 @@ public class DatabaseTableTests
             Guid.NewGuid(),
             "Table",
             "TableS",
-            [new CreateDatabaseColumn(DatabaseColumnKind.Unknown, "Column", "ColumnS")]);
+            [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "Column", "ColumnS")]);
     }
 }

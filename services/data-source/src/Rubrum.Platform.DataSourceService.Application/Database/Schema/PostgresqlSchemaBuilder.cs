@@ -70,10 +70,10 @@ public class PostgresqlSchemaBuilder : IDatabaseSchemaBuilder, ITransientDepende
                 // TODO: Доделать сопоставление типов.
                 Kind = type switch
                 {
-                    "boolean" => DatabaseColumnKind.Boolean,
-                    "integer" => DatabaseColumnKind.Number,
-                    "character varying" => DatabaseColumnKind.String,
-                    _ => DatabaseColumnKind.Unknown,
+                    "boolean" => DataSourceEntityPropertyKind.Boolean,
+                    "integer" => DataSourceEntityPropertyKind.Int,
+                    "character varying" => DataSourceEntityPropertyKind.String,
+                    _ => DataSourceEntityPropertyKind.Unknown,
                 },
                 Name = name,
             });

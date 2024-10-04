@@ -2,4 +2,5 @@
 
 public class GraphqlSource : DataSource
 {
+    public override IReadOnlyList<DataSourceEntity> Entities { get; } = default!;
 }

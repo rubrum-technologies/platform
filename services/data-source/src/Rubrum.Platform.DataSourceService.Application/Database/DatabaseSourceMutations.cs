@@ -19,6 +19,7 @@ public static class DatabaseSourceMutations
     [Error<IncorrectConnectionStringException>]
     [Error<FailConnectException>]
     [Error<DataSourceNameAlreadyExistsException>]
+    [Error<DataSourcePrefixAlreadyExistsException>]
     [Error<DatabaseSourceTablesEmptyException>]
     [Error<DatabaseTableNameAlreadyExistsException>]
     [Error<DatabaseTableSystemNameAlreadyExistsException>]

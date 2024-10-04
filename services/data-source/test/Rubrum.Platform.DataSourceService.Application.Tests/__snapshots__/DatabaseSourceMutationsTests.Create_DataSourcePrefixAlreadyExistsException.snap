@@ -1,0 +1,17 @@
+{
+  "data": {
+    "createDatabaseSource": {
+      "databaseSource": null,
+      "errors": [
+        {
+          "prefix": "Pr",
+          "code": null,
+          "details": null,
+          "logLevel": "WARNING",
+          "message": "Exception of type 'Rubrum.Platform.DataSourceService.DataSourcePrefixAlreadyExistsException' was thrown.",
+          "__typename": "DataSourcePrefixAlreadyExistsError"
+        }
+      ]
+    }
+  }
+}

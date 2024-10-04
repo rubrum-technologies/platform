@@ -17,11 +17,21 @@ public static class DataSourceServiceDbContextModelCreatingExtensions
     {
         Check.NotNull(builder, nameof(builder));
 
+        builder.Ignore<DataSourceEntityProperty>();
+        builder.Ignore<DataSourceEntity>();
+
         builder.Entity<DataSource>(b =>
         {
             b.ToTable(DbTablePrefix + "DataSources", DbSchema);
 
             b.ConfigureByConvention();
+
+            b.Ignore(x => x.Entities);
+
+            b.Navigation(x => x.InternalRelations)
+                .HasField("_internalRelations")
+                .UsePropertyAccessMode(PropertyAccessMode.Field)
+                .AutoInclude();
 
             b.Property(x => x.Name)
                 .HasMaxLength(DataSourceConstants.NameLength)
@@ -29,10 +39,26 @@ public static class DataSourceServiceDbContextModelCreatingExtensions
 
             b.Property(x => x.Prefix)
                 .HasMaxLength(DataSourceConstants.PrefixLength)
-                .IsRequired(false);
+                .IsRequired();
 
             b.Property(x => x.ConnectionString)
                 .IsRequired();
+        });
+
+        builder.Entity<DataSourceInternalRelation>(b =>
+        {
+            b.ToTable(DbTablePrefix + "DataSourceInternalRelations", DbSchema);
+
+            b.ConfigureByConvention();
+
+            b.HasOne<DataSource>()
+                .WithMany(x => x.InternalRelations)
+                .HasForeignKey(x => x.DataSourceId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
+
+            b.ComplexProperty(x => x.Left);
+            b.ComplexProperty(x => x.Right);
         });
 
         builder.Entity<GraphqlSource>();
@@ -56,6 +82,8 @@ public static class DataSourceServiceDbContextModelCreatingExtensions
             b.ToTable(DbTablePrefix + "DatabaseTables", DbSchema);
 
             b.ConfigureByConvention();
+
+            b.Ignore(x => x.Properties);
 
             b.HasOne<DatabaseSource>()
                 .WithMany(x => x.Tables)

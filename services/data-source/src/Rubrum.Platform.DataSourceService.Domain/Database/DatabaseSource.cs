@@ -11,10 +11,10 @@ public class DatabaseSource : DataSource
         Guid? tenantId,
         DatabaseKind kind,
         string name,
+        string prefix,
         string connectionString,
-        IEnumerable<CreateDatabaseTable> tables,
-        string? prefix = null)
-        : base(id, tenantId, name, connectionString, prefix)
+        IEnumerable<CreateDatabaseTable> tables)
+        : base(id, tenantId, name, prefix, connectionString)
     {
         Kind = kind;
 
@@ -38,6 +38,8 @@ public class DatabaseSource : DataSource
     public DatabaseKind Kind { get; }
 
     public IReadOnlyList<DatabaseTable> Tables => _tables.AsReadOnly();
+
+    public override IReadOnlyList<DataSourceEntity> Entities => Tables;
 
     public DatabaseTable GetTableById(Guid id)
     {

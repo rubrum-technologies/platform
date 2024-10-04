@@ -4,7 +4,7 @@
       "databaseSource": {
         "kind": "POSTGRESQL",
         "name": "Postgres",
-        "prefix": null,
+        "prefix": "PS",
         "connectionString": "ConnectionStringTest",
         "tables": [
           {
@@ -24,7 +24,7 @@
                 "__typename": "DatabaseColumn"
               },
               {
-                "kind": "NUMBER",
+                "kind": "INT",
                 "name": "Column3",
                 "systemName": "Column_3",
                 "__typename": "DatabaseColumn"
@@ -49,7 +49,7 @@
                 "__typename": "DatabaseColumn"
               },
               {
-                "kind": "NUMBER",
+                "kind": "FLOAT",
                 "name": "Column3",
                 "systemName": "Column_3",
                 "__typename": "DatabaseColumn"

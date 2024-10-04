@@ -26,14 +26,14 @@ public sealed class DatabaseSourceManagerTests : DataSourceServiceDomainTestBase
         var source = await _manager.CreateAsync(
             DatabaseKind.Postgresql,
             "Test2",
+            "Qa",
             "Connection",
             [
                 new CreateDatabaseTable(
                     "Table",
                     "TableS",
-                    [new CreateDatabaseColumn(DatabaseColumnKind.String, "Column", "ColumnS")]),
-            ],
-            "PR");
+                    [new CreateDatabaseColumn(DataSourceEntityPropertyKind.String, "Column", "ColumnS")]),
+            ]);
 
         source.ShouldNotBeNull();
         source.Kind.ShouldBe(DatabaseKind.Postgresql);
@@ -43,7 +43,7 @@ public sealed class DatabaseSourceManagerTests : DataSourceServiceDomainTestBase
         source.Tables[0].Name.ShouldBe("Table");
         source.Tables[0].SystemName.ShouldBe("TableS");
         source.Tables[0].Columns.Count.ShouldBe(1);
-        source.Tables[0].Columns[0].Kind.ShouldBe(DatabaseColumnKind.String);
+        source.Tables[0].Columns[0].Kind.ShouldBe(DataSourceEntityPropertyKind.String);
         source.Tables[0].Columns[0].Name.ShouldBe("Column");
         source.Tables[0].Columns[0].SystemName.ShouldBe("ColumnS");
     }
@@ -58,14 +58,35 @@ public sealed class DatabaseSourceManagerTests : DataSourceServiceDomainTestBase
             await _manager.CreateAsync(
                 DatabaseKind.Postgresql,
                 "Test",
+                "Sa",
                 "Connection",
                 [
                     new CreateDatabaseTable(
                         "Table",
                         "TableS",
-                        [new CreateDatabaseColumn(DatabaseColumnKind.String, "Column", "ColumnS")]),
-                ],
-                "PR");
+                        [new CreateDatabaseColumn(DataSourceEntityPropertyKind.String, "Column", "ColumnS")]),
+                ]);
+        });
+    }
+
+    [Fact]
+    public async Task CreateAsync_DataSourcePrefixAlreadyExistsException()
+    {
+        using var uow = _unitOfWorkManager.Begin(true, true);
+
+        await Assert.ThrowsAsync<DataSourcePrefixAlreadyExistsException>(async () =>
+        {
+            await _manager.CreateAsync(
+                DatabaseKind.Postgresql,
+                "TestZxc",
+                "Pr",
+                "Connection",
+                [
+                    new CreateDatabaseTable(
+                        "Table",
+                        "TableS",
+                        [new CreateDatabaseColumn(DataSourceEntityPropertyKind.String, "Column", "ColumnS")]),
+                ]);
         });
     }
 
@@ -92,6 +113,32 @@ public sealed class DatabaseSourceManagerTests : DataSourceServiceDomainTestBase
         await Assert.ThrowsAsync<DataSourceNameAlreadyExistsException>(async () =>
         {
             await _manager.ChangeNameAsync(source, "Test_Duplicate");
+        });
+    }
+
+    [Fact]
+    public async Task ChangePrefixAsync()
+    {
+        using var uow = _unitOfWorkManager.Begin(true, true);
+
+        var source = await _repository.GetAsync(x => x.Name == "Test");
+
+        await _manager.ChangePrefixAsync(source, "Prefix");
+
+        source.ShouldNotBeNull();
+        source.Prefix.ShouldBe("Prefix");
+    }
+
+    [Fact]
+    public async Task ChangePrefixAsync_DataSourcePrefixAlreadyExistsException()
+    {
+        using var uow = _unitOfWorkManager.Begin(true, true);
+
+        var source = await _repository.GetAsync(x => x.Name == "Test");
+
+        await Assert.ThrowsAsync<DataSourcePrefixAlreadyExistsException>(async () =>
+        {
+            await _manager.ChangePrefixAsync(source, "Test");
         });
     }
 }

@@ -1,5 +1,4 @@
 ﻿using MySql.Data.MySqlClient;
-using Npgsql;
 using Rubrum.Platform.DataSourceService.Database.Exceptions;
 using Volo.Abp.DependencyInjection;
 
@@ -81,10 +80,10 @@ public class MySqlSchemaBuilder : IDatabaseSchemaBuilder, ITransientDependency
                 // TODO: Доделать сопоставление типов.
                 Kind = type switch
                 {
-                    "boolean" => DatabaseColumnKind.Boolean,
-                    "integer" => DatabaseColumnKind.Number,
-                    "character varying" => DatabaseColumnKind.String,
-                    _ => DatabaseColumnKind.Unknown,
+                    "boolean" => DataSourceEntityPropertyKind.Boolean,
+                    "integer" => DataSourceEntityPropertyKind.Int,
+                    "character varying" => DataSourceEntityPropertyKind.String,
+                    _ => DataSourceEntityPropertyKind.Unknown,
                 },
                 Name = name,
             });

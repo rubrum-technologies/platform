@@ -23,11 +23,34 @@ public abstract class DataSourceManager : DomainService
         dataSource.SetName(name);
     }
 
+    public async Task ChangePrefixAsync(
+        DataSource dataSource,
+        string prefix,
+        CancellationToken ct = default)
+    {
+        if (dataSource.Prefix == prefix)
+        {
+            return;
+        }
+
+        await CheckPrefixAsync(prefix, ct);
+
+        dataSource.SetPrefix(prefix);
+    }
+
     protected async Task CheckNameAsync(string name, CancellationToken ct = default)
     {
         if (await DataSourceRepository.AnyAsync(x => x.Name == name, ct))
         {
             throw new DataSourceNameAlreadyExistsException(name);
+        }
+    }
+
+    protected async Task CheckPrefixAsync(string prefix, CancellationToken ct = default)
+    {
+        if (await DataSourceRepository.AnyAsync(x => x.Prefix == prefix, ct))
+        {
+            throw new DataSourcePrefixAlreadyExistsException(prefix);
         }
     }
 }

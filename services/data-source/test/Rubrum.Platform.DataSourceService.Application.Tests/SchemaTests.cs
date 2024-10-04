@@ -1,25 +1,24 @@
 ﻿using CookieCrumble;
 using HotChocolate.Execution;
-using HotChocolate.Execution.Configuration;
-using Rubrum.Graphql;
 using Shouldly;
 using Xunit;
 
 namespace Rubrum.Platform.DataSourceService;
 
-public sealed class SchemaTests : RubrumGraphqlTestBase<DataSourceServiceApplicationTestModule>
+public sealed class SchemaTests : DataSourceServiceApplicationGraphqlTestBase
 {
-    private readonly IRequestExecutorBuilder _builder;
+    private readonly IRequestExecutorResolver _resolver;
 
     public SchemaTests()
     {
-        _builder = GetRequiredService<IRequestExecutorBuilder>();
+        _resolver = GetRequiredService<IRequestExecutorResolver>();
     }
 
     [Fact]
     public async Task SchemaChangeTest()
     {
-        var schema = await _builder.BuildSchemaAsync();
+        var executor = await _resolver.GetRequestExecutorAsync();
+        var schema = executor.Schema;
 
         schema.ShouldNotBeNull();
         schema.MatchSnapshot();

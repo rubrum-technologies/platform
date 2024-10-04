@@ -1,18 +1,17 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Volo.Abp;
-using Volo.Abp.Domain.Entities;
 
 namespace Rubrum.Platform.DataSourceService.Database;
 
-public class DatabaseColumn : Entity<Guid>
+public class DatabaseColumn : DataSourceEntityProperty
 {
     internal DatabaseColumn(
         Guid id,
         Guid tableId,
-        DatabaseColumnKind kind,
+        DataSourceEntityPropertyKind kind,
         string name,
         string systemName)
-        : base(id)
+        : base(id, kind)
     {
         TableId = tableId;
         Kind = kind;
@@ -28,9 +27,7 @@ public class DatabaseColumn : Entity<Guid>
 
     public Guid TableId { get; protected init; }
 
-    public DatabaseColumnKind Kind { get; set; }
-
-    public string Name { get; private set; }
+    public override string Name { get; protected set; }
 
     public string SystemName { get; private set; }
 

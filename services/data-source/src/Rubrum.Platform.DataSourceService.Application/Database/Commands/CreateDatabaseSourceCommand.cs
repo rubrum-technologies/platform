@@ -11,11 +11,11 @@ public class CreateDatabaseSourceCommand : IRequest<DatabaseSource>
 
     public required string Name { get; init; }
 
+    public required string Prefix { get; init; }
+
     public required string ConnectionString { get; init; }
 
     public required IReadOnlyList<CreateDatabaseTable> Tables { get; init; }
-
-    public string? Prefix { get; init; }
 
     public class Handler(
         DatabaseSourceManager manager,
@@ -28,9 +28,9 @@ public class CreateDatabaseSourceCommand : IRequest<DatabaseSource>
             var source = await manager.CreateAsync(
                 request.Kind,
                 request.Name,
+                request.Prefix,
                 request.ConnectionString,
-                request.Tables,
-                request.Prefix);
+                request.Tables);
 
             await repository.InsertAsync(source, true, cancellationToken);
 
@@ -47,6 +47,10 @@ public class CreateDatabaseSourceCommand : IRequest<DatabaseSource>
 
             RuleFor(x => x.Name)
                 .MaximumLength(DataSourceConstants.NameLength)
+                .NotEmpty();
+
+            RuleFor(x => x.Prefix)
+                .MaximumLength(DataSourceConstants.PrefixLength)
                 .NotEmpty();
 
             RuleFor(x => x.ConnectionString)

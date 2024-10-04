@@ -31,7 +31,7 @@ interface CreationAuditedObject implements HasCreationTime & MayHaveCreator {
 
 interface DataSource implements Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant {
   name: String!
-  prefix: String
+  prefix: String!
   connectionString: String!
   "Returns an array of ordered keys for this entity."
   keys: [Any]!
@@ -185,13 +185,21 @@ type DataSourceNameAlreadyExistsError implements Error {
   logLevel: LogLevel!
 }
 
+type DataSourcePrefixAlreadyExistsError implements Error {
+  message: String!
+  prefix: String!
+  code: String
+  details: String
+  logLevel: LogLevel!
+}
+
 type DatabaseColumn implements Node & Entity & EntityOfGuid {
   "Returns an array of ordered keys for this entity."
   keys: [Any]!
   "Unique identifier for this entity."
   id: ID!
   tableId: ID!
-  kind: DatabaseColumnKind!
+  kind: DataSourceEntityPropertyKind!
   name: String!
   systemName: String!
 }
@@ -241,7 +249,7 @@ type DatabaseSource implements Entity & EntityOfGuid & AggregateRoot & HasExtraP
   "Used to mark an Entity as 'Deleted'."
   isDeleted: Boolean!
   name: String!
-  prefix: String
+  prefix: String!
   connectionString: String!
 }
 
@@ -303,7 +311,7 @@ type IncorrectConnectionStringError implements Error {
 }
 
 type InfoAboutColumn {
-  kind: DatabaseColumnKind!
+  kind: DataSourceEntityPropertyKind!
   name: String!
 }
 
@@ -325,6 +333,24 @@ type Query {
   dataSourceById(id: ID!): DataSource @authorize
 }
 
+type TestTable {
+  column: UUID!
+  tableY: TestTableY
+}
+
+type TestTableY {
+  columnY: UUID!
+}
+
+type Test_DuplicateTable {
+  column: UUID!
+  tableX: Test_DuplicateTableX
+}
+
+type Test_DuplicateTableX {
+  columnX: UUID!
+}
+
 type ValidationError implements Error {
   message: String!
   results: [ValidationResult!]!
@@ -334,12 +360,12 @@ type ValidationResult {
   errorMessage: String
 }
 
-union CreateDatabaseSourceError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | IncorrectConnectionStringError | FailConnectError | DataSourceNameAlreadyExistsError | DatabaseSourceTablesEmptyError | DatabaseTableNameAlreadyExistsError | DatabaseTableSystemNameAlreadyExistsError | DatabaseTableColumnsEmptyError | DatabaseColumnNameAlreadyExistsError | DatabaseColumnSystemNameAlreadyExistsError
+union CreateDatabaseSourceError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | IncorrectConnectionStringError | FailConnectError | DataSourceNameAlreadyExistsError | DataSourcePrefixAlreadyExistsError | DatabaseSourceTablesEmptyError | DatabaseTableNameAlreadyExistsError | DatabaseTableSystemNameAlreadyExistsError | DatabaseTableColumnsEmptyError | DatabaseColumnNameAlreadyExistsError | DatabaseColumnSystemNameAlreadyExistsError
 
 union SchemaDatabaseResult = DatabaseSchemaInformation | IncorrectConnectionStringError | FailConnectError
 
 input CreateDatabaseColumnInput {
-  kind: DatabaseColumnKind!
+  kind: DataSourceEntityPropertyKind!
   name: String!
   systemName: String!
 }
@@ -347,9 +373,9 @@ input CreateDatabaseColumnInput {
 input CreateDatabaseSourceInput {
   kind: DatabaseKind!
   name: String!
+  prefix: String!
   connectionString: String!
   tables: [CreateDatabaseTableInput!]!
-  prefix: String
 }
 
 input CreateDatabaseTableInput {
@@ -368,11 +394,13 @@ enum ApplyPolicy {
   VALIDATION
 }
 
-enum DatabaseColumnKind {
+enum DataSourceEntityPropertyKind {
   "Boolean."
   BOOLEAN
-  "Number."
-  NUMBER
+  "Int."
+  INT
+  "Float."
+  FLOAT
   "String."
   STRING
   "Uuid."
@@ -416,3 +444,5 @@ scalar Any
 scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
 
 scalar JSON
+
+scalar UUID @specifiedBy(url: "https:\/\/tools.ietf.org\/html\/rfc4122")

@@ -24,7 +24,7 @@
                 "__typename": "DatabaseColumn"
               },
               {
-                "kind": "NUMBER",
+                "kind": "FLOAT",
                 "name": "Column3",
                 "systemName": "Column_3",
                 "__typename": "DatabaseColumn"

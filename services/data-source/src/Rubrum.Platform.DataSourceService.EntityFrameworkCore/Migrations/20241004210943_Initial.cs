@@ -18,7 +18,7 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     Name = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: false),
-                    Prefix = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: true),
+                    Prefix = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
                     ConnectionString = table.Column<string>(type: "text", nullable: false),
                     Discriminator = table.Column<string>(type: "character varying(21)", maxLength: 21, nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
@@ -41,9 +41,9 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    DatabaseSourceId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
-                    SystemName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false)
+                    SystemName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    DatabaseSourceId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,14 +57,37 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Rubrum.PlatformDataSourceInternalRelations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    DataSourceId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Left_EntityId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Left_PropertyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Right_EntityId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Right_PropertyId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rubrum.PlatformDataSourceInternalRelations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rubrum.PlatformDataSourceInternalRelations_Rubrum.PlatformD~",
+                        column: x => x.DataSourceId,
+                        principalTable: "Rubrum.PlatformDataSources",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rubrum.PlatformDatabaseColumns",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TableId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Kind = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
-                    SystemName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false)
+                    SystemName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Kind = table.Column<int>(type: "integer", nullable: false),
+                    IsNotNull = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,6 +109,11 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
                 name: "IX_Rubrum.PlatformDatabaseTables_DatabaseSourceId",
                 table: "Rubrum.PlatformDatabaseTables",
                 column: "DatabaseSourceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rubrum.PlatformDataSourceInternalRelations_DataSourceId",
+                table: "Rubrum.PlatformDataSourceInternalRelations",
+                column: "DataSourceId");
         }
 
         /// <inheritdoc />
@@ -93,6 +121,9 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Rubrum.PlatformDatabaseColumns");
+
+            migrationBuilder.DropTable(
+                name: "Rubrum.PlatformDataSourceInternalRelations");
 
             migrationBuilder.DropTable(
                 name: "Rubrum.PlatformDatabaseTables");

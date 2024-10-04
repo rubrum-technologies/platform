@@ -1,3 +1,4 @@
+using Rubrum.Graphql;
 using Rubrum.Modularity;
 using Rubrum.Platform.BlobStorageService.Blobs;
 using Rubrum.Platform.BlobStorageService.DbMigrations;
@@ -42,10 +43,7 @@ public class PlatformBlobStorageServiceHttpApiHostModule : AbpModule
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
-        app.UseSwagger(options =>
-        {
-            options.RouteTemplate = "api/blob-storage/swagger/{documentname}/swagger.json";
-        });
+        app.UseSwagger(options => { options.RouteTemplate = "api/blob-storage/swagger/{documentname}/swagger.json"; });
         app.UseSwaggerUI(options =>
         {
             var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
@@ -72,5 +70,12 @@ public class PlatformBlobStorageServiceHttpApiHostModule : AbpModule
         await context.ServiceProvider
             .GetRequiredService<EfCoreRuntimeDatabaseMigrator>()
             .CheckAndApplyDatabaseMigrationsAsync();
+    }
+
+    public override void OnPostApplicationInitialization(ApplicationInitializationContext context)
+    {
+        context.ServiceProvider
+            .GetGraphql()
+            .InitializeOnStartup();
     }
 }

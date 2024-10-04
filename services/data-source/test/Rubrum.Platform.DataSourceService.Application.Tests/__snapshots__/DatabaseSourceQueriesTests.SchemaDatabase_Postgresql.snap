@@ -6,7 +6,7 @@
           "name": "users",
           "columns": [
             {
-              "kind": "NUMBER",
+              "kind": "INT",
               "name": "id"
             },
             {
@@ -19,7 +19,7 @@
           "name": "documents",
           "columns": [
             {
-              "kind": "NUMBER",
+              "kind": "INT",
               "name": "id"
             },
             {

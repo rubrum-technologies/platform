@@ -7,7 +7,7 @@
       "Name": "users",
       "Columns": [
         {
-          "Kind": "Number",
+          "Kind": "Int",
           "Name": "id"
         },
         {
@@ -20,7 +20,7 @@
       "Name": "documents",
       "Columns": [
         {
-          "Kind": "Number",
+          "Kind": "Int",
           "Name": "id"
         },
         {

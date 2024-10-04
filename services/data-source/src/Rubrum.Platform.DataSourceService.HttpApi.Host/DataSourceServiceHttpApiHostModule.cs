@@ -1,3 +1,4 @@
+using Rubrum.Graphql;
 using Rubrum.Platform.DataSourceService.DbMigrations;
 using Rubrum.Platform.DataSourceService.EntityFrameworkCore;
 using Rubrum.Modularity;
@@ -50,5 +51,12 @@ public class DataSourceServiceHttpApiHostModule : AbpModule
         await context.ServiceProvider
             .GetRequiredService<EfCoreRuntimeDatabaseMigrator>()
             .CheckAndApplyDatabaseMigrationsAsync();
+    }
+
+    public override void OnPostApplicationInitialization(ApplicationInitializationContext context)
+    {
+        context.ServiceProvider
+            .GetGraphql()
+            .InitializeOnStartup();
     }
 }

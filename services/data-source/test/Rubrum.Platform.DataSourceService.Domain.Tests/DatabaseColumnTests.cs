@@ -72,6 +72,11 @@ public class DatabaseColumnTests
 
     private static DatabaseColumn CreateDatabaseColumn()
     {
-        return new DatabaseColumn(Guid.NewGuid(), Guid.NewGuid(), DatabaseColumnKind.Number, "Column", "ColumnS");
+        return new DatabaseColumn(
+            Guid.NewGuid(),
+            Guid.NewGuid(),
+            DataSourceEntityPropertyKind.Float,
+            "Column",
+            "ColumnS");
     }
 }

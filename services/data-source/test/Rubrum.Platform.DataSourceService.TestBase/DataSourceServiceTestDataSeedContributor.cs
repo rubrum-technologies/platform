@@ -15,31 +15,63 @@ public class DataSourceServiceTestDataSeedContributor(
     {
         using var uow = unitOfWorkManager.Begin(true, true);
 
-        await databaseSourceRepository.InsertAsync(new DatabaseSource(
+        var databaseSource1 = new DatabaseSource(
             guidGenerator.Create(),
             null,
             DatabaseKind.SqlServer,
             "Test_Duplicate",
-            "ConnectionTest",
-            [
-                new CreateDatabaseTable(
-                    "Table",
-                    "Table",
-                    [new CreateDatabaseColumn(DatabaseColumnKind.Uuid, "Column", "Column")]),
-            ]));
-
-        await databaseSourceRepository.InsertAsync(new DatabaseSource(
-            guidGenerator.Create(),
-            null,
-            DatabaseKind.MySql,
             "Test",
             "ConnectionTest",
             [
                 new CreateDatabaseTable(
                     "Table",
                     "Table",
-                    [new CreateDatabaseColumn(DatabaseColumnKind.Uuid, "Column", "Column")]),
-            ]));
+                    [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Uuid, "Column", "Column")]),
+                new CreateDatabaseTable(
+                    "TableX",
+                    "TableX",
+                    [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Uuid, "ColumnX", "ColumnX")]),
+            ]);
+
+        databaseSource1.AddInternalRelation(
+            DataSourceRelationDirection.OneToMany,
+            new DataSourceInternalLink(
+                databaseSource1.Tables[0].Id,
+                databaseSource1.Tables[0].Columns[0].Id),
+            new DataSourceInternalLink(
+                databaseSource1.Tables[1].Id,
+                databaseSource1.Tables[1].Columns[0].Id));
+
+        await databaseSourceRepository.InsertAsync(databaseSource1);
+
+        var databaseSource2 = new DatabaseSource(
+            guidGenerator.Create(),
+            null,
+            DatabaseKind.MySql,
+            "Test",
+            "Pr",
+            "ConnectionTest",
+            [
+                new CreateDatabaseTable(
+                    "Table",
+                    "Table",
+                    [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Uuid, "Column", "Column")]),
+                new CreateDatabaseTable(
+                    "TableY",
+                    "TableY",
+                    [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Uuid, "ColumnY", "ColumnY")]),
+            ]);
+
+        databaseSource2.AddInternalRelation(
+            DataSourceRelationDirection.ManyToOne,
+            new DataSourceInternalLink(
+                databaseSource2.Tables[0].Id,
+                databaseSource2.Tables[0].Columns[0].Id),
+            new DataSourceInternalLink(
+                databaseSource2.Tables[1].Id,
+                databaseSource2.Tables[1].Columns[0].Id));
+
+        await databaseSourceRepository.InsertAsync(databaseSource2);
 
         await uow.CompleteAsync();
     }

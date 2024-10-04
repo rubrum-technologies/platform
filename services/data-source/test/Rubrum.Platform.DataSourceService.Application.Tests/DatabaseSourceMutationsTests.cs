@@ -33,7 +33,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
                                     systemName: "Column_2",
                                 },
                                 {
-                                    kind: NUMBER,
+                                    kind: FLOAT,
                                     name: "Column3",
                                     systemName: "Column_3",
                                 }
@@ -100,6 +100,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
                 createDatabaseSource(input: {
                     kind: POSTGRESQL,
                     name: "Postgres",
+                    prefix: "PS",
                     connectionString: "ConnectionStringTest",
                     tables: [
                         {
@@ -117,7 +118,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
                                     systemName: "Column_2",
                                 },
                                 {
-                                    kind: NUMBER,
+                                    kind: INT,
                                     name: "Column3",
                                     systemName: "Column_3",
                                 }
@@ -138,7 +139,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
                                     systemName: "Column_2",
                                 },
                                 {
-                                    kind: NUMBER,
+                                    kind: FLOAT,
                                     name: "Column3",
                                     systemName: "Column_3",
                                 }
@@ -184,6 +185,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
                 createDatabaseSource(input: {
                     kind: POSTGRESQL,
                     name: "Test_Duplicate",
+                    prefix: "ER",
                     connectionString: "ConnectionStringTest",
                     tables: [
                         {
@@ -221,6 +223,53 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
     }
 
     [Fact]
+    public async Task Create_DataSourcePrefixAlreadyExistsException()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            mutation {
+                createDatabaseSource(input: {
+                    kind: POSTGRESQL,
+                    name: "Test_Zaqq",
+                    prefix: "Pr",
+                    connectionString: "ConnectionStringTest",
+                    tables: [
+                        {
+                            name: "Table1",
+                            systemName: "Table_1",
+                            columns: [
+                                {
+                                    kind: BOOLEAN,
+                                    name: "Column1",
+                                    systemName: "Column_1",
+                                }
+                            ]
+                        },
+                    ]
+                }) {
+                    databaseSource {
+                        name
+                        prefix
+                    }
+                    errors {
+                        ... on DataSourcePrefixAlreadyExistsError {
+                            prefix
+                            code
+                            details
+                            logLevel
+                            message
+                        }
+                        __typename
+                    }
+                }
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task Create_DatabaseSourceTablesEmptyException()
     {
         await using var result = await ExecuteRequestAsync(b => b.SetDocument(
@@ -229,6 +278,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
                 createDatabaseSource(input: {
                     kind: SQL_SERVER,
                     name: "Test98",
+                    prefix: "Te",
                     connectionString: "Connection47",
                     tables: []
                 }) {
@@ -262,6 +312,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
                 createDatabaseSource(input: {
                     kind: POSTGRESQL,
                     name: "Test10",
+                    prefix: "Te",
                     connectionString: "ConnectionStringTest",
                     tables: [
                         {
@@ -319,6 +370,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
                 createDatabaseSource(input: {
                     kind: SQL_SERVER,
                     name: "Test20",
+                    prefix: "Err",
                     connectionString: "ConnectionStringTest1",
                     tables: [
                         {
@@ -376,6 +428,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
                 createDatabaseSource(input: {
                     kind: MY_SQL,
                     name: "Test56",
+                    prefix: "Err",
                     connectionString: "ConnectionStringTest47",
                     tables: [
                         {
@@ -415,6 +468,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
                 createDatabaseSource(input: {
                     kind: SQL_SERVER,
                     name: "Test20",
+                    prefix: "Err",
                     connectionString: "ConnectionStringTest1",
                     tables: [
                         {
@@ -466,6 +520,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
                 createDatabaseSource(input: {
                     kind: MY_SQL,
                     name: "Test50",
+                    prefix: "Err",
                     connectionString: "ConnectionStringTest15",
                     tables: [
                         {
