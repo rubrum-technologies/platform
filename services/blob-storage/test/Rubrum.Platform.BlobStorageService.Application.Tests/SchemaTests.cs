@@ -7,8 +7,7 @@ using Xunit;
 
 namespace Rubrum.Platform.BlobStorageService;
 
-public sealed class
-    SchemaTests : RubrumGraphqlTestBase<PlatformBlobStorageServiceApplicationTestModule>
+public sealed class SchemaTests : BlobStorageServiceApplicationGraphqlTestBase
 {
     private readonly IRequestExecutorBuilder _builder;
 

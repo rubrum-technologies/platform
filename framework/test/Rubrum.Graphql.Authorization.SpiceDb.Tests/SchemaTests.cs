@@ -3,11 +3,12 @@ using HotChocolate.Execution;
 using HotChocolate.Execution.Configuration;
 using Rubrum.Graphql;
 using Shouldly;
+using Volo.Abp;
 using Xunit;
 
 namespace Rubrum.Authorization.Analyzers;
 
-public sealed class SchemaTests : RubrumGraphqlTestBase<RubrumGraphqlAuthorizationSpiceDbTestModule>
+public sealed class SchemaTests : GraphqlAuthorizationSpiceDbTestBase
 {
     private readonly IRequestExecutorBuilder _builder;
 
@@ -23,5 +24,10 @@ public sealed class SchemaTests : RubrumGraphqlTestBase<RubrumGraphqlAuthorizati
 
         schema.ShouldNotBeNull();
         schema.MatchSnapshot();
+    }
+
+    protected override void SetAbpApplicationCreationOptions(AbpApplicationCreationOptions options)
+    {
+        options.UseAutofac();
     }
 }

@@ -9,11 +9,6 @@ namespace Rubrum.Graphql;
 public class RubrumGraphqlTestBase<TModule> : AbpIntegratedTest<TModule>
     where TModule : IAbpModule
 {
-    protected override void SetAbpApplicationCreationOptions(AbpApplicationCreationOptions options)
-    {
-        options.UseAutofac();
-    }
-
     protected virtual async Task<IExecutionResult> ExecuteRequestAsync(
         Action<OperationRequestBuilder> configureRequest,
         CancellationToken cancellationToken = default)

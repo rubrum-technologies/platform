@@ -3,13 +3,11 @@ using HotChocolate.Execution;
 using Microsoft.Extensions.DependencyInjection;
 using Rubrum.Modularity;
 using Volo.Abp;
-using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
 
 namespace Rubrum.Graphql;
 
 [DependsOn<AbpTestBaseModule>]
-[DependsOn<AbpAutofacModule>]
 [DependsOn<RubrumGraphqlAuthorizationModule>]
 public class RubrumGraphqlTestModule : AbpModule
 {
@@ -23,5 +21,11 @@ public class RubrumGraphqlTestModule : AbpModule
 
         context.Services.GetGraphql()
             .AddFakeAuthorizationHandler();
+    }
+
+    public override void OnPostApplicationInitialization(ApplicationInitializationContext context)
+    {
+        context.ServiceProvider.GetGraphql()
+            .InitializeOnStartup();
     }
 }

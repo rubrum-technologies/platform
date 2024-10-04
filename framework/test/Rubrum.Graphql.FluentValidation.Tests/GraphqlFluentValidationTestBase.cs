@@ -1,4 +1,12 @@
-﻿namespace Rubrum.Graphql;
+﻿using Volo.Abp;
+
+namespace Rubrum.Graphql;
 
 public class GraphqlFluentValidationTestBase :
-    RubrumGraphqlTestBase<RubrumGraphqlFluentValidationTestModule>;
+    RubrumGraphqlTestBase<RubrumGraphqlFluentValidationTestModule>
+{
+    protected override void SetAbpApplicationCreationOptions(AbpApplicationCreationOptions options)
+    {
+        options.UseAutofac();
+    }
+}
