@@ -20,7 +20,7 @@ public class AppManagerTests : StoreAppsServiceDomainTestBase
     {
         var name = "Лучшее приложение";
         var version = new Version(1, 0, 0);
-        var app = await _manager.CreateAsync(name, version, true);
+        var app = await _manager.CreateAsync(TestOwnerId, name, version, true);
 
         app.ShouldNotBeNull();
         app.Name.ShouldBe(name);
@@ -33,7 +33,7 @@ public class AppManagerTests : StoreAppsServiceDomainTestBase
     {
         await Assert.ThrowsAsync<AppNameAlreadyExistsException>(async () =>
         {
-            await _manager.CreateAsync(TestName, TestVersion, true);
+            await _manager.CreateAsync(Guid.NewGuid(), TestName, TestVersion, true);
         });
     }
 }

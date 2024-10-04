@@ -17,7 +17,7 @@ public class StoreAppsServiceTestDataSeedContributor(
         }
 
         await repository.InsertAsync(
-            await manager.CreateAsync(TestName, TestVersion, true),
+            await manager.CreateAsync(TestOwnerId, TestName, TestVersion, true),
             true);
     }
 }

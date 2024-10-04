@@ -1,16 +1,18 @@
 using System.Diagnostics.CodeAnalysis;
+using Rubrum.Auditing;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
 namespace Rubrum.Platform.StoreAppsService.Apps;
 
-public class App : FullAuditedAggregateRoot<Guid>, IMultiTenant
+public class App : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMustHaveOwner
 {
-    internal App(Guid id, Guid? tenantId, string name, Version version, bool enabled)
+    internal App(Guid id, Guid? tenantId, Guid ownerId, string name, Version version, bool enabled)
         : base(id)
     {
         TenantId = tenantId;
+        OwnerId = ownerId;
         SetName(name);
         Version = version;
         Enabled = enabled;
@@ -23,6 +25,8 @@ public class App : FullAuditedAggregateRoot<Guid>, IMultiTenant
     }
 
     public Guid? TenantId { get; }
+
+    public Guid OwnerId { get; }
 
     public string Name { get; private set; }
 

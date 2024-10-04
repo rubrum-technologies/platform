@@ -1,92 +1,72 @@
 using HotChocolate;
+using HotChocolate.Authorization;
 using HotChocolate.Types;
 using HotChocolate.Types.Relay;
+using MediatR;
 using Rubrum.Graphql.Errors;
 using Rubrum.Graphql.Middlewares;
+using Rubrum.Platform.StoreAppsService.Apps.Commands;
+using Volo.Abp.Users;
 
 namespace Rubrum.Platform.StoreAppsService.Apps;
 
 [MutationType]
 public static class AppMutations
 {
+    [Authorize]
     [UseUnitOfWork]
     [UseAbpError]
     [Error<AppNameAlreadyExistsException>]
     public static async Task<App> CreateAppAsync(
-        CreateAppInput input,
-        [Service] IAppRepository repository,
-        [Service] AppManager manager,
+        CreateAppCommand input,
+        [Service] IMediator mediator,
         CancellationToken ct = default)
     {
-        var app = await manager.CreateAsync(
-            input.Name,
-            input.Version,
-            input.Enabled);
-
-        await repository.InsertAsync(app, true, ct);
-
-        return app;
+        return await mediator.Send(input, ct);
     }
 
+    [Authorize]
     [UseUnitOfWork]
     [UseAbpError]
     [Error<AppNameAlreadyExistsException>]
     public static async Task<App> ChangeNameAppAsync(
-        ChangeNameAppInput input,
-        [Service] IAppRepository repository,
-        [Service] AppManager manager,
+        ChangeAppNameCommand input,
+        [Service] IMediator mediator,
         CancellationToken ct = default)
     {
-        var app = await repository.GetAsync(x => x.Id == input.Id, true, ct);
-
-        await manager.ChangeNameAsync(app, input.Name);
-
-        return app;
+        return await mediator.Send(input, ct);
     }
 
+    [Authorize]
     [UseUnitOfWork]
     [UseAbpError]
     public static async Task<App> DeleteAppAsync(
-        [ID<App>] Guid id,
-        [Service] IAppRepository repository,
+        DeleteAppCommand input,
+        [Service] IMediator mediator,
         CancellationToken ct = default)
     {
-        var app = await repository.GetAsync(x => x.Id == id, true, ct);
-
-        await repository.DeleteAsync(app, true, ct);
-
-        return app;
+        return await mediator.Send(input, ct);
     }
 
+    [Authorize]
     [UseUnitOfWork]
     [UseAbpError]
     public static async Task<App> ActivateAppAsync(
-        [ID<App>] Guid id,
-        [Service] IAppRepository repository,
+        ActivateAppCommand input,
+        [Service] IMediator mediator,
         CancellationToken ct = default)
     {
-        var app = await repository.GetAsync(x => x.Id == id, true, ct);
-
-        app.Activate();
-
-        await repository.UpdateAsync(app, true, ct);
-
-        return app;
+        return await mediator.Send(input, ct);
     }
 
+    [Authorize]
     [UseUnitOfWork]
     [UseAbpError]
     public static async Task<App> DeactivateAppAsync(
-        [ID<App>] Guid id,
-        [Service] IAppRepository repository,
+        DeactivateAppCommand input,
+        [Service] IMediator mediator,
         CancellationToken ct = default)
     {
-        var app = await repository.GetAsync(x => x.Id == id, true, ct);
-
-        app.Deactivate();
-
-        await repository.UpdateAsync(app, true, ct);
-
-        return app;
+        return await mediator.Send(input, ct);
     }
 }

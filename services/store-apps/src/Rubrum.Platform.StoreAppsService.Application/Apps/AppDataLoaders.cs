@@ -12,14 +12,14 @@ public static class AppDataLoaders
         IUnitOfWorkManager unitOfWorkManager,
         IAsyncQueryableExecuter asyncExecuter,
         IAppRepository repository,
-        CancellationToken cancellationToken)
+        CancellationToken ct)
     {
         using var uow = unitOfWorkManager.Begin(true, true);
 
         var query = (await repository.GetQueryableAsync())
             .Where(x => ids.Contains(x.Id));
 
-        var apps = await asyncExecuter.ToListAsync(query, cancellationToken);
+        var apps = await asyncExecuter.ToListAsync(query, ct);
 
         return apps.ToDictionary(x => x.Id, x => x);
     }
