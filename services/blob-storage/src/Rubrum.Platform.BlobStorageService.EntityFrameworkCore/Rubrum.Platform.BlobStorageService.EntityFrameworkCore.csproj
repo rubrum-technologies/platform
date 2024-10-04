@@ -24,9 +24,4 @@
     <ProjectReference Include="..\..\..\..\framework\src\Rubrum.EntityFrameworkCore\Rubrum.EntityFrameworkCore.csproj"/>
     <ProjectReference Include="..\Rubrum.Platform.BlobStorageService.Domain\Rubrum.Platform.BlobStorageService.Domain.csproj"/>
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Migrations\20240920111304_Initial.cs" />
-    <Compile Remove="Migrations\20240920111304_Initial.Designer.cs" />
-  </ItemGroup>
 </Project>

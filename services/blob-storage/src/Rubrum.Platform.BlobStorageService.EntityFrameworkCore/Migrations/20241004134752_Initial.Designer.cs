@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Rubrum.Platform.BlobStorageService.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(BlobStorageServiceDbContext))]
-    [Migration("20241001113852_Initial")]
+    [Migration("20241004134752_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

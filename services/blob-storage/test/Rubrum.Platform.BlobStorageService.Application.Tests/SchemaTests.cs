@@ -1,7 +1,6 @@
 ﻿using CookieCrumble;
 using HotChocolate.Execution;
 using HotChocolate.Execution.Configuration;
-using Rubrum.Graphql;
 using Shouldly;
 using Xunit;
 
