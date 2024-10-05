@@ -52,6 +52,7 @@ public class DatabaseSourceGraphqlModule(
                 type: TypeReference.Parse($"[{name}!]!"),
                 resolver: async _ => await factoryQueryable())
             .ToDescriptor(context)
+            .UseProjection(type)
             .UseFiltering(type)
             .UseSorting(type)
             .ToDefinition();
@@ -66,6 +67,7 @@ public class DatabaseSourceGraphqlModule(
 
         firstDescriptor
             .UseFirstOrDefault()
+            .UseProjection(type)
             .UseFiltering(type);
 
         var firstDefinition = firstDescriptor.ToDefinition();

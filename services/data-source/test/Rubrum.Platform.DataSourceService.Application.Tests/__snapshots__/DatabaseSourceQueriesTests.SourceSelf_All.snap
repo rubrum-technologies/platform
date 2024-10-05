@@ -3,15 +3,48 @@
     "westSourceAll": [
       {
         "naming": "Test_Duplicate",
-        "tables": null
-      },
-      {
-        "naming": "Test",
-        "tables": null
+        "tables": [
+          {
+            "systemName": "TableX",
+            "naming": "TableX",
+            "databaseSourceId": "3a1570a6-43d5-c1e7-b18f-a7af7f0748c7"
+          },
+          {
+            "systemName": "Table",
+            "naming": "Table",
+            "databaseSourceId": "3a1570a6-43d5-c1e7-b18f-a7af7f0748c7"
+          }
+        ]
       },
       {
         "naming": "West",
-        "tables": null
+        "tables": [
+          {
+            "systemName": "RubrumDatabaseTables",
+            "naming": "Table",
+            "databaseSourceId": "3a1570a6-43d9-01dd-c424-b29fa14effd3"
+          },
+          {
+            "systemName": "RubrumDataSources",
+            "naming": "Source",
+            "databaseSourceId": "3a1570a6-43d9-01dd-c424-b29fa14effd3"
+          }
+        ]
+      },
+      {
+        "naming": "Test",
+        "tables": [
+          {
+            "systemName": "TableY",
+            "naming": "TableY",
+            "databaseSourceId": "3a1570a6-43d9-96a7-dade-1404d0358a63"
+          },
+          {
+            "systemName": "Table",
+            "naming": "Table",
+            "databaseSourceId": "3a1570a6-43d9-96a7-dade-1404d0358a63"
+          }
+        ]
       }
     ]
   }

@@ -2,7 +2,18 @@
   "data": {
     "westSource": {
       "naming": "Test_Duplicate",
-      "tables": null
+      "tables": [
+        {
+          "systemName": "Table",
+          "naming": "Table",
+          "databaseSourceId": "3a1570a6-db3e-cc6e-c2e4-a7638de39ddb"
+        },
+        {
+          "systemName": "TableX",
+          "naming": "TableX",
+          "databaseSourceId": "3a1570a6-db3e-cc6e-c2e4-a7638de39ddb"
+        }
+      ]
     }
   }
 }

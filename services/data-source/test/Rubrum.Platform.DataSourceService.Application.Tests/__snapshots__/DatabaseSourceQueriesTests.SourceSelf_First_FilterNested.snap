@@ -2,7 +2,18 @@
   "data": {
     "westSource": {
       "naming": "West",
-      "tables": null
+      "tables": [
+        {
+          "systemName": "RubrumDataSources",
+          "naming": "Source",
+          "databaseSourceId": "3a1570a6-e3f0-542f-fd40-8c4b10e2e3f9"
+        },
+        {
+          "systemName": "RubrumDatabaseTables",
+          "naming": "Table",
+          "databaseSourceId": "3a1570a6-e3f0-542f-fd40-8c4b10e2e3f9"
+        }
+      ]
     }
   }
 }
