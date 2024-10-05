@@ -13,7 +13,11 @@ public class RubrumGraphqlModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
-        var graphql = context.Services.AddGraphQL();
+        var graphql = context.Services.AddGraphQL()
+            .ModifyOptions(options =>
+            {
+                options.SortFieldsByName = true;
+            });
 
         context.Services.AddSingleton(graphql);
     }

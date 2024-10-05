@@ -15,10 +15,10 @@ interface AuditedObject implements CreationAuditedObject & HasCreationTime & May
   creationTime: DateTime
   "Id of the creator."
   creatorId: ID
-  "Last modifier user for this entity."
-  lastModifierId: ID
   "The last modified time for this entity."
   lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
 }
 
 "This interface can be implemented to store creation information (who and when created)."
@@ -30,28 +30,28 @@ interface CreationAuditedObject implements HasCreationTime & MayHaveCreator {
 }
 
 interface DataSource implements Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant {
-  name: String!
-  prefix: String!
   connectionString: String!
-  "Returns an array of ordered keys for this entity."
-  keys: [Any]!
-  "Unique identifier for this entity."
-  id: ID!
-  extraProperties: JSON
   "Creation time."
   creationTime: DateTime
   "Id of the creator."
   creatorId: ID
-  "Last modifier user for this entity."
-  lastModifierId: ID
-  "The last modified time for this entity."
-  lastModificationTime: DateTime
   "Id of the deleter user."
   deleterId: ID
   "Deletion time."
   deletionTime: DateTime
+  extraProperties: JSON
+  "Unique identifier for this entity."
+  id: ID!
   "Used to mark an Entity as 'Deleted'."
   isDeleted: Boolean!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
+  name: String!
+  prefix: String!
   "Id of the related tenant."
   tenantId: ID
 }
@@ -90,16 +90,16 @@ interface FullAuditedObject implements AuditedObject & CreationAuditedObject & H
   creationTime: DateTime
   "Id of the creator."
   creatorId: ID
-  "Last modifier user for this entity."
-  lastModifierId: ID
-  "The last modified time for this entity."
-  lastModificationTime: DateTime
   "Id of the deleter user."
   deleterId: ID
   "Deletion time."
   deletionTime: DateTime
   "Used to mark an Entity as 'Deleted'."
   isDeleted: Boolean!
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
 }
 
 "A standard interface to add CreationTime property."
@@ -134,10 +134,10 @@ interface MayHaveCreator {
 
 "This interface can be implemented to store modification information (who and when modified lastly)."
 interface ModificationAuditedObject implements HasModificationTime {
-  "Last modifier user for this entity."
-  lastModifierId: ID
   "The last modified time for this entity."
   lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
 }
 
 interface MultiTenant {
@@ -178,46 +178,46 @@ type CreateDatabaseSourcePayload {
 }
 
 type DataSourceNameAlreadyExistsError implements Error {
-  message: String!
-  name: String!
   code: String
   details: String
   logLevel: LogLevel!
+  message: String!
+  name: String!
 }
 
 type DataSourcePrefixAlreadyExistsError implements Error {
-  message: String!
-  prefix: String!
   code: String
   details: String
   logLevel: LogLevel!
+  message: String!
+  prefix: String!
 }
 
 type DatabaseColumn implements Node & Entity & EntityOfGuid {
-  "Returns an array of ordered keys for this entity."
-  keys: [Any]!
   "Unique identifier for this entity."
   id: ID!
-  tableId: ID!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
   kind: DataSourceEntityPropertyKind!
   name: String!
   systemName: String!
+  tableId: ID!
 }
 
 type DatabaseColumnNameAlreadyExistsError implements Error {
-  message: String!
-  columnName: String!
   code: String
+  columnName: String!
   details: String
   logLevel: LogLevel!
+  message: String!
 }
 
 type DatabaseColumnSystemNameAlreadyExistsError implements Error {
-  message: String!
-  columnSystemName: String!
   code: String
+  columnSystemName: String!
   details: String
   logLevel: LogLevel!
+  message: String!
 }
 
 type DatabaseSchemaInformation {
@@ -225,89 +225,89 @@ type DatabaseSchemaInformation {
 }
 
 type DatabaseSource implements Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & DataSource @aggregate {
-  "Returns an array of ordered keys for this entity."
-  keys: [Any]!
-  "Unique identifier for this entity."
-  id: ID!
-  "Id of the creator."
-  creatorId: ID
-  "Last modifier user for this entity."
-  lastModifierId: ID
-  "Id of the deleter user."
-  deleterId: ID
-  extraProperties: JSON
-  "Id of the related tenant."
-  tenantId: ID
-  kind: DatabaseKind!
-  tables: [DatabaseTable!]!
+  connectionString: String!
   "Creation time."
   creationTime: DateTime
-  "The last modified time for this entity."
-  lastModificationTime: DateTime
+  "Id of the creator."
+  creatorId: ID
+  "Id of the deleter user."
+  deleterId: ID
   "Deletion time."
   deletionTime: DateTime
+  extraProperties: JSON
+  "Unique identifier for this entity."
+  id: ID!
   "Used to mark an Entity as 'Deleted'."
   isDeleted: Boolean!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  kind: DatabaseKind!
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
   name: String!
   prefix: String!
-  connectionString: String!
+  tables: [DatabaseTable!]!
+  "Id of the related tenant."
+  tenantId: ID
 }
 
 type DatabaseSourceTablesEmptyError implements Error {
-  message: String!
   code: String
   details: String
   logLevel: LogLevel!
+  message: String!
 }
 
 type DatabaseTable implements Node & Entity & EntityOfGuid {
-  "Returns an array of ordered keys for this entity."
-  keys: [Any]!
+  columns: [DatabaseColumn!]!
+  databaseSourceId: ID!
   "Unique identifier for this entity."
   id: ID!
-  databaseSourceId: ID!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
   name: String!
   systemName: String!
-  columns: [DatabaseColumn!]!
 }
 
 type DatabaseTableColumnsEmptyError implements Error {
-  message: String!
   code: String
   details: String
   logLevel: LogLevel!
+  message: String!
 }
 
 type DatabaseTableNameAlreadyExistsError implements Error {
-  message: String!
-  tableName: String!
   code: String
   details: String
   logLevel: LogLevel!
+  message: String!
+  tableName: String!
 }
 
 type DatabaseTableSystemNameAlreadyExistsError implements Error {
-  message: String!
-  tableSystemName: String!
   code: String
   details: String
   logLevel: LogLevel!
+  message: String!
+  tableSystemName: String!
 }
 
 type EntityNotFoundError implements Error {
   id: String
-  type: String
   message: String!
+  type: String
 }
 
 type FailConnectError implements Error {
-  message: String!
   connectionString: String!
+  message: String!
 }
 
 type IncorrectConnectionStringError implements Error {
-  message: String!
   incorrectConnectionString: String!
+  message: String!
 }
 
 type InfoAboutColumn {
@@ -316,8 +316,8 @@ type InfoAboutColumn {
 }
 
 type InfoAboutTable {
-  name: String!
   columns: [InfoAboutColumn!]!
+  name: String!
 }
 
 type Mutation {
@@ -326,7 +326,7 @@ type Mutation {
 
 type PrTable {
   column: UUID!
-  tablesY: [PrTableY]
+  tablesY: PrTableY
 }
 
 type PrTableY {
@@ -334,21 +334,41 @@ type PrTableY {
 }
 
 type Query {
+  dataSourceById(id: ID!): DataSource @authorize
   "Fetches an object given its ID."
   node("ID of the object." id: ID!): Node
   "Lookup nodes by a list of IDs."
   nodes("The list of node IDs." ids: [ID!]!): [Node]!
-  TestTableXAll(where: TestTableXFilterInput order: [TestTableXSortInput!]): [TestTableX!]!
-  TestTableAll(where: TestTableFilterInput order: [TestTableSortInput!]): [TestTable!]!
-  PrTableAll(where: PrTableFilterInput order: [PrTableSortInput!]): [PrTable!]!
-  PrTableYAll(where: PrTableYFilterInput order: [PrTableYSortInput!]): [PrTableY!]!
-  schemaDatabase(kind: DatabaseKind! connectionString: String!): SchemaDatabaseResult! @authorize
-  dataSourceById(id: ID!): DataSource @authorize
+  prTable(where: PrTableFilterInput): PrTable
+  prTableAll(order: [PrTableSortInput!] where: PrTableFilterInput): [PrTable!]!
+  prTableAny(where: PrTableFilterInput): Boolean!
+  prTableCount(where: PrTableFilterInput): Int!
+  prTableY(where: PrTableYFilterInput): PrTableY
+  prTableYAll(order: [PrTableYSortInput!] where: PrTableYFilterInput): [PrTableY!]!
+  prTableYAny(where: PrTableYFilterInput): Boolean!
+  prTableYCount(where: PrTableYFilterInput): Int!
+  schemaDatabase(connectionString: String! kind: DatabaseKind!): SchemaDatabaseResult! @authorize
+  testTable(where: TestTableFilterInput): TestTable
+  testTableAll(order: [TestTableSortInput!] where: TestTableFilterInput): [TestTable!]!
+  testTableAny(where: TestTableFilterInput): Boolean!
+  testTableCount(where: TestTableFilterInput): Int!
+  testTableX(where: TestTableXFilterInput): TestTableX
+  testTableXAll(order: [TestTableXSortInput!] where: TestTableXFilterInput): [TestTableX!]!
+  testTableXAny(where: TestTableXFilterInput): Boolean!
+  testTableXCount(where: TestTableXFilterInput): Int!
+  westSource(where: WestSourceFilterInput): WestSource
+  westSourceAll(order: [WestSourceSortInput!] where: WestSourceFilterInput): [WestSource!]!
+  westSourceAny(where: WestSourceFilterInput): Boolean!
+  westSourceCount(where: WestSourceFilterInput): Int!
+  westTable(where: WestTableFilterInput): WestTable
+  westTableAll(order: [WestTableSortInput!] where: WestTableFilterInput): [WestTable!]!
+  westTableAny(where: WestTableFilterInput): Boolean!
+  westTableCount(where: WestTableFilterInput): Int!
 }
 
 type TestTable {
   column: UUID!
-  tableTX: TestTableX
+  tableTX: [TestTableX]
 }
 
 type TestTableX {
@@ -364,6 +384,19 @@ type ValidationResult {
   errorMessage: String
 }
 
+type WestSource {
+  identifier: UUID!
+  naming: String
+  tables: [WestTable]
+}
+
+type WestTable {
+  databaseSourceId: UUID!
+  identifier: UUID!
+  naming: String
+  systemName: String
+}
+
 union CreateDatabaseSourceError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | IncorrectConnectionStringError | FailConnectError | DataSourceNameAlreadyExistsError | DataSourcePrefixAlreadyExistsError | DatabaseSourceTablesEmptyError | DatabaseTableNameAlreadyExistsError | DatabaseTableSystemNameAlreadyExistsError | DatabaseTableColumnsEmptyError | DatabaseColumnNameAlreadyExistsError | DatabaseColumnSystemNameAlreadyExistsError
 
 union SchemaDatabaseResult = DatabaseSchemaInformation | IncorrectConnectionStringError | FailConnectError
@@ -375,23 +408,30 @@ input CreateDatabaseColumnInput {
 }
 
 input CreateDatabaseSourceInput {
+  connectionString: String!
   kind: DatabaseKind!
   name: String!
   prefix: String!
-  connectionString: String!
   tables: [CreateDatabaseTableInput!]!
 }
 
 input CreateDatabaseTableInput {
+  columns: [CreateDatabaseColumnInput!]!
   name: String!
   systemName: String!
-  columns: [CreateDatabaseColumnInput!]!
 }
 
-input ListFilterInputTypeOfPrTableYFilterInput {
-  all: PrTableYFilterInput
-  none: PrTableYFilterInput
-  some: PrTableYFilterInput
+input ListFilterInputTypeOfTestTableXFilterInput {
+  all: TestTableXFilterInput
+  none: TestTableXFilterInput
+  some: TestTableXFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfWestTableFilterInput {
+  all: WestTableFilterInput
+  none: WestTableFilterInput
+  some: WestTableFilterInput
   any: Boolean
 }
 
@@ -399,11 +439,12 @@ input PrTableFilterInput {
   and: [PrTableFilterInput!]
   or: [PrTableFilterInput!]
   column: UuidOperationFilterInput
-  tablesY: ListFilterInputTypeOfPrTableYFilterInput
+  tablesY: PrTableYFilterInput
 }
 
 input PrTableSortInput {
   column: SortEnumType
+  tablesY: PrTableYSortInput
 }
 
 input PrTableYFilterInput {
@@ -416,16 +457,30 @@ input PrTableYSortInput {
   columnY: SortEnumType
 }
 
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
 input TestTableFilterInput {
   and: [TestTableFilterInput!]
   or: [TestTableFilterInput!]
   column: UuidOperationFilterInput
-  tableTX: TestTableXFilterInput
+  tableTX: ListFilterInputTypeOfTestTableXFilterInput
 }
 
 input TestTableSortInput {
   column: SortEnumType
-  tableTX: TestTableXSortInput
 }
 
 input TestTableXFilterInput {
@@ -451,6 +506,35 @@ input UuidOperationFilterInput {
   nlt: UUID
   lte: UUID
   nlte: UUID
+}
+
+input WestSourceFilterInput {
+  and: [WestSourceFilterInput!]
+  or: [WestSourceFilterInput!]
+  naming: StringOperationFilterInput
+  identifier: UuidOperationFilterInput
+  tables: ListFilterInputTypeOfWestTableFilterInput
+}
+
+input WestSourceSortInput {
+  naming: SortEnumType
+  identifier: SortEnumType
+}
+
+input WestTableFilterInput {
+  and: [WestTableFilterInput!]
+  or: [WestTableFilterInput!]
+  identifier: UuidOperationFilterInput
+  systemName: StringOperationFilterInput
+  naming: StringOperationFilterInput
+  databaseSourceId: UuidOperationFilterInput
+}
+
+input WestTableSortInput {
+  identifier: SortEnumType
+  systemName: SortEnumType
+  naming: SortEnumType
+  databaseSourceId: SortEnumType
 }
 
 "Defines when a policy shall be executed."
@@ -507,7 +591,7 @@ enum SortEnumType {
 directive @aggregate on OBJECT
 
 "The authorize directive."
-directive @authorize("The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!] "Defines when when the authorize directive shall be applied.By default the authorize directives are applied during the validation phase." apply: ApplyPolicy! = BEFORE_RESOLVER) repeatable on OBJECT | FIELD_DEFINITION
+directive @authorize("Defines when when the authorize directive shall be applied.By default the authorize directives are applied during the validation phase." apply: ApplyPolicy! = BEFORE_RESOLVER "The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!]) repeatable on OBJECT | FIELD_DEFINITION
 
 "The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
 directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR

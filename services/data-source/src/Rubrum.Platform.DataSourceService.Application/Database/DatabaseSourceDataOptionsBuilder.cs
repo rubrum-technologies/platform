@@ -73,8 +73,8 @@ public class DatabaseSourceDataOptionsBuilder(
         options = source.Kind switch
         {
             DatabaseKind.MySql => options.UseMySql(source.ConnectionString),
-            DatabaseKind.Postgresql => options.UseMySql(source.ConnectionString),
-            DatabaseKind.SqlServer => options.UseMySql(source.ConnectionString),
+            DatabaseKind.Postgresql => options.UsePostgreSQL(source.ConnectionString),
+            DatabaseKind.SqlServer => options.UseSqlServer(source.ConnectionString),
             _ => throw new ArgumentOutOfRangeException(nameof(source)),
         };
 
@@ -118,17 +118,10 @@ public class DatabaseSourceDataOptionsBuilder(
 
         if (relation.Direction == DataSourceRelationDirection.OneToMany)
         {
-            var leftLambda = CreateLambda(leftType, leftPropertyType, leftColumn.Name);
-            var rightLambda = CreateLambda(rightType, rightPropertyType, rightColumn.Name);
-            var relationLambda = CreateLambda(leftType, rightType, relation.Name);
-
-            AssociationOneToMany(entityBuilder.GetType())
-                .MakeGenericMethod(rightType, leftPropertyType, rightPropertyType)
-                .Invoke(entityBuilder, [relationLambda, leftLambda, rightLambda, true]);
-        }
-        else if (relation.Direction == DataSourceRelationDirection.ManyToOne)
-        {
-            var relationLambda = CreateLambda(leftType, typeof(IEnumerable<>).MakeGenericType(rightType), relation.Name);
+            var relationLambda = CreateLambda(
+                leftType,
+                typeof(IEnumerable<>).MakeGenericType(rightType),
+                relation.Name);
 
             var func = typeof(Func<,,>).MakeGenericType(leftType, rightType, typeof(bool));
             var leftParameter = Expression.Parameter(leftType, "a");
@@ -144,6 +137,16 @@ public class DatabaseSourceDataOptionsBuilder(
             AssociationManyToOne(entityBuilder.GetType())
                 .MakeGenericMethod(rightType)
                 .Invoke(entityBuilder, [relationLambda, predicate, true]);
+        }
+        else if (relation.Direction == DataSourceRelationDirection.ManyToOne)
+        {
+            var leftLambda = CreateLambda(leftType, leftPropertyType, leftColumn.Name);
+            var rightLambda = CreateLambda(rightType, rightPropertyType, rightColumn.Name);
+            var relationLambda = CreateLambda(leftType, rightType, relation.Name);
+
+            AssociationOneToMany(entityBuilder.GetType())
+                .MakeGenericMethod(rightType, leftPropertyType, rightPropertyType)
+                .Invoke(entityBuilder, [relationLambda, leftLambda, rightLambda, true]);
         }
     }
 

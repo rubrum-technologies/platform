@@ -11,7 +11,8 @@ public class DatabaseSourceQueryableManager(
     IDatabaseSourceRepository repository) : IDatabaseSourceQueryableManager, ISingletonDependency
 {
     protected static readonly MethodInfo GetTable = typeof(DataExtensions)
-        .GetMethod("GetTable")!;
+        .GetMethods()
+        .First(x => x.Name == "GetTable" && x.GetParameters().Length == 1);
 
     private readonly Dictionary<Guid, DataOptions> _options = [];
 
@@ -20,14 +21,16 @@ public class DatabaseSourceQueryableManager(
         var type = typesManager.GetType(table);
         var options = _options[table.DatabaseSourceId];
 
-        return Task.FromResult<Func<Task<IQueryable>>>(() =>
+        return Task.FromResult(() => Factory(type, options));
+
+        static Task<IQueryable> Factory(Type type, DataOptions options)
         {
             var connection = new DataConnection(options);
 
             var queryable = GetTable.MakeGenericMethod(type).Invoke(null, [connection])!;
 
             return Task.FromResult((IQueryable)queryable);
-        });
+        }
     }
 
     public async Task BuildAsync()

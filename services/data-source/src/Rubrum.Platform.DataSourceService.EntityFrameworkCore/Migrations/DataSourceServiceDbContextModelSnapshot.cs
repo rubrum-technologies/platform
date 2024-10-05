@@ -97,7 +97,7 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rubrum.PlatformDataSources", (string)null);
+                    b.ToTable("RubrumDataSources", (string)null);
 
                     b.HasDiscriminator().HasValue("DataSource");
 
@@ -146,7 +146,7 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
 
                     b.HasIndex("DataSourceId");
 
-                    b.ToTable("Rubrum.PlatformDataSourceInternalRelations", (string)null);
+                    b.ToTable("RubrumDataSourceInternalRelations", (string)null);
                 });
 
             modelBuilder.Entity("Rubrum.Platform.DataSourceService.Database.DatabaseColumn", b =>
@@ -177,7 +177,7 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TableId");
 
-                    b.ToTable("Rubrum.PlatformDatabaseColumns", (string)null);
+                    b.ToTable("RubrumDatabaseColumns", (string)null);
                 });
 
             modelBuilder.Entity("Rubrum.Platform.DataSourceService.Database.DatabaseTable", b =>
@@ -205,12 +205,15 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
 
                     b.HasIndex("DatabaseSourceId");
 
-                    b.ToTable("Rubrum.PlatformDatabaseTables", (string)null);
+                    b.ToTable("RubrumDatabaseTables", (string)null);
                 });
 
             modelBuilder.Entity("Rubrum.Platform.DataSourceService.Database.DatabaseSource", b =>
                 {
                     b.HasBaseType("Rubrum.Platform.DataSourceService.DataSource");
+
+                    b.Property<int>("Kind")
+                        .HasColumnType("integer");
 
                     b.HasDiscriminator().HasValue("DatabaseSource");
                 });

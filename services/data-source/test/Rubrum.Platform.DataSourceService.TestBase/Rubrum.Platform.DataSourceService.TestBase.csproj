@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.TestContainers.PostgreSql\Rubrum.TestContainers.PostgreSql.csproj"/>
     <ProjectReference Include="..\..\src\Rubrum.Platform.DataSourceService.Domain\Rubrum.Platform.DataSourceService.Domain.csproj"/>
   </ItemGroup>
 </Project>

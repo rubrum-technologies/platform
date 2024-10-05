@@ -2,7 +2,7 @@
 
 namespace Rubrum.Platform.DataSourceService;
 
-public interface IDataSourceCompiler
+public interface IDataSourceAssemblyCompiler
 {
     bool TryCompile(DataSource dataSource, [NotNullWhen(true)] out Stream? dll);
 }

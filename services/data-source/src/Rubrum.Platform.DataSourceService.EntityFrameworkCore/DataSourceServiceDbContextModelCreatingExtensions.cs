@@ -82,6 +82,9 @@ public static class DataSourceServiceDbContextModelCreatingExtensions
                 .HasField("_tables")
                 .UsePropertyAccessMode(PropertyAccessMode.Field)
                 .AutoInclude();
+
+            b.Property(x => x.Kind)
+                .IsRequired();
         });
 
         builder.Entity<DatabaseTable>(b =>

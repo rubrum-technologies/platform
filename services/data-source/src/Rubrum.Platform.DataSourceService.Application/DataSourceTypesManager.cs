@@ -5,7 +5,8 @@ namespace Rubrum.Platform.DataSourceService;
 
 public class DataSourceTypesManager(
     IDataSourceRepository repository,
-    IDataSourceCompiler compiler) : IDataSourceTypesManager, ISingletonDependency
+    IDataSourceAssemblyCompiler assemblyCompiler)
+    : IDataSourceTypesManager, ISingletonDependency
 {
     private readonly Dictionary<Guid, AssemblyLoadContext> _contexts = [];
     private readonly Dictionary<Guid, Type> _types = [];
@@ -15,20 +16,13 @@ public class DataSourceTypesManager(
         return _types[entity.Id];
     }
 
-    public IReadOnlyList<Type> GetTypes(DataSource source)
-    {
-        var context = _contexts[source.Id];
-
-        return context.Assemblies.SelectMany(a => a.GetTypes()).ToList().AsReadOnly();
-    }
-
     public async Task CompilationAsync(CancellationToken ct = default)
     {
         var sources = await repository.GetListAsync(true, ct);
 
         foreach (var source in sources)
         {
-            if (!compiler.TryCompile(source, out var stream))
+            if (!assemblyCompiler.TryCompile(source, out var stream))
             {
                 continue;
             }
@@ -47,10 +41,5 @@ public class DataSourceTypesManager(
                 _types.Add(entity.Id, type);
             }
         }
-    }
-
-    public async Task ReCompilationAsync(DataSource source, CancellationToken ct = default)
-    {
-        throw new NotImplementedException();
     }
 }

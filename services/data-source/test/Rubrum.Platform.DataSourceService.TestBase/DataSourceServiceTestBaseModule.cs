@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Rubrum.Modularity;
+using Rubrum.TestContainers.PostgreSql;
 using Volo.Abp;
 using Volo.Abp.Authorization;
 using Volo.Abp.Autofac;
@@ -12,6 +13,7 @@ namespace Rubrum.Platform.DataSourceService;
 [DependsOn<AbpTestBaseModule>]
 [DependsOn<AbpAuthorizationModule>]
 [DependsOn<AbpGuidsModule>]
+[DependsOn<RubrumTestContainersPostgreSqlModule>]
 [DependsOn<DataSourceServiceDomainModule>]
 public class DataSourceServiceTestBaseModule : AbpModule
 {

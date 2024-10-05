@@ -12,7 +12,6 @@ using Volo.Abp.Threading;
 
 namespace Rubrum.Platform.DataSourceService;
 
-[DependsOn<RubrumTestContainersPostgreSqlModule>]
 [DependsOn<DataSourceServiceTestBaseModule>]
 [DependsOn<DataSourceServiceEntityFrameworkCoreModule>]
 public class DataSourceServiceEntityFrameworkCoreTestModule : AbpModule

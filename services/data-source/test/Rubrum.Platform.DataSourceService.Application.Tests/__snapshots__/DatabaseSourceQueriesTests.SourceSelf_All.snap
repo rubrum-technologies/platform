@@ -1,0 +1,18 @@
+{
+  "data": {
+    "westSourceAll": [
+      {
+        "naming": "Test_Duplicate",
+        "tables": null
+      },
+      {
+        "naming": "Test",
+        "tables": null
+      },
+      {
+        "naming": "West",
+        "tables": null
+      }
+    ]
+  }
+}

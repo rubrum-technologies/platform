@@ -145,25 +145,25 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
     {
         await using var result = await ExecuteRequestAsync(b => b.SetDocument(
             """
-              query {
-                  schemaDatabase(kind: POSTGRESQL, connectionString: "Host=127.0.0.1;Port=55200;Database=postgres;Username=postgres;Password=postgres") {
-                      ... on DatabaseSchemaInformation {
-                          tables {
-                              name
-                              columns {
-                                  kind
-                                  name
-                              }
-                          }
-                      }
-                      ... on FailConnectError {
-                        connectionString
-                        message
-                      }
-                      __typename
-                  }
-              }
-              """));
+            query {
+                schemaDatabase(kind: POSTGRESQL, connectionString: "Host=127.0.0.1;Port=55200;Database=postgres;Username=postgres;Password=postgres") {
+                    ... on DatabaseSchemaInformation {
+                        tables {
+                            name
+                            columns {
+                                kind
+                                name
+                            }
+                        }
+                    }
+                    ... on FailConnectError {
+                      connectionString
+                      message
+                    }
+                    __typename
+                }
+            }
+            """));
 
         result.ShouldNotBeNull();
         result.MatchSnapshot();
@@ -191,6 +191,216 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
                     }
                     __typename
                 }
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task SourceSelf_All()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            query {
+                westSourceAll {
+                    naming
+                    tables {
+                        systemName
+                        naming
+                        databaseSourceId
+                    }
+                }
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task SourceSelf_All_Filter()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            query {
+                westSourceAll(where: {naming: {eq: "Test_Duplicate"}}) {
+                    naming
+                    tables {
+                        systemName
+                        naming
+                        databaseSourceId
+                    }
+                }
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task SourceSelf_All_FilterNested()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            query {
+                westSourceAll(where: { tables: { some: { naming: {eq: "Source"} } } }) {
+                    naming
+                    tables {
+                        systemName
+                        naming
+                        databaseSourceId
+                    }
+                }
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task SourceSelf_First()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            query {
+                westSource {
+                    naming
+                    tables {
+                        systemName
+                        naming
+                        databaseSourceId
+                    }
+                }
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task SourceSelf_First_Filter()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            query {
+                westSource(where: {naming: {eq: "West"}}) {
+                    naming
+                    tables {
+                        systemName
+                        naming
+                        databaseSourceId
+                    }
+                }
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task SourceSelf_First_FilterNested()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            query {
+                westSource(where: { tables: { some: { systemName: {eq: "RubrumDatabaseTables"} } } }) {
+                    naming
+                    tables {
+                        systemName
+                        naming
+                        databaseSourceId
+                    }
+                }
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task SourceSelf_Any()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            query {
+                westSourceAny
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task SourceSelf_Any_Filter()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            query {
+                westSourceAny(where: {naming: {eq: "West2"}})
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task SourceSelf_Any_FilterNested()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            query {
+                westSourceAny(where: { tables: { some: { systemName: {eq: "RubrumDataSources"} } } })
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task SourceSelf_Count()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            query {
+                westSourceCount
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task SourceSelf_Count_Filter()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            query {
+                westSourceCount(where: {naming: {eq: "West10"}})
+            }
+            """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task SourceSelf_Count_FilterNested()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            """
+            query {
+                westSourceCount(where: { tables: { some: { systemName: {eq: "RubrumDataSources"} } } })
             }
             """));
 

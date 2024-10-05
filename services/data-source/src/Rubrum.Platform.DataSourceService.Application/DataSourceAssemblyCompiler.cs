@@ -8,7 +8,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Rubrum.Platform.DataSourceService;
 
-public class DataSourceCompiler : IDataSourceCompiler, ITransientDependency
+public class DataSourceAssemblyCompiler : IDataSourceAssemblyCompiler, ITransientDependency
 {
     public bool TryCompile(DataSource dataSource, [NotNullWhen(true)] out Stream? dll)
     {
@@ -76,8 +76,8 @@ public class DataSourceCompiler : IDataSourceCompiler, ITransientDependency
 
         var propertyType = relation.Direction switch
         {
-            DataSourceRelationDirection.OneToMany => ParseName($"{dataSource.Prefix}{entity.Name}"),
-            DataSourceRelationDirection.ManyToOne => ParseName($"List<{dataSource.Prefix}{entity.Name}>"),
+            DataSourceRelationDirection.OneToMany => ParseName($"List<{dataSource.Prefix}{entity.Name}>"),
+            DataSourceRelationDirection.ManyToOne => ParseName($"{dataSource.Prefix}{entity.Name}"),
             _ => throw new ArgumentOutOfRangeException(nameof(relation)),
         };
 

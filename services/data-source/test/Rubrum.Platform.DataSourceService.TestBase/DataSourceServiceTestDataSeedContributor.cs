@@ -1,4 +1,5 @@
 using Rubrum.Platform.DataSourceService.Database;
+using Testcontainers.PostgreSql;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Guids;
@@ -7,6 +8,7 @@ using Volo.Abp.Uow;
 namespace Rubrum.Platform.DataSourceService;
 
 public class DataSourceServiceTestDataSeedContributor(
+    PostgreSqlContainer postgreSqlContainer,
     IUnitOfWorkManager unitOfWorkManager,
     IGuidGenerator guidGenerator,
     IDatabaseSourceRepository databaseSourceRepository) : IDataSeedContributor, ITransientDependency
@@ -74,6 +76,47 @@ public class DataSourceServiceTestDataSeedContributor(
                 databaseSource2.Tables[1].Columns[0].Id));
 
         await databaseSourceRepository.InsertAsync(databaseSource2);
+
+        var databaseSourceTest = new DatabaseSource(
+            guidGenerator.Create(),
+            null,
+            DatabaseKind.Postgresql,
+            "West",
+            "West",
+            postgreSqlContainer.GetConnectionString(),
+            [
+                new CreateDatabaseTable(
+                    "Source",
+                    "RubrumDataSources",
+                    [
+                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.Uuid, "Identifier", "Id"),
+                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.String, "Naming", "Name"),
+                    ]),
+                new CreateDatabaseTable(
+                    "Table",
+                    "RubrumDatabaseTables",
+                    [
+                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.Uuid, "Identifier", "Id"),
+                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.String, "Naming", "Name"),
+                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.String, "SystemName", "SystemName"),
+                        new CreateDatabaseColumn(
+                            DataSourceEntityPropertyKind.Uuid,
+                            "DatabaseSourceId",
+                            "DatabaseSourceId"),
+                    ]),
+            ]);
+
+        databaseSourceTest.AddInternalRelation(
+            DataSourceRelationDirection.OneToMany,
+            "Tables",
+            new DataSourceInternalLink(
+                databaseSourceTest.Entities[0].Id,
+                databaseSourceTest.Entities[0].Properties[0].Id),
+            new DataSourceInternalLink(
+                databaseSourceTest.Entities[1].Id,
+                databaseSourceTest.Entities[1].Properties[3].Id));
+
+        await databaseSourceRepository.InsertAsync(databaseSourceTest);
 
         await uow.CompleteAsync();
     }

@@ -66,7 +66,7 @@ public class MySqlSchemaBuilder : IDatabaseSchemaBuilder, ITransientDependency
     {
         var result = new List<InfoAboutColumn>();
         await using var command = new MySqlCommand(
-            $"SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{table}'",
+            $"SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{table}' ORDER BY COLUMN_NAME;",
             connection);
         await using var reader = await command.ExecuteReaderAsync();
 
