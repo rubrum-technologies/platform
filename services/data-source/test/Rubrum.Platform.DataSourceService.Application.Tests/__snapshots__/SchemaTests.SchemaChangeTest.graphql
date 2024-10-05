@@ -368,7 +368,7 @@ type Query {
 
 type TestTable {
   column: UUID!
-  tableTX: [TestTableX]
+  tableTX(order: [TestTableXSortInput!] where: TestTableXFilterInput): [TestTableX]
 }
 
 type TestTableX {
@@ -387,7 +387,7 @@ type ValidationResult {
 type WestSource {
   identifier: UUID!
   naming: String
-  tables: [WestTable]
+  tables(order: [WestTableSortInput!] where: WestTableFilterInput): [WestTable]
 }
 
 type WestTable {
@@ -511,30 +511,30 @@ input UuidOperationFilterInput {
 input WestSourceFilterInput {
   and: [WestSourceFilterInput!]
   or: [WestSourceFilterInput!]
-  naming: StringOperationFilterInput
   identifier: UuidOperationFilterInput
+  naming: StringOperationFilterInput
   tables: ListFilterInputTypeOfWestTableFilterInput
 }
 
 input WestSourceSortInput {
-  naming: SortEnumType
   identifier: SortEnumType
+  naming: SortEnumType
 }
 
 input WestTableFilterInput {
   and: [WestTableFilterInput!]
   or: [WestTableFilterInput!]
-  identifier: UuidOperationFilterInput
-  systemName: StringOperationFilterInput
-  naming: StringOperationFilterInput
   databaseSourceId: UuidOperationFilterInput
+  naming: StringOperationFilterInput
+  systemName: StringOperationFilterInput
+  identifier: UuidOperationFilterInput
 }
 
 input WestTableSortInput {
-  identifier: SortEnumType
-  systemName: SortEnumType
-  naming: SortEnumType
   databaseSourceId: SortEnumType
+  naming: SortEnumType
+  systemName: SortEnumType
+  identifier: SortEnumType
 }
 
 "Defines when a policy shall be executed."

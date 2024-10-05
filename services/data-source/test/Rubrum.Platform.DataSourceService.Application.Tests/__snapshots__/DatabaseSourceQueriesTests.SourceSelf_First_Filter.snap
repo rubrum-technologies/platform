@@ -5,13 +5,11 @@
       "tables": [
         {
           "systemName": "RubrumDatabaseTables",
-          "naming": "Table",
-          "databaseSourceId": "3a1570a6-b9b7-81c9-fd27-7304134aa358"
+          "naming": "Table"
         },
         {
           "systemName": "RubrumDataSources",
-          "naming": "Source",
-          "databaseSourceId": "3a1570a6-b9b7-81c9-fd27-7304134aa358"
+          "naming": "Source"
         }
       ]
     }

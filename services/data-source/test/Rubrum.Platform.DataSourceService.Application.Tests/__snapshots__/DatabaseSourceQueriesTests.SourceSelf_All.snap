@@ -5,29 +5,12 @@
         "naming": "Test_Duplicate",
         "tables": [
           {
-            "systemName": "TableX",
-            "naming": "TableX",
-            "databaseSourceId": "3a1570a6-43d5-c1e7-b18f-a7af7f0748c7"
-          },
-          {
             "systemName": "Table",
-            "naming": "Table",
-            "databaseSourceId": "3a1570a6-43d5-c1e7-b18f-a7af7f0748c7"
-          }
-        ]
-      },
-      {
-        "naming": "West",
-        "tables": [
-          {
-            "systemName": "RubrumDatabaseTables",
-            "naming": "Table",
-            "databaseSourceId": "3a1570a6-43d9-01dd-c424-b29fa14effd3"
+            "naming": "Table"
           },
           {
-            "systemName": "RubrumDataSources",
-            "naming": "Source",
-            "databaseSourceId": "3a1570a6-43d9-01dd-c424-b29fa14effd3"
+            "systemName": "TableX",
+            "naming": "TableX"
           }
         ]
       },
@@ -36,13 +19,24 @@
         "tables": [
           {
             "systemName": "TableY",
-            "naming": "TableY",
-            "databaseSourceId": "3a1570a6-43d9-96a7-dade-1404d0358a63"
+            "naming": "TableY"
           },
           {
             "systemName": "Table",
-            "naming": "Table",
-            "databaseSourceId": "3a1570a6-43d9-96a7-dade-1404d0358a63"
+            "naming": "Table"
+          }
+        ]
+      },
+      {
+        "naming": "West",
+        "tables": [
+          {
+            "systemName": "RubrumDataSources",
+            "naming": "Source"
+          },
+          {
+            "systemName": "RubrumDatabaseTables",
+            "naming": "Table"
           }
         ]
       }

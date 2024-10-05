@@ -6,13 +6,11 @@
         "tables": [
           {
             "systemName": "Table",
-            "naming": "Table",
-            "databaseSourceId": "3a1570a6-d272-35a8-4d5f-519cb35c67e2"
+            "naming": "Table"
           },
           {
             "systemName": "TableX",
-            "naming": "TableX",
-            "databaseSourceId": "3a1570a6-d272-35a8-4d5f-519cb35c67e2"
+            "naming": "TableX"
           }
         ]
       }

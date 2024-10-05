@@ -1,4 +1,5 @@
-﻿using HotChocolate.Execution.Configuration;
+﻿using System.Collections;
+using HotChocolate.Execution.Configuration;
 using HotChocolate.Types;
 using HotChocolate.Types.Descriptors;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +40,24 @@ public class DataSourceGraphqlModule(
         return graphqlTypes.AsReadOnly();
     }
 
-    private sealed class ObjectTypeDynamic<T>(string name)
-        : ObjectType<T>(d => { d.Name(name); });
+    private sealed class ObjectTypeDynamic<T>(string name) : ObjectType<T>
+    {
+        protected override void Configure(IObjectTypeDescriptor<T> descriptor)
+        {
+            descriptor.Name(name);
+
+            foreach (var property in typeof(T).GetProperties()
+                         .Where(p =>
+                             p.PropertyType.IsAssignableTo(typeof(IEnumerable)) &&
+                             p.PropertyType.GenericTypeArguments.Length == 1))
+            {
+                var relationType = property.PropertyType.GenericTypeArguments[0];
+
+                descriptor
+                    .Field(property)
+                    .UseFiltering(relationType)
+                    .UseSorting(relationType);
+            }
+        }
+    }
 }

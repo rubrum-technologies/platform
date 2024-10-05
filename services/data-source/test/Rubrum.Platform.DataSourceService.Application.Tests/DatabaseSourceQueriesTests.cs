@@ -209,7 +209,6 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
                     tables {
                         systemName
                         naming
-                        databaseSourceId
                     }
                 }
             }
@@ -230,7 +229,6 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
                     tables {
                         systemName
                         naming
-                        databaseSourceId
                     }
                 }
             }
@@ -251,7 +249,6 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
                     tables {
                         systemName
                         naming
-                        databaseSourceId
                     }
                 }
             }
@@ -272,7 +269,6 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
                     tables {
                         systemName
                         naming
-                        databaseSourceId
                     }
                 }
             }
@@ -293,7 +289,6 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
                     tables {
                         systemName
                         naming
-                        databaseSourceId
                     }
                 }
             }
@@ -314,7 +309,6 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
                     tables {
                         systemName
                         naming
-                        databaseSourceId
                     }
                 }
             }

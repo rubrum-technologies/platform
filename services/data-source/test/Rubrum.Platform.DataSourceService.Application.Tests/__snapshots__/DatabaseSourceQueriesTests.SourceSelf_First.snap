@@ -4,14 +4,12 @@
       "naming": "Test_Duplicate",
       "tables": [
         {
-          "systemName": "Table",
-          "naming": "Table",
-          "databaseSourceId": "3a1570a6-db3e-cc6e-c2e4-a7638de39ddb"
+          "systemName": "TableX",
+          "naming": "TableX"
         },
         {
-          "systemName": "TableX",
-          "naming": "TableX",
-          "databaseSourceId": "3a1570a6-db3e-cc6e-c2e4-a7638de39ddb"
+          "systemName": "Table",
+          "naming": "Table"
         }
       ]
     }
