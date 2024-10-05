@@ -112,6 +112,14 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
                     b.Property<Guid>("DataSourceId")
                         .HasColumnType("uuid");
 
+                    b.Property<int>("Direction")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)");
+
                     b.ComplexProperty<Dictionary<string, object>>("Left", "Rubrum.Platform.DataSourceService.DataSourceInternalRelation.Left#DataSourceInternalLink", b1 =>
                         {
                             b1.IsRequired();
@@ -144,7 +152,6 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
             modelBuilder.Entity("Rubrum.Platform.DataSourceService.Database.DatabaseColumn", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<bool>("IsNotNull")
@@ -176,7 +183,6 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
             modelBuilder.Entity("Rubrum.Platform.DataSourceService.Database.DatabaseTable", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("DatabaseSourceId")
@@ -186,6 +192,9 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
+
+                    b.Property<string>("Schema")
+                        .HasColumnType("text");
 
                     b.Property<string>("SystemName")
                         .IsRequired()

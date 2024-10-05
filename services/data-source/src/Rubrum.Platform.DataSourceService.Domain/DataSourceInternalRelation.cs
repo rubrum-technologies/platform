@@ -1,4 +1,7 @@
-﻿using Volo.Abp.Domain.Entities;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
+using Volo.Abp;
+using Volo.Abp.Domain.Entities;
 
 namespace Rubrum.Platform.DataSourceService;
 
@@ -8,12 +11,14 @@ public class DataSourceInternalRelation : Entity<Guid>
         Guid id,
         Guid dataSourceId,
         DataSourceRelationDirection direction,
+        string name,
         DataSourceInternalLink left,
         DataSourceInternalLink right)
         : base(id)
     {
         DataSourceId = dataSourceId;
         Direction = direction;
+        SetName(name);
         Left = left;
         Right = right;
     }
@@ -28,7 +33,20 @@ public class DataSourceInternalRelation : Entity<Guid>
 
     public DataSourceRelationDirection Direction { get; }
 
+    public string Name { get; protected set; }
+
     public DataSourceInternalLink Left { get; }
 
     public DataSourceInternalLink Right { get; }
+
+    [MemberNotNull(nameof(Name))]
+    internal void SetName(string name)
+    {
+        if (!Regex.IsMatch(name, "^[a-zA-Z]+$"))
+        {
+            throw new ArgumentException(null, nameof(name));
+        }
+
+        Name = Check.NotNullOrWhiteSpace(name, nameof(name), DataSourceInternalRelationConstants.NameLength);
+    }
 }

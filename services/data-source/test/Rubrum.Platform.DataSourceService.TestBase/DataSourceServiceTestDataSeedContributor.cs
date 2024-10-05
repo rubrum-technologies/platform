@@ -18,10 +18,10 @@ public class DataSourceServiceTestDataSeedContributor(
         var databaseSource1 = new DatabaseSource(
             guidGenerator.Create(),
             null,
-            DatabaseKind.SqlServer,
+            DatabaseKind.Postgresql,
             "Test_Duplicate",
             "Test",
-            "ConnectionTest",
+            "Host=127.0.0.1;Port=55217;Database=postgres;Username=postgres;Password=postgres",
             [
                 new CreateDatabaseTable(
                     "Table",
@@ -35,6 +35,7 @@ public class DataSourceServiceTestDataSeedContributor(
 
         databaseSource1.AddInternalRelation(
             DataSourceRelationDirection.OneToMany,
+            "TableTX",
             new DataSourceInternalLink(
                 databaseSource1.Tables[0].Id,
                 databaseSource1.Tables[0].Columns[0].Id),
@@ -50,7 +51,7 @@ public class DataSourceServiceTestDataSeedContributor(
             DatabaseKind.MySql,
             "Test",
             "Pr",
-            "ConnectionTest",
+            "Server=127.0.0.1;Port=63838;Database=test;Uid=mysql;Pwd=mysql",
             [
                 new CreateDatabaseTable(
                     "Table",
@@ -64,6 +65,7 @@ public class DataSourceServiceTestDataSeedContributor(
 
         databaseSource2.AddInternalRelation(
             DataSourceRelationDirection.ManyToOne,
+            "TablesY",
             new DataSourceInternalLink(
                 databaseSource2.Tables[0].Id,
                 databaseSource2.Tables[0].Columns[0].Id),

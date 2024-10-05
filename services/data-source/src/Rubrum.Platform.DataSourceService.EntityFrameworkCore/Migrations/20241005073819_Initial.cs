@@ -43,6 +43,7 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     SystemName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Schema = table.Column<string>(type: "text", nullable: true),
                     DatabaseSourceId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -62,6 +63,8 @@ namespace Rubrum.Platform.DataSourceService.EntityFrameworkCore.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     DataSourceId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Direction = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: false),
                     Left_EntityId = table.Column<Guid>(type: "uuid", nullable: false),
                     Left_PropertyId = table.Column<Guid>(type: "uuid", nullable: false),
                     Right_EntityId = table.Column<Guid>(type: "uuid", nullable: false),

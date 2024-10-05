@@ -4,17 +4,14 @@ namespace Rubrum.Platform.DataSourceService;
 
 public abstract class DataSourceEntity : Entity<Guid>
 {
-    protected DataSourceEntity(Guid id, Guid databaseSourceId)
+    protected DataSourceEntity(Guid id)
         : base(id)
     {
-        DatabaseSourceId = databaseSourceId;
     }
 
     protected DataSourceEntity()
     {
     }
-
-    public Guid DatabaseSourceId { get; }
 
     public abstract string Name { get; protected set; }
 

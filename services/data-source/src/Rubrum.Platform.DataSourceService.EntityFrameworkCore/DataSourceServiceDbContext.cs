@@ -15,8 +15,8 @@ public class DataSourceServiceDbContext(DbContextOptions<DataSourceServiceDbCont
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-
         modelBuilder.ConfigureDataSourceService();
+
+        base.OnModelCreating(modelBuilder);
     }
 }

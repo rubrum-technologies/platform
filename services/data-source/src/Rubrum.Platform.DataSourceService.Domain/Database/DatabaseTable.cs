@@ -14,8 +14,9 @@ public class DatabaseTable : DataSourceEntity
         string name,
         string systemName,
         IEnumerable<CreateDatabaseColumn> columns)
-        : base(id, databaseSourceId)
+        : base(id)
     {
+        DatabaseSourceId = databaseSourceId;
         SetName(name);
         SetSystemName(systemName);
 
@@ -36,9 +37,13 @@ public class DatabaseTable : DataSourceEntity
     {
     }
 
+    public Guid DatabaseSourceId { get; }
+
     public override string Name { get; protected set; }
 
     public string SystemName { get; private set; }
+
+    public string? Schema { get; set; }
 
     public IReadOnlyList<DatabaseColumn> Columns => _columns.AsReadOnly();
 

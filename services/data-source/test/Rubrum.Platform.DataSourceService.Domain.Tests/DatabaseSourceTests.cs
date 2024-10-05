@@ -262,6 +262,7 @@ public class DatabaseSourceTests
 
         var relation = source.AddInternalRelation(
             direction,
+            "B",
             new DataSourceInternalLink(
                 source.Tables[leftTableIndex].Id,
                 source.Tables[leftTableIndex].Columns[leftColumnIndex].Id),
@@ -300,6 +301,7 @@ public class DatabaseSourceTests
 
         source.AddInternalRelation(
             direction,
+            "X",
             new DataSourceInternalLink(
                 source.Tables[leftTableIndex].Id,
                 source.Tables[leftTableIndex].Columns[leftColumnIndex].Id),
@@ -311,12 +313,50 @@ public class DatabaseSourceTests
         {
             source.AddInternalRelation(
                 DataSourceRelationDirection.ManyToOne,
+                "We",
                 new DataSourceInternalLink(
                     source.Tables[leftTableIndex].Id,
                     source.Tables[leftTableIndex].Columns[leftColumnIndex].Id),
                 new DataSourceInternalLink(
                     source.Tables[rightTableIndex].Id,
                     source.Tables[rightTableIndex].Columns[rightColumnIndex].Id));
+        });
+    }
+
+    [Theory]
+    [InlineData("TestError")]
+    [InlineData("Test")]
+    [InlineData("Tables")]
+    [InlineData("Obj")]
+    [InlineData("Cities")]
+    [InlineData("Stores")]
+    public void AddRelation_DataSourceInternalRelationNameAlreadyExistsException(string relationName)
+    {
+        var source = CreateDatabaseSource();
+
+        source.InternalRelations.Count.ShouldBe(0);
+
+        source.AddInternalRelation(
+            DataSourceRelationDirection.OneToMany,
+            relationName,
+            new DataSourceInternalLink(
+                source.Tables[0].Id,
+                source.Tables[0].Columns[0].Id),
+            new DataSourceInternalLink(
+                source.Tables[1].Id,
+                source.Tables[1].Columns[0].Id));
+
+        Assert.Throws<DataSourceInternalRelationNameAlreadyExistsException>(() =>
+        {
+            source.AddInternalRelation(
+                DataSourceRelationDirection.OneToMany,
+                relationName,
+                new DataSourceInternalLink(
+                    source.Tables[0].Id,
+                    source.Tables[0].Columns[1].Id),
+                new DataSourceInternalLink(
+                    source.Tables[1].Id,
+                    source.Tables[1].Columns[1].Id));
         });
     }
 
@@ -342,6 +382,7 @@ public class DatabaseSourceTests
 
         var relation = source.AddInternalRelation(
             direction,
+            "Ri",
             new DataSourceInternalLink(
                 source.Tables[leftTableIndex].Id,
                 source.Tables[leftTableIndex].Columns[leftColumnIndex].Id),
@@ -363,6 +404,7 @@ public class DatabaseSourceTests
         {
             source.AddInternalRelation(
                 DataSourceRelationDirection.ManyToOne,
+                "Z",
                 new DataSourceInternalLink(
                     Guid.NewGuid(),
                     source.Tables[0].Columns[0].Id),
@@ -375,6 +417,7 @@ public class DatabaseSourceTests
         {
             source.AddInternalRelation(
                 DataSourceRelationDirection.ManyToOne,
+                "B",
                 new DataSourceInternalLink(
                     source.Tables[0].Id,
                     Guid.NewGuid()),
@@ -387,6 +430,7 @@ public class DatabaseSourceTests
         {
             source.AddInternalRelation(
                 DataSourceRelationDirection.ManyToOne,
+                "Test",
                 new DataSourceInternalLink(
                     source.Tables[0].Id,
                     source.Tables[0].Columns[0].Id),
@@ -399,6 +443,7 @@ public class DatabaseSourceTests
         {
             source.AddInternalRelation(
                 DataSourceRelationDirection.ManyToOne,
+                "Test2",
                 new DataSourceInternalLink(
                     source.Tables[0].Id,
                     source.Tables[0].Columns[0].Id),

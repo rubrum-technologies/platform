@@ -57,6 +57,13 @@ public static class DataSourceServiceDbContextModelCreatingExtensions
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired();
 
+            b.Property(x => x.Direction)
+                .IsRequired();
+
+            b.Property(x => x.Name)
+                .HasMaxLength(DataSourceInternalRelationConstants.NameLength)
+                .IsRequired();
+
             b.ComplexProperty(x => x.Left);
             b.ComplexProperty(x => x.Right);
         });

@@ -324,30 +324,34 @@ type Mutation {
   createDatabaseSource(input: CreateDatabaseSourceInput!): CreateDatabaseSourcePayload! @authorize(policy: "DataSourceService.DataSources.Create")
 }
 
+type PrTable {
+  column: UUID!
+  tablesY: [PrTableY]
+}
+
+type PrTableY {
+  columnY: UUID!
+}
+
 type Query {
   "Fetches an object given its ID."
   node("ID of the object." id: ID!): Node
   "Lookup nodes by a list of IDs."
   nodes("The list of node IDs." ids: [ID!]!): [Node]!
+  TestTableXAll(where: TestTableXFilterInput order: [TestTableXSortInput!]): [TestTableX!]!
+  TestTableAll(where: TestTableFilterInput order: [TestTableSortInput!]): [TestTable!]!
+  PrTableAll(where: PrTableFilterInput order: [PrTableSortInput!]): [PrTable!]!
+  PrTableYAll(where: PrTableYFilterInput order: [PrTableYSortInput!]): [PrTableY!]!
   schemaDatabase(kind: DatabaseKind! connectionString: String!): SchemaDatabaseResult! @authorize
   dataSourceById(id: ID!): DataSource @authorize
 }
 
 type TestTable {
   column: UUID!
-  tableY: TestTableY
+  tableTX: TestTableX
 }
 
-type TestTableY {
-  columnY: UUID!
-}
-
-type Test_DuplicateTable {
-  column: UUID!
-  tableX: Test_DuplicateTableX
-}
-
-type Test_DuplicateTableX {
+type TestTableX {
   columnX: UUID!
 }
 
@@ -382,6 +386,71 @@ input CreateDatabaseTableInput {
   name: String!
   systemName: String!
   columns: [CreateDatabaseColumnInput!]!
+}
+
+input ListFilterInputTypeOfPrTableYFilterInput {
+  all: PrTableYFilterInput
+  none: PrTableYFilterInput
+  some: PrTableYFilterInput
+  any: Boolean
+}
+
+input PrTableFilterInput {
+  and: [PrTableFilterInput!]
+  or: [PrTableFilterInput!]
+  column: UuidOperationFilterInput
+  tablesY: ListFilterInputTypeOfPrTableYFilterInput
+}
+
+input PrTableSortInput {
+  column: SortEnumType
+}
+
+input PrTableYFilterInput {
+  and: [PrTableYFilterInput!]
+  or: [PrTableYFilterInput!]
+  columnY: UuidOperationFilterInput
+}
+
+input PrTableYSortInput {
+  columnY: SortEnumType
+}
+
+input TestTableFilterInput {
+  and: [TestTableFilterInput!]
+  or: [TestTableFilterInput!]
+  column: UuidOperationFilterInput
+  tableTX: TestTableXFilterInput
+}
+
+input TestTableSortInput {
+  column: SortEnumType
+  tableTX: TestTableXSortInput
+}
+
+input TestTableXFilterInput {
+  and: [TestTableXFilterInput!]
+  or: [TestTableXFilterInput!]
+  columnX: UuidOperationFilterInput
+}
+
+input TestTableXSortInput {
+  columnX: SortEnumType
+}
+
+input UuidOperationFilterInput {
+  eq: UUID
+  neq: UUID
+  in: [UUID]
+  nin: [UUID]
+  gt: UUID
+  ngt: UUID
+  gte: UUID
+  ngte: UUID
+  lt: UUID
+  nlt: UUID
+  lte: UUID
+  nlte: UUID
 }
 
 "Defines when a policy shall be executed."
@@ -428,6 +497,11 @@ enum LogLevel {
   ERROR
   CRITICAL
   NONE
+}
+
+enum SortEnumType {
+  ASC
+  DESC
 }
 
 directive @aggregate on OBJECT

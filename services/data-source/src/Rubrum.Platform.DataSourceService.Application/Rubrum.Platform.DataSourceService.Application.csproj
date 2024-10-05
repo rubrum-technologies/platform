@@ -18,6 +18,10 @@
     <PackageReference Include="Npgsql"/>
     <PackageReference Include="MySql.Data"/>
     <PackageReference Include="Microsoft.Data.SqlClient"/>
+    <PackageReference Include="linq2db"/>
+    <PackageReference Include="linq2db.PostgreSQL"/>
+    <PackageReference Include="linq2db.SqlServer"/>
+    <PackageReference Include="linq2db.MySql"/>
   </ItemGroup>
 
   <ItemGroup>

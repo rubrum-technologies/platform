@@ -45,6 +45,10 @@
     <PackageVersion Include="MediatR.Contracts" Version="2.0.1"/>
     <PackageVersion Include="Npgsql" Version="8.0.4"/>
     <PackageVersion Include="MySql.Data" Version="9.0.0"/>
+    <PackageVersion Include="linq2db" Version="6.0.0-preview.1"/>
+    <PackageVersion Include="linq2db.PostgreSQL" Version="6.0.0-preview.1"/>
+    <PackageVersion Include="linq2db.SqlServer" Version="6.0.0-preview.1"/>
+    <PackageVersion Include="linq2db.MySql" Version="6.0.0-preview.1"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -178,5 +182,7 @@
     <PackageVersion Include="Roslynator.Analyzers" Version="4.12.6"/>
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556"/>
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.32.0.97167"/>
+    <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0"/>
+    <PackageVersion Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4"/>
   </ItemGroup>
 </Project>

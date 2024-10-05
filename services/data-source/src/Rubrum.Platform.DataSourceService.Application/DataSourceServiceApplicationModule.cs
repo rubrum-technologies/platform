@@ -27,22 +27,30 @@ public class DataSourceServiceApplicationModule : AbpModule
             .AddGlobalObjectIdentification()
             .AddQueryConventions()
             .AddMutationConventions()
+            .AddProjections()
             .AddFiltering()
-            .AddSorting()
-            .AddProjections();
+            .AddSorting();
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         context.Services.GetGraphql()
             .AddApplicationTypes()
+            .AddTypeModule<DataSourceGraphqlModule>()
             .AddTypeModule<DatabaseSourceGraphqlModule>();
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
     {
-        AsyncHelper.RunSync(() => context.ServiceProvider
-            .GetRequiredService<IDataSourceTypesManager>()
-            .CompilationAsync());
+        AsyncHelper.RunSync(async () =>
+        {
+            await context.ServiceProvider
+                .GetRequiredService<IDataSourceTypesManager>()
+                .CompilationAsync();
+
+            await context.ServiceProvider
+                .GetRequiredService<IDatabaseSourceQueryableManager>()
+                .BuildAsync();
+        });
     }
 }

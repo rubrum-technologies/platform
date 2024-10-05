@@ -12,12 +12,14 @@ public class DataSourceCompiler : IDataSourceCompiler, ITransientDependency
 {
     public bool TryCompile(DataSource dataSource, [NotNullWhen(true)] out Stream? dll)
     {
-        var namespaceDeclaration = CreateNamespace(dataSource)
+        var namespaceDeclaration = CreateNamespace()
             .AddMembers([..dataSource.Entities.Select(e => CreateClass(dataSource, e))]);
 
         var root = CompilationUnit()
             .AddMembers(namespaceDeclaration)
-            .AddUsings(UsingDirective(ParseName("System")));
+            .AddUsings(
+                UsingDirective(ParseName("System")),
+                UsingDirective(ParseName("System.Collections.Generic")));
 
         var compilation = CSharpCompilation
             .Create(
@@ -41,9 +43,9 @@ public class DataSourceCompiler : IDataSourceCompiler, ITransientDependency
         return true;
     }
 
-    protected static NamespaceDeclarationSyntax CreateNamespace(DataSource dataSource)
+    protected static NamespaceDeclarationSyntax CreateNamespace()
     {
-        return NamespaceDeclaration(ParseName($"Rubrum.Platform.DataSourceService.{dataSource.Prefix}"));
+        return NamespaceDeclaration(ParseName("Rubrum.Platform.DataSourceService"));
     }
 
     protected static ClassDeclarationSyntax CreateClass(DataSource dataSource, DataSourceEntity entity)
@@ -51,7 +53,7 @@ public class DataSourceCompiler : IDataSourceCompiler, ITransientDependency
         var relations = dataSource.InternalRelations
             .Where(x => x.Left.EntityId == entity.Id);
 
-        return ClassDeclaration(entity.Name)
+        return ClassDeclaration($"{dataSource.Prefix}{entity.Name}")
             .AddModifiers(Token(SyntaxKind.PublicKeyword))
             .AddMembers([..entity.Properties.Select(CreateProperty)])
             .AddMembers([..relations.Select(r => CreateLink(dataSource, r))]);
@@ -72,7 +74,14 @@ public class DataSourceCompiler : IDataSourceCompiler, ITransientDependency
     {
         var entity = dataSource.GetEntityById(relation.Right.EntityId);
 
-        var propertySyntax = PropertyDeclaration(ParseName(entity.Name), entity.Name)
+        var propertyType = relation.Direction switch
+        {
+            DataSourceRelationDirection.OneToMany => ParseName($"{dataSource.Prefix}{entity.Name}"),
+            DataSourceRelationDirection.ManyToOne => ParseName($"List<{dataSource.Prefix}{entity.Name}>"),
+            _ => throw new ArgumentOutOfRangeException(nameof(relation)),
+        };
+
+        var propertySyntax = PropertyDeclaration(propertyType, relation.Name)
             .AddModifiers(Token(SyntaxKind.PublicKeyword))
             .AddAccessorListAccessors(
                 AccessorDeclaration(SyntaxKind.GetAccessorDeclaration),

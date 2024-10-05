@@ -7,11 +7,17 @@ public class DataSourceTypesManager(
     IDataSourceRepository repository,
     IDataSourceCompiler compiler) : IDataSourceTypesManager, ISingletonDependency
 {
-    private readonly List<AssemblyLoadContext> _contexts = [];
+    private readonly Dictionary<Guid, AssemblyLoadContext> _contexts = [];
+    private readonly Dictionary<Guid, Type> _types = [];
+
+    public Type GetType(DataSourceEntity entity)
+    {
+        return _types[entity.Id];
+    }
 
     public IReadOnlyList<Type> GetTypes(DataSource source)
     {
-        var context = _contexts.First(x => x.Name == source.Id.ToString());
+        var context = _contexts[source.Id];
 
         return context.Assemblies.SelectMany(a => a.GetTypes()).ToList().AsReadOnly();
     }
@@ -29,9 +35,17 @@ public class DataSourceTypesManager(
 
             var context = new AssemblyLoadContext(source.Id.ToString(), true);
 
-            context.LoadFromStream(stream);
+            var assembly = context.LoadFromStream(stream);
+            var types = assembly.GetTypes();
 
-            _contexts.Add(context);
+            _contexts.Add(source.Id, context);
+
+            foreach (var entity in source.Entities)
+            {
+                var type = types.Single(t => t.Name == $"{source.Prefix}{entity.Name}");
+
+                _types.Add(entity.Id, type);
+            }
         }
     }
 

@@ -69,10 +69,12 @@ public abstract class DataSource : FullAuditedAggregateRoot<Guid>, IMultiTenant
 
     public DataSourceInternalRelation AddInternalRelation(
         DataSourceRelationDirection direction,
+        string name,
         DataSourceInternalLink left,
         DataSourceInternalLink right)
     {
         InternalRelationCheck(left, right);
+        InternalRelationNameCheck(name);
 
         var leftEntity = GetEntityById(left.EntityId);
         var leftProperty = leftEntity.GetPropertyById(left.PropertyId);
@@ -84,6 +86,7 @@ public abstract class DataSource : FullAuditedAggregateRoot<Guid>, IMultiTenant
             Guid.NewGuid(),
             Id,
             direction,
+            name,
             new DataSourceInternalLink(leftEntity.Id, leftProperty.Id),
             new DataSourceInternalLink(rightEntity.Id, rightProperty.Id));
 
@@ -127,6 +130,14 @@ public abstract class DataSource : FullAuditedAggregateRoot<Guid>, IMultiTenant
         if (_internalRelations.Exists(x => x.Left.Equals(left) && x.Right.Equals(right)))
         {
             throw new DataSourceInternalRelationAlreadyExistsException();
+        }
+    }
+
+    private void InternalRelationNameCheck(string relationName)
+    {
+        if (_internalRelations.Exists(x => x.Name == relationName))
+        {
+            throw new DataSourceInternalRelationNameAlreadyExistsException(relationName);
         }
     }
 
