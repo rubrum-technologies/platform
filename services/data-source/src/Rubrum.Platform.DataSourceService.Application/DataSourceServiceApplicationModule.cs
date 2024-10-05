@@ -36,21 +36,6 @@ public class DataSourceServiceApplicationModule : AbpModule
     {
         context.Services.GetGraphql()
             .AddApplicationTypes()
-            .AddTypeModule<DataSourceGraphqlModule>()
-            .AddTypeModule<DatabaseSourceGraphqlModule>();
-    }
-
-    public override void OnApplicationInitialization(ApplicationInitializationContext context)
-    {
-        AsyncHelper.RunSync(async () =>
-        {
-            await context.ServiceProvider
-                .GetRequiredService<IDataSourceTypesManager>()
-                .CompilationAsync();
-
-            await context.ServiceProvider
-                .GetRequiredService<IDatabaseSourceQueryableManager>()
-                .BuildAsync();
-        });
+            .AddTypeModule<DataSourceGraphqlModule>();
     }
 }

@@ -9,7 +9,7 @@ namespace Rubrum.Platform.DataSourceService.Database;
 #nullable disable
 
 public class DatabaseSourceDataOptionsBuilder(
-    IDataSourceTypesManager typesManager) : IDatabaseSourceDataOptionsBuilder, ITransientDependency
+    IDataSourceAssemblyAccessorFactory assemblyAccessorFactory) : IDatabaseSourceDataOptionsBuilder, ITransientDependency
 {
     protected static readonly MethodInfo GetEntity = typeof(FluentMappingBuilder)
         .GetMethod("Entity");
@@ -36,13 +36,14 @@ public class DatabaseSourceDataOptionsBuilder(
 
     protected static readonly MethodInfo Lambda = typeof(Expression).GetMethods().First(FilterLambda);
 
-    public Task<DataOptions> BuildAsync(DatabaseSource source)
+    public DataOptions Build(DatabaseSource source)
     {
         var builder = new FluentMappingBuilder();
+        var assemblyManager = assemblyAccessorFactory.Get(source);
 
         foreach (var table in source.Tables)
         {
-            var type = typesManager.GetType(table);
+            var type = assemblyManager.GetType(table);
             var entityBuilder = CreateEntityBuilder(builder, type, table);
 
             foreach (var column in table.Columns)
@@ -58,9 +59,9 @@ public class DatabaseSourceDataOptionsBuilder(
                 CreateLink(
                     entityBuilder,
                     leftTable,
-                    typesManager.GetType(leftTable),
+                    assemblyManager.GetType(leftTable),
                     rightTable,
-                    typesManager.GetType(rightTable),
+                    assemblyManager.GetType(rightTable),
                     relation);
             }
         }
@@ -78,7 +79,7 @@ public class DatabaseSourceDataOptionsBuilder(
             _ => throw new ArgumentOutOfRangeException(nameof(source)),
         };
 
-        return Task.FromResult(options);
+        return options;
     }
 
     private static object CreateEntityBuilder(FluentMappingBuilder builder, Type type, DatabaseTable table)
