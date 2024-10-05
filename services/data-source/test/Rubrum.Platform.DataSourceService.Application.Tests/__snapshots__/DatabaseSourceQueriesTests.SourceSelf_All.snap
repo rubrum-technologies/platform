@@ -2,6 +2,19 @@
   "data": {
     "westSourceAll": [
       {
+        "naming": "Test",
+        "tables": [
+          {
+            "systemName": "Table",
+            "naming": "Table"
+          },
+          {
+            "systemName": "TableY",
+            "naming": "TableY"
+          }
+        ]
+      },
+      {
         "naming": "Test_Duplicate",
         "tables": [
           {
@@ -11,19 +24,6 @@
           {
             "systemName": "TableX",
             "naming": "TableX"
-          }
-        ]
-      },
-      {
-        "naming": "Test",
-        "tables": [
-          {
-            "systemName": "TableY",
-            "naming": "TableY"
-          },
-          {
-            "systemName": "Table",
-            "naming": "Table"
           }
         ]
       },

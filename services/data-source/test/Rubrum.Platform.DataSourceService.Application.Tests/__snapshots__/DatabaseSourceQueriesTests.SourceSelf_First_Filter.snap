@@ -4,12 +4,12 @@
       "naming": "West",
       "tables": [
         {
-          "systemName": "RubrumDatabaseTables",
-          "naming": "Table"
-        },
-        {
           "systemName": "RubrumDataSources",
           "naming": "Source"
+        },
+        {
+          "systemName": "RubrumDatabaseTables",
+          "naming": "Table"
         }
       ]
     }

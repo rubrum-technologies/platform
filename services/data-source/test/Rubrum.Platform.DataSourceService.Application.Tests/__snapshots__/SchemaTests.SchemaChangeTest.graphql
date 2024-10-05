@@ -339,28 +339,28 @@ type Query {
   node("ID of the object." id: ID!): Node
   "Lookup nodes by a list of IDs."
   nodes("The list of node IDs." ids: [ID!]!): [Node]!
-  prTable(where: PrTableFilterInput): PrTable
+  prTable(order: [PrTableSortInput!] where: PrTableFilterInput): PrTable
   prTableAll(order: [PrTableSortInput!] where: PrTableFilterInput): [PrTable!]!
   prTableAny(where: PrTableFilterInput): Boolean!
   prTableCount(where: PrTableFilterInput): Int!
-  prTableY(where: PrTableYFilterInput): PrTableY
+  prTableY(order: [PrTableYSortInput!] where: PrTableYFilterInput): PrTableY
   prTableYAll(order: [PrTableYSortInput!] where: PrTableYFilterInput): [PrTableY!]!
   prTableYAny(where: PrTableYFilterInput): Boolean!
   prTableYCount(where: PrTableYFilterInput): Int!
   schemaDatabase(connectionString: String! kind: DatabaseKind!): SchemaDatabaseResult! @authorize
-  testTable(where: TestTableFilterInput): TestTable
+  testTable(order: [TestTableSortInput!] where: TestTableFilterInput): TestTable
   testTableAll(order: [TestTableSortInput!] where: TestTableFilterInput): [TestTable!]!
   testTableAny(where: TestTableFilterInput): Boolean!
   testTableCount(where: TestTableFilterInput): Int!
-  testTableX(where: TestTableXFilterInput): TestTableX
+  testTableX(order: [TestTableXSortInput!] where: TestTableXFilterInput): TestTableX
   testTableXAll(order: [TestTableXSortInput!] where: TestTableXFilterInput): [TestTableX!]!
   testTableXAny(where: TestTableXFilterInput): Boolean!
   testTableXCount(where: TestTableXFilterInput): Int!
-  westSource(where: WestSourceFilterInput): WestSource
+  westSource(order: [WestSourceSortInput!] where: WestSourceFilterInput): WestSource
   westSourceAll(order: [WestSourceSortInput!] where: WestSourceFilterInput): [WestSource!]!
   westSourceAny(where: WestSourceFilterInput): Boolean!
   westSourceCount(where: WestSourceFilterInput): Int!
-  westTable(where: WestTableFilterInput): WestTable
+  westTable(order: [WestTableSortInput!] where: WestTableFilterInput): WestTable
   westTableAll(order: [WestTableSortInput!] where: WestTableFilterInput): [WestTable!]!
   westTableAny(where: WestTableFilterInput): Boolean!
   westTableCount(where: WestTableFilterInput): Int!
@@ -511,30 +511,30 @@ input UuidOperationFilterInput {
 input WestSourceFilterInput {
   and: [WestSourceFilterInput!]
   or: [WestSourceFilterInput!]
-  identifier: UuidOperationFilterInput
   naming: StringOperationFilterInput
+  identifier: UuidOperationFilterInput
   tables: ListFilterInputTypeOfWestTableFilterInput
 }
 
 input WestSourceSortInput {
-  identifier: SortEnumType
   naming: SortEnumType
+  identifier: SortEnumType
 }
 
 input WestTableFilterInput {
   and: [WestTableFilterInput!]
   or: [WestTableFilterInput!]
-  databaseSourceId: UuidOperationFilterInput
-  naming: StringOperationFilterInput
-  systemName: StringOperationFilterInput
   identifier: UuidOperationFilterInput
+  databaseSourceId: UuidOperationFilterInput
+  systemName: StringOperationFilterInput
+  naming: StringOperationFilterInput
 }
 
 input WestTableSortInput {
-  databaseSourceId: SortEnumType
-  naming: SortEnumType
-  systemName: SortEnumType
   identifier: SortEnumType
+  databaseSourceId: SortEnumType
+  systemName: SortEnumType
+  naming: SortEnumType
 }
 
 "Defines when a policy shall be executed."

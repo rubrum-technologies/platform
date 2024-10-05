@@ -1,15 +1,15 @@
 {
   "data": {
     "westSource": {
-      "naming": "Test_Duplicate",
+      "naming": "Test",
       "tables": [
-        {
-          "systemName": "TableX",
-          "naming": "TableX"
-        },
         {
           "systemName": "Table",
           "naming": "Table"
+        },
+        {
+          "systemName": "TableY",
+          "naming": "TableY"
         }
       ]
     }

@@ -204,9 +204,9 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
         await using var result = await ExecuteRequestAsync(b => b.SetDocument(
             """
             query {
-                westSourceAll {
+                westSourceAll(order: {naming: ASC}) {
                     naming
-                    tables {
+                    tables(order: {naming: ASC}) {
                         systemName
                         naming
                     }
@@ -224,9 +224,9 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
         await using var result = await ExecuteRequestAsync(b => b.SetDocument(
             """
             query {
-                westSourceAll(where: {naming: {eq: "Test_Duplicate"}}) {
+                westSourceAll(where: {naming: {eq: "Test_Duplicate"}}, order: {naming: ASC}) {
                     naming
-                    tables {
+                    tables(order: {naming: ASC}) {
                         systemName
                         naming
                     }
@@ -244,9 +244,9 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
         await using var result = await ExecuteRequestAsync(b => b.SetDocument(
             """
             query {
-                westSourceAll(where: { tables: { some: { naming: {eq: "Source"} } } }) {
+                westSourceAll(where: { tables: { some: { naming: {eq: "Source"} } } }, order: {naming: ASC}) {
                     naming
-                    tables {
+                    tables(order: {naming: ASC}) {
                         systemName
                         naming
                     }
@@ -264,9 +264,9 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
         await using var result = await ExecuteRequestAsync(b => b.SetDocument(
             """
             query {
-                westSource {
+                westSource(order: {naming: ASC}) {
                     naming
-                    tables {
+                    tables(order: {naming: ASC}) {
                         systemName
                         naming
                     }
@@ -284,9 +284,9 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
         await using var result = await ExecuteRequestAsync(b => b.SetDocument(
             """
             query {
-                westSource(where: {naming: {eq: "West"}}) {
+                westSource(where: {naming: {eq: "West"}}, order: {naming: ASC}) {
                     naming
-                    tables {
+                    tables(order: {naming: ASC}) {
                         systemName
                         naming
                     }
@@ -304,9 +304,9 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
         await using var result = await ExecuteRequestAsync(b => b.SetDocument(
             """
             query {
-                westSource(where: { tables: { some: { systemName: {eq: "RubrumDatabaseTables"} } } }) {
+                westSource(where: { tables: { some: { systemName: {eq: "RubrumDatabaseTables"} } } }, order: {naming: ASC}) {
                     naming
-                    tables {
+                    tables(order: {naming: ASC}) {
                         systemName
                         naming
                     }

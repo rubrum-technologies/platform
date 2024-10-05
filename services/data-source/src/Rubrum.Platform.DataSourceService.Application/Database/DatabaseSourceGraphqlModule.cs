@@ -68,7 +68,8 @@ public class DatabaseSourceGraphqlModule(
         firstDescriptor
             .UseFirstOrDefault()
             .UseProjection(type)
-            .UseFiltering(type);
+            .UseFiltering(type)
+            .UseSorting(type);
 
         var firstDefinition = firstDescriptor.ToDefinition();
 
