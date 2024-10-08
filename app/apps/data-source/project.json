@@ -85,6 +85,14 @@
         "staticFilePath": "dist/apps/data-source/browser",
         "spa": true
       }
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/data-source/**/*.css"],
+        "formatter": "json"
+      }
     }
   }
 }
