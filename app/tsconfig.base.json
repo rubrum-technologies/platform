@@ -8,38 +8,13 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2022",
-    "module": "es2022",
-    "lib": [
-      "es2022",
-      "dom"
-    ],
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "@rubrum.platform/blob-storage": [
-        "libs/blob-storage/src/index.ts"
-      ],
-      "@rubrum.platform/cdk": [
-        "libs/cdk/src/index.ts"
-      ],
-      "@rubrum.platform/core": [
-        "libs/core/src/index.ts"
-      ],
-      "@rubrum.platform/i18n": [
-        "libs/i18n/src/index.ts"
-      ],
-      "@rubrum.platform/notification": [
-        "libs/notification/src/index.ts"
-      ],
-      "@rubrum.platform/windows": [
-        "libs/windows/src/index.ts"
-      ]
-    }
+    "paths": {}
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }
