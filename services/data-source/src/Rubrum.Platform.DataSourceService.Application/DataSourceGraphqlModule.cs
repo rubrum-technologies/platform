@@ -20,18 +20,18 @@ public class DataSourceGraphqlModule(
     {
         var repository = serviceProvider.GetRequiredService<IDataSourceRepository>();
         var queryableAccessorFactory = serviceProvider.GetRequiredService<IDataSourceQueryableAccessorFactory>();
-        var assemblyManagerFactory = serviceProvider.GetRequiredService<IDataSourceAssemblyAccessorFactory>();
+        var assemblyAccessorFactory = serviceProvider.GetRequiredService<IDataSourceAssemblyAccessorFactory>();
         var graphqlTypes = new List<ITypeSystemMember>();
 
         var sources = await repository.GetListAsync(true, cancellationToken);
 
         foreach (var source in sources)
         {
-            var assemblyManager = assemblyManagerFactory.Get(source);
+            var assemblyAccessor = assemblyAccessorFactory.Get(source);
 
             foreach (var entity in source.Entities)
             {
-                var type = assemblyManager.GetType(entity);
+                var type = assemblyAccessor.GetType(entity);
                 var name = $"{source.Prefix}{entity.Name}";
                 var queryableAccessor = queryableAccessorFactory.Get(source);
 

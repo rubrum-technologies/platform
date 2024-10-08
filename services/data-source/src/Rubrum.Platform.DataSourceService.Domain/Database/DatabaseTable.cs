@@ -73,7 +73,10 @@ public class DatabaseTable : DataSourceEntity
         return column;
     }
 
-    public DatabaseColumn UpdateColumn(Guid id, string name, string systemName)
+    public DatabaseColumn UpdateColumn(
+        Guid id,
+        string name,
+        string systemName)
     {
         var column = GetColumnById(id);
 
