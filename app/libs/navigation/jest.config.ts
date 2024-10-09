@@ -1,8 +1,8 @@
 export default {
-  displayName: 'main',
+  displayName: 'navigation',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/apps/main',
+  coverageDirectory: '../../coverage/libs/navigation',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

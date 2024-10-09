@@ -1,15 +1,15 @@
 {
-  "name": "main",
+  "name": "data-source",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "app",
-  "sourceRoot": "apps/main/src",
+  "prefix": "ds",
+  "sourceRoot": "apps/data-source/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-architects/native-federation:build",
       "options": {
-        "target": "main:esbuild:production",
+        "target": "data-source:esbuild:production",
         "polyfills": []
       }
     },
@@ -17,19 +17,19 @@
       "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/main",
-        "index": "apps/main/src/index.html",
-        "browser": "apps/main/src/main.ts",
+        "outputPath": "dist/apps/data-source",
+        "index": "apps/data-source/src/index.html",
+        "browser": "apps/data-source/src/main.ts",
         "polyfills": ["zone.js", "es-module-shims"],
-        "tsConfig": "apps/main/tsconfig.app.json",
+        "tsConfig": "apps/data-source/tsconfig.app.json",
         "inlineStyleLanguage": "less",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/main/public"
+            "input": "apps/data-source/public"
           }
         ],
-        "styles": ["apps/main/src/styles.less"],
+        "styles": ["apps/data-source/src/styles.less"],
         "scripts": []
       },
       "configurations": {
@@ -48,8 +48,8 @@
           ],
           "fileReplacements": [
             {
-              "replace": "apps/main/src/environments/environment.ts",
-              "with": "apps/main/src/environments/environment.prod.ts"
+              "replace": "apps/data-source/src/environments/environment.ts",
+              "with": "apps/data-source/src/environments/environment.prod.ts"
             }
           ],
           "outputHashing": "all"
@@ -66,7 +66,7 @@
     "serve": {
       "executor": "@angular-architects/native-federation:build",
       "options": {
-        "target": "main:serve-original:development",
+        "target": "data-source:serve-original:development",
         "rebuildDelay": 0,
         "dev": true
       }
@@ -75,10 +75,11 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "main:esbuild:production"
+          "buildTarget": "data-source:esbuild:production"
         },
         "development": {
-          "buildTarget": "main:esbuild:development"
+          "buildTarget": "data-source:esbuild:development",
+          "port": 4201
         }
       },
       "defaultConfiguration": "development"
@@ -90,14 +91,14 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/main/jest.config.ts"
+        "jestConfig": "apps/data-source/jest.config.ts"
       }
     },
     "stylelint": {
       "executor": "nx-stylelint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/main/**/*.css"],
+        "lintFilePatterns": ["apps/data-source/**/*.css"],
         "formatter": "json"
       }
     }

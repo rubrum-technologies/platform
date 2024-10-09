@@ -11,11 +11,12 @@
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/jest.config.[jt]s",
       "!{projectRoot}/src/test-setup.[jt]s",
-      "!{projectRoot}/test-setup.[jt]s"
+      "!{projectRoot}/test-setup.[jt]s",
+      "!{projectRoot}/.stylelintrc(.(json|yml|yaml|js))?"
     ],
     "sharedGlobals": []
   },
-  "nxCloudAccessToken": "YTRkZmViY2YtNGQxNS00MTE4LTlmYWEtZDBhMWM0ODcxMTJlfHJlYWQtd3JpdGU=",
+  "nxCloudId": "6704e01c1b2a2b08e8e892db",
   "targetDefaults": {
     "@angular-devkit/build-angular:application": {
       "cache": true,
@@ -51,6 +52,13 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
+    },
+    "stylelint": {
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.stylelintrc(.(json|yml|yaml|js))?"
+      ],
+      "cache": true
     }
   },
   "plugins": [
