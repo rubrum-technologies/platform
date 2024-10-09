@@ -13,7 +13,7 @@ module.exports = [
         'error',
         {
           type: 'attribute',
-          prefix: 'r',
+          prefix: 'ds',
           style: 'camelCase',
         },
       ],
@@ -21,7 +21,7 @@ module.exports = [
         'error',
         {
           type: 'element',
-          prefix: 'r',
+          prefix: 'ds',
           style: 'kebab-case',
         },
       ],

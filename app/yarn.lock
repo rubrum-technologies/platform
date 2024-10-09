@@ -380,7 +380,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/build@npm:18.2.7":
+"@angular/build@npm:18.2.7, @angular/build@npm:~18.2.7":
   version: 18.2.7
   resolution: "@angular/build@npm:18.2.7"
   dependencies:
@@ -6174,6 +6174,7 @@ __metadata:
     "@angular-eslint/eslint-plugin-template": "npm:~18.3.1"
     "@angular-eslint/template-parser": "npm:~18.3.1"
     "@angular/animations": "npm:~18.2.7"
+    "@angular/build": "npm:~18.2.7"
     "@angular/cdk": "npm:~18.2.7"
     "@angular/cli": "npm:~18.2.7"
     "@angular/common": "npm:~18.2.7"
@@ -6241,7 +6242,10 @@ __metadata:
     angular-oauth2-oidc: "npm:~17.0.2"
     apollo-angular: "npm:~7.2.0"
     autoprefixer: "npm:~10.4.20"
+    concurrently: "npm:~9.0.1"
     cross-env: "npm:~7.0.3"
+    dompurify: "npm:~3.1.7"
+    es-module-shims: "npm:~1.10.0"
     eslint: "npm:~9.12.0"
     eslint-config-prettier: "npm:~9.1.0"
     eslint-plugin-import: "npm:~2.31.0"
@@ -10607,6 +10611,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"concurrently@npm:~9.0.1":
+  version: 9.0.1
+  resolution: "concurrently@npm:9.0.1"
+  dependencies:
+    chalk: "npm:^4.1.2"
+    lodash: "npm:^4.17.21"
+    rxjs: "npm:^7.8.1"
+    shell-quote: "npm:^1.8.1"
+    supports-color: "npm:^8.1.1"
+    tree-kill: "npm:^1.2.2"
+    yargs: "npm:^17.7.2"
+  bin:
+    conc: dist/bin/concurrently.js
+    concurrently: dist/bin/concurrently.js
+  checksum: 10c0/e2c3d3f3d1b1457ccd27e69f0d840ba4915d571fae4e1088498234ec1174fd547c127de0df6dbe5eb71b2df973b26a6fdc931a9e7e3658f25287ef2106bdb413
+  languageName: node
+  linkType: hard
+
 "confusing-browser-globals@npm:^1.0.9":
   version: 1.0.11
   resolution: "confusing-browser-globals@npm:1.0.11"
@@ -11656,6 +11678,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dompurify@npm:~3.1.7":
+  version: 3.1.7
+  resolution: "dompurify@npm:3.1.7"
+  checksum: 10c0/fcceef2e9f824d712a056fa699b0538f3337f5cf00ccb7227bdc7eba5463823e15d9aecc00a2fd81c726b28a71e7b09f0eb8a2fde1021c40e35f12dc67b66394
+  languageName: node
+  linkType: hard
+
 "domutils@npm:^3.0.1":
   version: 3.1.0
   resolution: "domutils@npm:3.1.0"
@@ -12003,6 +12032,13 @@ __metadata:
   version: 1.5.4
   resolution: "es-module-lexer@npm:1.5.4"
   checksum: 10c0/300a469488c2f22081df1e4c8398c78db92358496e639b0df7f89ac6455462aaf5d8893939087c1a1cbcbf20eed4610c70e0bcb8f3e4b0d80a5d2611c539408c
+  languageName: node
+  linkType: hard
+
+"es-module-shims@npm:~1.10.0":
+  version: 1.10.0
+  resolution: "es-module-shims@npm:1.10.0"
+  checksum: 10c0/4fd7492998368030e71942e8ceb0f5a7b12100906e7a3bd84629a08bba1f193f83f0946a70b4aeeb12cc73ee70d985b65798344ac18d3cd49836c829392feaa9
   languageName: node
   linkType: hard
 
@@ -21739,7 +21775,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"supports-color@npm:^8.0.0":
+"supports-color@npm:^8.0.0, supports-color@npm:^8.1.1":
   version: 8.1.1
   resolution: "supports-color@npm:8.1.1"
   dependencies:
@@ -22133,7 +22169,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tree-kill@npm:1.2.2":
+"tree-kill@npm:1.2.2, tree-kill@npm:^1.2.2":
   version: 1.2.2
   resolution: "tree-kill@npm:1.2.2"
   bin:
@@ -23594,7 +23630,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:17.7.2, yargs@npm:^17.0.0, yargs@npm:^17.2.1, yargs@npm:^17.3.1, yargs@npm:^17.6.2":
+"yargs@npm:17.7.2, yargs@npm:^17.0.0, yargs@npm:^17.2.1, yargs@npm:^17.3.1, yargs@npm:^17.6.2, yargs@npm:^17.7.2":
   version: 17.7.2
   resolution: "yargs@npm:17.7.2"
   dependencies:
