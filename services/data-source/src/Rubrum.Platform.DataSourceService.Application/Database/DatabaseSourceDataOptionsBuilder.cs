@@ -74,7 +74,7 @@ public class DatabaseSourceDataOptionsBuilder(
         options = source.Kind switch
         {
             DatabaseKind.MySql => options.UseMySql(source.ConnectionString),
-            DatabaseKind.Postgresql => options.UsePostgreSQL(source.ConnectionString),
+            DatabaseKind.PostgreSql => options.UsePostgreSQL(source.ConnectionString),
             DatabaseKind.SqlServer => options.UseSqlServer(source.ConnectionString),
             _ => throw new ArgumentOutOfRangeException(nameof(source)),
         };

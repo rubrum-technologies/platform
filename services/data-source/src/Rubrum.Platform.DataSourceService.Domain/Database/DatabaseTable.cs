@@ -22,7 +22,7 @@ public class DatabaseTable : DataSourceEntity
 
         foreach (var column in columns)
         {
-            AddColumn(column.Kind, column.Name, column.SystemName);
+            AddColumn(column.Id, column.Kind, column.Name, column.SystemName);
         }
 
         if (_columns.Count == 0)
@@ -61,12 +61,12 @@ public class DatabaseTable : DataSourceEntity
         return column;
     }
 
-    public DatabaseColumn AddColumn(DataSourceEntityPropertyKind kind, string name, string systemName)
+    public DatabaseColumn AddColumn(Guid columnId, DataSourceEntityPropertyKind kind, string name, string systemName)
     {
         ColumnNameCheck(name);
         ColumnSystemNameCheck(systemName);
 
-        var column = new DatabaseColumn(Guid.NewGuid(), Id, kind, name, systemName);
+        var column = new DatabaseColumn(columnId, Id, kind, name, systemName);
 
         _columns.Add(column);
 

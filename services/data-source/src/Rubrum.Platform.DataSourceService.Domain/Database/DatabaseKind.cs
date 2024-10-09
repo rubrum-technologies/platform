@@ -8,9 +8,9 @@ public enum DatabaseKind
     MySql,
 
     /// <summary>
-    /// Postgresql.
+    /// PostgreSql.
     /// </summary>
-    Postgresql,
+    PostgreSql,
 
     /// <summary>
     /// SqlServer.

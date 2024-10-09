@@ -20,7 +20,7 @@ public class DatabaseSource : DataSource
 
         foreach (var table in tables)
         {
-            AddTable(table.Name, table.SystemName, table.Columns);
+            AddTable(table.Id, table.Name, table.SystemName, table.Columns);
         }
 
         if (_tables.Count == 0)
@@ -53,12 +53,12 @@ public class DatabaseSource : DataSource
         return table;
     }
 
-    public DatabaseTable AddTable(string name, string systemName, IEnumerable<CreateDatabaseColumn> columns)
+    public DatabaseTable AddTable(Guid tableId, string name, string systemName, IEnumerable<CreateDatabaseColumn> columns)
     {
         TableNameCheck(name);
         TableSystemNameCheck(systemName);
 
-        var table = new DatabaseTable(Guid.NewGuid(), Id, name, systemName, columns);
+        var table = new DatabaseTable(tableId, Id, name, systemName, columns);
 
         _tables.Add(table);
 

@@ -11,7 +11,7 @@ public class DatabaseSchemaBuilderFactory(
         IDatabaseSchemaBuilder result = kind switch
         {
             DatabaseKind.MySql => serviceProvider.GetRequiredService<MySqlSchemaBuilder>(),
-            DatabaseKind.Postgresql => serviceProvider.GetRequiredService<PostgresqlSchemaBuilder>(),
+            DatabaseKind.PostgreSql => serviceProvider.GetRequiredService<PostgresqlSchemaBuilder>(),
             DatabaseKind.SqlServer => serviceProvider.GetRequiredService<SqlServerSchemaBuilder>(),
             _ => throw new ArgumentOutOfRangeException(nameof(kind), kind, null),
         };

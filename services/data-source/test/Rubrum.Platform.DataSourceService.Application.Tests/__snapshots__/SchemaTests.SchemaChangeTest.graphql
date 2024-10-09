@@ -511,30 +511,30 @@ input UuidOperationFilterInput {
 input WestSourceFilterInput {
   and: [WestSourceFilterInput!]
   or: [WestSourceFilterInput!]
-  naming: StringOperationFilterInput
   identifier: UuidOperationFilterInput
+  naming: StringOperationFilterInput
   tables: ListFilterInputTypeOfWestTableFilterInput
 }
 
 input WestSourceSortInput {
-  naming: SortEnumType
   identifier: SortEnumType
+  naming: SortEnumType
 }
 
 input WestTableFilterInput {
   and: [WestTableFilterInput!]
   or: [WestTableFilterInput!]
-  identifier: UuidOperationFilterInput
   databaseSourceId: UuidOperationFilterInput
-  systemName: StringOperationFilterInput
   naming: StringOperationFilterInput
+  systemName: StringOperationFilterInput
+  identifier: UuidOperationFilterInput
 }
 
 input WestTableSortInput {
-  identifier: SortEnumType
   databaseSourceId: SortEnumType
-  systemName: SortEnumType
   naming: SortEnumType
+  systemName: SortEnumType
+  identifier: SortEnumType
 }
 
 "Defines when a policy shall be executed."
@@ -567,8 +567,8 @@ enum DataSourceEntityPropertyKind {
 enum DatabaseKind {
   "MySql."
   MY_SQL
-  "Postgresql."
-  POSTGRESQL
+  "PostgreSql."
+  POSTGRE_SQL
   "SqlServer."
   SQL_SERVER
 }

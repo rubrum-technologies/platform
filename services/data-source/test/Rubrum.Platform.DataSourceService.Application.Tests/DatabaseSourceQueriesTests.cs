@@ -120,7 +120,7 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
         await using var result = await ExecuteRequestAsync(b => b.SetDocument(
             $$"""
               query {
-                  schemaDatabase(kind: POSTGRESQL, connectionString: "{{container.GetConnectionString()}}") {
+                  schemaDatabase(kind: POSTGRE_SQL, connectionString: "{{container.GetConnectionString()}}") {
                       ... on DatabaseSchemaInformation {
                           tables {
                               name
@@ -146,7 +146,7 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
         await using var result = await ExecuteRequestAsync(b => b.SetDocument(
             """
             query {
-                schemaDatabase(kind: POSTGRESQL, connectionString: "Host=127.0.0.1;Port=55200;Database=postgres;Username=postgres;Password=postgres") {
+                schemaDatabase(kind: POSTGRE_SQL, connectionString: "Host=127.0.0.1;Port=55200;Database=postgres;Username=postgres;Password=postgres") {
                     ... on DatabaseSchemaInformation {
                         tables {
                             name
@@ -175,7 +175,7 @@ public class DatabaseSourceQueriesTests : DataSourceServiceApplicationGraphqlTes
         await using var result = await ExecuteRequestAsync(b => b.SetDocument(
             """
             query {
-                schemaDatabase(kind: POSTGRESQL, connectionString: "some connection string") {
+                schemaDatabase(kind: POSTGRE_SQL, connectionString: "some connection string") {
                     ... on DatabaseSchemaInformation {
                         tables {
                             name

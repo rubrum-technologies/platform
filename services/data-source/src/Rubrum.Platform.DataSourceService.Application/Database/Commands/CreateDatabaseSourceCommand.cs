@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using HotChocolate;
 using MediatR;
+using Volo.Abp.Guids;
 
 namespace Rubrum.Platform.DataSourceService.Database.Commands;
 
@@ -15,9 +16,20 @@ public class CreateDatabaseSourceCommand : IRequest<DatabaseSource>
 
     public required string ConnectionString { get; init; }
 
-    public required IReadOnlyList<CreateDatabaseTable> Tables { get; init; }
+    public required IReadOnlyList<CreateDatabaseTableInput> Tables { get; init; }
+
+    public sealed record CreateDatabaseTableInput(
+        string Name,
+        string SystemName,
+        IEnumerable<CreateDatabaseColumnInput> Columns);
+
+    public sealed record CreateDatabaseColumnInput(
+        DataSourceEntityPropertyKind Kind,
+        string Name,
+        string SystemName);
 
     public class Handler(
+        IGuidGenerator guidGenerator,
         DatabaseSourceManager manager,
         IDatabaseSourceRepository repository) : IRequestHandler<CreateDatabaseSourceCommand, DatabaseSource>
     {
@@ -30,7 +42,15 @@ public class CreateDatabaseSourceCommand : IRequest<DatabaseSource>
                 request.Name,
                 request.Prefix,
                 request.ConnectionString,
-                request.Tables);
+                request.Tables.Select(t => new CreateDatabaseTable(
+                    guidGenerator.Create(),
+                    t.Name,
+                    t.SystemName,
+                    t.Columns.Select(c => new CreateDatabaseColumn(
+                        guidGenerator.Create(),
+                        c.Kind,
+                        c.Name,
+                        c.SystemName)))));
 
             await repository.InsertAsync(source, true, cancellationToken);
 
@@ -61,12 +81,12 @@ public class CreateDatabaseSourceCommand : IRequest<DatabaseSource>
 
             RuleForEach(x => x.Tables)
                 .NotNull()
-                .SetValidator(new CreateDatabaseTableValidator());
+                .SetValidator(new CreateDatabaseTableInputValidator());
         }
 
-        public class CreateDatabaseTableValidator : AbstractValidator<CreateDatabaseTable>
+        public class CreateDatabaseTableInputValidator : AbstractValidator<CreateDatabaseTableInput>
         {
-            public CreateDatabaseTableValidator()
+            public CreateDatabaseTableInputValidator()
             {
                 RuleFor(x => x.Name)
                     .MaximumLength(DatabaseTableConstants.NameLength)
@@ -78,13 +98,13 @@ public class CreateDatabaseSourceCommand : IRequest<DatabaseSource>
 
                 RuleForEach(x => x.Columns)
                     .NotEmpty()
-                    .SetValidator(new CreateDatabaseColumnValidator());
+                    .SetValidator(new CreateDatabaseColumnInputValidator());
             }
         }
 
-        public class CreateDatabaseColumnValidator : AbstractValidator<CreateDatabaseColumn>
+        public class CreateDatabaseColumnInputValidator : AbstractValidator<CreateDatabaseColumnInput>
         {
-            public CreateDatabaseColumnValidator()
+            public CreateDatabaseColumnInputValidator()
             {
                 RuleFor(x => x.Kind)
                     .NotNull();

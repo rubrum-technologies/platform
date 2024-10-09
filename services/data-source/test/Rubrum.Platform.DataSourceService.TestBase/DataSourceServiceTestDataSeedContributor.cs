@@ -20,19 +20,33 @@ public class DataSourceServiceTestDataSeedContributor(
         var databaseSource1 = new DatabaseSource(
             guidGenerator.Create(),
             null,
-            DatabaseKind.Postgresql,
+            DatabaseKind.PostgreSql,
             "Test_Duplicate",
             "Test",
             "Host=127.0.0.1;Port=55217;Database=postgres;Username=postgres;Password=postgres",
             [
                 new CreateDatabaseTable(
+                    guidGenerator.Create(),
                     "Table",
                     "Table",
-                    [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Uuid, "Column", "Column")]),
+                    [
+                        new CreateDatabaseColumn(
+                            guidGenerator.Create(),
+                            DataSourceEntityPropertyKind.Uuid,
+                            "Column",
+                            "Column")
+                    ]),
                 new CreateDatabaseTable(
+                    guidGenerator.Create(),
                     "TableX",
                     "TableX",
-                    [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Uuid, "ColumnX", "ColumnX")]),
+                    [
+                        new CreateDatabaseColumn(
+                            guidGenerator.Create(),
+                            DataSourceEntityPropertyKind.Uuid,
+                            "ColumnX",
+                            "ColumnX")
+                    ]),
             ]);
 
         databaseSource1.AddInternalRelation(
@@ -56,13 +70,27 @@ public class DataSourceServiceTestDataSeedContributor(
             "Server=127.0.0.1;Port=63838;Database=test;Uid=mysql;Pwd=mysql",
             [
                 new CreateDatabaseTable(
+                    guidGenerator.Create(),
                     "Table",
                     "Table",
-                    [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Uuid, "Column", "Column")]),
+                    [
+                        new CreateDatabaseColumn(
+                            guidGenerator.Create(),
+                            DataSourceEntityPropertyKind.Uuid,
+                            "Column",
+                            "Column")
+                    ]),
                 new CreateDatabaseTable(
+                    guidGenerator.Create(),
                     "TableY",
                     "TableY",
-                    [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Uuid, "ColumnY", "ColumnY")]),
+                    [
+                        new CreateDatabaseColumn(
+                            guidGenerator.Create(),
+                            DataSourceEntityPropertyKind.Uuid,
+                            "ColumnY",
+                            "ColumnY")
+                    ]),
             ]);
 
         databaseSource2.AddInternalRelation(
@@ -80,26 +108,49 @@ public class DataSourceServiceTestDataSeedContributor(
         var databaseSourceTest = new DatabaseSource(
             guidGenerator.Create(),
             null,
-            DatabaseKind.Postgresql,
+            DatabaseKind.PostgreSql,
             "West",
             "West",
             postgreSqlContainer.GetConnectionString(),
             [
                 new CreateDatabaseTable(
+                    guidGenerator.Create(),
                     "Source",
                     "RubrumDataSources",
                     [
-                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.Uuid, "Identifier", "Id"),
-                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.String, "Naming", "Name"),
+                        new CreateDatabaseColumn(
+                            guidGenerator.Create(),
+                            DataSourceEntityPropertyKind.Uuid,
+                            "Identifier",
+                            "Id"),
+                        new CreateDatabaseColumn(
+                            guidGenerator.Create(),
+                            DataSourceEntityPropertyKind.String,
+                            "Naming",
+                            "Name"),
                     ]),
                 new CreateDatabaseTable(
+                    guidGenerator.Create(),
                     "Table",
                     "RubrumDatabaseTables",
                     [
-                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.Uuid, "Identifier", "Id"),
-                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.String, "Naming", "Name"),
-                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.String, "SystemName", "SystemName"),
                         new CreateDatabaseColumn(
+                            guidGenerator.Create(),
+                            DataSourceEntityPropertyKind.Uuid,
+                            "Identifier",
+                            "Id"),
+                        new CreateDatabaseColumn(
+                            guidGenerator.Create(),
+                            DataSourceEntityPropertyKind.String,
+                            "Naming",
+                            "Name"),
+                        new CreateDatabaseColumn(
+                            guidGenerator.Create(),
+                            DataSourceEntityPropertyKind.String,
+                            "SystemName",
+                            "SystemName"),
+                        new CreateDatabaseColumn(
+                            guidGenerator.Create(),
                             DataSourceEntityPropertyKind.Uuid,
                             "DatabaseSourceId",
                             "DatabaseSourceId"),

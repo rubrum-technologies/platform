@@ -184,8 +184,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.DataSourceS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.TestContainers.PostgreSql", "framework\src\Rubrum.TestContainers.PostgreSql\Rubrum.TestContainers.PostgreSql.csproj", "{6F5C3C9D-9ACA-437A-B163-19F842A8A68B}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "app", "app\app.esproj", "{0D59CD12-721C-45D4-8371-9B0B6E8A17AA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -460,10 +458,6 @@ Global
 		{6F5C3C9D-9ACA-437A-B163-19F842A8A68B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F5C3C9D-9ACA-437A-B163-19F842A8A68B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F5C3C9D-9ACA-437A-B163-19F842A8A68B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D59CD12-721C-45D4-8371-9B0B6E8A17AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D59CD12-721C-45D4-8371-9B0B6E8A17AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D59CD12-721C-45D4-8371-9B0B6E8A17AA}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D59CD12-721C-45D4-8371-9B0B6E8A17AA}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

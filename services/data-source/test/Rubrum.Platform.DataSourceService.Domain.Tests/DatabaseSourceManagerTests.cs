@@ -24,19 +24,26 @@ public sealed class DatabaseSourceManagerTests : DataSourceServiceDomainTestBase
         using var uow = _unitOfWorkManager.Begin(true, true);
 
         var source = await _manager.CreateAsync(
-            DatabaseKind.Postgresql,
+            DatabaseKind.PostgreSql,
             "Test2",
             "Qa",
             "Connection",
             [
                 new CreateDatabaseTable(
+                    Guid.NewGuid(),
                     "Table",
                     "TableS",
-                    [new CreateDatabaseColumn(DataSourceEntityPropertyKind.String, "Column", "ColumnS")]),
+                    [
+                        new CreateDatabaseColumn(
+                            Guid.NewGuid(),
+                            DataSourceEntityPropertyKind.String,
+                            "Column",
+                            "ColumnS")
+                    ]),
             ]);
 
         source.ShouldNotBeNull();
-        source.Kind.ShouldBe(DatabaseKind.Postgresql);
+        source.Kind.ShouldBe(DatabaseKind.PostgreSql);
         source.Name.ShouldBe("Test2");
         source.ConnectionString.ShouldBe("Connection");
         source.Tables.Count.ShouldBe(1);
@@ -56,15 +63,22 @@ public sealed class DatabaseSourceManagerTests : DataSourceServiceDomainTestBase
         await Assert.ThrowsAsync<DataSourceNameAlreadyExistsException>(async () =>
         {
             await _manager.CreateAsync(
-                DatabaseKind.Postgresql,
+                DatabaseKind.PostgreSql,
                 "Test",
                 "Sa",
                 "Connection",
                 [
                     new CreateDatabaseTable(
+                        Guid.NewGuid(),
                         "Table",
                         "TableS",
-                        [new CreateDatabaseColumn(DataSourceEntityPropertyKind.String, "Column", "ColumnS")]),
+                        [
+                            new CreateDatabaseColumn(
+                                Guid.NewGuid(),
+                                DataSourceEntityPropertyKind.String,
+                                "Column",
+                                "ColumnS")
+                        ]),
                 ]);
         });
     }
@@ -77,15 +91,22 @@ public sealed class DatabaseSourceManagerTests : DataSourceServiceDomainTestBase
         await Assert.ThrowsAsync<DataSourcePrefixAlreadyExistsException>(async () =>
         {
             await _manager.CreateAsync(
-                DatabaseKind.Postgresql,
+                DatabaseKind.PostgreSql,
                 "TestZxc",
                 "Pr",
                 "Connection",
                 [
                     new CreateDatabaseTable(
+                        Guid.NewGuid(),
                         "Table",
                         "TableS",
-                        [new CreateDatabaseColumn(DataSourceEntityPropertyKind.String, "Column", "ColumnS")]),
+                        [
+                            new CreateDatabaseColumn(
+                                Guid.NewGuid(),
+                                DataSourceEntityPropertyKind.String,
+                                "Column",
+                                "ColumnS")
+                        ]),
                 ]);
         });
     }

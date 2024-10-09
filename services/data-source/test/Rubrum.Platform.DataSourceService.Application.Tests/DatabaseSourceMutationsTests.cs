@@ -98,7 +98,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
             """
             mutation {
                 createDatabaseSource(input: {
-                    kind: POSTGRESQL,
+                    kind: POSTGRE_SQL,
                     name: "Postgres",
                     prefix: "PS",
                     connectionString: "ConnectionStringTest",
@@ -183,7 +183,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
             """
             mutation {
                 createDatabaseSource(input: {
-                    kind: POSTGRESQL,
+                    kind: POSTGRE_SQL,
                     name: "Test_Duplicate",
                     prefix: "ER",
                     connectionString: "ConnectionStringTest",
@@ -229,7 +229,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
             """
             mutation {
                 createDatabaseSource(input: {
-                    kind: POSTGRESQL,
+                    kind: POSTGRE_SQL,
                     name: "Test_Zaqq",
                     prefix: "Pr",
                     connectionString: "ConnectionStringTest",
@@ -310,7 +310,7 @@ public class DatabaseSourceMutationsTests : DataSourceServiceApplicationGraphqlT
             """
             mutation {
                 createDatabaseSource(input: {
-                    kind: POSTGRESQL,
+                    kind: POSTGRE_SQL,
                     name: "Test10",
                     prefix: "Te",
                     connectionString: "ConnectionStringTest",

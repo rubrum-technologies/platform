@@ -122,7 +122,7 @@ public class DatabaseTableTests
 
         table.Columns.Count.ShouldBe(4);
 
-        var column = table.AddColumn(kind, name, systemName);
+        var column = table.AddColumn(Guid.NewGuid(), kind, name, systemName);
 
         table.Columns.Count.ShouldBe(5);
 
@@ -143,7 +143,10 @@ public class DatabaseTableTests
     {
         var table = CreateDatabaseTable();
 
-        Assert.Throws<DatabaseColumnNameAlreadyExistsException>(() => { table.AddColumn(kind, name, systemName); });
+        Assert.Throws<DatabaseColumnNameAlreadyExistsException>(() =>
+        {
+            table.AddColumn(Guid.NewGuid(), kind, name, systemName);
+        });
     }
 
     [Theory]
@@ -160,7 +163,7 @@ public class DatabaseTableTests
 
         Assert.Throws<DatabaseColumnSystemNameAlreadyExistsException>(() =>
         {
-            table.AddColumn(kind, name, systemName);
+            table.AddColumn(Guid.NewGuid(), kind, name, systemName);
         });
     }
 
@@ -285,10 +288,10 @@ public class DatabaseTableTests
             "Table",
             "TableS",
             [
-                new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "Column", "ColumnS"),
-                new CreateDatabaseColumn(DataSourceEntityPropertyKind.String, "Column2", "Column1"),
-                new CreateDatabaseColumn(DataSourceEntityPropertyKind.DateTime, "Column3", "Column2"),
-                new CreateDatabaseColumn(DataSourceEntityPropertyKind.Int, "Column4", "Column3"),
+                new CreateDatabaseColumn(Guid.NewGuid(), DataSourceEntityPropertyKind.Unknown, "Column", "ColumnS"),
+                new CreateDatabaseColumn(Guid.NewGuid(), DataSourceEntityPropertyKind.String, "Column2", "Column1"),
+                new CreateDatabaseColumn(Guid.NewGuid(), DataSourceEntityPropertyKind.DateTime, "Column3", "Column2"),
+                new CreateDatabaseColumn(Guid.NewGuid(), DataSourceEntityPropertyKind.Int, "Column4", "Column3"),
             ]);
     }
 }

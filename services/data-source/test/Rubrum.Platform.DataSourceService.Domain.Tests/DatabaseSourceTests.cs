@@ -122,9 +122,16 @@ public class DatabaseSourceTests
         var source = CreateDatabaseSource();
 
         var table = source.AddTable(
+            Guid.NewGuid(),
             name,
             systemName,
-            [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "Column", "ColumnS")]);
+            [
+                new CreateDatabaseColumn(
+                    Guid.NewGuid(),
+                    DataSourceEntityPropertyKind.Unknown,
+                    "Column",
+                    "ColumnS")
+            ]);
 
         table.DatabaseSourceId.ShouldBe(source.Id);
         table.Name.ShouldBe(name);
@@ -139,9 +146,16 @@ public class DatabaseSourceTests
         Assert.Throws<DatabaseTableNameAlreadyExistsException>(() =>
         {
             source.AddTable(
+                Guid.NewGuid(),
                 "Table",
                 "TableS_Custom",
-                [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "Column", "ColumnS")]);
+                [
+                    new CreateDatabaseColumn(
+                        Guid.NewGuid(),
+                        DataSourceEntityPropertyKind.Unknown,
+                        "Column",
+                        "ColumnS")
+                ]);
         });
     }
 
@@ -153,9 +167,16 @@ public class DatabaseSourceTests
         Assert.Throws<DatabaseTableSystemNameAlreadyExistsException>(() =>
         {
             source.AddTable(
+                Guid.NewGuid(),
                 "Table_Custom",
                 "TableS",
-                [new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "Column", "ColumnS")]);
+                [
+                    new CreateDatabaseColumn(
+                        Guid.NewGuid(),
+                        DataSourceEntityPropertyKind.Unknown,
+                        "Column",
+                        "ColumnS")
+                ]);
         });
     }
 
@@ -166,7 +187,7 @@ public class DatabaseSourceTests
 
         Assert.Throws<DatabaseTableColumnsEmptyException>(() =>
         {
-            source.AddTable("Table_Custom", "Table_Custom", []);
+            source.AddTable(Guid.NewGuid(), "Table_Custom", "Table_Custom", []);
         });
     }
 
@@ -464,18 +485,36 @@ public class DatabaseSourceTests
             "Connection",
             [
                 new CreateDatabaseTable(
+                    Guid.NewGuid(),
                     "Table",
                     "TableS",
                     [
-                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "Column", "ColumnS"),
-                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "ColumnX", "ColumnX"),
+                        new CreateDatabaseColumn(
+                            Guid.NewGuid(),
+                            DataSourceEntityPropertyKind.Unknown,
+                            "Column",
+                            "ColumnS"),
+                        new CreateDatabaseColumn(
+                            Guid.NewGuid(),
+                            DataSourceEntityPropertyKind.Unknown,
+                            "ColumnX",
+                            "ColumnX"),
                     ]),
                 new CreateDatabaseTable(
+                    Guid.NewGuid(),
                     "Table2",
                     "Table2S",
                     [
-                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "Column", "ColumnS"),
-                        new CreateDatabaseColumn(DataSourceEntityPropertyKind.Unknown, "ColumnQ", "ColumnQ"),
+                        new CreateDatabaseColumn(
+                            Guid.NewGuid(),
+                            DataSourceEntityPropertyKind.Unknown,
+                            "Column",
+                            "ColumnS"),
+                        new CreateDatabaseColumn(
+                            Guid.NewGuid(),
+                            DataSourceEntityPropertyKind.Unknown,
+                            "ColumnQ",
+                            "ColumnQ"),
                     ]),
             ]);
     }
