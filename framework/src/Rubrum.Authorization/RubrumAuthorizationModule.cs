@@ -2,10 +2,12 @@
 using Microsoft.Extensions.DependencyInjection;
 using Rubrum.Authorization.Relations;
 using Rubrum.Modularity;
+using Volo.Abp.Caching;
 using Volo.Abp.Modularity;
 
 namespace Rubrum.Authorization;
 
+[DependsOn<AbpCachingModule>]
 [DependsOn<RubrumAuthorizationAbstractionsModule>]
 public class RubrumAuthorizationModule : AbpModule
 {
