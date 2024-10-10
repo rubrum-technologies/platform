@@ -50,6 +50,13 @@ var blobStorageService = builder
     .WithYarpDaprRoute("/api/blob-storage/{**everything}")
     .DefaultMicroserviceConfiguration(authority, swaggerClient);
 
+var storeAppsService = builder
+    .AddProject<Rubrum_Platform_StoreAppsService_HttpApi_Host>("store-apps-service")
+    .WithReference(auth)
+    .WithReference(database.AddDatabase("store-apps-service-db"))
+    .WithDaprSidecar(defaultDaprSidecarOptions)
+    .DefaultMicroserviceConfiguration(authority, swaggerClient);
+
 var (graphql, gateway) = FusionHelper.AddFusionGateway<Rubrum_Platform_Gateway>(builder, "gateway");
 
 graphql
@@ -57,7 +64,8 @@ graphql
     {
         EnableGlobalObjectIdentification = true,
     })
-    .WithSubgraph(blobStorageService);
+    .WithSubgraph(blobStorageService)
+    .WithSubgraph(storeAppsService);;
 
 gateway
     .WithDaprSidecar(defaultDaprSidecarOptions with
