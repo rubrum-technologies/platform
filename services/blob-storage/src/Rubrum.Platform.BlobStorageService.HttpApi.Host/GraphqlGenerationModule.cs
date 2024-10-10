@@ -9,7 +9,7 @@ namespace Rubrum.Platform.BlobStorageService;
 
 [DependsOn<AbpAspNetCoreMvcModule>]
 [DependsOn<RubrumGraphqlAuthorizationSpiceDbModule>]
-[DependsOn<PlatformBlobStorageServiceApplicationModule>]
+[DependsOn<BlobStorageServiceApplicationModule>]
 internal class GraphqlGenerationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

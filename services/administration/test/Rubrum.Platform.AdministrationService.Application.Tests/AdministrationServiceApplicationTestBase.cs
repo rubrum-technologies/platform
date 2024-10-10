@@ -1,0 +1,3 @@
+namespace Rubrum.Platform.AdministrationService;
+
+public abstract class AdministrationServiceApplicationTestBase : AdministrationServiceTestBase<AdministrationServiceApplicationTestModule>;

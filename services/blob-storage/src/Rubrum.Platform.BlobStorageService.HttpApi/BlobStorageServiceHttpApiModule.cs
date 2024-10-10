@@ -6,14 +6,14 @@ using Volo.Abp.Modularity;
 namespace Rubrum.Platform.BlobStorageService;
 
 [DependsOn<AbpAspNetCoreMvcModule>]
-[DependsOn<PlatformBlobStorageServiceApplicationContractsModule>]
-public class PlatformBlobStorageServiceHttpApiModule : AbpModule
+[DependsOn<BlobStorageServiceApplicationContractsModule>]
+public class BlobStorageServiceHttpApiModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
         PreConfigure<IMvcBuilder>(mvcBuilder =>
         {
-            mvcBuilder.AddApplicationPartIfNotExists(typeof(PlatformBlobStorageServiceHttpApiModule).Assembly);
+            mvcBuilder.AddApplicationPartIfNotExists(typeof(BlobStorageServiceHttpApiModule).Assembly);
         });
     }
 }

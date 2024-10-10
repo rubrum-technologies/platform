@@ -13,9 +13,9 @@ using Volo.Abp.Threading;
 namespace Rubrum.Platform.BlobStorageService;
 
 [DependsOn<RubrumTestContainersPostgreSqlModule>]
-[DependsOn<PlatformBlobStorageServiceTestBaseModule>]
-[DependsOn<PlatformBlobStorageServiceEntityFrameworkCoreModule>]
-public class PlatformBlobStorageServiceEntityFrameworkCoreTestModule : AbpModule
+[DependsOn<BlobStorageServiceTestBaseModule>]
+[DependsOn<BlobStorageServiceEntityFrameworkCoreModule>]
+public class BlobStorageServiceEntityFrameworkCoreTestModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {

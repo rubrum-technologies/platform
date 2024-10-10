@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Rubrum.Modularity;
 using Rubrum.Platform.DataSourceService.DbMigrations;
 using Rubrum.Platform.DataSourceService.EntityFrameworkCore;
-using Rubrum.TestContainers.PostgreSql;
 using Testcontainers.PostgreSql;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore;

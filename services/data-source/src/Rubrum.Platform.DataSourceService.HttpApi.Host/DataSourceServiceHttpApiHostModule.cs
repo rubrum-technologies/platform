@@ -20,6 +20,20 @@ public class DataSourceServiceHttpApiHostModule : AbpModule
         JwtBearerConfigurationHelper.Configure(context, configuration["AuthServer:Audience"]!);
     }
 
+    public override void PostConfigureServices(ServiceConfigurationContext context)
+    {
+        context.Services
+            .GetGraphql()
+            .InitializeOnStartup();
+    }
+
+    public override async Task OnPreApplicationInitializationAsync(ApplicationInitializationContext context)
+    {
+        await context.ServiceProvider
+            .GetRequiredService<EfCoreRuntimeDatabaseMigrator>()
+            .CheckAndApplyDatabaseMigrationsAsync();
+    }
+
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
     {
         var app = context.GetApplicationBuilder();
@@ -44,19 +58,5 @@ public class DataSourceServiceHttpApiHostModule : AbpModule
             endpoints.MapDefaultEndpoints();
             endpoints.MapGraphQL();
         });
-    }
-
-    public override async Task OnPreApplicationInitializationAsync(ApplicationInitializationContext context)
-    {
-        await context.ServiceProvider
-            .GetRequiredService<EfCoreRuntimeDatabaseMigrator>()
-            .CheckAndApplyDatabaseMigrationsAsync();
-    }
-
-    public override void OnPostApplicationInitialization(ApplicationInitializationContext context)
-    {
-        context.ServiceProvider
-            .GetGraphql()
-            .InitializeOnStartup();
     }
 }
