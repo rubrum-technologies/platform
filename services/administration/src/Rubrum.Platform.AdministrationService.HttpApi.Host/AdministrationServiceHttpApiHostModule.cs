@@ -1,19 +1,17 @@
 using Rubrum.Graphql;
 using Rubrum.Modularity;
-using Rubrum.Platform.BlobStorageService.Blobs;
-using Rubrum.Platform.BlobStorageService.DbMigrations;
-using Rubrum.Platform.BlobStorageService.EntityFrameworkCore;
+using Rubrum.Platform.AdministrationService.DbMigrations;
+using Rubrum.Platform.AdministrationService.EntityFrameworkCore;
 using Rubrum.Platform.Hosting;
 using Volo.Abp;
 using Volo.Abp.Modularity;
 
-namespace Rubrum.Platform.BlobStorageService;
+namespace Rubrum.Platform.AdministrationService;
 
 [DependsOn<PlatformHostingAspNetCoreMicroserviceGraphqlModule>]
-[DependsOn<PlatformBlobStorageServiceApplicationModule>]
-[DependsOn<PlatformBlobStorageServiceHttpApiModule>]
-[DependsOn<PlatformBlobStorageServiceEntityFrameworkCoreModule>]
-public class PlatformBlobStorageServiceHttpApiHostModule : AbpModule
+[DependsOn<AdministrationServiceApplicationModule>]
+[DependsOn<AdministrationServiceEntityFrameworkCoreModule>]
+public class AdministrationServiceHttpApiHostModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
@@ -25,7 +23,21 @@ public class PlatformBlobStorageServiceHttpApiHostModule : AbpModule
             context: context,
             authority: configuration["AuthServer:Authority"]!,
             scopes: [configuration["AuthServer:Audience"]!],
-            apiTitle: "BlobStorageService API");
+            apiTitle: "AdministrationService API");
+    }
+
+    public override void PostConfigureServices(ServiceConfigurationContext context)
+    {
+        context.Services
+            .GetGraphql()
+            .InitializeOnStartup();
+    }
+
+    public override async Task OnPreApplicationInitializationAsync(ApplicationInitializationContext context)
+    {
+        await context.ServiceProvider
+            .GetRequiredService<EfCoreRuntimeDatabaseMigrator>()
+            .CheckAndApplyDatabaseMigrationsAsync();
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -43,14 +55,16 @@ public class PlatformBlobStorageServiceHttpApiHostModule : AbpModule
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
-        app.UseSwagger(options => { options.RouteTemplate = "api/blob-storage/swagger/{documentname}/swagger.json"; });
+        app.UseSwagger(options =>
+        {
+            options.RouteTemplate = "api/administration/swagger/{documentname}/swagger.json";
+        });
         app.UseSwaggerUI(options =>
         {
             var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
             options.RoutePrefix = "api/swagger";
-            options.SwaggerEndpoint("/api/blob-storage/swagger/v1/swagger.json", "BlobStorageService API");
+            options.SwaggerEndpoint("/api/administration/swagger/v1/swagger.json", "AdministrationService API");
             options.OAuthClientId(configuration["Swagger:ClientId"]);
-            options.OAuthClientSecret(configuration["Swagger:ClientSecret"]);
         });
         app.UseAbpSerilogEnrichers();
         app.UseAuditing();
@@ -58,24 +72,8 @@ public class PlatformBlobStorageServiceHttpApiHostModule : AbpModule
         app.UseWebSockets();
         app.UseConfiguredEndpoints(endpoints =>
         {
-            endpoints.MapGrpcService<BlobGrpcService>();
-
             endpoints.MapDefaultEndpoints();
             endpoints.MapGraphQL();
         });
-    }
-
-    public override async Task OnPreApplicationInitializationAsync(ApplicationInitializationContext context)
-    {
-        await context.ServiceProvider
-            .GetRequiredService<EfCoreRuntimeDatabaseMigrator>()
-            .CheckAndApplyDatabaseMigrationsAsync();
-    }
-
-    public override void OnPostApplicationInitialization(ApplicationInitializationContext context)
-    {
-        context.ServiceProvider
-            .GetGraphql()
-            .InitializeOnStartup();
     }
 }

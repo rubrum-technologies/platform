@@ -42,6 +42,15 @@ builder
         AppProtocol = "grpc",
     });
 
+var administrationService = builder
+    .AddProject<Rubrum_Platform_AdministrationService_HttpApi_Host>("administration-service")
+    .WithReference(auth)
+    .WithReference(database.AddDatabase("administration-service-db"))
+    .WithDaprSidecar(defaultDaprSidecarOptions)
+    .WithYarpDaprRoute("/api/abp/{**everything}", enableSwagger: false)
+    .WithYarpDaprRoute("/api/administration/{**everything}")
+    .DefaultMicroserviceConfiguration(authority, swaggerClient);
+
 var blobStorageService = builder
     .AddProject<Rubrum_Platform_BlobStorageService_HttpApi_Host>("blob-storage-service")
     .WithReference(auth)
@@ -57,6 +66,7 @@ graphql
     {
         EnableGlobalObjectIdentification = true,
     })
+    .WithSubgraph(administrationService)
     .WithSubgraph(blobStorageService);
 
 gateway
@@ -65,7 +75,7 @@ gateway
         DaprHttpPort = 12010,
         DaprGrpcPort = 12020,
     })
-    .WithYarpDaprGateway(12010, [blobStorageService])
+    .WithYarpDaprGateway(12010, [blobStorageService, administrationService])
     .WithHttpEndpoint(12001, name: "http-dev")
     .WithHttpsEndpoint(12000, name: "https-dev")
     .WithEnvironment("App__CorsOrigins", "http://localhost:4200")

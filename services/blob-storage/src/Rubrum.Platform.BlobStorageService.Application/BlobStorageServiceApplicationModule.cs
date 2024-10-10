@@ -15,9 +15,9 @@ namespace Rubrum.Platform.BlobStorageService;
 [DependsOn<RubrumGraphqlDddModule>]
 [DependsOn<RubrumGraphqlAuthorizationModule>]
 [DependsOn<RubrumCqrsModule>]
-[DependsOn<PlatformBlobStorageServiceApplicationContractsModule>]
-[DependsOn<PlatformBlobStorageServiceDomainModule>]
-public class PlatformBlobStorageServiceApplicationModule : AbpModule
+[DependsOn<BlobStorageServiceApplicationContractsModule>]
+[DependsOn<BlobStorageServiceDomainModule>]
+public class BlobStorageServiceApplicationModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

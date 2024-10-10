@@ -1,18 +1,17 @@
 using Microsoft.Extensions.DependencyInjection;
 using Rubrum.EntityFrameworkCore;
 using Rubrum.Modularity;
-using Rubrum.Platform.BlobStorageService.Blobs;
-using Rubrum.Platform.BlobStorageService.EntityFrameworkCore.Repositories;
-using Rubrum.Platform.BlobStorageService.Folders;
 using Volo.Abp.EntityFrameworkCore.PostgreSql;
 using Volo.Abp.Modularity;
+using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 
-namespace Rubrum.Platform.BlobStorageService.EntityFrameworkCore;
+namespace Rubrum.Platform.AdministrationService.EntityFrameworkCore;
 
 [DependsOn<AbpEntityFrameworkCorePostgreSqlModule>]
+[DependsOn<AbpPermissionManagementEntityFrameworkCoreModule>]
 [DependsOn<RubrumEntityFrameworkCoreModule>]
-[DependsOn<PlatformBlobStorageServiceDomainModule>]
-public class PlatformBlobStorageServiceEntityFrameworkCoreModule : AbpModule
+[DependsOn<AdministrationServiceDomainModule>]
+public class AdministrationServiceEntityFrameworkCoreModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
@@ -22,11 +21,10 @@ public class PlatformBlobStorageServiceEntityFrameworkCoreModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        context.Services.AddAbpDbContext<BlobStorageServiceDbContext>(options =>
+        context.Services.AddAbpDbContext<AdministrationServiceDbContext>(options =>
         {
             options
-                .AddRepository<Blob, EfCoreBlobRepository>()
-                .AddRepository<FolderBlob, EfCoreFolderBlobRepository>()
+                .ReplaceDbContext<IPermissionManagementDbContext>()
                 .AddDefaultRepositories();
         });
     }

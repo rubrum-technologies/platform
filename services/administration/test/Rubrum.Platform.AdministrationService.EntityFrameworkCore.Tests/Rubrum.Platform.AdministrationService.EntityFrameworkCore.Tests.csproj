@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.test.props" />
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.AdministrationService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.TestContainers.PostgreSql\Rubrum.TestContainers.PostgreSql.csproj" />
+    <ProjectReference Include="..\..\src\Rubrum.Platform.AdministrationService.EntityFrameworkCore\Rubrum.Platform.AdministrationService.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Rubrum.Platform.AdministrationService.TestBase\Rubrum.Platform.AdministrationService.TestBase.csproj" />
+  </ItemGroup>
+</Project>

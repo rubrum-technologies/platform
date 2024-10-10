@@ -1,12 +1,11 @@
 ﻿using CookieCrumble;
 using HotChocolate.Execution;
 using HotChocolate.Execution.Configuration;
-using Rubrum.Graphql;
 using Shouldly;
 
 namespace MyCompanyName.MyProjectName;
 
-public sealed class SchemaTests : RubrumGraphqlTestBase<MyProjectNameApplicationTestModule>
+public sealed class SchemaTests : MyProjectNameApplicationGraphqlTestBase
 {
     private readonly IRequestExecutorBuilder _builder;
 

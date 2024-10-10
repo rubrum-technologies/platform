@@ -1,0 +1,4 @@
+namespace Rubrum.Platform.AdministrationService;
+
+public class AdministrationServiceEntityFrameworkCoreTestBase
+    : AdministrationServiceTestBase<AdministrationServiceEntityFrameworkCoreTestModule>;

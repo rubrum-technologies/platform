@@ -9,4 +9,4 @@ namespace Rubrum.Platform.BlobStorageService;
 [DependsOn<AbpDddDomainModule>]
 [DependsOn<AbpBlobStoringModule>]
 [DependsOn<RubrumAuditingContractsModule>]
-public class PlatformBlobStorageServiceDomainModule : AbpModule;
+public class BlobStorageServiceDomainModule : AbpModule;
