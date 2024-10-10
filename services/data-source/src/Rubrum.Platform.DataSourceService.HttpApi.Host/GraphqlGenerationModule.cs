@@ -15,8 +15,15 @@ internal class GraphqlGenerationModule : AbpModule
     {
         context.Services
             .GetGraphql()
+            .AddGraphQLServer()
+            .AddGlobalObjectIdentification()
+            .AddQueryConventions()
+            .AddMutationConventions()
+            .AddProjections()
+            .AddFiltering()
+            .AddSorting()
             .AddDddTypes()
-            .AddGraphQLServer();
+            .AddApplicationTypes();
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)

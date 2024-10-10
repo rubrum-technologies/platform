@@ -1,7 +1,7 @@
 using Rubrum.Graphql;
+using Rubrum.Modularity;
 using Rubrum.Platform.DataSourceService.DbMigrations;
 using Rubrum.Platform.DataSourceService.EntityFrameworkCore;
-using Rubrum.Modularity;
 using Rubrum.Platform.Hosting;
 using Volo.Abp;
 using Volo.Abp.Modularity;
