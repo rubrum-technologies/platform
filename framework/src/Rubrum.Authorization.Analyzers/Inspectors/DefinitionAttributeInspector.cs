@@ -15,7 +15,7 @@ public class DefinitionAttributeInspector : ISyntaxInspector
 
     public bool TryHandle(GeneratorSyntaxContext context, [NotNullWhen(true)] out ISyntaxInfo? syntaxInfo)
     {
-        if (context.Node is ClassDeclarationSyntax { AttributeLists.Count: > 0, } possibleType)
+        if (context.Node is ClassDeclarationSyntax { AttributeLists.Count: > 0 } possibleType)
         {
             AttributeSyntax? definitionSyntax = null;
             var relationsSyntax = new List<AttributeSyntax>();

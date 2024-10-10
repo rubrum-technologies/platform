@@ -3,9 +3,12 @@ using Rubrum.Authorization;
 using Rubrum.Cqrs;
 using Rubrum.Graphql;
 using Rubrum.Modularity;
+using Rubrum.Platform.DataSourceService.Database;
+using Volo.Abp;
 using Volo.Abp.Application;
 using Volo.Abp.FluentValidation;
 using Volo.Abp.Modularity;
+using Volo.Abp.Threading;
 
 namespace Rubrum.Platform.DataSourceService;
 
@@ -22,9 +25,17 @@ public class DataSourceServiceApplicationModule : AbpModule
     {
         context.Services.GetGraphql()
             .AddGlobalObjectIdentification()
+            .AddQueryConventions()
             .AddMutationConventions()
+            .AddProjections()
             .AddFiltering()
-            .AddSorting()
-            .AddProjections();
+            .AddSorting();
+    }
+
+    public override void ConfigureServices(ServiceConfigurationContext context)
+    {
+        context.Services.GetGraphql()
+            .AddApplicationTypes()
+            .AddTypeModule<DataSourceGraphqlModule>();
     }
 }

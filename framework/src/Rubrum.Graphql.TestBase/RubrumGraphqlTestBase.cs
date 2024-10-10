@@ -1,6 +1,5 @@
 using HotChocolate.Execution;
 using Microsoft.Extensions.DependencyInjection;
-using Volo.Abp;
 using Volo.Abp.Modularity;
 using Volo.Abp.Testing;
 
@@ -9,11 +8,6 @@ namespace Rubrum.Graphql;
 public class RubrumGraphqlTestBase<TModule> : AbpIntegratedTest<TModule>
     where TModule : IAbpModule
 {
-    protected override void SetAbpApplicationCreationOptions(AbpApplicationCreationOptions options)
-    {
-        options.UseAutofac();
-    }
-
     protected virtual async Task<IExecutionResult> ExecuteRequestAsync(
         Action<OperationRequestBuilder> configureRequest,
         CancellationToken cancellationToken = default)

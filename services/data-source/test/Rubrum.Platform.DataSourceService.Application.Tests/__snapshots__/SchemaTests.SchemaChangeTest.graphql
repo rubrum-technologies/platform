@@ -1,0 +1,606 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+"Defines an aggregate root. It's primary key may not be \"Id\" or it may have a composite primary key."
+interface AggregateRoot implements Entity {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+}
+
+"This interface can be implemented to add standard auditing properties to a class."
+interface AuditedObject implements CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime {
+  "Creation time."
+  creationTime: DateTime
+  "Id of the creator."
+  creatorId: ID
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
+}
+
+"This interface can be implemented to store creation information (who and when created)."
+interface CreationAuditedObject implements HasCreationTime & MayHaveCreator {
+  "Creation time."
+  creationTime: DateTime
+  "Id of the creator."
+  creatorId: ID
+}
+
+interface DataSource implements Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant {
+  connectionString: String!
+  "Creation time."
+  creationTime: DateTime
+  "Id of the creator."
+  creatorId: ID
+  "Id of the deleter user."
+  deleterId: ID
+  "Deletion time."
+  deletionTime: DateTime
+  extraProperties: JSON
+  "Unique identifier for this entity."
+  id: ID!
+  "Used to mark an Entity as 'Deleted'."
+  isDeleted: Boolean!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
+  name: String!
+  prefix: String!
+  "Id of the related tenant."
+  tenantId: ID
+}
+
+"This interface can be implemented to store deletion information (who delete and when deleted)."
+interface DeletionAuditedObject implements HasDeletionTime & SoftDelete {
+  "Id of the deleter user."
+  deleterId: ID
+  "Deletion time."
+  deletionTime: DateTime
+  "Used to mark an Entity as 'Deleted'."
+  isDeleted: Boolean!
+}
+
+"Defines an entity. It's primary key may not be \"Id\" or it may have a composite primary key."
+interface Entity {
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+}
+
+"Defines an entity with a single primary key with \"Id\" property."
+interface EntityOfGuid implements Entity {
+  "Unique identifier for this entity."
+  id: ID!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+}
+
+interface Error {
+  message: String!
+}
+
+"This interface adds IDeletionAuditedObject to IAuditedObject."
+interface FullAuditedObject implements AuditedObject & CreationAuditedObject & HasCreationTime & MayHaveCreator & ModificationAuditedObject & HasModificationTime & DeletionAuditedObject & HasDeletionTime & SoftDelete {
+  "Creation time."
+  creationTime: DateTime
+  "Id of the creator."
+  creatorId: ID
+  "Id of the deleter user."
+  deleterId: ID
+  "Deletion time."
+  deletionTime: DateTime
+  "Used to mark an Entity as 'Deleted'."
+  isDeleted: Boolean!
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
+}
+
+"A standard interface to add CreationTime property."
+interface HasCreationTime {
+  "Creation time."
+  creationTime: DateTime
+}
+
+"A standard interface to add DeletionTime property to a class. It also makes the class soft delete (see ISoftDelete)."
+interface HasDeletionTime implements SoftDelete {
+  "Deletion time."
+  deletionTime: DateTime
+  "Used to mark an Entity as 'Deleted'."
+  isDeleted: Boolean!
+}
+
+interface HasExtraProperties {
+  extraProperties: JSON
+}
+
+"A standard interface to add DeletionTime property to a class."
+interface HasModificationTime {
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+}
+
+"Standard interface for an entity that MAY have a creator."
+interface MayHaveCreator {
+  "Id of the creator."
+  creatorId: ID
+}
+
+"This interface can be implemented to store modification information (who and when modified lastly)."
+interface ModificationAuditedObject implements HasModificationTime {
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
+}
+
+interface MultiTenant {
+  "Id of the related tenant."
+  tenantId: ID
+}
+
+interface MustHaveOwner {
+  "Id of the owner."
+  ownerId: ID!
+}
+
+"The node interface is implemented by entities that have a global unique identifier."
+interface Node {
+  id: ID!
+}
+
+"Used to standardize soft deleting entities. Soft-delete entities are not actually deleted, marked as IsDeleted = true in the database, but can not be retrieved to the application normally."
+interface SoftDelete {
+  "Used to mark an Entity as 'Deleted'."
+  isDeleted: Boolean!
+}
+
+type AuthorizationError implements Error {
+  code: String
+  message: String!
+}
+
+type BusinessError implements Error {
+  code: String
+  details: String
+  message: String!
+}
+
+type CreateDatabaseSourcePayload {
+  databaseSource: DatabaseSource
+  errors: [CreateDatabaseSourceError!]
+}
+
+type DataSourceNameAlreadyExistsError implements Error {
+  code: String
+  details: String
+  logLevel: LogLevel!
+  message: String!
+  name: String!
+}
+
+type DataSourcePrefixAlreadyExistsError implements Error {
+  code: String
+  details: String
+  logLevel: LogLevel!
+  message: String!
+  prefix: String!
+}
+
+type DatabaseColumn implements Node & Entity & EntityOfGuid {
+  "Unique identifier for this entity."
+  id: ID!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  kind: DataSourceEntityPropertyKind!
+  name: String!
+  systemName: String!
+  tableId: ID!
+}
+
+type DatabaseColumnNameAlreadyExistsError implements Error {
+  code: String
+  columnName: String!
+  details: String
+  logLevel: LogLevel!
+  message: String!
+}
+
+type DatabaseColumnSystemNameAlreadyExistsError implements Error {
+  code: String
+  columnSystemName: String!
+  details: String
+  logLevel: LogLevel!
+  message: String!
+}
+
+type DatabaseSchemaInformation {
+  tables: [InfoAboutTable!]!
+}
+
+type DatabaseSource implements Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & DataSource @aggregate {
+  connectionString: String!
+  "Creation time."
+  creationTime: DateTime
+  "Id of the creator."
+  creatorId: ID
+  "Id of the deleter user."
+  deleterId: ID
+  "Deletion time."
+  deletionTime: DateTime
+  extraProperties: JSON
+  "Unique identifier for this entity."
+  id: ID!
+  "Used to mark an Entity as 'Deleted'."
+  isDeleted: Boolean!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  kind: DatabaseKind!
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
+  name: String!
+  prefix: String!
+  tables: [DatabaseTable!]!
+  "Id of the related tenant."
+  tenantId: ID
+}
+
+type DatabaseSourceTablesEmptyError implements Error {
+  code: String
+  details: String
+  logLevel: LogLevel!
+  message: String!
+}
+
+type DatabaseTable implements Node & Entity & EntityOfGuid {
+  columns: [DatabaseColumn!]!
+  databaseSourceId: ID!
+  "Unique identifier for this entity."
+  id: ID!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  name: String!
+  systemName: String!
+}
+
+type DatabaseTableColumnsEmptyError implements Error {
+  code: String
+  details: String
+  logLevel: LogLevel!
+  message: String!
+}
+
+type DatabaseTableNameAlreadyExistsError implements Error {
+  code: String
+  details: String
+  logLevel: LogLevel!
+  message: String!
+  tableName: String!
+}
+
+type DatabaseTableSystemNameAlreadyExistsError implements Error {
+  code: String
+  details: String
+  logLevel: LogLevel!
+  message: String!
+  tableSystemName: String!
+}
+
+type EntityNotFoundError implements Error {
+  id: String
+  message: String!
+  type: String
+}
+
+type FailConnectError implements Error {
+  connectionString: String!
+  message: String!
+}
+
+type IncorrectConnectionStringError implements Error {
+  incorrectConnectionString: String!
+  message: String!
+}
+
+type InfoAboutColumn {
+  kind: DataSourceEntityPropertyKind!
+  name: String!
+}
+
+type InfoAboutTable {
+  columns: [InfoAboutColumn!]!
+  name: String!
+}
+
+type Mutation {
+  createDatabaseSource(input: CreateDatabaseSourceInput!): CreateDatabaseSourcePayload! @authorize(policy: "DataSourceService.DataSources.Create")
+}
+
+type PrTable {
+  column: UUID!
+  tablesY: PrTableY
+}
+
+type PrTableY {
+  columnY: UUID!
+}
+
+type Query {
+  dataSourceById(id: ID!): DataSource @authorize
+  "Fetches an object given its ID."
+  node("ID of the object." id: ID!): Node
+  "Lookup nodes by a list of IDs."
+  nodes("The list of node IDs." ids: [ID!]!): [Node]!
+  prTable(order: [PrTableSortInput!] where: PrTableFilterInput): PrTable
+  prTableAll(order: [PrTableSortInput!] where: PrTableFilterInput): [PrTable!]!
+  prTableAny(where: PrTableFilterInput): Boolean!
+  prTableCount(where: PrTableFilterInput): Int!
+  prTableY(order: [PrTableYSortInput!] where: PrTableYFilterInput): PrTableY
+  prTableYAll(order: [PrTableYSortInput!] where: PrTableYFilterInput): [PrTableY!]!
+  prTableYAny(where: PrTableYFilterInput): Boolean!
+  prTableYCount(where: PrTableYFilterInput): Int!
+  schemaDatabase(connectionString: String! kind: DatabaseKind!): SchemaDatabaseResult! @authorize
+  testTable(order: [TestTableSortInput!] where: TestTableFilterInput): TestTable
+  testTableAll(order: [TestTableSortInput!] where: TestTableFilterInput): [TestTable!]!
+  testTableAny(where: TestTableFilterInput): Boolean!
+  testTableCount(where: TestTableFilterInput): Int!
+  testTableX(order: [TestTableXSortInput!] where: TestTableXFilterInput): TestTableX
+  testTableXAll(order: [TestTableXSortInput!] where: TestTableXFilterInput): [TestTableX!]!
+  testTableXAny(where: TestTableXFilterInput): Boolean!
+  testTableXCount(where: TestTableXFilterInput): Int!
+  westSource(order: [WestSourceSortInput!] where: WestSourceFilterInput): WestSource
+  westSourceAll(order: [WestSourceSortInput!] where: WestSourceFilterInput): [WestSource!]!
+  westSourceAny(where: WestSourceFilterInput): Boolean!
+  westSourceCount(where: WestSourceFilterInput): Int!
+  westTable(order: [WestTableSortInput!] where: WestTableFilterInput): WestTable
+  westTableAll(order: [WestTableSortInput!] where: WestTableFilterInput): [WestTable!]!
+  westTableAny(where: WestTableFilterInput): Boolean!
+  westTableCount(where: WestTableFilterInput): Int!
+}
+
+type TestTable {
+  column: UUID!
+  tableTX(order: [TestTableXSortInput!] where: TestTableXFilterInput): [TestTableX]
+}
+
+type TestTableX {
+  columnX: UUID!
+}
+
+type ValidationError implements Error {
+  message: String!
+  results: [ValidationResult!]!
+}
+
+type ValidationResult {
+  errorMessage: String
+}
+
+type WestSource {
+  identifier: UUID!
+  naming: String
+  tables(order: [WestTableSortInput!] where: WestTableFilterInput): [WestTable]
+}
+
+type WestTable {
+  databaseSourceId: UUID!
+  identifier: UUID!
+  naming: String
+  systemName: String
+}
+
+union CreateDatabaseSourceError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | IncorrectConnectionStringError | FailConnectError | DataSourceNameAlreadyExistsError | DataSourcePrefixAlreadyExistsError | DatabaseSourceTablesEmptyError | DatabaseTableNameAlreadyExistsError | DatabaseTableSystemNameAlreadyExistsError | DatabaseTableColumnsEmptyError | DatabaseColumnNameAlreadyExistsError | DatabaseColumnSystemNameAlreadyExistsError
+
+union SchemaDatabaseResult = DatabaseSchemaInformation | IncorrectConnectionStringError | FailConnectError
+
+input CreateDatabaseColumnInput {
+  kind: DataSourceEntityPropertyKind!
+  name: String!
+  systemName: String!
+}
+
+input CreateDatabaseSourceInput {
+  connectionString: String!
+  kind: DatabaseKind!
+  name: String!
+  prefix: String!
+  tables: [CreateDatabaseTableInput!]!
+}
+
+input CreateDatabaseTableInput {
+  columns: [CreateDatabaseColumnInput!]!
+  name: String!
+  systemName: String!
+}
+
+input ListFilterInputTypeOfTestTableXFilterInput {
+  all: TestTableXFilterInput
+  none: TestTableXFilterInput
+  some: TestTableXFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfWestTableFilterInput {
+  all: WestTableFilterInput
+  none: WestTableFilterInput
+  some: WestTableFilterInput
+  any: Boolean
+}
+
+input PrTableFilterInput {
+  and: [PrTableFilterInput!]
+  or: [PrTableFilterInput!]
+  column: UuidOperationFilterInput
+  tablesY: PrTableYFilterInput
+}
+
+input PrTableSortInput {
+  column: SortEnumType
+  tablesY: PrTableYSortInput
+}
+
+input PrTableYFilterInput {
+  and: [PrTableYFilterInput!]
+  or: [PrTableYFilterInput!]
+  columnY: UuidOperationFilterInput
+}
+
+input PrTableYSortInput {
+  columnY: SortEnumType
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input TestTableFilterInput {
+  and: [TestTableFilterInput!]
+  or: [TestTableFilterInput!]
+  column: UuidOperationFilterInput
+  tableTX: ListFilterInputTypeOfTestTableXFilterInput
+}
+
+input TestTableSortInput {
+  column: SortEnumType
+}
+
+input TestTableXFilterInput {
+  and: [TestTableXFilterInput!]
+  or: [TestTableXFilterInput!]
+  columnX: UuidOperationFilterInput
+}
+
+input TestTableXSortInput {
+  columnX: SortEnumType
+}
+
+input UuidOperationFilterInput {
+  eq: UUID
+  neq: UUID
+  in: [UUID]
+  nin: [UUID]
+  gt: UUID
+  ngt: UUID
+  gte: UUID
+  ngte: UUID
+  lt: UUID
+  nlt: UUID
+  lte: UUID
+  nlte: UUID
+}
+
+input WestSourceFilterInput {
+  and: [WestSourceFilterInput!]
+  or: [WestSourceFilterInput!]
+  identifier: UuidOperationFilterInput
+  naming: StringOperationFilterInput
+  tables: ListFilterInputTypeOfWestTableFilterInput
+}
+
+input WestSourceSortInput {
+  identifier: SortEnumType
+  naming: SortEnumType
+}
+
+input WestTableFilterInput {
+  and: [WestTableFilterInput!]
+  or: [WestTableFilterInput!]
+  databaseSourceId: UuidOperationFilterInput
+  naming: StringOperationFilterInput
+  systemName: StringOperationFilterInput
+  identifier: UuidOperationFilterInput
+}
+
+input WestTableSortInput {
+  databaseSourceId: SortEnumType
+  naming: SortEnumType
+  systemName: SortEnumType
+  identifier: SortEnumType
+}
+
+"Defines when a policy shall be executed."
+enum ApplyPolicy {
+  "Before the resolver was executed."
+  BEFORE_RESOLVER
+  "After the resolver was executed."
+  AFTER_RESOLVER
+  "The policy is applied in the validation step before the execution."
+  VALIDATION
+}
+
+enum DataSourceEntityPropertyKind {
+  "Boolean."
+  BOOLEAN
+  "Int."
+  INT
+  "Float."
+  FLOAT
+  "String."
+  STRING
+  "Uuid."
+  UUID
+  "DateTime."
+  DATE_TIME
+  "Unknown."
+  UNKNOWN
+}
+
+enum DatabaseKind {
+  "MySql."
+  MY_SQL
+  "PostgreSql."
+  POSTGRE_SQL
+  "SqlServer."
+  SQL_SERVER
+}
+
+enum LogLevel {
+  TRACE
+  DEBUG
+  INFORMATION
+  WARNING
+  ERROR
+  CRITICAL
+  NONE
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+directive @aggregate on OBJECT
+
+"The authorize directive."
+directive @authorize("Defines when when the authorize directive shall be applied.By default the authorize directives are applied during the validation phase." apply: ApplyPolicy! = BEFORE_RESOLVER "The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!]) repeatable on OBJECT | FIELD_DEFINITION
+
+"The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
+directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR
+
+scalar Any
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
+
+scalar JSON
+
+scalar UUID @specifiedBy(url: "https:\/\/tools.ietf.org\/html\/rfc4122")

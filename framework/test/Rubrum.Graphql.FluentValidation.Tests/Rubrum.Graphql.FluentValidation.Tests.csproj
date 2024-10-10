@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Volo.Abp.Autofac"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\Rubrum.Graphql.FluentValidation\Rubrum.Graphql.FluentValidation.csproj"/>
     <ProjectReference Include="..\..\src\Rubrum.Graphql.TestBase\Rubrum.Graphql.TestBase.csproj"/>
   </ItemGroup>

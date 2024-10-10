@@ -6,7 +6,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Basic.Reference.Assemblies"/>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Riok.Mapperly" ExcludeAssets="runtime" PrivateAssets="all"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql"/>
+    <PackageReference Include="MySql.Data"/>
+    <PackageReference Include="Microsoft.Data.SqlClient"/>
+    <PackageReference Include="linq2db"/>
+    <PackageReference Include="linq2db.PostgreSQL"/>
+    <PackageReference Include="linq2db.SqlServer"/>
+    <PackageReference Include="linq2db.MySql"/>
   </ItemGroup>
 
   <ItemGroup>

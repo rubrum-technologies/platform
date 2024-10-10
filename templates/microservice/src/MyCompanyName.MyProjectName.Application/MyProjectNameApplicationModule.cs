@@ -22,6 +22,7 @@ public class MyProjectNameApplicationModule : AbpModule
     {
         context.Services.GetGraphql()
             .AddGlobalObjectIdentification()
+            .AddQueryConventions()
             .AddMutationConventions()
             .AddFiltering()
             .AddSorting()

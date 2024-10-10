@@ -1,0 +1,17 @@
+{
+  "data": {
+    "westSource": {
+      "naming": "West",
+      "tables": [
+        {
+          "systemName": "RubrumDataSources",
+          "naming": "Source"
+        },
+        {
+          "systemName": "RubrumDatabaseTables",
+          "naming": "Table"
+        }
+      ]
+    }
+  }
+}

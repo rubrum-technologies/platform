@@ -1,0 +1,17 @@
+{
+  "data": {
+    "westSource": {
+      "naming": "Test",
+      "tables": [
+        {
+          "systemName": "Table",
+          "naming": "Table"
+        },
+        {
+          "systemName": "TableY",
+          "naming": "TableY"
+        }
+      ]
+    }
+  }
+}

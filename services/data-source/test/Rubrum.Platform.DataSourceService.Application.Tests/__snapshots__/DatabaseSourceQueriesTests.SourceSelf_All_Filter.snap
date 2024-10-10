@@ -1,0 +1,19 @@
+{
+  "data": {
+    "westSourceAll": [
+      {
+        "naming": "Test_Duplicate",
+        "tables": [
+          {
+            "systemName": "Table",
+            "naming": "Table"
+          },
+          {
+            "systemName": "TableX",
+            "naming": "TableX"
+          }
+        ]
+      }
+    ]
+  }
+}

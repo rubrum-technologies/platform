@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.TestBase"/>
-    <PackageReference Include="Volo.Abp.Autofac"/>
   </ItemGroup>
 
   <ItemGroup>

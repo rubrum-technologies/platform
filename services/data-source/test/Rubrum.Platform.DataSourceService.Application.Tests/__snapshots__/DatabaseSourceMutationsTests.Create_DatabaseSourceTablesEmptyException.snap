@@ -1,0 +1,16 @@
+{
+  "data": {
+    "createDatabaseSource": {
+      "databaseSource": null,
+      "errors": [
+        {
+          "code": null,
+          "details": null,
+          "logLevel": "WARNING",
+          "message": "Exception of type 'Rubrum.Platform.DataSourceService.Database.DatabaseSourceTablesEmptyException' was thrown.",
+          "__typename": "DatabaseSourceTablesEmptyError"
+        }
+      ]
+    }
+  }
+}

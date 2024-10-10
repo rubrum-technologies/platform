@@ -1,0 +1,9 @@
+{
+  "data": {
+    "schemaDatabase": {
+      "connectionString": "Server=127.0.0.1;Port=63838;Database=test;Uid=mysql;Pwd=mysql",
+      "message": "Unable to connect to any of the specified MySQL hosts.",
+      "__typename": "FailConnectError"
+    }
+  }
+}

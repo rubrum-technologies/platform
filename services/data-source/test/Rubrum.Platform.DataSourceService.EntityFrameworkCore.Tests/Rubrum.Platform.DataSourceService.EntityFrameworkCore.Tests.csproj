@@ -10,10 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite"/>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\Rubrum.Platform.DataSourceService.EntityFrameworkCore\Rubrum.Platform.DataSourceService.EntityFrameworkCore.csproj"/>
     <ProjectReference Include="..\Rubrum.Platform.DataSourceService.TestBase\Rubrum.Platform.DataSourceService.TestBase.csproj"/>
   </ItemGroup>
