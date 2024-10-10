@@ -97,6 +97,9 @@ dotnet_diagnostic.SA1010.severity = None
 # Prefix local calls with this
 dotnet_diagnostic.SA1101.severity = None
 
+# A parameter to a C# method or indexer, other than the first parameter, spans across multiple lines.
+dotnet_diagnostic.SA1118.severity = None
+
 # Using directive should appear within a namespace declaration
 dotnet_diagnostic.SA1200.severity = None
 

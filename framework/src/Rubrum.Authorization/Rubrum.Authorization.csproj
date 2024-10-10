@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Volo.Abp.Caching"/>
     <PackageReference Include="Volo.Abp.Authorization"/>
   </ItemGroup>
 
