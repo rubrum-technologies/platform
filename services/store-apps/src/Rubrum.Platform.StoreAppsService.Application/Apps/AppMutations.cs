@@ -1,12 +1,10 @@
 using HotChocolate;
 using HotChocolate.Authorization;
 using HotChocolate.Types;
-using HotChocolate.Types.Relay;
 using MediatR;
 using Rubrum.Graphql.Errors;
 using Rubrum.Graphql.Middlewares;
 using Rubrum.Platform.StoreAppsService.Apps.Commands;
-using Volo.Abp.Users;
 
 namespace Rubrum.Platform.StoreAppsService.Apps;
 

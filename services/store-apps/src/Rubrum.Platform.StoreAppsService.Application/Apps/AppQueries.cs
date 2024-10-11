@@ -18,7 +18,7 @@ public static class AppQueries
         [ID<App>] Guid id,
         [Service] IMediator mediator,
         [Service] IAppByIdDataLoader blobByIdDataLoader,
-        CancellationToken ct)
+        CancellationToken ct = default)
     {
         return await mediator.Send(
             new GetAppByIdQuery
@@ -33,8 +33,8 @@ public static class AppQueries
     [UsePaging]
     [UseFiltering]
     [UseSorting]
-    public static Task<IQueryable<App>> GetAppsAsync([Service] IAppRepository repository)
+    public static async Task<IQueryable<App>> GetAppsAsync([Service] IMediator mediator, CancellationToken ct = default)
     {
-        return repository.GetQueryableAsync();
+        return await mediator.Send(new GetAppsQuery(), ct);
     }
 }
