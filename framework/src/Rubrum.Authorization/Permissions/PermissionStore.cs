@@ -15,7 +15,7 @@ public class PermissionStore(
 
         var item = await cache.GetAsync(
             PermissionGrantCacheItem.CalculateCacheKey(name, providerName, providerKey),
-            ct);
+            token: ct);
 
         return item?.IsGranted ?? false;
     }
@@ -33,7 +33,7 @@ public class PermissionStore(
         {
             var item = await cache.GetAsync(
                 PermissionGrantCacheItem.CalculateCacheKey(name, providerName, providerKey),
-                ct);
+                token: ct);
 
             items.Add((name, item));
         }

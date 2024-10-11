@@ -15,7 +15,7 @@ public class PermissionStateChecker : ISimpleStateChecker<PermissionDefinition>,
         var cancellationTokenProvider = context.ServiceProvider.GetRequiredService<ICancellationTokenProvider>();
         var ct = cancellationTokenProvider.Token;
 
-        var item = await cache.GetAsync(PermissionCacheItem.CalculateCacheKey(context.State.Name), ct);
+        var item = await cache.GetAsync(PermissionCacheItem.CalculateCacheKey(context.State.Name), token: ct);
 
         return item?.IsEnable ?? false;
     }
