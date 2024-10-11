@@ -1,7 +1,6 @@
 ﻿using HotChocolate.Types.Descriptors;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Rubrum.Platform.DataSourceService.Database;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Rubrum.Platform.DataSourceService;

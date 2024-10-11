@@ -8,7 +8,7 @@ using static Rubrum.Platform.BlobStorageService.BlobStorageServiceTestConstants;
 
 namespace Rubrum.Platform.BlobStorageService;
 
-public sealed class FolderBlobMutationsTests : RubrumGraphqlTestBase<PlatformBlobStorageServiceApplicationTestModule>
+public sealed class FolderBlobMutationsTests : RubrumGraphqlTestBase<BlobStorageServiceApplicationTestModule>
 {
     private readonly INodeIdSerializer _idSerializer;
 

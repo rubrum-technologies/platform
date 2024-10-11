@@ -1,5 +1,4 @@
-﻿using Rubrum.Platform.DataSourceService.Database;
-using Shouldly;
+﻿using Shouldly;
 using Xunit;
 
 namespace Rubrum.Platform.DataSourceService;

@@ -3,10 +3,8 @@ using Rubrum.Modularity;
 using Volo.Abp;
 using Volo.Abp.Authorization;
 using Volo.Abp.Autofac;
-using Volo.Abp.Data;
 using Volo.Abp.Guids;
 using Volo.Abp.Modularity;
-using Volo.Abp.Threading;
 
 namespace Rubrum.Platform.BlobStorageService;
 
@@ -14,8 +12,8 @@ namespace Rubrum.Platform.BlobStorageService;
 [DependsOn<AbpTestBaseModule>]
 [DependsOn<AbpAuthorizationModule>]
 [DependsOn<AbpGuidsModule>]
-[DependsOn<PlatformBlobStorageServiceDomainModule>]
-public class PlatformBlobStorageServiceTestBaseModule : AbpModule
+[DependsOn<BlobStorageServiceDomainModule>]
+public class BlobStorageServiceTestBaseModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {

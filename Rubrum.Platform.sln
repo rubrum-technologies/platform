@@ -184,6 +184,28 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.DataSourceS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.TestContainers.PostgreSql", "framework\src\Rubrum.TestContainers.PostgreSql\Rubrum.TestContainers.PostgreSql.csproj", "{6F5C3C9D-9ACA-437A-B163-19F842A8A68B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "administration", "administration", "{D7A18318-6278-4150-9701-37F61FD99F6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{580AC7EB-91AE-49F3-AD9A-61385981A975}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{3523A27A-FFC3-4CFC-93BB-BC595AC37184}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.AdministrationService.Application", "services\administration\src\Rubrum.Platform.AdministrationService.Application\Rubrum.Platform.AdministrationService.Application.csproj", "{39CE87F2-6D2E-42E5-8EB9-93418C3EFE07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.AdministrationService.Domain", "services\administration\src\Rubrum.Platform.AdministrationService.Domain\Rubrum.Platform.AdministrationService.Domain.csproj", "{F1155DCA-875A-4B03-AD09-A8B9DE1EDBBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.AdministrationService.EntityFrameworkCore", "services\administration\src\Rubrum.Platform.AdministrationService.EntityFrameworkCore\Rubrum.Platform.AdministrationService.EntityFrameworkCore.csproj", "{3FB3FE88-2AFF-486D-8EE4-B694930F7EB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.AdministrationService.HttpApi.Host", "services\administration\src\Rubrum.Platform.AdministrationService.HttpApi.Host\Rubrum.Platform.AdministrationService.HttpApi.Host.csproj", "{471D3829-D2DC-41C9-A806-D3F704A1EEE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.AdministrationService.Application.Tests", "services\administration\test\Rubrum.Platform.AdministrationService.Application.Tests\Rubrum.Platform.AdministrationService.Application.Tests.csproj", "{34DCF946-9624-4446-A4A2-0907A825B5CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.AdministrationService.Domain.Tests", "services\administration\test\Rubrum.Platform.AdministrationService.Domain.Tests\Rubrum.Platform.AdministrationService.Domain.Tests.csproj", "{FC2BABB0-7618-4DF8-8EDE-B9673BEFF885}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.AdministrationService.EntityFrameworkCore.Tests", "services\administration\test\Rubrum.Platform.AdministrationService.EntityFrameworkCore.Tests\Rubrum.Platform.AdministrationService.EntityFrameworkCore.Tests.csproj", "{910C2BCC-1283-4F91-A401-BD97719F8825}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubrum.Platform.AdministrationService.TestBase", "services\administration\test\Rubrum.Platform.AdministrationService.TestBase\Rubrum.Platform.AdministrationService.TestBase.csproj", "{0024AB90-238B-4B9F-A8C5-BF6B2CF2D0D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -458,6 +480,38 @@ Global
 		{6F5C3C9D-9ACA-437A-B163-19F842A8A68B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F5C3C9D-9ACA-437A-B163-19F842A8A68B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F5C3C9D-9ACA-437A-B163-19F842A8A68B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39CE87F2-6D2E-42E5-8EB9-93418C3EFE07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39CE87F2-6D2E-42E5-8EB9-93418C3EFE07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39CE87F2-6D2E-42E5-8EB9-93418C3EFE07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39CE87F2-6D2E-42E5-8EB9-93418C3EFE07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1155DCA-875A-4B03-AD09-A8B9DE1EDBBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1155DCA-875A-4B03-AD09-A8B9DE1EDBBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1155DCA-875A-4B03-AD09-A8B9DE1EDBBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1155DCA-875A-4B03-AD09-A8B9DE1EDBBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FB3FE88-2AFF-486D-8EE4-B694930F7EB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FB3FE88-2AFF-486D-8EE4-B694930F7EB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FB3FE88-2AFF-486D-8EE4-B694930F7EB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FB3FE88-2AFF-486D-8EE4-B694930F7EB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{471D3829-D2DC-41C9-A806-D3F704A1EEE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{471D3829-D2DC-41C9-A806-D3F704A1EEE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{471D3829-D2DC-41C9-A806-D3F704A1EEE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{471D3829-D2DC-41C9-A806-D3F704A1EEE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34DCF946-9624-4446-A4A2-0907A825B5CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34DCF946-9624-4446-A4A2-0907A825B5CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34DCF946-9624-4446-A4A2-0907A825B5CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34DCF946-9624-4446-A4A2-0907A825B5CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC2BABB0-7618-4DF8-8EDE-B9673BEFF885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC2BABB0-7618-4DF8-8EDE-B9673BEFF885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC2BABB0-7618-4DF8-8EDE-B9673BEFF885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC2BABB0-7618-4DF8-8EDE-B9673BEFF885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{910C2BCC-1283-4F91-A401-BD97719F8825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{910C2BCC-1283-4F91-A401-BD97719F8825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{910C2BCC-1283-4F91-A401-BD97719F8825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{910C2BCC-1283-4F91-A401-BD97719F8825}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0024AB90-238B-4B9F-A8C5-BF6B2CF2D0D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0024AB90-238B-4B9F-A8C5-BF6B2CF2D0D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0024AB90-238B-4B9F-A8C5-BF6B2CF2D0D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0024AB90-238B-4B9F-A8C5-BF6B2CF2D0D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -547,5 +601,16 @@ Global
 		{B6D9C70C-0D49-48F9-B575-4329F390E482} = {D31DBA01-B5DE-4D04-93D5-632EE5F95635}
 		{8C5B606D-9747-446F-9EB6-E8D7BA6CDE56} = {D31DBA01-B5DE-4D04-93D5-632EE5F95635}
 		{6F5C3C9D-9ACA-437A-B163-19F842A8A68B} = {7035B868-1E06-4E84-A160-D092C73467C2}
+		{D7A18318-6278-4150-9701-37F61FD99F6A} = {3D8AFC3B-4864-4763-8D64-3AB3EC687D69}
+		{580AC7EB-91AE-49F3-AD9A-61385981A975} = {D7A18318-6278-4150-9701-37F61FD99F6A}
+		{3523A27A-FFC3-4CFC-93BB-BC595AC37184} = {D7A18318-6278-4150-9701-37F61FD99F6A}
+		{39CE87F2-6D2E-42E5-8EB9-93418C3EFE07} = {580AC7EB-91AE-49F3-AD9A-61385981A975}
+		{F1155DCA-875A-4B03-AD09-A8B9DE1EDBBE} = {580AC7EB-91AE-49F3-AD9A-61385981A975}
+		{3FB3FE88-2AFF-486D-8EE4-B694930F7EB6} = {580AC7EB-91AE-49F3-AD9A-61385981A975}
+		{471D3829-D2DC-41C9-A806-D3F704A1EEE2} = {580AC7EB-91AE-49F3-AD9A-61385981A975}
+		{34DCF946-9624-4446-A4A2-0907A825B5CE} = {3523A27A-FFC3-4CFC-93BB-BC595AC37184}
+		{FC2BABB0-7618-4DF8-8EDE-B9673BEFF885} = {3523A27A-FFC3-4CFC-93BB-BC595AC37184}
+		{910C2BCC-1283-4F91-A401-BD97719F8825} = {3523A27A-FFC3-4CFC-93BB-BC595AC37184}
+		{0024AB90-238B-4B9F-A8C5-BF6B2CF2D0D3} = {3523A27A-FFC3-4CFC-93BB-BC595AC37184}
 	EndGlobalSection
 EndGlobal

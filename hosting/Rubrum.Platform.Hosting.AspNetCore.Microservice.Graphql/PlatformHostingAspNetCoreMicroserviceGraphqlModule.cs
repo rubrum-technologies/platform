@@ -6,7 +6,6 @@ using Rubrum.Graphql;
 using Rubrum.Graphql.SpiceDb;
 using Rubrum.Graphql.Subscriptions;
 using Rubrum.Modularity;
-using Volo.Abp;
 using Volo.Abp.Modularity;
 
 namespace Rubrum.Platform.Hosting;

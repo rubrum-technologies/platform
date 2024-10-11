@@ -1,7 +1,7 @@
 using Rubrum.Graphql;
+using Rubrum.Modularity;
 using Rubrum.Platform.DataSourceService.DbMigrations;
 using Rubrum.Platform.DataSourceService.EntityFrameworkCore;
-using Rubrum.Modularity;
 using Rubrum.Platform.Hosting;
 using Volo.Abp;
 using Volo.Abp.Modularity;
@@ -18,6 +18,20 @@ public class DataSourceServiceHttpApiHostModule : AbpModule
         var configuration = context.Services.GetConfiguration();
 
         JwtBearerConfigurationHelper.Configure(context, configuration["AuthServer:Audience"]!);
+    }
+
+    public override void PostConfigureServices(ServiceConfigurationContext context)
+    {
+        context.Services
+            .GetGraphql()
+            .InitializeOnStartup();
+    }
+
+    public override async Task OnPreApplicationInitializationAsync(ApplicationInitializationContext context)
+    {
+        await context.ServiceProvider
+            .GetRequiredService<EfCoreRuntimeDatabaseMigrator>()
+            .CheckAndApplyDatabaseMigrationsAsync();
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -44,19 +58,5 @@ public class DataSourceServiceHttpApiHostModule : AbpModule
             endpoints.MapDefaultEndpoints();
             endpoints.MapGraphQL();
         });
-    }
-
-    public override async Task OnPreApplicationInitializationAsync(ApplicationInitializationContext context)
-    {
-        await context.ServiceProvider
-            .GetRequiredService<EfCoreRuntimeDatabaseMigrator>()
-            .CheckAndApplyDatabaseMigrationsAsync();
-    }
-
-    public override void OnPostApplicationInitialization(ApplicationInitializationContext context)
-    {
-        context.ServiceProvider
-            .GetGraphql()
-            .InitializeOnStartup();
     }
 }

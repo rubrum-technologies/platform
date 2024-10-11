@@ -86,6 +86,7 @@
     <PackageVersion Include="Volo.Abp.Http.Client" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.Http.Client.Dapr" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.DistributedLocking" Version="8.3.0"/>
+    <PackageVersion Include="Volo.Abp.Caching" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.Caching.StackExchangeRedis" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.EventBus.Dapr" Version="8.3.0"/>
     <PackageVersion Include="Volo.Abp.AspNetCore.Mvc.Dapr.EventBus" Version="8.3.0"/>
