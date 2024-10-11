@@ -12,6 +12,11 @@
   <ItemGroup>
     <PackageReference Include="Serilog.AspNetCore"/>
     <PackageReference Include="Serilog.Sinks.OpenTelemetry"/>
+    <PackageReference Include="Elastic.Serilog.Sinks"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Elastic.Clients.Elasticsearch"/>
   </ItemGroup>
 
   <ItemGroup>
