@@ -34,6 +34,11 @@ var database = builder
     .WithPgAdmin()
     .WithOtlpExporter();
 
+var elasticsearch = builder.AddElasticsearch(
+    "elasticsearch",
+    builder.AddParameter("elasticsearch-password"))
+    .WithDataVolume();
+
 builder
     .AddSpiceDb("spicedb-service")
     .WithPostgres(database.AddDatabase("spicedb-service-db"))
@@ -46,6 +51,7 @@ var administrationService = builder
     .AddProject<Rubrum_Platform_AdministrationService_HttpApi_Host>("administration-service")
     .WithReference(auth)
     .WithReference(database.AddDatabase("administration-service-db"))
+    .WithReference(elasticsearch)
     .WithDaprSidecar(defaultDaprSidecarOptions)
     .WithYarpDaprRoute("/api/abp/{**everything}", enableSwagger: false)
     .WithYarpDaprRoute("/api/administration/{**everything}")
@@ -55,6 +61,7 @@ var blobStorageService = builder
     .AddProject<Rubrum_Platform_BlobStorageService_HttpApi_Host>("blob-storage-service")
     .WithReference(auth)
     .WithReference(database.AddDatabase("blob-storage-service-db"))
+    .WithReference(elasticsearch)
     .WithDaprSidecar(defaultDaprSidecarOptions)
     .WithYarpDaprRoute("/api/blob-storage/{**everything}")
     .DefaultMicroserviceConfiguration(authority, swaggerClient);
@@ -70,6 +77,7 @@ graphql
     .WithSubgraph(blobStorageService);
 
 gateway
+    .WithReference(elasticsearch)
     .WithDaprSidecar(defaultDaprSidecarOptions with
     {
         DaprHttpPort = 12010,

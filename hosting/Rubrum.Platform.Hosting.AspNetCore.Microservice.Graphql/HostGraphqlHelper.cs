@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Polly;
 using Serilog;
@@ -8,7 +9,7 @@ namespace Rubrum.Platform.Hosting;
 
 #pragma warning disable S2139
 
-public static partial class HostGraphqlHelper
+public static class HostGraphqlHelper
 {
     public static async Task<int> RunServerAsync<TGenerationModule, TModule>(
         string[] args,
@@ -27,10 +28,15 @@ public static partial class HostGraphqlHelper
 
         try
         {
+            if (args is ["schema", ..])
+            {
+                return await StartGenerateAsync<TGenerationModule>(args);
+            }
+
             return await Policy
                 .Handle<Exception>()
-                .WaitAndRetryAsync(5, i => TimeSpan.FromSeconds(15 * i))
-                .ExecuteAsync(() => StartAsync<TGenerationModule, TModule>(args, assemblyName, config));
+                .WaitAndRetryAsync(15, _ => TimeSpan.FromSeconds(15))
+                .ExecuteAsync(() => StartAsync<TModule>(args, assemblyName, config));
         }
         catch (Exception ex)
         {
@@ -43,27 +49,17 @@ public static partial class HostGraphqlHelper
         }
     }
 
-    public static async Task<int> StartAsync<TGenerationModule, TModule>(
+    public static async Task<int> StartAsync<TModule>(
         string[] args,
         string? assemblyName,
         Action<WebApplicationBuilder>? config = null)
-        where TGenerationModule : AbpModule
         where TModule : AbpModule
     {
         Log.Information("Starting {AssemblyName}", assemblyName);
 
         try
         {
-            WebApplication app;
-
-            if (args is ["schema", ..])
-            {
-                app = await ApplicationBuilderHelper.BuildApplicationAsync<TGenerationModule>(args, config);
-            }
-            else
-            {
-                app = await ApplicationBuilderHelper.BuildApplicationAsync<TModule>(args, config);
-            }
+            var app = await ApplicationBuilderHelper.BuildApplicationAsync<TModule>(args, config);
 
             await app.InitializeApplicationAsync();
             await app.RunWithGraphQLCommandsAsync(args);
@@ -71,6 +67,35 @@ public static partial class HostGraphqlHelper
         catch (Exception ex)
         {
             Log.Fatal(ex, "{AssemblyName} error start!", assemblyName);
+            throw;
+        }
+
+        return 0;
+    }
+
+    public static async Task<int> StartGenerateAsync<TGenerationModule>(string[] args)
+        where TGenerationModule : AbpModule
+    {
+        Log.Information("Starting generate graphql!");
+
+        try
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            builder.Host
+                .UseAutofac()
+                .UseSerilog();
+
+            await builder.AddApplicationAsync<TGenerationModule>();
+
+            var app = builder.Build();
+
+            await app.InitializeApplicationAsync();
+            await app.RunWithGraphQLCommandsAsync(args);
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "Error generate graphql!");
             throw;
         }
 

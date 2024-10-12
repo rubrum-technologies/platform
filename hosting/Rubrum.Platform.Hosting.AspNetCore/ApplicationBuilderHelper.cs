@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Elastic.Ingest.Elasticsearch;
+using Elastic.Ingest.Elasticsearch.DataStreams;
+using Elastic.Serilog.Sinks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -15,7 +18,9 @@ public static class ApplicationBuilderHelper
         Action<WebApplicationBuilder>? config = null)
         where TModule : IAbpModule
     {
+        var assemblyName = typeof(TModule).Assembly.GetName().Name!;
         var builder = WebApplication.CreateBuilder(args);
+        var configuration = builder.Configuration;
 
         builder.Host
             .AddAppSettingsSecretsJson()
@@ -34,6 +39,13 @@ public static class ApplicationBuilderHelper
                     .Enrich.WithProperty("Application", typeof(TModule).Assembly.GetName().Name)
                     .WriteTo.Async(c => c.File("Logs/logs.txt"))
                     .WriteTo.Async(c => c.Console())
+                    .WriteTo.Async(c => c.Elasticsearch(
+                        [new Uri(configuration["ConnectionStrings:elasticsearch"]!)],
+                        options =>
+                        {
+                            options.DataStream = new DataStreamName("logs", "platform", assemblyName);
+                            options.BootstrapMethod = BootstrapMethod.Failure;
+                        }))
                     .WriteTo.OpenTelemetry(options =>
                     {
                         var endpoint = builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"];
