@@ -1,3 +1,4 @@
+using Rubrum.Modularity;
 using Rubrum.Platform.Hosting;
 using Rubrum.Platform.StoreAppsService.DbMigrations;
 using Rubrum.Platform.StoreAppsService.EntityFrameworkCore;
@@ -6,10 +7,10 @@ using Volo.Abp.Modularity;
 
 namespace Rubrum.Platform.StoreAppsService;
 
-[DependsOn(typeof(PlatformHostingAspNetCoreMicroserviceGraphqlModule))]
-[DependsOn(typeof(PlatformStoreAppsServiceApplicationModule))]
-[DependsOn(typeof(PlatformStoreAppsServiceEntityFrameworkCoreModule))]
-public class PlatformStoreAppsServiceHttpApiHostModule : AbpModule
+[DependsOn<PlatformHostingAspNetCoreMicroserviceGraphqlModule>]
+[DependsOn<StoreAppsServiceApplicationModule>]
+[DependsOn<StoreAppsServiceEntityFrameworkCoreModule>]
+public class StoreAppsServiceHttpApiHostModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {

@@ -11,6 +11,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Auditing.Contracts\Rubrum.Auditing.Contracts.csproj"/>
-    <ProjectReference Include="..\Rubrum.Platform.StoreAppsService.Domain.Shared\Rubrum.Platform.StoreAppsService.Domain.Shared.csproj" />
   </ItemGroup>
 </Project>

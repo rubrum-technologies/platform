@@ -1,6 +1,7 @@
+using Rubrum.Modularity;
 using Volo.Abp.Modularity;
 
 namespace Rubrum.Platform.StoreAppsService;
 
-[DependsOn(typeof(StoreAppsServiceEntityFrameworkCoreTestModule))]
+[DependsOn<StoreAppsServiceEntityFrameworkCoreTestModule>]
 public class StoreAppsServiceDomainTestModule : AbpModule;

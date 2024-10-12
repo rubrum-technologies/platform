@@ -2,7 +2,7 @@ using Rubrum.Platform.Hosting;
 using Rubrum.Platform.StoreAppsService;
 using Rubrum.Platform.StoreAppsService.EntityFrameworkCore;
 
-return await HostGraphqlHelper.RunServerAsync<GraphqlGenerationModule, PlatformStoreAppsServiceHttpApiHostModule>(
+return await HostGraphqlHelper.RunServerAsync<GraphqlGenerationModule, StoreAppsServiceHttpApiHostModule>(
     args,
     builder =>
     {

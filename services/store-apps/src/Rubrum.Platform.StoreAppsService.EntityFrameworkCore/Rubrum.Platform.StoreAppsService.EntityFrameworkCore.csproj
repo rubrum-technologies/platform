@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.EntityFrameworkCore\Rubrum.EntityFrameworkCore.csproj"/>
     <ProjectReference Include="..\Rubrum.Platform.StoreAppsService.Domain\Rubrum.Platform.StoreAppsService.Domain.csproj" />
   </ItemGroup>
 </Project>

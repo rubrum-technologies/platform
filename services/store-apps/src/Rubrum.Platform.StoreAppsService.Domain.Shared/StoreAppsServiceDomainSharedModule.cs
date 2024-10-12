@@ -3,8 +3,8 @@ using Volo.Abp.Modularity;
 
 namespace Rubrum.Platform.StoreAppsService;
 
-[DependsOn(typeof(AbpDddDomainSharedModule))]
-public class PlatformStoreAppsServiceDomainSharedModule : AbpModule
+[DependsOn<AbpDddDomainSharedModule>]
+public class StoreAppsServiceDomainSharedModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

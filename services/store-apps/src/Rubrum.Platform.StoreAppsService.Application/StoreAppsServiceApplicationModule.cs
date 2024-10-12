@@ -15,8 +15,8 @@ namespace Rubrum.Platform.StoreAppsService;
 [DependsOn<RubrumGraphqlDddModule>]
 [DependsOn<RubrumGraphqlAuthorizationModule>]
 [DependsOn<RubrumCqrsModule>]
-[DependsOn<PlatformStoreAppsServiceDomainModule>]
-public class PlatformStoreAppsServiceApplicationModule : AbpModule
+[DependsOn<StoreAppsServiceDomainModule>]
+public class StoreAppsServiceApplicationModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
