@@ -5,7 +5,6 @@ namespace Rubrum.Platform.StoreAppsService.Apps.Queries;
 
 public class GetAppByIdQuery : IRequest<App?>
 {
-    [ID<App>]
     public required Guid Id { get; init; }
 
     public class Handler(IAppByIdDataLoader dataLoader) : IRequestHandler<GetAppByIdQuery, App?>

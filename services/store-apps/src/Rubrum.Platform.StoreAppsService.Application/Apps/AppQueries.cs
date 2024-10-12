@@ -13,11 +13,9 @@ namespace Rubrum.Platform.StoreAppsService.Apps;
 public static class AppQueries
 {
     [Authorize]
-    [NodeResolver]
     public static async Task<App?> GetAppByIdAsync(
         [ID<App>] Guid id,
         [Service] IMediator mediator,
-        [Service] IAppByIdDataLoader blobByIdDataLoader,
         CancellationToken ct = default)
     {
         return await mediator.Send(

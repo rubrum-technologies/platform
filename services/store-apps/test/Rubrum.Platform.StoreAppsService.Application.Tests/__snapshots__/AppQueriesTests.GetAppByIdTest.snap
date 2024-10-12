@@ -1,0 +1,14 @@
+{
+  "data": {
+    "appById": {
+      "name": "Тестовое приложение",
+      "ownerId": "VXNlcjoAAAAAAAAAAAAAAAAAAAAA",
+      "version": {
+        "major": 1,
+        "minor": 0,
+        "patch": 0
+      },
+      "enabled": true
+    }
+  }
+}

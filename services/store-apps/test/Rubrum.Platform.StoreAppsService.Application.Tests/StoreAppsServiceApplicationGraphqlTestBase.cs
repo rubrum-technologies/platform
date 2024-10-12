@@ -1,8 +1,7 @@
 ﻿using Rubrum.Graphql;
-using Rubrum.Platform.StoreAppsService;
 using Volo.Abp;
 
-namespace Rubrum.Platform.BlobStorageService;
+namespace Rubrum.Platform.StoreAppsService;
 
 public class StoreAppsServiceApplicationGraphqlTestBase
     : RubrumGraphqlTestBase<StoreAppsServiceApplicationTestModule>

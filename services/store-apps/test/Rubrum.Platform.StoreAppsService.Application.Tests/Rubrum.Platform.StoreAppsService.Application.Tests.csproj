@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Graphql.TestBase\Rubrum.Graphql.TestBase.csproj" Version="8.3.0" />
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Graphql.TestBase\Rubrum.Graphql.TestBase.csproj"/>
     <ProjectReference Include="..\..\src\Rubrum.Platform.StoreAppsService.Application\Rubrum.Platform.StoreAppsService.Application.csproj" />
     <ProjectReference Include="..\Rubrum.Platform.StoreAppsService.EntityFrameworkCore.Tests\Rubrum.Platform.StoreAppsService.EntityFrameworkCore.Tests.csproj" />
   </ItemGroup>

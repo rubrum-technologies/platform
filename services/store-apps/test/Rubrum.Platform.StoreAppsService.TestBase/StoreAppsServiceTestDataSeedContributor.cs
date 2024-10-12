@@ -8,8 +8,7 @@ namespace Rubrum.Platform.StoreAppsService;
 
 public class StoreAppsServiceTestDataSeedContributor(
     IUnitOfWorkManager unitOfWorkManager,
-    IAppRepository repository,
-    AppManager manager) : IDataSeedContributor, ITransientDependency
+    IAppRepository repository) : IDataSeedContributor, ITransientDependency
 {
     public async Task SeedAsync(DataSeedContext context)
     {
@@ -20,9 +19,8 @@ public class StoreAppsServiceTestDataSeedContributor(
             return;
         }
 
-        await repository.InsertAsync(
-            await manager.CreateAsync(TestOwnerId, TestName, TestVersion, true),
-            true);
+        var app = new App(TestAppId, null, TestOwnerId, TestName, TestVersion, true);
+        await repository.InsertAsync(app, true);
 
         await uow.CompleteAsync();
     }
