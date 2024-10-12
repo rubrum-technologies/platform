@@ -1,6 +1,6 @@
 namespace Rubrum.Platform.StoreAppsService;
 
-public class AppTestConstants
+public static class AppTestConstants
 {
     public static Guid TestOwnerId => Guid.NewGuid();
 

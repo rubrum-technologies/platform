@@ -1,5 +1,4 @@
 using Rubrum.Platform.StoreAppsService.Apps;
-using Testcontainers.PostgreSql;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Uow;
@@ -8,7 +7,6 @@ using static Rubrum.Platform.StoreAppsService.AppTestConstants;
 namespace Rubrum.Platform.StoreAppsService;
 
 public class StoreAppsServiceTestDataSeedContributor(
-    PostgreSqlContainer postgreSqlContainer,
     IUnitOfWorkManager unitOfWorkManager,
     IAppRepository repository,
     AppManager manager) : IDataSeedContributor, ITransientDependency

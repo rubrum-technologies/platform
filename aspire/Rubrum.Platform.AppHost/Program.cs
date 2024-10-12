@@ -70,6 +70,7 @@ var storeAppsService = builder
     .AddProject<Rubrum_Platform_StoreAppsService_HttpApi_Host>("store-apps-service")
     .WithReference(auth)
     .WithReference(database.AddDatabase("store-apps-service-db"))
+    .WithReference(elasticsearch)
     .WithDaprSidecar(defaultDaprSidecarOptions)
     .DefaultMicroserviceConfiguration(authority, swaggerClient);
 
@@ -81,8 +82,8 @@ graphql
         EnableGlobalObjectIdentification = true,
     })
     .WithSubgraph(administrationService)
-    .WithSubgraph(blobStorageService);
-    .WithSubgraph(storeAppsService);;
+    .WithSubgraph(blobStorageService)
+    .WithSubgraph(storeAppsService);
 
 gateway
     .WithReference(elasticsearch)
