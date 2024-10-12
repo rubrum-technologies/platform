@@ -15,10 +15,10 @@ interface AuditedObject implements CreationAuditedObject & HasCreationTime & May
   creationTime: DateTime
   "Id of the creator."
   creatorId: ID
-  "Last modifier user for this entity."
-  lastModifierId: ID
   "The last modified time for this entity."
   lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
 }
 
 "This interface can be implemented to store creation information (who and when created)."
@@ -63,16 +63,16 @@ interface FullAuditedObject implements AuditedObject & CreationAuditedObject & H
   creationTime: DateTime
   "Id of the creator."
   creatorId: ID
-  "Last modifier user for this entity."
-  lastModifierId: ID
-  "The last modified time for this entity."
-  lastModificationTime: DateTime
   "Id of the deleter user."
   deleterId: ID
   "Deletion time."
   deletionTime: DateTime
   "Used to mark an Entity as 'Deleted'."
   isDeleted: Boolean!
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
 }
 
 "A standard interface to add CreationTime property."
@@ -107,10 +107,10 @@ interface MayHaveCreator {
 
 "This interface can be implemented to store modification information (who and when modified lastly)."
 interface ModificationAuditedObject implements HasModificationTime {
-  "Last modifier user for this entity."
-  lastModifierId: ID
   "The last modified time for this entity."
   lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
 }
 
 interface MultiTenant {
@@ -140,39 +140,39 @@ type AuthorizationError implements Error {
 }
 
 type Blob implements Node & Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate @relation(name: "", value: "") @permission(name: "", value: "") @permission(name: "", value: "") {
-  url: String!
-  "Returns an array of ordered keys for this entity."
-  keys: [Any]!
-  "Unique identifier for this entity."
-  id: ID!
-  "Id of the creator."
-  creatorId: ID
-  "Last modifier user for this entity."
-  lastModifierId: ID
-  "Id of the deleter user."
-  deleterId: ID
-  extraProperties: JSON
-  "Id of the related tenant."
-  tenantId: ID
-  "Id of the owner."
-  ownerId: ID!
-  folderId: ID
-  metadata: BlobMetadata!
   "Creation time."
   creationTime: DateTime
-  "The last modified time for this entity."
-  lastModificationTime: DateTime
+  "Id of the creator."
+  creatorId: ID
+  "Id of the deleter user."
+  deleterId: ID
   "Deletion time."
   deletionTime: DateTime
+  extraProperties: JSON
+  folderId: ID
+  "Unique identifier for this entity."
+  id: ID!
   "Used to mark an Entity as 'Deleted'."
   isDeleted: Boolean!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
+  metadata: BlobMetadata!
+  "Id of the owner."
+  ownerId: ID!
+  "Id of the related tenant."
+  tenantId: ID
+  url: String!
 }
 
 type BlobMetadata {
-  size: Long!
-  mimeType: String!
-  filename: String!
   extension: String!
+  filename: String!
+  mimeType: String!
+  size: Long!
 }
 
 type BusinessError implements Error {
@@ -182,89 +182,89 @@ type BusinessError implements Error {
 }
 
 type ChangeFolderBlobNamePayload {
-  folderBlob: FolderBlob
   errors: [ChangeFolderBlobNameError!]
+  folderBlob: FolderBlob
 }
 
 type ChangeFolderBlobParentIdPayload {
-  folderBlob: FolderBlob
   errors: [ChangeFolderBlobParentIdError!]
+  folderBlob: FolderBlob
 }
 
 type CreateFolderBlobPayload {
-  folderBlob: FolderBlob
   errors: [CreateFolderBlobError!]
+  folderBlob: FolderBlob
 }
 
 type EntityNotFoundError implements Error {
   id: String
-  type: String
   message: String!
+  type: String
 }
 
 type FolderBlob implements Node & Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate @relation(name: "", value: "") @permission(name: "", value: "") @permission(name: "", value: "") {
-  parent: FolderBlob
   blobs: [Blob!]!
-  "Returns an array of ordered keys for this entity."
-  keys: [Any]!
-  "Unique identifier for this entity."
-  id: ID!
-  "Id of the creator."
-  creatorId: ID
-  "Last modifier user for this entity."
-  lastModifierId: ID
-  "Id of the deleter user."
-  deleterId: ID
-  extraProperties: JSON
-  "Id of the related tenant."
-  tenantId: ID
-  "Id of the owner."
-  ownerId: ID!
-  parentId: ID
-  name: String!
   "Creation time."
   creationTime: DateTime
-  "The last modified time for this entity."
-  lastModificationTime: DateTime
+  "Id of the creator."
+  creatorId: ID
+  "Id of the deleter user."
+  deleterId: ID
   "Deletion time."
   deletionTime: DateTime
+  extraProperties: JSON
+  "Unique identifier for this entity."
+  id: ID!
   "Used to mark an Entity as 'Deleted'."
   isDeleted: Boolean!
+  "Returns an array of ordered keys for this entity."
+  keys: [Any]!
+  "The last modified time for this entity."
+  lastModificationTime: DateTime
+  "Last modifier user for this entity."
+  lastModifierId: ID
+  name: String!
+  "Id of the owner."
+  ownerId: ID!
+  parent: FolderBlob
+  parentId: ID
+  "Id of the related tenant."
+  tenantId: ID
 }
 
 type FolderBlobNameAlreadyExistsError implements Error {
-  message: String!
-  ownerId: UUID!
-  parentId: UUID
-  name: String!
   code: String
   details: String
   logLevel: LogLevel!
+  message: String!
+  name: String!
+  ownerId: UUID!
+  parentId: UUID
 }
 
 type FolderBlobParentHasDifferentOwnerError implements Error {
-  message: String!
-  ownerId: UUID!
-  parentId: UUID!
   code: String
   details: String
   logLevel: LogLevel!
+  message: String!
+  ownerId: UUID!
+  parentId: UUID!
 }
 
 type Mutation {
-  createFolderBlob(input: CreateFolderBlobInput!): CreateFolderBlobPayload! @authorize
-  changeFolderBlobParentId(input: ChangeFolderBlobParentIdInput!): ChangeFolderBlobParentIdPayload! @authorize
   changeFolderBlobName(input: ChangeFolderBlobNameInput!): ChangeFolderBlobNamePayload! @authorize
+  changeFolderBlobParentId(input: ChangeFolderBlobParentIdInput!): ChangeFolderBlobParentIdPayload! @authorize
+  createFolderBlob(input: CreateFolderBlobInput!): CreateFolderBlobPayload! @authorize
 }
 
 type Query {
+  blobById(id: ID!): Blob @authorize
+  folderBlobById(id: ID!): FolderBlob @authorize
+  folders(order: [FolderBlobSortInput!] parentId: ID where: FolderBlobFilterInput): [FolderBlob!]! @authorize
   "Fetches an object given its ID."
   node("ID of the object." id: ID!): Node
   "Lookup nodes by a list of IDs."
   nodes("The list of node IDs." ids: [ID!]!): [Node]!
-  blobById(id: ID!): Blob @authorize
-  folderBlobById(id: ID!): FolderBlob @authorize
-  folders(parentId: ID where: FolderBlobFilterInput order: [FolderBlobSortInput!]): [FolderBlob!]! @authorize
 }
 
 type ValidationError implements Error {
@@ -298,8 +298,8 @@ input ChangeFolderBlobParentIdInput {
 }
 
 input CreateFolderBlobInput {
-  parentId: ID
   name: String!
+  parentId: ID
 }
 
 input DateTimeOperationFilterInput {
@@ -423,7 +423,7 @@ enum SortEnumType {
 directive @aggregate on OBJECT
 
 "The authorize directive."
-directive @authorize("The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!] "Defines when when the authorize directive shall be applied.By default the authorize directives are applied during the validation phase." apply: ApplyPolicy! = BEFORE_RESOLVER) repeatable on OBJECT | FIELD_DEFINITION
+directive @authorize("Defines when when the authorize directive shall be applied.By default the authorize directives are applied during the validation phase." apply: ApplyPolicy! = BEFORE_RESOLVER "The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!]) repeatable on OBJECT | FIELD_DEFINITION
 
 directive @permission(name: String! value: String!) repeatable on OBJECT
 

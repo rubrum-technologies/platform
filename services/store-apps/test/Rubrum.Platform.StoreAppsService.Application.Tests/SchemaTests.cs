@@ -2,12 +2,13 @@
 using HotChocolate.Execution;
 using HotChocolate.Execution.Configuration;
 using Rubrum.Graphql;
+using Rubrum.Platform.BlobStorageService;
 using Shouldly;
 using Xunit;
 
 namespace Rubrum.Platform.StoreAppsService;
 
-public sealed class SchemaTests : RubrumGraphqlTestBase<StoreAppsServiceApplicationTestModule>
+public sealed class SchemaTests : StoreAppsServiceApplicationGraphqlTestBase
 {
     private readonly IRequestExecutorBuilder _builder;
 
