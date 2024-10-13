@@ -1,0 +1,10 @@
+{
+  "data": {
+    "deactivateApp": {
+      "app": {
+        "enabled": false
+      },
+      "errors": null
+    }
+  }
+}

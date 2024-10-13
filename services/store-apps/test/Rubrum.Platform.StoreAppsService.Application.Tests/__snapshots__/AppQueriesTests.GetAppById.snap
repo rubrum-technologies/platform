@@ -1,12 +1,12 @@
 {
   "data": {
     "appById": {
-      "name": "Тестовое приложение",
+      "name": "Тестовое приложение dataseed",
       "ownerId": "VXNlcjoAAAAAAAAAAAAAAAAAAAAA",
       "version": {
-        "major": 1,
-        "minor": 0,
-        "patch": 0
+        "major": 777,
+        "minor": 999,
+        "patch": 100500
       },
       "enabled": true
     }

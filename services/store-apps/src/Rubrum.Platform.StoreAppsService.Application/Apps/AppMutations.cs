@@ -27,7 +27,7 @@ public static class AppMutations
     [UseUnitOfWork]
     [UseAbpError]
     [Error<AppNameAlreadyExistsException>]
-    public static async Task<App> ChangeNameAppAsync(
+    public static async Task<App> ChangeAppNameAsync(
         ChangeAppNameCommand input,
         [Service] IMediator mediator,
         CancellationToken ct = default)

@@ -6,14 +6,14 @@ using Volo.Abp.DependencyInjection;
 namespace Rubrum.Platform.StoreAppsService.Apps.Commands;
 
 [GraphQLName("ChangeAppNameInput")]
-public class ChangeAppNameCommand : IRequest<App>
+public sealed class ChangeAppNameCommand : IRequest<App>
 {
     [ID<App>]
     public required Guid Id { get; init; }
 
     public required string Name { get; init; }
 
-    public sealed class Handler(
+    public class Handler(
         AppManager manager,
         IAppRepository repository) : IRequestHandler<ChangeAppNameCommand, App>, ITransientDependency
     {

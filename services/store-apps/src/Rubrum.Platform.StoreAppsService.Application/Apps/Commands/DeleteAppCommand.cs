@@ -6,12 +6,12 @@ using Volo.Abp.DependencyInjection;
 namespace Rubrum.Platform.StoreAppsService.Apps.Commands;
 
 [GraphQLName("DeleteAppInput")]
-public class DeleteAppCommand : IRequest<App>
+public sealed class DeleteAppCommand : IRequest<App>
 {
     [ID<App>]
     public required Guid Id { get; init; }
 
-    public sealed class Handler(IAppRepository repository)
+    public class Handler(IAppRepository repository)
         : IRequestHandler<DeleteAppCommand, App>, ITransientDependency
     {
         public async Task<App> Handle(

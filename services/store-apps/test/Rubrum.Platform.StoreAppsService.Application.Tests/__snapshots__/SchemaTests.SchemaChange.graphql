@@ -205,9 +205,9 @@ type BusinessError implements Error {
   message: String!
 }
 
-type ChangeNameAppPayload {
+type ChangeAppNamePayload {
   app: App
-  errors: [ChangeNameAppError!]
+  errors: [ChangeAppNameError!]
 }
 
 type CreateAppPayload {
@@ -233,7 +233,7 @@ type EntityNotFoundError implements Error {
 
 type Mutation {
   activateApp(input: ActivateAppInput!): ActivateAppPayload! @authorize
-  changeNameApp(input: ChangeNameAppInput!): ChangeNameAppPayload! @authorize
+  changeAppName(input: ChangeAppNameInput!): ChangeAppNamePayload! @authorize
   createApp(input: CreateAppInput!): CreateAppPayload! @authorize
   deactivateApp(input: DeactivateAppInput!): DeactivateAppPayload! @authorize
   deleteApp(input: DeleteAppInput!): DeleteAppPayload! @authorize
@@ -277,7 +277,7 @@ type Version {
 
 union ActivateAppError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError
 
-union ChangeNameAppError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | AppNameAlreadyExistsError
+union ChangeAppNameError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | AppNameAlreadyExistsError
 
 union CreateAppError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | AppNameAlreadyExistsError
 
@@ -334,10 +334,6 @@ input BooleanOperationFilterInput {
 input ChangeAppNameInput {
   id: ID!
   name: String!
-}
-
-input ChangeNameAppInput {
-  input: ChangeAppNameInput!
 }
 
 input CreateAppInput {

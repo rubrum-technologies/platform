@@ -1,0 +1,10 @@
+{
+  "data": {
+    "deleteApp": {
+      "app": {
+        "name": "Тестовое приложение dataseed"
+      },
+      "errors": null
+    }
+  }
+}

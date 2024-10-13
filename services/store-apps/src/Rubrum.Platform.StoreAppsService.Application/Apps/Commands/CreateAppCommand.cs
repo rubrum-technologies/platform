@@ -15,7 +15,7 @@ public sealed class CreateAppCommand : IRequest<App>
 
     public required bool Enabled { get; init; }
 
-    public sealed class Handler(
+    public class Handler(
         ICurrentUser currentUser,
         AppManager manager,
         IAppRepository repository) : IRequestHandler<CreateAppCommand, App>, ITransientDependency

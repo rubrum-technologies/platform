@@ -1,0 +1,10 @@
+{
+  "data": {
+    "changeAppName": {
+      "app": {
+        "name": "TestChangeName"
+      },
+      "errors": null
+    }
+  }
+}

@@ -6,7 +6,7 @@ public static class AppTestConstants
 
     public static Guid TestOwnerId => Guid.NewGuid();
 
-    public static string TestName => "Тестовое приложение";
+    public static string TestName => "Тестовое приложение dataseed";
 
-    public static Apps.Version TestVersion => new(1, 0, 0);
+    public static Apps.Version TestVersion => new(777, 999, 100500);
 }

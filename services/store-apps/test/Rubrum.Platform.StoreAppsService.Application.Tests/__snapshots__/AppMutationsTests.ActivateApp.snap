@@ -1,0 +1,10 @@
+{
+  "data": {
+    "activateApp": {
+      "app": {
+        "enabled": true
+      },
+      "errors": null
+    }
+  }
+}
