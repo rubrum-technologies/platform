@@ -3,9 +3,9 @@ using Volo.Abp.Domain.Values;
 
 namespace Rubrum.Platform.StoreAppsService.Apps;
 
-public class Version : ValueObject
+public class AppVersion : ValueObject
 {
-    public Version(int major, int minor, int patch)
+    public AppVersion(int major, int minor, int patch)
     {
         Check.Range(major, nameof(major), 0);
         Major = major;
@@ -18,7 +18,7 @@ public class Version : ValueObject
     }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    protected Version()
+    protected AppVersion()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
     }

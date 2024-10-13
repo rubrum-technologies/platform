@@ -9,4 +9,5 @@ return await HostGraphqlHelper.RunServerAsync<GraphqlGenerationModule, BlobStora
         builder.AddServiceDefaults();
         builder.AddNpgsqlDbContext<BlobStorageServiceDbContext>(
             BlobStorageServiceDbProperties.ConnectionStringName);
+        builder.AddElasticsearchClient("elasticsearch");
     });

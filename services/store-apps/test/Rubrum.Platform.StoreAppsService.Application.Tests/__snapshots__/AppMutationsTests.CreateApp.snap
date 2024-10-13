@@ -1,16 +1,20 @@
 {
-  "data": {
-    "createApp": {
-      "app": {
-        "enabled": false,
-        "name": "CreateAppTest",
-        "version": {
-          "major": 10,
-          "minor": 20,
-          "patch": 122
+  "errors": [
+    {
+      "message": "The specified input object field `version` does not exist.",
+      "locations": [
+        {
+          "line": 5,
+          "column": 7
         }
-      },
-      "errors": null
+      ],
+      "path": [
+        "createApp"
+      ],
+      "extensions": {
+        "field": "version",
+        "specifiedBy": "https://spec.graphql.org/October2021/#sec-Input-Object-Field-Names"
+      }
     }
-  }
+  ]
 }

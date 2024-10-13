@@ -18,8 +18,4 @@
     <ProjectReference Include="..\..\src\Rubrum.Platform.StoreAppsService.Application\Rubrum.Platform.StoreAppsService.Application.csproj" />
     <ProjectReference Include="..\Rubrum.Platform.StoreAppsService.EntityFrameworkCore.Tests\Rubrum.Platform.StoreAppsService.EntityFrameworkCore.Tests.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="__snapshots__\" />
-  </ItemGroup>
 </Project>

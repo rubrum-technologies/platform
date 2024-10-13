@@ -1,7 +1,4 @@
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Rubrum.Modularity;
 using Rubrum.Platform.StoreAppsService.DbMigrations;
@@ -9,10 +6,8 @@ using Rubrum.Platform.StoreAppsService.EntityFrameworkCore;
 using Testcontainers.PostgreSql;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.Sqlite;
 using Volo.Abp.Modularity;
 using Volo.Abp.Threading;
-using Volo.Abp.Uow;
 
 namespace Rubrum.Platform.StoreAppsService;
 

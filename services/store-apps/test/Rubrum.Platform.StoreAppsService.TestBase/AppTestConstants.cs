@@ -1,3 +1,5 @@
+using Rubrum.Platform.StoreAppsService.Apps;
+
 namespace Rubrum.Platform.StoreAppsService;
 
 public static class AppTestConstants
@@ -8,5 +10,5 @@ public static class AppTestConstants
 
     public static string TestName => "Тестовое приложение dataseed";
 
-    public static Apps.Version TestVersion => new(777, 999, 100500);
+    public static AppVersion TestVersion => new(777, 999, 100500);
 }

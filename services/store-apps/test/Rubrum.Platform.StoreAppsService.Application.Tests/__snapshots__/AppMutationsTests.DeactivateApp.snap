@@ -2,7 +2,13 @@
   "data": {
     "deactivateApp": {
       "app": {
-        "enabled": false
+        "enabled": false,
+        "name": "Тестовое приложение dataseed",
+        "version": {
+          "major": 777,
+          "minor": 999,
+          "patch": 100500
+        }
       },
       "errors": null
     }

@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using CookieCrumble;
 using HotChocolate.Types.Relay;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +37,12 @@ public class AppMutationsTests : StoreAppsServiceApplicationGraphqlTestBase
             activateApp(input: {id: "{{appId}}"}) {
                 app {
                     enabled
+                    name
+                    version {
+                      major
+                      minor
+                      patch
+                    }
                 }
                 errors {
                     __typename
@@ -65,6 +69,12 @@ public class AppMutationsTests : StoreAppsServiceApplicationGraphqlTestBase
                 {
                     app {
                         name
+                        version {
+                            major
+                            minor
+                            patch
+                        }
+                        enabled
                     }
                     errors {
                         __typename
@@ -120,6 +130,12 @@ public class AppMutationsTests : StoreAppsServiceApplicationGraphqlTestBase
                 deactivateApp(input: {id: "{{appId}}"}) {
                     app {
                         enabled
+                        name
+                        version {
+                            major
+                            minor
+                            patch
+                        }
                     }
                     errors {
                         __typename
@@ -141,7 +157,13 @@ public class AppMutationsTests : StoreAppsServiceApplicationGraphqlTestBase
               mutation {
                 deleteApp(input: {id: "{{appId}}"}) {
                     app {
+                        enabled
                         name
+                        version {
+                           major
+                           minor
+                           patch
+                        }
                     }
                     errors {
                         __typename

@@ -8,7 +8,7 @@ namespace Rubrum.Platform.StoreAppsService.Apps;
 
 public class App : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMustHaveOwner
 {
-    internal App(Guid id, Guid? tenantId, Guid ownerId, string name, Version version, bool enabled)
+    internal App(Guid id, Guid? tenantId, Guid ownerId, string name, AppVersion version, bool enabled)
         : base(id)
     {
         TenantId = tenantId;
@@ -30,7 +30,7 @@ public class App : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMustHaveOwner
 
     public string Name { get; private set; }
 
-    public Version Version { get; private set; }
+    public AppVersion Version { get; private set; }
 
     public bool Enabled { get; private set; }
 

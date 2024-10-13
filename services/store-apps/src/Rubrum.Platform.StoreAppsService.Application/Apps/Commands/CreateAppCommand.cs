@@ -11,7 +11,7 @@ public sealed class CreateAppCommand : IRequest<App>
 {
     public required string Name { get; init; }
 
-    public required Version Version { get; init; }
+    public required AppVersion Version { get; init; }
 
     public required bool Enabled { get; init; }
 
@@ -42,6 +42,7 @@ public sealed class CreateAppCommand : IRequest<App>
         public Validator()
         {
             RuleFor(x => x.Name)
+                .NotEmpty()
                 .MaximumLength(AppConstants.MaxNameLength);
         }
     }

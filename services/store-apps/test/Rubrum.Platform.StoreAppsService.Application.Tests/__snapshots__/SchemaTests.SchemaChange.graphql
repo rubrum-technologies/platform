@@ -165,7 +165,7 @@ type App implements Node & Entity & EntityOfGuid & AggregateRoot & HasExtraPrope
   ownerId: ID!
   "Id of the related tenant."
   tenantId: ID
-  version: Version!
+  version: AppVersion!
 }
 
 type AppNameAlreadyExistsError implements Error {
@@ -174,6 +174,12 @@ type AppNameAlreadyExistsError implements Error {
   logLevel: LogLevel!
   message: String!
   name: String!
+}
+
+type AppVersion {
+  major: Int!
+  minor: Int!
+  patch: Int!
 }
 
 "A connection to a list of items."
@@ -269,12 +275,6 @@ type ValidationResult {
   errorMessage: String
 }
 
-type Version {
-  major: Int!
-  minor: Int!
-  patch: Int!
-}
-
 union ActivateAppError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError
 
 union ChangeAppNameError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | AppNameAlreadyExistsError
@@ -295,7 +295,7 @@ input AppFilterInput {
   tenantId: UuidOperationFilterInput
   ownerId: UuidOperationFilterInput
   name: StringOperationFilterInput
-  version: VersionFilterInput
+  version: AppVersionFilterInput
   enabled: BooleanOperationFilterInput
   isDeleted: BooleanOperationFilterInput
   deleterId: UuidOperationFilterInput
@@ -313,7 +313,7 @@ input AppSortInput {
   tenantId: SortEnumType
   ownerId: SortEnumType
   name: SortEnumType
-  version: VersionSortInput
+  version: AppVersionSortInput
   enabled: SortEnumType
   isDeleted: SortEnumType
   deleterId: SortEnumType
@@ -324,6 +324,26 @@ input AppSortInput {
   creatorId: SortEnumType
   concurrencyStamp: SortEnumType
   id: SortEnumType
+}
+
+input AppVersionFilterInput {
+  and: [AppVersionFilterInput!]
+  or: [AppVersionFilterInput!]
+  major: IntOperationFilterInput
+  minor: IntOperationFilterInput
+  patch: IntOperationFilterInput
+}
+
+input AppVersionInput {
+  major: Int!
+  minor: Int!
+  patch: Int!
+}
+
+input AppVersionSortInput {
+  major: SortEnumType
+  minor: SortEnumType
+  patch: SortEnumType
 }
 
 input BooleanOperationFilterInput {
@@ -339,7 +359,7 @@ input ChangeAppNameInput {
 input CreateAppInput {
   enabled: Boolean!
   name: String!
-  version: VersionInput!
+  version: AppVersionInput!
 }
 
 input DateTimeOperationFilterInput {
@@ -421,26 +441,6 @@ input UuidOperationFilterInput {
   nlt: UUID
   lte: UUID
   nlte: UUID
-}
-
-input VersionFilterInput {
-  and: [VersionFilterInput!]
-  or: [VersionFilterInput!]
-  major: IntOperationFilterInput
-  minor: IntOperationFilterInput
-  patch: IntOperationFilterInput
-}
-
-input VersionInput {
-  major: Int!
-  minor: Int!
-  patch: Int!
-}
-
-input VersionSortInput {
-  major: SortEnumType
-  minor: SortEnumType
-  patch: SortEnumType
 }
 
 "Defines when a policy shall be executed."

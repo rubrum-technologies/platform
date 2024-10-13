@@ -1,7 +1,6 @@
 using Rubrum.Platform.StoreAppsService.Apps;
 using Shouldly;
 using Xunit;
-using Version = Rubrum.Platform.StoreAppsService.Apps.Version;
 
 namespace Rubrum.Platform.StoreAppsService;
 
@@ -12,7 +11,7 @@ public class AppTests : StoreAppsServiceDomainTestBase
         Guid.NewGuid(),
         Guid.NewGuid(),
         "InternalName",
-        new Version(10, 255, 323),
+        new AppVersion(10, 255, 323),
         true);
 
     [Theory]

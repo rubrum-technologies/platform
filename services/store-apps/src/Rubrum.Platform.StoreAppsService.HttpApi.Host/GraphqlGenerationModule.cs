@@ -1,4 +1,5 @@
 using Rubrum.Graphql;
+using Rubrum.Graphql.SpiceDb;
 using Rubrum.Modularity;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
@@ -7,21 +8,22 @@ using Volo.Abp.Modularity;
 namespace Rubrum.Platform.StoreAppsService;
 
 [DependsOn<AbpAspNetCoreMvcModule>]
-[DependsOn<RubrumGraphqlAuthorizationModule>]
-[DependsOn<RubrumGraphqlModule>]
+[DependsOn<RubrumGraphqlAuthorizationSpiceDbModule>]
 internal class GraphqlGenerationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         context.Services
             .GetGraphql()
-            .AddApplicationTypes()
             .AddGraphQLServer()
-            .AddMutationConventions()
             .AddGlobalObjectIdentification()
+            .AddQueryConventions()
+            .AddMutationConventions()
+            .AddProjections()
             .AddFiltering()
             .AddSorting()
-            .AddProjections();
+            .AddDddTypes()
+            .AddApplicationTypes();
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)

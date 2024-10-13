@@ -3,7 +3,6 @@ using Shouldly;
 using Volo.Abp.Uow;
 using Xunit;
 using static Rubrum.Platform.StoreAppsService.AppTestConstants;
-using Version = Rubrum.Platform.StoreAppsService.Apps.Version;
 
 namespace Rubrum.Platform.StoreAppsService;
 
@@ -26,7 +25,7 @@ public class AppManagerTests : StoreAppsServiceDomainTestBase
         using var uow = _unitOfWorkManager.Begin(true, true);
 
         var name = "Лучшее приложение";
-        var version = new Version(1, 0, 0);
+        var version = new AppVersion(1, 0, 0);
         var app = await _manager.CreateAsync(TestOwnerId, name, version, true);
 
         app.ShouldNotBeNull();

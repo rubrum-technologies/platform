@@ -1,7 +1,5 @@
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
-using Volo.Abp.MultiTenancy;
-using Volo.Abp.Threading;
 
 namespace Rubrum.Platform.StoreAppsService.Apps;
 
@@ -10,7 +8,7 @@ public class AppManager(IAppRepository repository) : DomainService
     public async Task<App> CreateAsync(
         Guid ownerId,
         string name,
-        Version version,
+        AppVersion version,
         bool enabled,
         CancellationToken ct = default)
     {

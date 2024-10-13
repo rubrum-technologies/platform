@@ -18,7 +18,7 @@ public sealed class DeactivateAppCommand : IRequest<App>
             DeactivateAppCommand request,
             CancellationToken cancellationToken)
         {
-            var app = await repository.GetAsync(x => x.Id == request.Id, true, cancellationToken);
+            var app = await repository.GetAsync(request.Id, true, cancellationToken);
 
             app.Deactivate();
 
