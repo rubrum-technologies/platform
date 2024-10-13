@@ -17,7 +17,7 @@ public class AppQueriesTests : StoreAppsServiceApplicationGraphqlTestBase
     }
 
     [Fact]
-    public async Task GetAppByIdTest()
+    public async Task GetAppById()
     {
         var appId = _idSerializer.Format(nameof(App), TestAppId);
 
@@ -41,4 +41,29 @@ public class AppQueriesTests : StoreAppsServiceApplicationGraphqlTestBase
         result.MatchSnapshot();
     }
 
+    [Fact]
+    public async Task GetApps()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            $$"""
+              query {
+                  apps {
+                     nodes {
+                        name
+                        enabled
+                        version {
+                            major
+                            minor
+                            patch
+                        }
+                        ownerId
+                        tenantId
+                     }
+                  }
+              }
+              """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
 }

@@ -1,0 +1,19 @@
+{
+  "data": {
+    "apps": {
+      "nodes": [
+        {
+          "name": "Тестовое приложение",
+          "enabled": true,
+          "version": {
+            "major": 1,
+            "minor": 0,
+            "patch": 0
+          },
+          "ownerId": "VXNlcjoAAAAAAAAAAAAAAAAAAAAA",
+          "tenantId": null
+        }
+      ]
+    }
+  }
+}

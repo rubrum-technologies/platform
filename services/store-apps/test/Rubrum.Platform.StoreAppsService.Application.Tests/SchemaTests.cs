@@ -16,7 +16,7 @@ public sealed class SchemaTests : StoreAppsServiceApplicationGraphqlTestBase
     }
 
     [Fact]
-    public async Task SchemaChangeTest()
+    public async Task SchemaChange()
     {
         var schema = await _builder.BuildSchemaAsync();
 
