@@ -22,6 +22,9 @@ public class StoreAppsServiceTestDataSeedContributor(
         var app = new App(TestAppId, null, TestOwnerId, TestName, TestVersion, true);
         await repository.InsertAsync(app, true);
 
+        var app2 = new App(TestAppId2, null, TestOwnerId, "Второе приложение dataseed", TestVersion, false);
+        await repository.InsertAsync(app2, true);
+
         await uow.CompleteAsync();
     }
 }

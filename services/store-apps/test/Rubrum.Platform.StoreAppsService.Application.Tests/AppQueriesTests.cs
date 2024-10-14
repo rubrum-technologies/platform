@@ -42,6 +42,31 @@ public class AppQueriesTests : StoreAppsServiceApplicationGraphqlTestBase
     }
 
     [Fact]
+    public async Task GetAppById_EntityNotFound()
+    {
+        var appId = _idSerializer.Format(nameof(App), Guid.NewGuid());
+
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            $$"""
+              query {
+                  appById(id: "{{appId}}") {
+                      name
+                      ownerId
+                      version {
+                        major
+                        minor
+                        patch
+                      }
+                      enabled
+                  }
+              }
+              """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task GetApps()
     {
         await using var result = await ExecuteRequestAsync(b => b.SetDocument(

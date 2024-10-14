@@ -56,6 +56,38 @@ public class AppMutationsTests : StoreAppsServiceApplicationGraphqlTestBase
     }
 
     [Fact]
+    public async Task ActivateApp_EntityNotFound()
+    {
+        var appId = _idSerializer.Format(nameof(App), Guid.NewGuid());
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            $$"""
+              mutation {
+                activateApp(input: {id: "{{appId}}"}) {
+                    app {
+                        enabled
+                        name
+                        version {
+                          major
+                          minor
+                          patch
+                        }
+                    }
+                    errors {
+                      ... on EntityNotFoundError {
+                          type
+                          message
+                      }
+                      __typename
+                    }
+                }
+              }
+              """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task ChangeNameApp()
     {
         var appId = _idSerializer.Format(nameof(App), TestAppId);
@@ -77,6 +109,81 @@ public class AppMutationsTests : StoreAppsServiceApplicationGraphqlTestBase
                         enabled
                     }
                     errors {
+                        __typename
+                    }
+                }
+              }
+              """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task ChangeNameApp_EntityNotFound()
+    {
+        var appId = _idSerializer.Format(nameof(App), Guid.NewGuid());
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            $$"""
+              mutation {
+                changeAppName(input: {
+                    id: "{{appId}}"
+                    name: "TestChangeName"
+                })
+                {
+                    app {
+                        name
+                        version {
+                            major
+                            minor
+                            patch
+                        }
+                        enabled
+                    }
+                    errors {
+                      ... on EntityNotFoundError {
+                          type
+                          message
+                      }
+                      __typename
+                    }
+                }
+              }
+              """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task ChangeNameApp_AppNameAlreadyExists()
+    {
+        var appId = _idSerializer.Format(nameof(App), TestAppId2);
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            $$"""
+              mutation {
+                changeAppName(input: {
+                    id: "{{appId}}"
+                    name: "{{TestName}}"
+                })
+                {
+                    app {
+                        name
+                        version {
+                            major
+                            minor
+                            patch
+                        }
+                        enabled
+                    }
+                    errors {
+                        ... on AppNameAlreadyExistsError {
+                            code
+                            details
+                            logLevel
+                            message
+                            name
+                        }
                         __typename
                     }
                 }
@@ -121,6 +228,46 @@ public class AppMutationsTests : StoreAppsServiceApplicationGraphqlTestBase
     }
 
     [Fact]
+    public async Task CreateApp_AppNameAlreadyExists()
+    {
+        _currentUser.Id.Returns(Guid.NewGuid());
+
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            $$"""
+              mutation {
+                createApp(input: {
+                    enabled: false,
+                    name: "{{TestName}}",
+                    version: {patch: 122, major: 10, minor: 20}
+                }) {
+                    app {
+                        enabled
+                        name
+                        version {
+                            major
+                            minor
+                            patch
+                         }
+                    }
+                    errors {
+                      ... on AppNameAlreadyExistsError {
+                          code
+                          details
+                          logLevel
+                          message
+                          name
+                      }
+                      __typename
+                    }
+                }
+              }
+              """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task DeactivateApp()
     {
         var appId = _idSerializer.Format(nameof(App), TestAppId);
@@ -138,6 +285,38 @@ public class AppMutationsTests : StoreAppsServiceApplicationGraphqlTestBase
                         }
                     }
                     errors {
+                        __typename
+                    }
+                }
+              }
+              """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task DeactivateApp_EntityNotFound()
+    {
+        var appId = _idSerializer.Format(nameof(App), Guid.NewGuid());
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            $$"""
+              mutation {
+                deactivateApp(input: {id: "{{appId}}"}) {
+                    app {
+                        enabled
+                        name
+                        version {
+                            major
+                            minor
+                            patch
+                        }
+                    }
+                    errors {
+                        ... on EntityNotFoundError {
+                            type
+                            message
+                        }
                         __typename
                     }
                 }
@@ -167,6 +346,38 @@ public class AppMutationsTests : StoreAppsServiceApplicationGraphqlTestBase
                     }
                     errors {
                         __typename
+                    }
+                }
+              }
+              """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task DeleteApp_EntityNotFound()
+    {
+        var appId = _idSerializer.Format(nameof(App), Guid.NewGuid());
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+            $$"""
+              mutation {
+                deleteApp(input: {id: "{{appId}}"}) {
+                    app {
+                        enabled
+                        name
+                        version {
+                           major
+                           minor
+                           patch
+                        }
+                    }
+                    errors {
+                      ... on EntityNotFoundError {
+                          type
+                          message
+                      }
+                      __typename
                     }
                 }
               }

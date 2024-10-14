@@ -3,7 +3,6 @@
 
   <PropertyGroup>
     <RootNamespace>Rubrum.Platform.StoreAppsService</RootNamespace>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>

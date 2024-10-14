@@ -1,0 +1,17 @@
+{
+  "data": {
+    "changeAppName": {
+      "app": null,
+      "errors": [
+        {
+          "code": "App:Error:NameAlreadyExists",
+          "details": null,
+          "logLevel": "WARNING",
+          "message": "Exception of type 'Rubrum.Platform.StoreAppsService.Apps.AppNameAlreadyExistsException' was thrown.",
+          "name": "Тестовое приложение dataseed",
+          "__typename": "AppNameAlreadyExistsError"
+        }
+      ]
+    }
+  }
+}
