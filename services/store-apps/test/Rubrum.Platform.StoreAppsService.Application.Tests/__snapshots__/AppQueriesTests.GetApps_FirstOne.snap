@@ -1,0 +1,19 @@
+{
+  "data": {
+    "apps": {
+      "nodes": [
+        {
+          "name": "Тестовое приложение dataseed",
+          "enabled": true,
+          "version": {
+            "major": 777,
+            "minor": 999,
+            "patch": 100500
+          },
+          "ownerId": "VXNlcjoAAAAAAAAAAAAAAAAAAAAA",
+          "tenantId": null
+        }
+      ]
+    }
+  }
+}

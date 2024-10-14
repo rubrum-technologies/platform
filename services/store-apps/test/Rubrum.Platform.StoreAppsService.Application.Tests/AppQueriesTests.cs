@@ -70,9 +70,113 @@ public class AppQueriesTests : StoreAppsServiceApplicationGraphqlTestBase
     public async Task GetApps()
     {
         await using var result = await ExecuteRequestAsync(b => b.SetDocument(
-            $$"""
+              """
               query {
                   apps {
+                     nodes {
+                        name
+                        enabled
+                        version {
+                            major
+                            minor
+                            patch
+                        }
+                        ownerId
+                        tenantId
+                     }
+                  }
+              }
+              """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetApps_FirstOne()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+              """
+              query {
+                  apps(first: 1) {
+                     nodes {
+                        name
+                        enabled
+                        version {
+                            major
+                            minor
+                            patch
+                        }
+                        ownerId
+                        tenantId
+                     }
+                  }
+              }
+              """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetApps_LastOne()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+              """
+              query {
+                  apps(last: 1) {
+                     nodes {
+                        name
+                        enabled
+                        version {
+                            major
+                            minor
+                            patch
+                        }
+                        ownerId
+                        tenantId
+                     }
+                  }
+              }
+              """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetApps_FilterByMinorVersionNeqZero()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+              """
+              query {
+                  apps(where: {version: {minor: {neq: 0}}}) {
+                     nodes {
+                        name
+                        enabled
+                        version {
+                            major
+                            minor
+                            patch
+                        }
+                        ownerId
+                        tenantId
+                     }
+                  }
+              }
+              """));
+
+        result.ShouldNotBeNull();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task GetApps_FilterByMinorVersionEqZero()
+    {
+        await using var result = await ExecuteRequestAsync(b => b.SetDocument(
+              """
+              query {
+                  apps(where: {version: {minor: {eq: 0}}}) {
                      nodes {
                         name
                         enabled
