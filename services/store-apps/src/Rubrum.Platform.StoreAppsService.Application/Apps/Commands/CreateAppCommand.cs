@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using HotChocolate;
 using MediatR;
+using Rubrum.Platform.StoreAppsService.Apps.Commands.Validators;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Users;
 
@@ -45,14 +46,8 @@ public sealed class CreateAppCommand : IRequest<App>
                 .NotEmpty()
                 .MaximumLength(AppConstants.MaxNameLength);
 
-            RuleFor(x => x.Version.Major)
-                .GreaterThanOrEqualTo(0);
-
-            RuleFor(x => x.Version.Minor)
-                .GreaterThanOrEqualTo(0);
-
-            RuleFor(x => x.Version.Patch)
-                .GreaterThanOrEqualTo(0);
+            RuleFor(x => x.Version)
+                .SetValidator(new AppVersionValidator());
         }
     }
 }
