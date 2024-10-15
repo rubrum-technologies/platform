@@ -23,15 +23,15 @@ public static class StoreAppsServiceDbContextModelCreatingExtensions
                 .HasMaxLength(AppConstants.MaxNameLength)
                 .IsRequired();
 
-            b.ComplexProperty(x => x.Version, b1 =>
+            b.ComplexProperty(x => x.Version, v =>
             {
-                b1.Property(x => x.Major)
+                v.Property(x => x.Major)
                     .IsRequired();
 
-                b1.Property(x => x.Minor)
+                v.Property(x => x.Minor)
                     .IsRequired();
 
-                b1.Property(x => x.Patch)
+                v.Property(x => x.Patch)
                     .IsRequired();
             });
         });

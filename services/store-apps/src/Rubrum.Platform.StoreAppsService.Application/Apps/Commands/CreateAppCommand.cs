@@ -44,6 +44,15 @@ public sealed class CreateAppCommand : IRequest<App>
             RuleFor(x => x.Name)
                 .NotEmpty()
                 .MaximumLength(AppConstants.MaxNameLength);
+
+            RuleFor(x => x.Version.Major)
+                .GreaterThanOrEqualTo(0);
+
+            RuleFor(x => x.Version.Minor)
+                .GreaterThanOrEqualTo(0);
+
+            RuleFor(x => x.Version.Patch)
+                .GreaterThanOrEqualTo(0);
         }
     }
 }
