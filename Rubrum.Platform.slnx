@@ -1,0 +1,128 @@
+﻿<Solution>
+  <Folder Name="/aspire/">
+    <Project Path="aspire\Rubrum.Platform.AppHost\Rubrum.Platform.AppHost.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/framework/" />
+  <Folder Name="/framework/src/">
+    <Project Path="framework\src\Rubrum.Analyzers.TestBase\Rubrum.Analyzers.TestBase.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Aspire.Hosting.SpiceDb\Rubrum.Aspire.Hosting.SpiceDb.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Aspire.Hosting.Yarp\Rubrum.Aspire.Hosting.Yarp.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Aspire.Hosting\Rubrum.Aspire.Hosting.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Auditing.Contracts\Rubrum.Auditing.Contracts.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Auditing\Rubrum.Auditing.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Authorization.Abstractions\Rubrum.Authorization.Abstractions.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Authorization.Analyzers\Rubrum.Authorization.Analyzers.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Authorization.SpiceDb\Rubrum.Authorization.SpiceDb.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Authorization\Rubrum.Authorization.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.BackgroundJobs.Dapr\Rubrum.BackgroundJobs.Dapr.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Core\Rubrum.Core.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Cqrs.Contracts\Rubrum.Cqrs.Contracts.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Cqrs\Rubrum.Cqrs.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.EntityFrameworkCore\Rubrum.EntityFrameworkCore.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Generate.ClientProxies\Rubrum.Generate.ClientProxies.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Generate\Rubrum.Generate.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Graphql.AspNetCore\Rubrum.Graphql.AspNetCore.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Graphql.Authorization.SpiceDb\Rubrum.Graphql.Authorization.SpiceDb.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Graphql.Authorization\Rubrum.Graphql.Authorization.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Graphql.Ddd\Rubrum.Graphql.Ddd.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Graphql.FluentValidation\Rubrum.Graphql.FluentValidation.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Graphql.SpiceDb\Rubrum.Graphql.SpiceDb.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Graphql.Subscriptions.Dapr\Rubrum.Graphql.Subscriptions.Dapr.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Graphql.TestBase\Rubrum.Graphql.TestBase.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.Graphql\Rubrum.Graphql.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.SpiceDb.Dapr\Rubrum.SpiceDb.Dapr.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.SpiceDb\Rubrum.SpiceDb.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.TestContainers.PostgreSql\Rubrum.TestContainers.PostgreSql.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/framework/test/">
+    <Project Path="framework\test\Rubrum.Analyzers.Abstractions.Tests\Rubrum.Analyzers.Abstractions.Tests.csproj" Type="Classic C#" />
+    <Project Path="framework\test\Rubrum.Graphql.Authorization.SpiceDb.Tests\Rubrum.Graphql.Authorization.SpiceDb.Tests.csproj" Type="Classic C#" />
+    <Project Path="framework\test\Rubrum.Graphql.FluentValidation.Tests\Rubrum.Graphql.FluentValidation.Tests.csproj" Type="Classic C#" />
+    <Project Path="framework\test\Rubrum.Graphql.SpiceDb.Tests\Rubrum.Graphql.SpiceDb.Tests.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/gateways/">
+    <Project Path="gateways\Rubrum.Platform.Gateway\Rubrum.Platform.Gateway.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/hosting/">
+    <Project Path="hosting\Rubrum.Platform.Hosting.AspNetCore.Microservice.Graphql\Rubrum.Platform.Hosting.AspNetCore.Microservice.Graphql.csproj" Type="Classic C#" />
+    <Project Path="hosting\Rubrum.Platform.Hosting.AspNetCore.Microservice\Rubrum.Platform.Hosting.AspNetCore.Microservice.csproj" Type="Classic C#" />
+    <Project Path="hosting\Rubrum.Platform.Hosting.AspNetCore\Rubrum.Platform.Hosting.AspNetCore.csproj" Type="Classic C#" />
+    <Project Path="hosting\Rubrum.Platform.Hosting.ServiceDefaults\Rubrum.Platform.Hosting.ServiceDefaults.csproj" Type="Classic C#" />
+    <Project Path="hosting\Rubrum.Platform.Hosting\Rubrum.Platform.Hosting.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/services/" />
+  <Folder Name="/services/administration/" />
+  <Folder Name="/services/administration/src/">
+    <Project Path="services\administration\src\Rubrum.Platform.AdministrationService.Application\Rubrum.Platform.AdministrationService.Application.csproj" Type="Classic C#" />
+    <Project Path="services\administration\src\Rubrum.Platform.AdministrationService.Domain\Rubrum.Platform.AdministrationService.Domain.csproj" Type="Classic C#" />
+    <Project Path="services\administration\src\Rubrum.Platform.AdministrationService.EntityFrameworkCore\Rubrum.Platform.AdministrationService.EntityFrameworkCore.csproj" Type="Classic C#" />
+    <Project Path="services\administration\src\Rubrum.Platform.AdministrationService.HttpApi.Host\Rubrum.Platform.AdministrationService.HttpApi.Host.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/services/administration/test/">
+    <Project Path="services\administration\test\Rubrum.Platform.AdministrationService.Application.Tests\Rubrum.Platform.AdministrationService.Application.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\administration\test\Rubrum.Platform.AdministrationService.Domain.Tests\Rubrum.Platform.AdministrationService.Domain.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\administration\test\Rubrum.Platform.AdministrationService.EntityFrameworkCore.Tests\Rubrum.Platform.AdministrationService.EntityFrameworkCore.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\administration\test\Rubrum.Platform.AdministrationService.TestBase\Rubrum.Platform.AdministrationService.TestBase.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/services/blob-storage/" />
+  <Folder Name="/services/blob-storage/src/">
+    <Project Path="services\blob-storage\src\Rubrum.Platform.BlobStorageService.Application.Contracts\Rubrum.Platform.BlobStorageService.Application.Contracts.csproj" Type="Classic C#" />
+    <Project Path="services\blob-storage\src\Rubrum.Platform.BlobStorageService.Application\Rubrum.Platform.BlobStorageService.Application.csproj" Type="Classic C#" />
+    <Project Path="services\blob-storage\src\Rubrum.Platform.BlobStorageService.Domain\Rubrum.Platform.BlobStorageService.Domain.csproj" Type="Classic C#" />
+    <Project Path="services\blob-storage\src\Rubrum.Platform.BlobStorageService.EntityFrameworkCore\Rubrum.Platform.BlobStorageService.EntityFrameworkCore.csproj" Type="Classic C#" />
+    <Project Path="services\blob-storage\src\Rubrum.Platform.BlobStorageService.HttpApi.Host\Rubrum.Platform.BlobStorageService.HttpApi.Host.csproj" Type="Classic C#" />
+    <Project Path="services\blob-storage\src\Rubrum.Platform.BlobStorageService.HttpApi\Rubrum.Platform.BlobStorageService.HttpApi.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/services/blob-storage/test/">
+    <Project Path="services\blob-storage\test\Rubrum.Platform.BlobStorageService.Application.Tests\Rubrum.Platform.BlobStorageService.Application.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\blob-storage\test\Rubrum.Platform.BlobStorageService.Domain.Tests\Rubrum.Platform.BlobStorageService.Domain.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\blob-storage\test\Rubrum.Platform.BlobStorageService.EntityFrameworkCore.Tests\Rubrum.Platform.BlobStorageService.EntityFrameworkCore.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\blob-storage\test\Rubrum.Platform.BlobStorageService.TestBase\Rubrum.Platform.BlobStorageService.TestBase.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/services/data-source/" />
+  <Folder Name="/services/data-source/src/">
+    <Project Path="services\data-source\src\Rubrum.Platform.DataSourceService.Application\Rubrum.Platform.DataSourceService.Application.csproj" Type="Classic C#" />
+    <Project Path="services\data-source\src\Rubrum.Platform.DataSourceService.Domain\Rubrum.Platform.DataSourceService.Domain.csproj" Type="Classic C#" />
+    <Project Path="services\data-source\src\Rubrum.Platform.DataSourceService.EntityFrameworkCore\Rubrum.Platform.DataSourceService.EntityFrameworkCore.csproj" Type="Classic C#" />
+    <Project Path="services\data-source\src\Rubrum.Platform.DataSourceService.HttpApi.Host\Rubrum.Platform.DataSourceService.HttpApi.Host.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/services/data-source/test/">
+    <Project Path="services\data-source\test\Rubrum.Platform.DataSourceService.Application.Tests\Rubrum.Platform.DataSourceService.Application.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\data-source\test\Rubrum.Platform.DataSourceService.Domain.Tests\Rubrum.Platform.DataSourceService.Domain.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\data-source\test\Rubrum.Platform.DataSourceService.EntityFrameworkCore.Tests\Rubrum.Platform.DataSourceService.EntityFrameworkCore.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\data-source\test\Rubrum.Platform.DataSourceService.TestBase\Rubrum.Platform.DataSourceService.TestBase.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/services/store-apps/" />
+  <Folder Name="/services/store-apps/src/">
+    <Project Path="services\store-apps\src\Rubrum.Platform.StoreAppsService.Application\Rubrum.Platform.StoreAppsService.Application.csproj" Type="Classic C#" />
+    <Project Path="services\store-apps\src\Rubrum.Platform.StoreAppsService.Domain\Rubrum.Platform.StoreAppsService.Domain.csproj" Type="Classic C#" />
+    <Project Path="services\store-apps\src\Rubrum.Platform.StoreAppsService.EntityFrameworkCore\Rubrum.Platform.StoreAppsService.EntityFrameworkCore.csproj" Type="Classic C#" />
+    <Project Path="services\store-apps\src\Rubrum.Platform.StoreAppsService.HttpApi.Host\Rubrum.Platform.StoreAppsService.HttpApi.Host.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/services/store-apps/test/">
+    <Project Path="services\store-apps\test\Rubrum.Platform.StoreAppsService.Application.Tests\Rubrum.Platform.StoreAppsService.Application.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\store-apps\test\Rubrum.Platform.StoreAppsService.Domain.Tests\Rubrum.Platform.StoreAppsService.Domain.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\store-apps\test\Rubrum.Platform.StoreAppsService.EntityFrameworkCore.Tests\Rubrum.Platform.StoreAppsService.EntityFrameworkCore.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\store-apps\test\Rubrum.Platform.StoreAppsService.TestBase\Rubrum.Platform.StoreAppsService.TestBase.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/services/windows/" />
+  <Folder Name="/services/windows/src/" />
+  <Folder Name="/services/windows/test/" />
+  <Folder Name="/shared/">
+    <Project Path="shared\Rubrum.Platform.Relations\Rubrum.Platform.Relations.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/templates/" />
+  <Folder Name="/templates/microservice/" />
+  <Folder Name="/templates/microservice/src/">
+    <Project Path="templates\microservice\src\MyCompanyName.MyProjectName.Application\MyCompanyName.MyProjectName.Application.csproj" Type="Classic C#" />
+    <Project Path="templates\microservice\src\MyCompanyName.MyProjectName.Domain\MyCompanyName.MyProjectName.Domain.csproj" Type="Classic C#" />
+    <Project Path="templates\microservice\src\MyCompanyName.MyProjectName.EntityFrameworkCore\MyCompanyName.MyProjectName.EntityFrameworkCore.csproj" Type="Classic C#" />
+    <Project Path="templates\microservice\src\MyCompanyName.MyProjectName.HttpApi.Host\MyCompanyName.MyProjectName.HttpApi.Host.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/templates/microservice/test/">
+    <Project Path="templates\microservice\test\MyCompanyName.MyProjectName.Application.Tests\MyCompanyName.MyProjectName.Application.Tests.csproj" Type="Classic C#" />
+    <Project Path="templates\microservice\test\MyCompanyName.MyProjectName.Domain.Tests\MyCompanyName.MyProjectName.Domain.Tests.csproj" Type="Classic C#" />
+    <Project Path="templates\microservice\test\MyCompanyName.MyProjectName.EntityFrameworkCore.Tests\MyCompanyName.MyProjectName.EntityFrameworkCore.Tests.csproj" Type="Classic C#" />
+    <Project Path="templates\microservice\test\MyCompanyName.MyProjectName.TestBase\MyCompanyName.MyProjectName.TestBase.csproj" Type="Classic C#" />
+  </Folder>
+</Solution>
