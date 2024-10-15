@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\..\common.props"/>
+  <Import Project="..\..\..\common.props" />
 
   <PropertyGroup>
     <RootNamespace>Rubrum.BackgroundJobs</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.BackgroundJobs.Abstractions"/>
+    <PackageReference Include="Volo.Abp.BackgroundJobs.Abstractions" />
+    <PackageReference Include="Volo.Abp.EventBus.RabbitMQ" />
   </ItemGroup>
 </Project>

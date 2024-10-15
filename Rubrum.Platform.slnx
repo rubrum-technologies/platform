@@ -36,6 +36,7 @@
   </Folder>
   <Folder Name="/framework/test/">
     <Project Path="framework\test\Rubrum.Analyzers.Abstractions.Tests\Rubrum.Analyzers.Abstractions.Tests.csproj" Type="Classic C#" />
+    <Project Path="framework\test\Rubrum.BackgroundJobs.Dapr.Tests\Rubrum.BackgroundJobs.Dapr.Tests.csproj" Type="Classic C#" />
     <Project Path="framework\test\Rubrum.Graphql.Authorization.SpiceDb.Tests\Rubrum.Graphql.Authorization.SpiceDb.Tests.csproj" Type="Classic C#" />
     <Project Path="framework\test\Rubrum.Graphql.FluentValidation.Tests\Rubrum.Graphql.FluentValidation.Tests.csproj" Type="Classic C#" />
     <Project Path="framework\test\Rubrum.Graphql.SpiceDb.Tests\Rubrum.Graphql.SpiceDb.Tests.csproj" Type="Classic C#" />
