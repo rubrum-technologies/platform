@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.test.props" />
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.StoreAppsService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Rubrum.Platform.StoreAppsService.EntityFrameworkCore\Rubrum.Platform.StoreAppsService.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Rubrum.Platform.StoreAppsService.TestBase\Rubrum.Platform.StoreAppsService.TestBase.csproj" />
+  </ItemGroup>
+</Project>

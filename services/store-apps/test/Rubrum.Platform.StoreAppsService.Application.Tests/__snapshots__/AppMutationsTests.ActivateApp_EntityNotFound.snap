@@ -1,0 +1,14 @@
+{
+  "data": {
+    "activateApp": {
+      "app": null,
+      "errors": [
+        {
+          "type": "App",
+          "message": "There is no such an entity given id. Entity type: Rubrum.Platform.StoreAppsService.Apps.App",
+          "__typename": "EntityNotFoundError"
+        }
+      ]
+    }
+  }
+}

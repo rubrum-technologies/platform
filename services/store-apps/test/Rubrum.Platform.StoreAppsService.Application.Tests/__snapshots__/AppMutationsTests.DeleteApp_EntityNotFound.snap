@@ -1,0 +1,14 @@
+{
+  "data": {
+    "deleteApp": {
+      "app": null,
+      "errors": [
+        {
+          "type": "App",
+          "message": "There is no such an entity. Entity type: Rubrum.Platform.StoreAppsService.Apps.App, id: c6367e64-ccbb-44fc-bf53-c77e0f78cc66",
+          "__typename": "EntityNotFoundError"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "data": {
+    "deactivateApp": {
+      "app": null,
+      "errors": [
+        {
+          "type": "App",
+          "message": "There is no such an entity. Entity type: Rubrum.Platform.StoreAppsService.Apps.App, id: 413f7fb4-3ae3-44f1-9ea6-c76dbdd301af",
+          "__typename": "EntityNotFoundError"
+        }
+      ]
+    }
+  }
+}

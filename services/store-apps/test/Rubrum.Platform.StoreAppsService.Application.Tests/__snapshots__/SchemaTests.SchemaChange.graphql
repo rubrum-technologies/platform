@@ -134,12 +134,12 @@ interface SoftDelete {
   isDeleted: Boolean!
 }
 
-type AuthorizationError implements Error {
-  code: String
-  message: String!
+type ActivateAppPayload {
+  app: App
+  errors: [ActivateAppError!]
 }
 
-type Blob implements Node & Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate @relation(name: "", value: "") @permission(name: "", value: "") @permission(name: "", value: "") {
+type App implements Node & Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate {
   "Creation time."
   creationTime: DateTime
   "Id of the creator."
@@ -148,8 +148,8 @@ type Blob implements Node & Entity & EntityOfGuid & AggregateRoot & HasExtraProp
   deleterId: ID
   "Deletion time."
   deletionTime: DateTime
+  enabled: Boolean!
   extraProperties: JSON
-  folderId: ID
   "Unique identifier for this entity."
   id: ID!
   "Used to mark an Entity as 'Deleted'."
@@ -160,19 +160,49 @@ type Blob implements Node & Entity & EntityOfGuid & AggregateRoot & HasExtraProp
   lastModificationTime: DateTime
   "Last modifier user for this entity."
   lastModifierId: ID
-  metadata: BlobMetadata!
+  name: String!
   "Id of the owner."
   ownerId: ID!
   "Id of the related tenant."
   tenantId: ID
-  url: String!
+  version: AppVersion!
 }
 
-type BlobMetadata {
-  extension: String!
-  filename: String!
-  mimeType: String!
-  size: Long!
+type AppNameAlreadyExistsError implements Error {
+  code: String
+  details: String
+  logLevel: LogLevel!
+  message: String!
+  name: String!
+}
+
+type AppVersion {
+  major: Int!
+  minor: Int!
+  patch: Int!
+}
+
+"A connection to a list of items."
+type AppsConnection {
+  "A list of edges."
+  edges: [AppsEdge!]
+  "A flattened list of the nodes."
+  nodes: [App!]
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+}
+
+"An edge in a connection."
+type AppsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: App!
+}
+
+type AuthorizationError implements Error {
+  code: String
+  message: String!
 }
 
 type BusinessError implements Error {
@@ -181,19 +211,24 @@ type BusinessError implements Error {
   message: String!
 }
 
-type ChangeFolderBlobNamePayload {
-  errors: [ChangeFolderBlobNameError!]
-  folderBlob: FolderBlob
+type ChangeAppNamePayload {
+  app: App
+  errors: [ChangeAppNameError!]
 }
 
-type ChangeFolderBlobParentIdPayload {
-  errors: [ChangeFolderBlobParentIdError!]
-  folderBlob: FolderBlob
+type CreateAppPayload {
+  app: App
+  errors: [CreateAppError!]
 }
 
-type CreateFolderBlobPayload {
-  errors: [CreateFolderBlobError!]
-  folderBlob: FolderBlob
+type DeactivateAppPayload {
+  app: App
+  errors: [DeactivateAppError!]
+}
+
+type DeleteAppPayload {
+  app: App
+  errors: [DeleteAppError!]
 }
 
 type EntityNotFoundError implements Error {
@@ -202,65 +237,29 @@ type EntityNotFoundError implements Error {
   type: String
 }
 
-type FolderBlob implements Node & Entity & EntityOfGuid & AggregateRoot & HasExtraProperties & CreationAuditedObject & HasCreationTime & MayHaveCreator & AuditedObject & ModificationAuditedObject & HasModificationTime & FullAuditedObject & DeletionAuditedObject & HasDeletionTime & SoftDelete & MultiTenant & MustHaveOwner @aggregate @relation(name: "", value: "") @permission(name: "", value: "") @permission(name: "", value: "") {
-  blobs: [Blob!]!
-  "Creation time."
-  creationTime: DateTime
-  "Id of the creator."
-  creatorId: ID
-  "Id of the deleter user."
-  deleterId: ID
-  "Deletion time."
-  deletionTime: DateTime
-  extraProperties: JSON
-  "Unique identifier for this entity."
-  id: ID!
-  "Used to mark an Entity as 'Deleted'."
-  isDeleted: Boolean!
-  "Returns an array of ordered keys for this entity."
-  keys: [Any]!
-  "The last modified time for this entity."
-  lastModificationTime: DateTime
-  "Last modifier user for this entity."
-  lastModifierId: ID
-  name: String!
-  "Id of the owner."
-  ownerId: ID!
-  parent: FolderBlob
-  parentId: ID
-  "Id of the related tenant."
-  tenantId: ID
-}
-
-type FolderBlobNameAlreadyExistsError implements Error {
-  code: String
-  details: String
-  logLevel: LogLevel!
-  message: String!
-  name: String!
-  ownerId: UUID!
-  parentId: UUID
-}
-
-type FolderBlobParentHasDifferentOwnerError implements Error {
-  code: String
-  details: String
-  logLevel: LogLevel!
-  message: String!
-  ownerId: UUID!
-  parentId: UUID!
-}
-
 type Mutation {
-  changeFolderBlobName(input: ChangeFolderBlobNameInput!): ChangeFolderBlobNamePayload! @authorize
-  changeFolderBlobParentId(input: ChangeFolderBlobParentIdInput!): ChangeFolderBlobParentIdPayload! @authorize
-  createFolderBlob(input: CreateFolderBlobInput!): CreateFolderBlobPayload! @authorize
+  activateApp(input: ActivateAppInput!): ActivateAppPayload! @authorize
+  changeAppName(input: ChangeAppNameInput!): ChangeAppNamePayload! @authorize
+  createApp(input: CreateAppInput!): CreateAppPayload! @authorize
+  deactivateApp(input: DeactivateAppInput!): DeactivateAppPayload! @authorize
+  deleteApp(input: DeleteAppInput!): DeleteAppPayload! @authorize
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+  "Indicates whether more edges exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more edges exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
 }
 
 type Query {
-  blobById(id: ID!): Blob @authorize
-  folderBlobById(id: ID!): FolderBlob @authorize
-  folders(order: [FolderBlobSortInput!] parentId: ID where: FolderBlobFilterInput): [FolderBlob!]! @authorize
+  appById(id: ID!): App @authorize
+  apps("Returns the elements in the list that come after the specified cursor." after: String "Returns the elements in the list that come before the specified cursor." before: String "Returns the first _n_ elements from the list." first: Int "Returns the last _n_ elements from the list." last: Int order: [AppSortInput!] where: AppFilterInput): AppsConnection @authorize
   "Fetches an object given its ID."
   node("ID of the object." id: ID!): Node
   "Lookup nodes by a list of IDs."
@@ -276,30 +275,91 @@ type ValidationResult {
   errorMessage: String
 }
 
-union ChangeFolderBlobNameError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | FolderBlobNameAlreadyExistsError
+union ActivateAppError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError
 
-union ChangeFolderBlobParentIdError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | FolderBlobNameAlreadyExistsError | FolderBlobParentHasDifferentOwnerError
+union ChangeAppNameError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | AppNameAlreadyExistsError
 
-union CreateFolderBlobError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | FolderBlobNameAlreadyExistsError | FolderBlobParentHasDifferentOwnerError
+union CreateAppError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError | AppNameAlreadyExistsError
+
+union DeactivateAppError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError
+
+union DeleteAppError = ValidationError | BusinessError | EntityNotFoundError | AuthorizationError
+
+input ActivateAppInput {
+  id: ID!
+}
+
+input AppFilterInput {
+  and: [AppFilterInput!]
+  or: [AppFilterInput!]
+  tenantId: UuidOperationFilterInput
+  ownerId: UuidOperationFilterInput
+  name: StringOperationFilterInput
+  version: AppVersionFilterInput
+  enabled: BooleanOperationFilterInput
+  isDeleted: BooleanOperationFilterInput
+  deleterId: UuidOperationFilterInput
+  deletionTime: DateTimeOperationFilterInput
+  lastModificationTime: DateTimeOperationFilterInput
+  lastModifierId: UuidOperationFilterInput
+  creationTime: DateTimeOperationFilterInput
+  creatorId: UuidOperationFilterInput
+  extraProperties: ListFilterInputTypeOfKeyValuePairOfStringAndObjectFilterInput
+  concurrencyStamp: StringOperationFilterInput
+  id: UuidOperationFilterInput
+}
+
+input AppSortInput {
+  tenantId: SortEnumType
+  ownerId: SortEnumType
+  name: SortEnumType
+  version: AppVersionSortInput
+  enabled: SortEnumType
+  isDeleted: SortEnumType
+  deleterId: SortEnumType
+  deletionTime: SortEnumType
+  lastModificationTime: SortEnumType
+  lastModifierId: SortEnumType
+  creationTime: SortEnumType
+  creatorId: SortEnumType
+  concurrencyStamp: SortEnumType
+  id: SortEnumType
+}
+
+input AppVersionFilterInput {
+  and: [AppVersionFilterInput!]
+  or: [AppVersionFilterInput!]
+  major: IntOperationFilterInput
+  minor: IntOperationFilterInput
+  patch: IntOperationFilterInput
+}
+
+input AppVersionInput {
+  major: Int!
+  minor: Int!
+  patch: Int!
+}
+
+input AppVersionSortInput {
+  major: SortEnumType
+  minor: SortEnumType
+  patch: SortEnumType
+}
 
 input BooleanOperationFilterInput {
   eq: Boolean
   neq: Boolean
 }
 
-input ChangeFolderBlobNameInput {
+input ChangeAppNameInput {
   id: ID!
   name: String!
 }
 
-input ChangeFolderBlobParentIdInput {
-  id: ID!
-  parentId: ID
-}
-
-input CreateFolderBlobInput {
+input CreateAppInput {
+  enabled: Boolean!
   name: String!
-  parentId: ID
+  version: AppVersionInput!
 }
 
 input DateTimeOperationFilterInput {
@@ -317,39 +377,27 @@ input DateTimeOperationFilterInput {
   nlte: DateTime
 }
 
-input FolderBlobFilterInput {
-  and: [FolderBlobFilterInput!]
-  or: [FolderBlobFilterInput!]
-  tenantId: UuidOperationFilterInput
-  ownerId: UuidOperationFilterInput
-  parentId: UuidOperationFilterInput
-  name: StringOperationFilterInput
-  isDeleted: BooleanOperationFilterInput
-  deleterId: UuidOperationFilterInput
-  deletionTime: DateTimeOperationFilterInput
-  lastModificationTime: DateTimeOperationFilterInput
-  lastModifierId: UuidOperationFilterInput
-  creationTime: DateTimeOperationFilterInput
-  creatorId: UuidOperationFilterInput
-  extraProperties: ListFilterInputTypeOfKeyValuePairOfStringAndObjectFilterInput
-  concurrencyStamp: StringOperationFilterInput
-  id: UuidOperationFilterInput
+input DeactivateAppInput {
+  id: ID!
 }
 
-input FolderBlobSortInput {
-  tenantId: SortEnumType
-  ownerId: SortEnumType
-  parentId: SortEnumType
-  name: SortEnumType
-  isDeleted: SortEnumType
-  deleterId: SortEnumType
-  deletionTime: SortEnumType
-  lastModificationTime: SortEnumType
-  lastModifierId: SortEnumType
-  creationTime: SortEnumType
-  creatorId: SortEnumType
-  concurrencyStamp: SortEnumType
-  id: SortEnumType
+input DeleteAppInput {
+  id: ID!
+}
+
+input IntOperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int]
+  nin: [Int]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
 }
 
 input KeyValuePairOfStringAndObjectFilterInput {
@@ -425,10 +473,6 @@ directive @aggregate on OBJECT
 "The authorize directive."
 directive @authorize("Defines when when the authorize directive shall be applied.By default the authorize directives are applied during the validation phase." apply: ApplyPolicy! = BEFORE_RESOLVER "The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!]) repeatable on OBJECT | FIELD_DEFINITION
 
-directive @permission(name: String! value: String!) repeatable on OBJECT
-
-directive @relation(name: String! value: String!) repeatable on OBJECT
-
 "The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
 directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR
 
@@ -438,8 +482,5 @@ scalar Any
 scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
 
 scalar JSON
-
-"The `Long` scalar type represents non-fractional signed whole 64-bit numeric values. Long can represent values between -(2^63) and 2^63 - 1."
-scalar Long
 
 scalar UUID @specifiedBy(url: "https:\/\/tools.ietf.org\/html\/rfc4122")

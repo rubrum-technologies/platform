@@ -1,0 +1,14 @@
+{
+  "data": {
+    "changeAppName": {
+      "app": null,
+      "errors": [
+        {
+          "type": "App",
+          "message": "There is no such an entity. Entity type: Rubrum.Platform.StoreAppsService.Apps.App, id: 2f34a44d-7253-4387-874e-c8ffb69b11f1",
+          "__typename": "EntityNotFoundError"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "data": {
+    "createApp": {
+      "app": {
+        "enabled": false,
+        "name": "CreateAppTest",
+        "version": {
+          "major": 10,
+          "minor": 20,
+          "patch": 122
+        }
+      },
+      "errors": null
+    }
+  }
+}

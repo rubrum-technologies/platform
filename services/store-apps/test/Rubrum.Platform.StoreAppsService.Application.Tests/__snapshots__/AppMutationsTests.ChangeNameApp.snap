@@ -1,0 +1,16 @@
+{
+  "data": {
+    "changeAppName": {
+      "app": {
+        "name": "TestChangeName",
+        "version": {
+          "major": 777,
+          "minor": 999,
+          "patch": 100500
+        },
+        "enabled": true
+      },
+      "errors": null
+    }
+  }
+}

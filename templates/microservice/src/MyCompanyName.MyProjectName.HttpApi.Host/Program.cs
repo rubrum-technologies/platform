@@ -9,4 +9,5 @@ return await HostGraphqlHelper.RunServerAsync<GraphqlGenerationModule, MyProject
         builder.AddServiceDefaults();
         builder.AddNpgsqlDbContext<MyProjectNameDbContext>(
             MyProjectNameDbProperties.ConnectionStringName);
+        builder.AddElasticsearchClient("elasticsearch");
     });
