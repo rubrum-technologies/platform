@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Rubrum.BackgroundJobs.Dapr.Test": {
+    "run": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

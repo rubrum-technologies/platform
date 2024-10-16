@@ -14,7 +14,7 @@
     <Project Path="framework\src\Rubrum.Authorization.Analyzers\Rubrum.Authorization.Analyzers.csproj" Type="Classic C#" />
     <Project Path="framework\src\Rubrum.Authorization.SpiceDb\Rubrum.Authorization.SpiceDb.csproj" Type="Classic C#" />
     <Project Path="framework\src\Rubrum.Authorization\Rubrum.Authorization.csproj" Type="Classic C#" />
-    <Project Path="framework\src\Rubrum.BackgroundJobs.Dapr\Rubrum.BackgroundJobs.Dapr.csproj" Type="Classic C#" />
+    <Project Path="framework\src\Rubrum.BackgroundJobs.Distributed\Rubrum.BackgroundJobs.Distributed.csproj" Type="Classic C#" />
     <Project Path="framework\src\Rubrum.Core\Rubrum.Core.csproj" Type="Classic C#" />
     <Project Path="framework\src\Rubrum.Cqrs.Contracts\Rubrum.Cqrs.Contracts.csproj" Type="Classic C#" />
     <Project Path="framework\src\Rubrum.Cqrs\Rubrum.Cqrs.csproj" Type="Classic C#" />

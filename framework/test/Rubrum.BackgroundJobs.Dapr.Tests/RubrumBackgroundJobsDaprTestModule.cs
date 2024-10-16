@@ -1,29 +1,43 @@
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Rubrum.Modularity;
 using Rubrum.Platform.Hosting;
+using Testcontainers.RabbitMq;
 using Volo.Abp;
 using Volo.Abp.BackgroundJobs;
+using Volo.Abp.EventBus.Distributed;
+using Volo.Abp.EventBus.RabbitMq;
 using Volo.Abp.Modularity;
+using Volo.Abp.RabbitMQ;
+using Volo.Abp.Threading;
 
 namespace Rubrum.BackgroundJobs;
 
+[DependsOn<AbpEventBusRabbitMqModule>]
 [DependsOn<PlatformHostingAspNetCoreModule>]
 [DependsOn<RubrumBackgroundJobsDaprModule>]
 public class RubrumBackgroundJobsDaprTestModule : AbpModule
 {
-    public override Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
+    private readonly RabbitMqContainer _container = new RabbitMqBuilder()
+        .Build();
+
+    public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        var logger = context.ServiceProvider.GetRequiredService<ILogger<RubrumBackgroundJobsDaprTestModule>>();
-        var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
-        logger.LogInformation($"MySettingName => {configuration["MySettingName"]}");
+        Configure<AbpRabbitMqOptions>(options =>
+        {
+            options.Connections.Default.Uri = new Uri(_container.GetConnectionString());
+        });
 
-        var hostEnvironment = context.ServiceProvider.GetRequiredService<IHostEnvironment>();
-        logger.LogInformation($"EnvironmentName => {hostEnvironment.EnvironmentName}");
+        Configure<AbpRabbitMqEventBusOptions>(options =>
+        {
+            options.ConnectionName = "Default";
+            options.ClientName = "RubrumBackgroundJobsDaprTest";
+            options.ExchangeName = "Rubrum";
+        });
+    }
 
-        return Task.CompletedTask;
+    public override void OnPreApplicationInitialization(ApplicationInitializationContext context)
+    {
+        AsyncHelper.RunSync(() => _container.StartAsync());
     }
 
     public override async Task OnPostApplicationInitializationAsync(ApplicationInitializationContext context)
@@ -31,5 +45,12 @@ public class RubrumBackgroundJobsDaprTestModule : AbpModule
         var job = context.ServiceProvider.GetRequiredService<IBackgroundJobManager>();
 
         var result = await job.EnqueueAsync(new MyAsyncJobArgs("42"));
+        var result2 = await job.EnqueueAsync(new MyAsyncJobArgs("42"));
+        var result3 = await job.EnqueueAsync(new MyAsyncJobArgs("42"));
+    }
+
+    public override void OnApplicationShutdown(ApplicationShutdownContext context)
+    {
+        AsyncHelper.RunSync(() => _container.DisposeAsync().AsTask());
     }
 }
