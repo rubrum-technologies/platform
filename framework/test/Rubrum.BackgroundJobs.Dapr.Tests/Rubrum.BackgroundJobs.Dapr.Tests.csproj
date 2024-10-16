@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <Import Project="..\..\..\common.test.props"/>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Rubrum.BackgroundJobs</RootNamespace>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+    <PackageReference Include="NSubstitute"/>
+    <PackageReference Include="Shouldly"/>
+    <PackageReference Include="xunit"/>
+    <PackageReference Include="xunit.extensibility.execution"/>
+    <PackageReference Include="xunit.runner.visualstudio"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Testcontainers.RabbitMq"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.EventBus.RabbitMQ"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\hosting\Rubrum.Platform.Hosting.AspNetCore\Rubrum.Platform.Hosting.AspNetCore.csproj"/>
+    <ProjectReference Include="..\..\src\Rubrum.BackgroundJobs.Distributed\Rubrum.BackgroundJobs.Distributed.csproj" />
+    <ProjectReference Include="..\..\src\Rubrum.Graphql.TestBase\Rubrum.Graphql.TestBase.csproj" />
+  </ItemGroup>
+</Project>
