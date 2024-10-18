@@ -106,8 +106,18 @@
     <Project Path="services\store-apps\test\Rubrum.Platform.StoreAppsService.TestBase\Rubrum.Platform.StoreAppsService.TestBase.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/services/windows/" />
-  <Folder Name="/services/windows/src/" />
-  <Folder Name="/services/windows/test/" />
+  <Folder Name="/services/windows/src/">
+    <Project Path="services\windows\src\Rubrum.Platform.WindowsService.Application\Rubrum.Platform.WindowsService.Application.csproj" Type="Classic C#" />
+    <Project Path="services\windows\src\Rubrum.Platform.WindowsService.Domain\Rubrum.Platform.WindowsService.Domain.csproj" Type="Classic C#" />
+    <Project Path="services\windows\src\Rubrum.Platform.WindowsService.EntityFrameworkCore\Rubrum.Platform.WindowsService.EntityFrameworkCore.csproj" Type="Classic C#" />
+    <Project Path="services\windows\src\Rubrum.Platform.WindowsService.HttpApi.Host\Rubrum.Platform.WindowsService.HttpApi.Host.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/services/windows/test/">
+    <Project Path="services\windows\test\Rubrum.Platform.WindowsService.Application.Tests\Rubrum.Platform.WindowsService.Application.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\windows\test\Rubrum.Platform.WindowsService.Domain.Tests\Rubrum.Platform.WindowsService.Domain.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\windows\test\Rubrum.Platform.WindowsService.EntityFrameworkCore.Tests\Rubrum.Platform.WindowsService.EntityFrameworkCore.Tests.csproj" Type="Classic C#" />
+    <Project Path="services\windows\test\Rubrum.Platform.WindowsService.TestBase\Rubrum.Platform.WindowsService.TestBase.csproj" Type="Classic C#" />
+  </Folder>
   <Folder Name="/shared/">
     <Project Path="shared\Rubrum.Platform.Relations\Rubrum.Platform.Relations.csproj" Type="Classic C#" />
   </Folder>
