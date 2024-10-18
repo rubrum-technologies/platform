@@ -1,6 +1,7 @@
 const {
   withNativeFederation,
   shareAll,
+  share,
 } = require('@angular-architects/native-federation/config');
 
 module.exports = withNativeFederation({
@@ -25,5 +26,12 @@ module.exports = withNativeFederation({
         'winbox',
       ],
     ),
+    ...share({
+      'libphonenumber-js/core': {
+        singleton: true,
+        strictVersion: true,
+        requiredVersion: 'auto',
+      },
+    }),
   },
 });

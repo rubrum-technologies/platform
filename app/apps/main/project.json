@@ -27,9 +27,19 @@
           {
             "glob": "**/*",
             "input": "apps/main/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@taiga-ui/icons/src",
+            "output": "assets/taiga-ui/icons"
           }
         ],
-        "styles": ["apps/main/src/styles.less"],
+        "styles": [
+          "@taiga-ui/core/styles/taiga-ui-theme.less",
+          "@taiga-ui/core/styles/taiga-ui-fonts.less",
+          "./node_modules/winbox/dist/css/winbox.min.css",
+          "apps/main/src/styles.less"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -97,7 +107,7 @@
       "executor": "nx-stylelint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/main/**/*.css"],
+        "lintFilePatterns": ["apps/main/**/*.less"],
         "formatter": "json"
       }
     }
