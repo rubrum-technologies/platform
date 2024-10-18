@@ -1,7 +1,7 @@
 {
-  "name": "navigation",
+  "name": "windows",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/navigation/src",
+  "sourceRoot": "libs/windows/src",
   "prefix": "r",
   "projectType": "library",
   "tags": [],
@@ -10,15 +10,15 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/navigation/ng-package.json",
-        "tailwindConfig": "libs/navigation/tailwind.config.js"
+        "project": "libs/windows/ng-package.json",
+        "tailwindConfig": "libs/windows/tailwind.config.js"
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/navigation/tsconfig.lib.prod.json"
+          "tsConfig": "libs/windows/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "libs/navigation/tsconfig.lib.json"
+          "tsConfig": "libs/windows/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"
@@ -27,7 +27,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/navigation/jest.config.ts"
+        "jestConfig": "libs/windows/jest.config.ts"
       }
     },
     "lint": {
@@ -37,8 +37,7 @@
       "executor": "nx-stylelint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/navigation/**/*.less"],
-        "formatter": "json"
+        "lintFilePatterns": ["libs/windows/**/*.less"]
       }
     }
   }

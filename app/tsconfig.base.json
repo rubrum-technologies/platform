@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@rubrum.platform/navigation": ["libs/navigation/src/index.ts"]
+      "@rubrum.platform/navigation": ["libs/navigation/src/index.ts"],
+      "@rubrum.platform/windows": ["libs/windows/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -98,7 +98,7 @@
       "executor": "nx-stylelint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/data-source/**/*.css"],
+        "lintFilePatterns": ["apps/data-source/**/*.less"],
         "formatter": "json"
       }
     }

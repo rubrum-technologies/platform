@@ -8,7 +8,7 @@
     "start": "run-script-os",
     "start:win32": "yarn nx run main:serve --port %PORT% --configuration=development",
     "start:default": "yarn nx run main:serve --port $PORT --configuration=development",
-    "start:local": "yarn nx run main:serve --port 4300 --configuration=development",
+    "start:local": "yarn nx run main:serve --configuration=development",
     "lint": "yarn nx run-many --target=lint --all=true",
     "lint:fix": "yarn nx run-many --target=lint --all=true -- --fix",
     "stylelint": "yarn nx run-many --target=stylelint --all=true",
@@ -42,6 +42,7 @@
     "@ng-web-apis/common": "~4.11.1",
     "@ng-web-apis/intersection-observer": "~4.11.1",
     "@ng-web-apis/mutation-observer": "~4.11.1",
+    "@ng-web-apis/platform": "~4.11.1",
     "@ng-web-apis/resize-observer": "~4.11.1",
     "@ngrx/signals": "~18.1.0",
     "@taiga-ui/cdk": "~4.11.0",
@@ -106,7 +107,7 @@
     "@swc/helpers": "~0.5.13",
     "@types/jest": "~29.5.13",
     "@types/node": "~22.7.5",
-    "@typescript-eslint/utils": "~8.9.0",
+    "@typescript-eslint/utils": "8.8.0",
     "angular-eslint": "~18.3.1",
     "autoprefixer": "~10.4.20",
     "concurrently": "~9.0.1",
@@ -116,6 +117,7 @@
     "eslint-plugin-import": "~2.31.0",
     "eslint-plugin-perfectionist": "~3.9.0",
     "eslint-plugin-playwright": "~1.7.0",
+    "globals": "^15.11.0",
     "jest": "~29.7.0",
     "jest-environment-jsdom": "~29.7.0",
     "jest-preset-angular": "~14.2.4",
@@ -138,6 +140,6 @@
     "ts-node": "~10.9.2",
     "tslib": "~2.8.0",
     "typescript": "~5.5.4",
-    "typescript-eslint": "~8.9.0"
+    "typescript-eslint": "8.8.0"
   }
 }

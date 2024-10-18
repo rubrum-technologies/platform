@@ -1,10 +1,16 @@
-const nx = require('@nx/eslint-plugin');
-const perfectionist = require('eslint-plugin-perfectionist');
+import globals from 'globals';
+import pluginJs from '@eslint/js';
+import tsEslint from 'typescript-eslint';
+import nx from '@nx/eslint-plugin';
+import perfectionist from 'eslint-plugin-perfectionist';
 
-module.exports = [
+export default tsEslint.config(
+  pluginJs.configs.recommended,
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
+  ...tsEslint.configs.recommended,
+  { languageOptions: { globals: globals.browser } },
   {
     ignores: ['**/dist'],
   },
@@ -43,6 +49,6 @@ module.exports = [
         { ignoredFiles: ['{projectRoot}/eslint.config.{js,cjs,mjs}'] },
       ],
     },
-    languageOptions: { parser: require('jsonc-eslint-parser') },
+    languageOptions: { parser: import('jsonc-eslint-parser') },
   },
-];
+);
