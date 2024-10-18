@@ -1,5 +1,6 @@
-using System.Collections;
 using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Collections;
 using Volo.Abp.DependencyInjection;
@@ -10,7 +11,10 @@ namespace Rubrum.BackgroundJobs;
 #pragma warning disable S3011
 
 public class DistributedBackgroundJobManager(
-    IDistributedEventBus distributedEventBus) : IBackgroundJobManager, ITransientDependency
+    IDistributedEventBus distributedEventBus,
+    IBackgroundJobExecuter jobExecuter,
+    IServiceScopeFactory serviceScopeFactory,
+    IOptions<AbpBackgroundJobOptions> options) : IBackgroundJobManager, ITransientDependency
 {
     private static readonly MethodInfo SubscribeMethod = typeof(DistributedBackgroundJobManager)
         .GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
@@ -25,7 +29,7 @@ public class DistributedBackgroundJobManager(
     {
         if (!typeof(TArgs).IsClass)
         {
-            throw new Exception(); // TODO: Сделать свой Exception
+            throw new BackgroundJobIncorrectArgsTypeException();
         }
 
         SubscribeMethod
@@ -52,10 +56,23 @@ public class DistributedBackgroundJobManager(
             return;
         }
 
-        distributedEventBus.Subscribe<JobEnqueuedEvent<TArgs>>(async _ =>
+        var abpOptions = options.Value;
+        distributedEventBus.Subscribe<JobEnqueuedEvent<TArgs>>(async args =>
         {
             // TODO: Реализовать запуск JobHandler через JobExecutor
             Console.WriteLine("Handle Subscribe");
+
+            using (var scope = serviceScopeFactory.CreateScope())
+            {
+                var jobConfiguration = abpOptions.GetJob(typeof(TArgs));
+
+                var context = new JobExecutionContext(
+                    scope.ServiceProvider,
+                    jobConfiguration.JobType,
+                    args);
+
+                await jobExecuter.ExecuteAsync(context);
+            }
         });
 
         _typesArgs.Add<TArgs>();

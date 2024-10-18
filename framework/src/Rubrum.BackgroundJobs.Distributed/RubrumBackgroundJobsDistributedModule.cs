@@ -7,4 +7,4 @@ namespace Rubrum.BackgroundJobs;
 
 [DependsOn<AbpBackgroundJobsAbstractionsModule>]
 [DependsOn<AbpEventBusAbstractionsModule>]
-public class RubrumBackgroundJobsDaprModule : AbpModule;
+public class RubrumBackgroundJobsDistributedModule : AbpModule;

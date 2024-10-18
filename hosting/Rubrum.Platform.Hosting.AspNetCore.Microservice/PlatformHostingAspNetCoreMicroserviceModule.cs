@@ -20,7 +20,7 @@ namespace Rubrum.Platform.Hosting;
 [DependsOn<AbpAspNetCoreMvcDaprEventBusModule>]
 [DependsOn<AbpAspNetCoreAuthenticationJwtBearerModule>]
 [DependsOn<AbpHttpClientIdentityModelWebModule>]
-[DependsOn<RubrumBackgroundJobsDaprModule>]
+[DependsOn<RubrumBackgroundJobsDistributedModule>]
 [DependsOn<PlatformHostingAspNetCoreModule>]
 public class PlatformHostingAspNetCoreMicroserviceModule : AbpModule
 {

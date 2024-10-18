@@ -1,7 +1,4 @@
 ﻿using System.Reflection;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Rubrum.BackgroundJobs;
 using Serilog;
 
@@ -24,7 +21,7 @@ try
         .UseAutofac()
         .UseSerilog();
 
-    await builder.AddApplicationAsync<RubrumBackgroundJobsDaprTestModule>();
+    await builder.AddApplicationAsync<RubrumBackgroundJobsDistributedTestModule>();
 
     var app = builder.Build();
 
