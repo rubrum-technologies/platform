@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\..\common.test.props"/>
+
+  <PropertyGroup>
+    <RootNamespace>Rubrum.Platform.WindowsService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Riok.Mapperly" ExcludeAssets="runtime" PrivateAssets="all"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Application"/>
+    <PackageReference Include="Volo.Abp.FluentValidation"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Authorization.Analyzers\Rubrum.Authorization.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Authorization\Rubrum.Authorization.csproj"/>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Cqrs\Rubrum.Cqrs.csproj"/>
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Graphql.Ddd\Rubrum.Graphql.Ddd.csproj" />
+    <ProjectReference Include="..\..\..\..\framework\src\Rubrum.Graphql.Authorization\Rubrum.Graphql.Authorization.csproj"/>
+    <ProjectReference Include="..\..\..\..\shared\Rubrum.Platform.Relations\Rubrum.Platform.Relations.csproj"/>
+    <ProjectReference Include="..\Rubrum.Platform.WindowsService.Domain\Rubrum.Platform.WindowsService.Domain.csproj"/>
+  </ItemGroup>
+</Project>
